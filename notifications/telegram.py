@@ -291,16 +291,44 @@ class Telegram:
                     f"{p['symbol']} {p['side']} "
                     f"size={float(p['size']):.4f} "
                     f"entry={float(p['entry_price']):.4f}"
+                    f"PnL={float(p['unrealized_pnl']):.2f} "
                 )
 
             self.send("\n".join(lines))
             return
 
         if cmd == "/close_all":
+
             pos = exchange.get_open_positions()
+
+            if not pos:
+                self.send("No hay posiciones abiertas.")
+                return
+
+            closed = 0
+            failed = []
+
+            if len(parts) < 2 or parts[1].lower() != "confirm":
+                self.send("⚠️ Para confirmar usa:\n/close_all confirm")
+                return
+
             for p in pos:
-                exchange.close_position(p["symbol"])
-            self.send("🚨 Todas las posiciones cerradas.")
+                try:
+                    exchange.close_position(p["symbol"])
+                    closed += 1
+                except Exception as e:
+                    failed.append(p["symbol"])
+
+            msg = (
+                f"🚨 <b>Close All ejecutado</b>\n\n"
+                f"Cerradas: {closed}\n"
+                f"Fallidas: {len(failed)}"
+            )
+
+            if failed:
+                msg += "\nErrores: " + ", ".join(failed)
+
+            self.send(msg)
             return
 
         if cmd == "/close" and len(parts) >= 2:

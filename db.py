@@ -317,3 +317,41 @@ class Database:
             "avg_win": round(data["avg_win"] or 0, 2),
             "avg_loss": round(data["avg_loss"] or 0, 2),
         }
+
+    def calculate_drawdown(self, equity_curve):
+        if not equity_curve:
+            return 0
+
+        peak = equity_curve[0]["total_balance"]
+        max_drawdown = 0
+
+        for point in equity_curve:
+            balance = point["total_balance"]
+
+            if balance > peak:
+                peak = balance
+
+            drawdown = (peak - balance) / peak
+
+            if drawdown > max_drawdown:
+                max_drawdown = drawdown
+
+        return round(max_drawdown * 100, 2)
+
+    def get_drawdown_curve(self, equity_curve):
+        if not equity_curve:
+            return []
+
+        peak = equity_curve[0]["total_balance"]
+        drawdown_curve = []
+
+        for point in equity_curve:
+            balance = point["total_balance"]
+
+            if balance > peak:
+                peak = balance
+
+            drawdown = (peak - balance) / peak * 100
+            drawdown_curve.append(round(drawdown, 2))
+
+        return drawdown_curve

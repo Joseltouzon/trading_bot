@@ -46,7 +46,7 @@ def main():
 
     # ================= LOGGING =================
     log = setup_logging(db)
-    
+
     # ================= TELEGRAM =================    
     telegram = Telegram(TG_TOKEN, TG_CHAT_ID, log, db)
 
@@ -120,6 +120,13 @@ def main():
     # ================= MASTER LOOP (REST) =================
     while True:
         try:
+            # RELOAD STATE DINÁMICO PARA CARGAR CONFIG DEL DASHBOARD
+            state_dict = db.load_state() or {}
+            merged_data = {
+                **st.to_dict(),
+                **state_dict
+            }
+            st = BotState(**merged_data)
             # 1) Actualizar velas/market (REST polling)
             market.update_all(st.symbols)
 

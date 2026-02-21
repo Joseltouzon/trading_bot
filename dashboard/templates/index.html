@@ -92,7 +92,71 @@
 
 </div>
 
-<canvas id="equityChart" height="100"></canvas>
+<div class="row mt-4">
+
+    <div class="col-md-3">
+        <div class="card bg-secondary">
+            <div class="card-body">
+                <h5>Max Drawdown</h5>
+                <h3 class="text-danger">
+                    {{ max_drawdown }}%
+                </h3>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="card bg-dark border-secondary mt-4">
+    <div class="card-body">
+        <h5 style="color: #fff;">Bot Controls</h5>
+
+        <div class="d-flex gap-2 mb-3">
+            <form method="post" action="/bot/pause">
+                <button class="btn btn-danger">Pause</button>
+            </form>
+
+            <form method="post" action="/bot/resume">
+                <button class="btn btn-success">Resume</button>
+            </form>
+        </div>
+
+        <form method="post" action="/bot/update-settings" class="row g-2">
+            <div class="col-md-4">
+                <label for="risk" style="color: #fff;">Risk %</label>
+                <input type="number" step="0.1" name="risk_pct" id="risk"
+                       value="{{ state.risk_pct }}"
+                       class="form-control"
+                       placeholder="Risk %">
+            </div>
+
+            <div class="col-md-4">
+                <label for="max_pos" style="color: #fff;">Max Positions</label>
+                <input type="number" name="max_positions" id="max_pos"
+                       value="{{ state.max_positions }}"
+                       class="form-control"
+                       placeholder="Max Positions">
+            </div>
+
+            <div class="col-md-4">
+                <button class="btn btn-primary w-100" style="margin-top: 25px;">
+                    Update Settings
+                </button>
+            </div>
+        </form>
+
+    </div>
+</div>
+
+<div class="mt-5">
+    <h4>Equity Curve</h4>
+    <canvas id="equityChart" height="80"></canvas>
+</div>
+
+<div class="mt-5">
+    <h4>Drawdown</h4>
+    <canvas id="drawdownChart" height="60"></canvas>
+</div>
 
 <h4 class="mt-5">Open Positions</h4>
 <table class="table table-dark table-striped">
@@ -157,20 +221,131 @@
 
 <script>
     const equityData = {{ equity_curve | tojson }};
+    const drawdownData = {{ drawdown_curve | tojson }};
+    const maxDrawdown = {{ max_drawdown }};
 
     const labels = equityData.map(e => e.created_at);
-    const values = equityData.map(e => e.total_balance);
+    const equityValues = equityData.map(e => e.total_balance);
 
-    new Chart(document.getElementById("equityChart"), {
+    // Mostrar equity actual arriba
+    const currentEquity = equityValues.length ? equityValues[equityValues.length - 1] : 0;
+
+    // ---------- EQUITY CHART ----------
+
+    const equityCtx = document.getElementById("equityChart").getContext("2d");
+
+    const equityGradient = equityCtx.createLinearGradient(0, 0, 0, 300);
+    equityGradient.addColorStop(0, "rgba(0,255,0,0.35)");
+    equityGradient.addColorStop(1, "rgba(0,255,0,0)");
+
+    new Chart(equityCtx, {
         type: "line",
         data: {
             labels: labels,
             datasets: [{
-                label: "Equity",
-                data: values,
+                data: equityValues,
                 borderColor: "lime",
-                tension: 0.2
+                backgroundColor: equityGradient,
+                fill: true,
+                tension: 0.35,
+                pointRadius: 0,
+                borderWidth: 2
             }]
+        },
+        options: {
+            animation: {
+                duration: 1200,
+                easing: 'easeOutQuart'
+            },
+            plugins: {
+                legend: { display: false },
+                tooltip: {
+                    backgroundColor: "#111",
+                    borderColor: "lime",
+                    borderWidth: 1,
+                    callbacks: {
+                        label: ctx => "$" + ctx.parsed.y.toFixed(2)
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    ticks: { color: "#888" },
+                    grid: { display: false }
+                },
+                y: {
+                    ticks: {
+                        color: "#888",
+                        callback: value => "$" + value
+                    },
+                    grid: { color: "rgba(255,255,255,0.04)" }
+                }
+            }
+        }
+    });
+
+    // ---------- DRAWDOWN CHART ----------
+
+    const drawdownCtx = document.getElementById("drawdownChart").getContext("2d");
+
+    const drawdownGradient = drawdownCtx.createLinearGradient(0, 0, 0, 300);
+    drawdownGradient.addColorStop(0, "rgba(255,0,0,0.4)");
+    drawdownGradient.addColorStop(1, "rgba(255,0,0,0)");
+
+    new Chart(drawdownCtx, {
+        type: "line",
+        data: {
+            labels: labels,
+            datasets: [
+                {
+                    data: drawdownData,
+                    borderColor: "red",
+                    backgroundColor: drawdownGradient,
+                    fill: true,
+                    tension: 0.35,
+                    pointRadius: 0,
+                    borderWidth: 2
+                },
+                {
+                    label: "Max DD",
+                    data: Array(labels.length).fill(maxDrawdown),
+                    borderColor: "rgba(255,0,0,0.6)",
+                    borderDash: [6,6],
+                    pointRadius: 0,
+                    fill: false
+                }
+            ]
+        },
+        options: {
+            animation: {
+                duration: 1200,
+                easing: 'easeOutQuart'
+            },
+            plugins: {
+                legend: { display: false },
+                tooltip: {
+                    backgroundColor: "#111",
+                    borderColor: "red",
+                    borderWidth: 1,
+                    callbacks: {
+                        label: ctx => ctx.parsed.y.toFixed(2) + "%"
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    ticks: { color: "#888" },
+                    grid: { display: false }
+                },
+                y: {
+                    reverse: true,
+                    ticks: {
+                        color: "#888",
+                        callback: value => value + "%"
+                    },
+                    grid: { color: "rgba(255,0,0,0.05)" }
+                }
+            }
         }
     });
 </script>
