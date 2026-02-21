@@ -293,3 +293,27 @@ class Database:
     def get_bot_status(self):
         state = self.load_state()
         return "PAUSED" if state.get("paused") else "RUNNING"
+
+    def get_performance_metrics(self):
+        with self.cursor() as cur:
+            cur.execute("""
+                SELECT
+                    SUM(CASE WHEN realized_pnl > 0 THEN realized_pnl ELSE 0 END) as total_wins,
+                    SUM(CASE WHEN realized_pnl < 0 THEN realized_pnl ELSE 0 END) as total_losses,
+                    AVG(CASE WHEN realized_pnl > 0 THEN realized_pnl END) as avg_win,
+                    AVG(CASE WHEN realized_pnl < 0 THEN realized_pnl END) as avg_loss
+                FROM positions
+                WHERE status='CLOSED'
+            """)
+            data = cur.fetchone()
+
+        total_wins = data["total_wins"] or 0
+        total_losses = abs(data["total_losses"] or 0)
+
+        profit_factor = round(total_wins / total_losses, 2) if total_losses > 0 else 0
+
+        return {
+            "profit_factor": profit_factor,
+            "avg_win": round(data["avg_win"] or 0, 2),
+            "avg_loss": round(data["avg_loss"] or 0, 2),
+        }

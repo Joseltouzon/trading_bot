@@ -15,6 +15,7 @@ def dashboard(request: Request):
     closed_positions = db.get_recent_closed_positions()
     logs = db.get_recent_logs()
     bot_status = db.get_bot_status()
+    performance = db.get_performance_metrics()
 
     for e in equity_curve:
         e["created_at"] = e["created_at"].strftime("%H:%M")
@@ -28,6 +29,7 @@ def dashboard(request: Request):
             "open_positions": open_positions,
             "closed_positions": closed_positions,
             "logs": logs,
-            "bot_status": bot_status
+            "bot_status": bot_status,
+            "performance": performance
         }
     )
