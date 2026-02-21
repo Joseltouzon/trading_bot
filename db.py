@@ -193,3 +193,103 @@ class Database:
                 available_balance,
                 unrealized_pnl
             ))
+
+    # ==========================================================
+    # DASHBOARD
+    # ==========================================================
+
+    def get_dashboard_stats(self):
+        with self.cursor() as cur:
+
+            # Open positions
+            cur.execute("""
+                SELECT COUNT(*) AS open_positions
+                FROM positions
+                WHERE status = 'OPEN'
+            """)
+            open_positions = cur.fetchone()["open_positions"]
+
+            # Último equity
+            cur.execute("""
+                SELECT total_balance
+                FROM equity_snapshots
+                ORDER BY created_at DESC
+                LIMIT 1
+            """)
+            row = cur.fetchone()
+            equity = float(row["total_balance"]) if row else 0
+
+            # PnL diario
+            cur.execute("""
+                SELECT COALESCE(SUM(realized_pnl),0) AS daily_pnl
+                FROM positions
+                WHERE status='CLOSED'
+                AND closed_at::date = CURRENT_DATE
+            """)
+            daily_pnl = float(cur.fetchone()["daily_pnl"])
+
+            # Win rate
+            cur.execute("""
+                SELECT
+                    COUNT(*) FILTER (WHERE realized_pnl > 0) AS wins,
+                    COUNT(*) FILTER (WHERE status='CLOSED') AS total
+                FROM positions
+            """)
+            row = cur.fetchone()
+            wins = row["wins"] or 0
+            total = row["total"] or 0
+            win_rate = round((wins / total) * 100, 2) if total > 0 else 0
+
+        return {
+            "equity": round(equity, 2),
+            "open_positions": open_positions,
+            "daily_pnl": round(daily_pnl, 2),
+            "win_rate": win_rate,
+        }
+
+    def get_equity_curve(self):
+        with self.cursor() as cur:
+            cur.execute("""
+                SELECT created_at, total_balance
+                FROM equity_snapshots
+                ORDER BY created_at ASC
+            """)
+            rows = cur.fetchall()
+
+        return rows
+
+    def get_open_positions(self):
+        with self.cursor() as cur:
+            cur.execute("""
+                SELECT id, symbol, side, qty, entry_price, opened_at
+                FROM positions
+                WHERE status='OPEN'
+                ORDER BY opened_at DESC
+            """)
+            return cur.fetchall()
+
+    def get_recent_closed_positions(self, limit=10):
+        with self.cursor() as cur:
+            cur.execute("""
+                SELECT symbol, side, entry_price, exit_price,
+                    realized_pnl, closed_at
+                FROM positions
+                WHERE status='CLOSED'
+                ORDER BY closed_at DESC
+                LIMIT %s
+            """, (limit,))
+            return cur.fetchall()
+
+    def get_recent_logs(self, limit=20):
+        with self.cursor() as cur:
+            cur.execute("""
+                SELECT level, symbol, message, created_at
+                FROM bot_logs
+                ORDER BY created_at DESC
+                LIMIT %s
+            """, (limit,))
+            return cur.fetchall()
+
+    def get_bot_status(self):
+        state = self.load_state()
+        return "PAUSED" if state.get("paused") else "RUNNING"

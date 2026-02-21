@@ -10517,3 +10517,452 @@ binance.exceptions.BinanceAPIException: APIError(code=-2019): Margin is insuffic
 2026-02-21 12:56:11 | INFO | MainThread | DOGEUSDT | trend=BEAR | breakL=False | breakS=False | adx=17.67 | adx_ok=False | rising_ok=True | vol_ratio=0.38 | vol_up=False
 2026-02-21 12:56:11 | INFO | MainThread | ADAUSDT | trend=BEAR | breakL=False | breakS=False | adx=16.10 | adx_ok=False | rising_ok=False | vol_ratio=0.41 | vol_up=False
 2026-02-21 12:56:11 | INFO | MainThread | DOTUSDT | trend=BEAR | breakL=False | breakS=False | adx=14.81 | adx_ok=False | rising_ok=True | vol_ratio=0.30 | vol_up=True
+2026-02-21 13:05:06 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1771689899999
+2026-02-21 13:05:07 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1771689899999
+2026-02-21 13:05:08 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1771689899999
+2026-02-21 13:05:09 | INFO | MainThread | [CACHE] New closed candle LINKUSDT close_time=1771689899999
+2026-02-21 13:05:11 | INFO | MainThread | [CACHE] New closed candle DOGEUSDT close_time=1771689899999
+2026-02-21 13:05:12 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1771689899999
+2026-02-21 13:05:13 | INFO | MainThread | [CACHE] New closed candle DOTUSDT close_time=1771689899999
+2026-02-21 13:05:14 | INFO | MainThread | SOLUSDT | trend=BULL | breakL=False | breakS=True | adx=47.50 | adx_ok=True | rising_ok=False | vol_ratio=2.19 | vol_up=True
+2026-02-21 13:05:14 | INFO | MainThread | XRPUSDT | trend=BEAR | breakL=False | breakS=True | adx=25.33 | adx_ok=True | rising_ok=False | vol_ratio=1.77 | vol_up=True
+2026-02-21 13:05:14 | INFO | MainThread | BNBUSDT | trend=BEAR | breakL=False | breakS=False | adx=34.21 | adx_ok=True | rising_ok=True | vol_ratio=2.24 | vol_up=True
+2026-02-21 13:05:14 | INFO | MainThread | LINKUSDT | trend=BEAR | breakL=False | breakS=True | adx=22.71 | adx_ok=True | rising_ok=True | vol_ratio=3.09 | vol_up=True
+2026-02-21 13:05:14 | INFO | MainThread | LINKUSDT → SHORT signal published
+2026-02-21 13:05:14 | INFO | MainThread | DOGEUSDT | trend=BEAR | breakL=False | breakS=True | adx=20.27 | adx_ok=True | rising_ok=True | vol_ratio=3.80 | vol_up=True
+2026-02-21 13:05:14 | INFO | MainThread | DOGEUSDT → SHORT signal published
+2026-02-21 13:05:14 | INFO | MainThread | ADAUSDT | trend=BEAR | breakL=False | breakS=True | adx=18.31 | adx_ok=True | rising_ok=True | vol_ratio=3.70 | vol_up=True
+2026-02-21 13:05:14 | INFO | MainThread | ADAUSDT → SHORT signal published
+2026-02-21 13:05:14 | INFO | MainThread | DOTUSDT | trend=BEAR | breakL=False | breakS=True | adx=17.26 | adx_ok=False | rising_ok=True | vol_ratio=1.93 | vol_up=True
+2026-02-21 13:05:17 | WARNING | MainThread | [MARGIN] LINKUSDT auto-scaled | scale=0.594 | new_qty=55.050028
+2026-02-21 13:05:17 | ERROR | MainThread | [ORDER] Market order failed LINKUSDT: APIError(code=-2019): Margin is insufficient.
+Traceback (most recent call last):
+  File "/Users/joselt/Desktop/beast-money-maker/exchange/binance_futures.py", line 252, in place_market_order
+    order = self.client.futures_create_order(
+  File "/Users/joselt/Desktop/beast-money-maker/.venv/lib/python3.8/site-packages/binance/client.py", line 7951, in futures_create_order
+    return self._request_futures_api("post", "order", True, data=params)
+  File "/Users/joselt/Desktop/beast-money-maker/.venv/lib/python3.8/site-packages/binance/client.py", line 144, in _request_futures_api
+    return self._request(method, uri, signed, force_params, **kwargs)
+  File "/Users/joselt/Desktop/beast-money-maker/.venv/lib/python3.8/site-packages/binance/client.py", line 107, in _request
+    return self._handle_response(self.response)
+  File "/Users/joselt/Desktop/beast-money-maker/.venv/lib/python3.8/site-packages/binance/client.py", line 116, in _handle_response
+    raise BinanceAPIException(response, response.status_code, response.text)
+binance.exceptions.BinanceAPIException: APIError(code=-2019): Margin is insufficient.
+2026-02-21 13:05:17 | ERROR | MainThread | [ENTRY] Order execution failed.
+Traceback (most recent call last):
+  File "/Users/joselt/Desktop/beast-money-maker/execution/order_manager.py", line 279, in execute
+    order = self.exchange.place_market_order(
+  File "/Users/joselt/Desktop/beast-money-maker/exchange/binance_futures.py", line 252, in place_market_order
+    order = self.client.futures_create_order(
+  File "/Users/joselt/Desktop/beast-money-maker/.venv/lib/python3.8/site-packages/binance/client.py", line 7951, in futures_create_order
+    return self._request_futures_api("post", "order", True, data=params)
+  File "/Users/joselt/Desktop/beast-money-maker/.venv/lib/python3.8/site-packages/binance/client.py", line 144, in _request_futures_api
+    return self._request(method, uri, signed, force_params, **kwargs)
+  File "/Users/joselt/Desktop/beast-money-maker/.venv/lib/python3.8/site-packages/binance/client.py", line 107, in _request
+    return self._handle_response(self.response)
+  File "/Users/joselt/Desktop/beast-money-maker/.venv/lib/python3.8/site-packages/binance/client.py", line 116, in _handle_response
+    raise BinanceAPIException(response, response.status_code, response.text)
+binance.exceptions.BinanceAPIException: APIError(code=-2019): Margin is insufficient.
+2026-02-21 13:05:20 | INFO | MainThread | [CACHE] New closed candle POLUSDT close_time=1771689899999
+2026-02-21 13:05:26 | INFO | MainThread | POLUSDT | trend=BULL | breakL=False | breakS=False | adx=57.29 | adx_ok=True | rising_ok=False | vol_ratio=2.63 | vol_up=True
+2026-02-21 13:05:28 | WARNING | MainThread | [MARGIN] DOGEUSDT auto-scaled | scale=0.600 | new_qty=4916.622757
+2026-02-21 13:05:29 | ERROR | MainThread | [ORDER] Market order failed DOGEUSDT: APIError(code=-2019): Margin is insufficient.
+Traceback (most recent call last):
+  File "/Users/joselt/Desktop/beast-money-maker/exchange/binance_futures.py", line 252, in place_market_order
+    order = self.client.futures_create_order(
+  File "/Users/joselt/Desktop/beast-money-maker/.venv/lib/python3.8/site-packages/binance/client.py", line 7951, in futures_create_order
+    return self._request_futures_api("post", "order", True, data=params)
+  File "/Users/joselt/Desktop/beast-money-maker/.venv/lib/python3.8/site-packages/binance/client.py", line 144, in _request_futures_api
+    return self._request(method, uri, signed, force_params, **kwargs)
+  File "/Users/joselt/Desktop/beast-money-maker/.venv/lib/python3.8/site-packages/binance/client.py", line 107, in _request
+    return self._handle_response(self.response)
+  File "/Users/joselt/Desktop/beast-money-maker/.venv/lib/python3.8/site-packages/binance/client.py", line 116, in _handle_response
+    raise BinanceAPIException(response, response.status_code, response.text)
+binance.exceptions.BinanceAPIException: APIError(code=-2019): Margin is insufficient.
+2026-02-21 13:05:29 | ERROR | MainThread | [ENTRY] Order execution failed.
+Traceback (most recent call last):
+  File "/Users/joselt/Desktop/beast-money-maker/execution/order_manager.py", line 279, in execute
+    order = self.exchange.place_market_order(
+  File "/Users/joselt/Desktop/beast-money-maker/exchange/binance_futures.py", line 252, in place_market_order
+    order = self.client.futures_create_order(
+  File "/Users/joselt/Desktop/beast-money-maker/.venv/lib/python3.8/site-packages/binance/client.py", line 7951, in futures_create_order
+    return self._request_futures_api("post", "order", True, data=params)
+  File "/Users/joselt/Desktop/beast-money-maker/.venv/lib/python3.8/site-packages/binance/client.py", line 144, in _request_futures_api
+    return self._request(method, uri, signed, force_params, **kwargs)
+  File "/Users/joselt/Desktop/beast-money-maker/.venv/lib/python3.8/site-packages/binance/client.py", line 107, in _request
+    return self._handle_response(self.response)
+  File "/Users/joselt/Desktop/beast-money-maker/.venv/lib/python3.8/site-packages/binance/client.py", line 116, in _handle_response
+    raise BinanceAPIException(response, response.status_code, response.text)
+binance.exceptions.BinanceAPIException: APIError(code=-2019): Margin is insufficient.
+2026-02-21 13:05:37 | WARNING | MainThread | [MARGIN] ADAUSDT auto-scaled | scale=0.679 | new_qty=1741.814219
+2026-02-21 13:05:37 | ERROR | MainThread | [ORDER] Market order failed ADAUSDT: APIError(code=-2019): Margin is insufficient.
+Traceback (most recent call last):
+  File "/Users/joselt/Desktop/beast-money-maker/exchange/binance_futures.py", line 252, in place_market_order
+    order = self.client.futures_create_order(
+  File "/Users/joselt/Desktop/beast-money-maker/.venv/lib/python3.8/site-packages/binance/client.py", line 7951, in futures_create_order
+    return self._request_futures_api("post", "order", True, data=params)
+  File "/Users/joselt/Desktop/beast-money-maker/.venv/lib/python3.8/site-packages/binance/client.py", line 144, in _request_futures_api
+    return self._request(method, uri, signed, force_params, **kwargs)
+  File "/Users/joselt/Desktop/beast-money-maker/.venv/lib/python3.8/site-packages/binance/client.py", line 107, in _request
+    return self._handle_response(self.response)
+  File "/Users/joselt/Desktop/beast-money-maker/.venv/lib/python3.8/site-packages/binance/client.py", line 116, in _handle_response
+    raise BinanceAPIException(response, response.status_code, response.text)
+binance.exceptions.BinanceAPIException: APIError(code=-2019): Margin is insufficient.
+2026-02-21 13:05:37 | ERROR | MainThread | [ENTRY] Order execution failed.
+Traceback (most recent call last):
+  File "/Users/joselt/Desktop/beast-money-maker/execution/order_manager.py", line 279, in execute
+    order = self.exchange.place_market_order(
+  File "/Users/joselt/Desktop/beast-money-maker/exchange/binance_futures.py", line 252, in place_market_order
+    order = self.client.futures_create_order(
+  File "/Users/joselt/Desktop/beast-money-maker/.venv/lib/python3.8/site-packages/binance/client.py", line 7951, in futures_create_order
+    return self._request_futures_api("post", "order", True, data=params)
+  File "/Users/joselt/Desktop/beast-money-maker/.venv/lib/python3.8/site-packages/binance/client.py", line 144, in _request_futures_api
+    return self._request(method, uri, signed, force_params, **kwargs)
+  File "/Users/joselt/Desktop/beast-money-maker/.venv/lib/python3.8/site-packages/binance/client.py", line 107, in _request
+    return self._handle_response(self.response)
+  File "/Users/joselt/Desktop/beast-money-maker/.venv/lib/python3.8/site-packages/binance/client.py", line 116, in _handle_response
+    raise BinanceAPIException(response, response.status_code, response.text)
+binance.exceptions.BinanceAPIException: APIError(code=-2019): Margin is insufficient.
+2026-02-21 13:10:06 | INFO | MainThread | [CACHE] New closed candle POLUSDT close_time=1771690199999
+2026-02-21 13:10:07 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1771690199999
+2026-02-21 13:10:08 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1771690199999
+2026-02-21 13:10:09 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1771690199999
+2026-02-21 13:10:10 | INFO | MainThread | [CACHE] New closed candle LINKUSDT close_time=1771690199999
+2026-02-21 13:10:11 | INFO | MainThread | [CACHE] New closed candle DOGEUSDT close_time=1771690199999
+2026-02-21 13:10:13 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1771690199999
+2026-02-21 13:10:14 | INFO | MainThread | [CACHE] New closed candle DOTUSDT close_time=1771690199999
+2026-02-21 13:10:14 | INFO | MainThread | POLUSDT | trend=BULL | breakL=False | breakS=False | adx=53.97 | adx_ok=True | rising_ok=False | vol_ratio=1.53 | vol_up=False
+2026-02-21 13:10:14 | INFO | MainThread | SOLUSDT | trend=BULL | breakL=False | breakS=False | adx=44.77 | adx_ok=True | rising_ok=False | vol_ratio=1.94 | vol_up=False
+2026-02-21 13:10:14 | INFO | MainThread | XRPUSDT | trend=BEAR | breakL=False | breakS=False | adx=25.11 | adx_ok=True | rising_ok=False | vol_ratio=0.87 | vol_up=False
+2026-02-21 13:10:14 | INFO | MainThread | BNBUSDT | trend=BEAR | breakL=False | breakS=False | adx=36.26 | adx_ok=True | rising_ok=True | vol_ratio=2.73 | vol_up=True
+2026-02-21 13:10:14 | INFO | MainThread | LINKUSDT | trend=BEAR | breakL=False | breakS=False | adx=23.73 | adx_ok=True | rising_ok=True | vol_ratio=2.38 | vol_up=False
+2026-02-21 13:10:14 | INFO | MainThread | DOGEUSDT | trend=BEAR | breakL=False | breakS=False | adx=22.52 | adx_ok=True | rising_ok=True | vol_ratio=0.98 | vol_up=False
+2026-02-21 13:10:14 | INFO | MainThread | ADAUSDT | trend=BEAR | breakL=False | breakS=False | adx=20.34 | adx_ok=True | rising_ok=True | vol_ratio=1.28 | vol_up=False
+2026-02-21 13:10:14 | INFO | MainThread | DOTUSDT | trend=BEAR | breakL=False | breakS=False | adx=19.28 | adx_ok=True | rising_ok=True | vol_ratio=1.62 | vol_up=False
+2026-02-21 13:52:03 | INFO | MainThread | [CACHE INIT] POLUSDT loaded 500 candles
+2026-02-21 13:52:04 | INFO | MainThread | [CACHE INIT] SOLUSDT loaded 500 candles
+2026-02-21 13:52:05 | INFO | MainThread | [CACHE INIT] XRPUSDT loaded 500 candles
+2026-02-21 13:52:06 | INFO | MainThread | [CACHE INIT] BNBUSDT loaded 500 candles
+2026-02-21 13:52:06 | INFO | MainThread | [CACHE INIT] LINKUSDT loaded 500 candles
+2026-02-21 13:52:07 | INFO | MainThread | [CACHE INIT] DOGEUSDT loaded 500 candles
+2026-02-21 13:52:08 | INFO | MainThread | [CACHE INIT] ADAUSDT loaded 500 candles
+2026-02-21 13:52:09 | INFO | MainThread | [CACHE INIT] DOTUSDT loaded 500 candles
+2026-02-21 13:52:16 | INFO | MainThread | POLUSDT | trend=BEAR | breakL=False | breakS=False | adx=34.15 | adx_ok=True | rising_ok=False | vol_ratio=0.13 | vol_up=False
+2026-02-21 13:52:16 | INFO | MainThread | SOLUSDT | trend=BEAR | breakL=False | breakS=False | adx=30.57 | adx_ok=True | rising_ok=False | vol_ratio=0.33 | vol_up=False
+2026-02-21 13:52:16 | INFO | MainThread | XRPUSDT | trend=BEAR | breakL=False | breakS=False | adx=28.39 | adx_ok=True | rising_ok=True | vol_ratio=0.85 | vol_up=True
+2026-02-21 13:52:16 | INFO | MainThread | BNBUSDT | trend=BEAR | breakL=False | breakS=False | adx=42.65 | adx_ok=True | rising_ok=False | vol_ratio=0.27 | vol_up=False
+2026-02-21 13:52:16 | INFO | MainThread | LINKUSDT | trend=BEAR | breakL=False | breakS=False | adx=32.50 | adx_ok=True | rising_ok=True | vol_ratio=0.71 | vol_up=True
+2026-02-21 13:52:16 | INFO | MainThread | DOGEUSDT | trend=BEAR | breakL=False | breakS=False | adx=29.84 | adx_ok=True | rising_ok=True | vol_ratio=0.36 | vol_up=False
+2026-02-21 13:52:16 | INFO | MainThread | ADAUSDT | trend=BEAR | breakL=False | breakS=False | adx=35.11 | adx_ok=True | rising_ok=True | vol_ratio=0.25 | vol_up=False
+2026-02-21 13:52:16 | INFO | MainThread | DOTUSDT | trend=BEAR | breakL=False | breakS=False | adx=29.79 | adx_ok=True | rising_ok=True | vol_ratio=0.14 | vol_up=False
+2026-02-21 14:00:10 | INFO | MainThread | [CACHE] New closed candle POLUSDT close_time=1771693199999
+2026-02-21 14:00:12 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1771693199999
+2026-02-21 14:00:13 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1771693199999
+2026-02-21 14:00:14 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1771693199999
+2026-02-21 14:00:15 | INFO | MainThread | [CACHE] New closed candle LINKUSDT close_time=1771693199999
+2026-02-21 14:00:16 | INFO | MainThread | [CACHE] New closed candle DOGEUSDT close_time=1771693199999
+2026-02-21 14:00:17 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1771693199999
+2026-02-21 14:00:18 | INFO | MainThread | [CACHE] New closed candle DOTUSDT close_time=1771693199999
+2026-02-21 14:00:19 | INFO | MainThread | POLUSDT | trend=BEAR | breakL=False | breakS=False | adx=31.15 | adx_ok=True | rising_ok=False | vol_ratio=0.11 | vol_up=False
+2026-02-21 14:00:19 | INFO | MainThread | SOLUSDT | trend=BEAR | breakL=False | breakS=False | adx=27.95 | adx_ok=True | rising_ok=False | vol_ratio=0.23 | vol_up=False
+2026-02-21 14:00:19 | INFO | MainThread | XRPUSDT | trend=BEAR | breakL=False | breakS=False | adx=28.67 | adx_ok=True | rising_ok=True | vol_ratio=0.38 | vol_up=False
+2026-02-21 14:00:19 | INFO | MainThread | BNBUSDT | trend=BEAR | breakL=False | breakS=False | adx=42.08 | adx_ok=True | rising_ok=False | vol_ratio=0.25 | vol_up=False
+2026-02-21 14:00:19 | INFO | MainThread | LINKUSDT | trend=BEAR | breakL=False | breakS=False | adx=32.03 | adx_ok=True | rising_ok=False | vol_ratio=0.21 | vol_up=False
+2026-02-21 14:00:19 | INFO | MainThread | DOGEUSDT | trend=BEAR | breakL=False | breakS=False | adx=31.85 | adx_ok=True | rising_ok=True | vol_ratio=0.45 | vol_up=True
+2026-02-21 14:00:19 | INFO | MainThread | ADAUSDT | trend=BEAR | breakL=False | breakS=False | adx=36.50 | adx_ok=True | rising_ok=True | vol_ratio=0.43 | vol_up=True
+2026-02-21 14:00:19 | INFO | MainThread | DOTUSDT | trend=BEAR | breakL=False | breakS=False | adx=32.41 | adx_ok=True | rising_ok=True | vol_ratio=0.77 | vol_up=True
+2026-02-21 14:05:10 | INFO | MainThread | [CACHE] New closed candle POLUSDT close_time=1771693499999
+2026-02-21 14:05:11 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1771693499999
+2026-02-21 14:05:12 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1771693499999
+2026-02-21 14:05:13 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1771693499999
+2026-02-21 14:05:14 | INFO | MainThread | [CACHE] New closed candle LINKUSDT close_time=1771693499999
+2026-02-21 14:05:16 | INFO | MainThread | [CACHE] New closed candle DOGEUSDT close_time=1771693499999
+2026-02-21 14:05:17 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1771693499999
+2026-02-21 14:05:18 | INFO | MainThread | [CACHE] New closed candle DOTUSDT close_time=1771693499999
+2026-02-21 14:05:18 | INFO | MainThread | POLUSDT | trend=BEAR | breakL=False | breakS=False | adx=30.10 | adx_ok=True | rising_ok=False | vol_ratio=0.80 | vol_up=True
+2026-02-21 14:05:18 | INFO | MainThread | SOLUSDT | trend=BEAR | breakL=False | breakS=False | adx=27.43 | adx_ok=True | rising_ok=False | vol_ratio=0.65 | vol_up=True
+2026-02-21 14:05:18 | INFO | MainThread | XRPUSDT | trend=BEAR | breakL=False | breakS=False | adx=29.18 | adx_ok=True | rising_ok=True | vol_ratio=0.53 | vol_up=True
+2026-02-21 14:05:19 | INFO | MainThread | BNBUSDT | trend=BEAR | breakL=False | breakS=False | adx=41.28 | adx_ok=True | rising_ok=False | vol_ratio=0.38 | vol_up=True
+2026-02-21 14:05:19 | INFO | MainThread | LINKUSDT | trend=BEAR | breakL=False | breakS=False | adx=31.43 | adx_ok=True | rising_ok=False | vol_ratio=0.46 | vol_up=True
+2026-02-21 14:05:19 | INFO | MainThread | DOGEUSDT | trend=BEAR | breakL=False | breakS=False | adx=34.53 | adx_ok=True | rising_ok=True | vol_ratio=4.70 | vol_up=True
+2026-02-21 14:05:19 | INFO | MainThread | ADAUSDT | trend=BEAR | breakL=False | breakS=False | adx=37.59 | adx_ok=True | rising_ok=True | vol_ratio=0.97 | vol_up=True
+2026-02-21 14:05:19 | INFO | MainThread | DOTUSDT | trend=BEAR | breakL=False | breakS=False | adx=34.02 | adx_ok=True | rising_ok=True | vol_ratio=0.79 | vol_up=True
+2026-02-21 14:10:11 | INFO | MainThread | [CACHE] New closed candle POLUSDT close_time=1771693799999
+2026-02-21 14:10:12 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1771693799999
+2026-02-21 14:10:14 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1771693799999
+2026-02-21 14:10:15 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1771693799999
+2026-02-21 14:10:16 | INFO | MainThread | [CACHE] New closed candle LINKUSDT close_time=1771693799999
+2026-02-21 14:10:17 | INFO | MainThread | [CACHE] New closed candle DOGEUSDT close_time=1771693799999
+2026-02-21 14:10:18 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1771693799999
+2026-02-21 14:10:19 | INFO | MainThread | [CACHE] New closed candle DOTUSDT close_time=1771693799999
+2026-02-21 14:10:20 | INFO | MainThread | POLUSDT | trend=BEAR | breakL=False | breakS=False | adx=29.05 | adx_ok=True | rising_ok=False | vol_ratio=0.39 | vol_up=False
+2026-02-21 14:10:20 | INFO | MainThread | SOLUSDT | trend=BEAR | breakL=False | breakS=False | adx=27.82 | adx_ok=True | rising_ok=True | vol_ratio=0.86 | vol_up=True
+2026-02-21 14:10:20 | INFO | MainThread | XRPUSDT | trend=BEAR | breakL=False | breakS=False | adx=30.15 | adx_ok=True | rising_ok=True | vol_ratio=0.91 | vol_up=True
+2026-02-21 14:10:20 | INFO | MainThread | BNBUSDT | trend=BEAR | breakL=False | breakS=False | adx=40.81 | adx_ok=True | rising_ok=False | vol_ratio=0.25 | vol_up=False
+2026-02-21 14:10:20 | INFO | MainThread | LINKUSDT | trend=BEAR | breakL=False | breakS=False | adx=31.02 | adx_ok=True | rising_ok=False | vol_ratio=0.50 | vol_up=True
+2026-02-21 14:10:20 | INFO | MainThread | DOGEUSDT | trend=BEAR | breakL=False | breakS=False | adx=37.01 | adx_ok=True | rising_ok=True | vol_ratio=0.45 | vol_up=False
+2026-02-21 14:10:20 | INFO | MainThread | ADAUSDT | trend=BEAR | breakL=False | breakS=False | adx=38.34 | adx_ok=True | rising_ok=True | vol_ratio=0.62 | vol_up=False
+2026-02-21 14:10:20 | INFO | MainThread | DOTUSDT | trend=BEAR | breakL=False | breakS=False | adx=35.51 | adx_ok=True | rising_ok=True | vol_ratio=0.61 | vol_up=False
+2026-02-21 14:15:05 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1771694099999
+2026-02-21 14:15:06 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1771694099999
+2026-02-21 14:15:07 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1771694099999
+2026-02-21 14:15:08 | INFO | MainThread | [CACHE] New closed candle LINKUSDT close_time=1771694099999
+2026-02-21 14:15:09 | INFO | MainThread | [CACHE] New closed candle DOGEUSDT close_time=1771694099999
+2026-02-21 14:15:11 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1771694099999
+2026-02-21 14:15:12 | INFO | MainThread | [CACHE] New closed candle DOTUSDT close_time=1771694099999
+2026-02-21 14:15:12 | INFO | MainThread | SOLUSDT | trend=BEAR | breakL=False | breakS=False | adx=28.10 | adx_ok=True | rising_ok=True | vol_ratio=2.34 | vol_up=True
+2026-02-21 14:15:12 | INFO | MainThread | XRPUSDT | trend=BEAR | breakL=False | breakS=False | adx=31.05 | adx_ok=True | rising_ok=True | vol_ratio=0.43 | vol_up=False
+2026-02-21 14:15:13 | INFO | MainThread | BNBUSDT | trend=BEAR | breakL=False | breakS=False | adx=40.37 | adx_ok=True | rising_ok=False | vol_ratio=0.19 | vol_up=False
+2026-02-21 14:15:13 | INFO | MainThread | LINKUSDT | trend=BEAR | breakL=False | breakS=False | adx=30.63 | adx_ok=True | rising_ok=False | vol_ratio=0.18 | vol_up=False
+2026-02-21 14:15:13 | INFO | MainThread | DOGEUSDT | trend=BEAR | breakL=False | breakS=False | adx=39.32 | adx_ok=True | rising_ok=True | vol_ratio=0.41 | vol_up=False
+2026-02-21 14:15:13 | INFO | MainThread | ADAUSDT | trend=BEAR | breakL=False | breakS=False | adx=39.05 | adx_ok=True | rising_ok=True | vol_ratio=0.37 | vol_up=False
+2026-02-21 14:15:13 | INFO | MainThread | DOTUSDT | trend=BEAR | breakL=False | breakS=True | adx=36.90 | adx_ok=True | rising_ok=True | vol_ratio=0.76 | vol_up=True
+2026-02-21 14:15:13 | INFO | MainThread | DOTUSDT → SHORT signal published
+2026-02-21 14:15:16 | WARNING | MainThread | [MARGIN] DOTUSDT auto-scaled | scale=0.767 | new_qty=360.154375
+2026-02-21 14:15:17 | ERROR | MainThread | [ORDER] Market order failed DOTUSDT: APIError(code=-2019): Margin is insufficient.
+Traceback (most recent call last):
+  File "/Users/joselt/Desktop/beast-money-maker/exchange/binance_futures.py", line 252, in place_market_order
+    order = self.client.futures_create_order(
+  File "/Users/joselt/Desktop/beast-money-maker/.venv/lib/python3.8/site-packages/binance/client.py", line 7951, in futures_create_order
+    return self._request_futures_api("post", "order", True, data=params)
+  File "/Users/joselt/Desktop/beast-money-maker/.venv/lib/python3.8/site-packages/binance/client.py", line 144, in _request_futures_api
+    return self._request(method, uri, signed, force_params, **kwargs)
+  File "/Users/joselt/Desktop/beast-money-maker/.venv/lib/python3.8/site-packages/binance/client.py", line 107, in _request
+    return self._handle_response(self.response)
+  File "/Users/joselt/Desktop/beast-money-maker/.venv/lib/python3.8/site-packages/binance/client.py", line 116, in _handle_response
+    raise BinanceAPIException(response, response.status_code, response.text)
+binance.exceptions.BinanceAPIException: APIError(code=-2019): Margin is insufficient.
+2026-02-21 14:15:17 | ERROR | MainThread | [ENTRY] Order execution failed.
+Traceback (most recent call last):
+  File "/Users/joselt/Desktop/beast-money-maker/execution/order_manager.py", line 279, in execute
+    order = self.exchange.place_market_order(
+  File "/Users/joselt/Desktop/beast-money-maker/exchange/binance_futures.py", line 252, in place_market_order
+    order = self.client.futures_create_order(
+  File "/Users/joselt/Desktop/beast-money-maker/.venv/lib/python3.8/site-packages/binance/client.py", line 7951, in futures_create_order
+    return self._request_futures_api("post", "order", True, data=params)
+  File "/Users/joselt/Desktop/beast-money-maker/.venv/lib/python3.8/site-packages/binance/client.py", line 144, in _request_futures_api
+    return self._request(method, uri, signed, force_params, **kwargs)
+  File "/Users/joselt/Desktop/beast-money-maker/.venv/lib/python3.8/site-packages/binance/client.py", line 107, in _request
+    return self._handle_response(self.response)
+  File "/Users/joselt/Desktop/beast-money-maker/.venv/lib/python3.8/site-packages/binance/client.py", line 116, in _handle_response
+    raise BinanceAPIException(response, response.status_code, response.text)
+binance.exceptions.BinanceAPIException: APIError(code=-2019): Margin is insufficient.
+2026-02-21 14:15:20 | INFO | MainThread | [CACHE] New closed candle POLUSDT close_time=1771694099999
+2026-02-21 14:15:25 | INFO | MainThread | POLUSDT | trend=BEAR | breakL=False | breakS=True | adx=28.56 | adx_ok=True | rising_ok=False | vol_ratio=0.59 | vol_up=True
+2026-02-21 14:20:04 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1771694399999
+2026-02-21 14:20:07 | INFO | MainThread | [CACHE] New closed candle LINKUSDT close_time=1771694399999
+2026-02-21 14:20:08 | INFO | MainThread | [CACHE] New closed candle DOGEUSDT close_time=1771694399999
+2026-02-21 14:20:09 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1771694399999
+2026-02-21 14:20:10 | INFO | MainThread | [CACHE] New closed candle DOTUSDT close_time=1771694399999
+2026-02-21 14:20:11 | INFO | MainThread | DOGEUSDT | trend=BEAR | breakL=False | breakS=False | adx=41.61 | adx_ok=True | rising_ok=True | vol_ratio=0.41 | vol_up=False
+2026-02-21 14:20:11 | INFO | MainThread | ADAUSDT | trend=BEAR | breakL=False | breakS=False | adx=40.22 | adx_ok=True | rising_ok=True | vol_ratio=0.47 | vol_up=True
+2026-02-21 14:20:11 | INFO | MainThread | DOTUSDT | trend=BEAR | breakL=False | breakS=False | adx=38.69 | adx_ok=True | rising_ok=True | vol_ratio=1.07 | vol_up=True
+2026-02-21 14:20:19 | INFO | MainThread | [CACHE] New closed candle POLUSDT close_time=1771694399999
+2026-02-21 14:20:21 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1771694399999
+2026-02-21 14:20:22 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1771694399999
+2026-02-21 14:20:26 | INFO | MainThread | POLUSDT | trend=BEAR | breakL=False | breakS=False | adx=29.18 | adx_ok=True | rising_ok=True | vol_ratio=1.73 | vol_up=True
+2026-02-21 14:20:26 | INFO | MainThread | XRPUSDT | trend=BEAR | breakL=False | breakS=True | adx=32.47 | adx_ok=True | rising_ok=True | vol_ratio=0.55 | vol_up=True
+2026-02-21 14:20:26 | INFO | MainThread | XRPUSDT → SHORT signal published
+2026-02-21 14:20:26 | INFO | MainThread | BNBUSDT | trend=BEAR | breakL=False | breakS=False | adx=40.47 | adx_ok=True | rising_ok=True | vol_ratio=0.22 | vol_up=True
+2026-02-21 14:20:29 | WARNING | MainThread | [MARGIN] XRPUSDT auto-scaled | scale=0.631 | new_qty=340.662364
+2026-02-21 14:20:31 | ERROR | MainThread | [ORDER] Market order failed XRPUSDT: APIError(code=-2019): Margin is insufficient.
+Traceback (most recent call last):
+  File "/Users/joselt/Desktop/beast-money-maker/exchange/binance_futures.py", line 252, in place_market_order
+    order = self.client.futures_create_order(
+  File "/Users/joselt/Desktop/beast-money-maker/.venv/lib/python3.8/site-packages/binance/client.py", line 7951, in futures_create_order
+    return self._request_futures_api("post", "order", True, data=params)
+  File "/Users/joselt/Desktop/beast-money-maker/.venv/lib/python3.8/site-packages/binance/client.py", line 144, in _request_futures_api
+    return self._request(method, uri, signed, force_params, **kwargs)
+  File "/Users/joselt/Desktop/beast-money-maker/.venv/lib/python3.8/site-packages/binance/client.py", line 107, in _request
+    return self._handle_response(self.response)
+  File "/Users/joselt/Desktop/beast-money-maker/.venv/lib/python3.8/site-packages/binance/client.py", line 116, in _handle_response
+    raise BinanceAPIException(response, response.status_code, response.text)
+binance.exceptions.BinanceAPIException: APIError(code=-2019): Margin is insufficient.
+2026-02-21 14:20:31 | ERROR | MainThread | [ENTRY] Order execution failed.
+Traceback (most recent call last):
+  File "/Users/joselt/Desktop/beast-money-maker/execution/order_manager.py", line 279, in execute
+    order = self.exchange.place_market_order(
+  File "/Users/joselt/Desktop/beast-money-maker/exchange/binance_futures.py", line 252, in place_market_order
+    order = self.client.futures_create_order(
+  File "/Users/joselt/Desktop/beast-money-maker/.venv/lib/python3.8/site-packages/binance/client.py", line 7951, in futures_create_order
+    return self._request_futures_api("post", "order", True, data=params)
+  File "/Users/joselt/Desktop/beast-money-maker/.venv/lib/python3.8/site-packages/binance/client.py", line 144, in _request_futures_api
+    return self._request(method, uri, signed, force_params, **kwargs)
+  File "/Users/joselt/Desktop/beast-money-maker/.venv/lib/python3.8/site-packages/binance/client.py", line 107, in _request
+    return self._handle_response(self.response)
+  File "/Users/joselt/Desktop/beast-money-maker/.venv/lib/python3.8/site-packages/binance/client.py", line 116, in _handle_response
+    raise BinanceAPIException(response, response.status_code, response.text)
+binance.exceptions.BinanceAPIException: APIError(code=-2019): Margin is insufficient.
+2026-02-21 14:25:11 | INFO | MainThread | [CACHE] New closed candle POLUSDT close_time=1771694699999
+2026-02-21 14:25:13 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1771694699999
+2026-02-21 14:25:14 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1771694699999
+2026-02-21 14:25:15 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1771694699999
+2026-02-21 14:25:17 | INFO | MainThread | [CACHE] New closed candle LINKUSDT close_time=1771694699999
+2026-02-21 14:25:18 | INFO | MainThread | [CACHE] New closed candle DOGEUSDT close_time=1771694699999
+2026-02-21 14:25:19 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1771694699999
+2026-02-21 14:25:20 | INFO | MainThread | [CACHE] New closed candle DOTUSDT close_time=1771694699999
+2026-02-21 14:25:21 | INFO | MainThread | POLUSDT | trend=BEAR | breakL=False | breakS=False | adx=29.77 | adx_ok=True | rising_ok=True | vol_ratio=0.44 | vol_up=False
+2026-02-21 14:25:21 | INFO | MainThread | SOLUSDT | trend=BEAR | breakL=False | breakS=False | adx=28.59 | adx_ok=True | rising_ok=True | vol_ratio=0.99 | vol_up=False
+2026-02-21 14:25:21 | INFO | MainThread | XRPUSDT | trend=BEAR | breakL=False | breakS=False | adx=33.85 | adx_ok=True | rising_ok=True | vol_ratio=0.40 | vol_up=False
+2026-02-21 14:25:21 | INFO | MainThread | BNBUSDT | trend=BEAR | breakL=False | breakS=False | adx=40.62 | adx_ok=True | rising_ok=True | vol_ratio=0.16 | vol_up=False
+2026-02-21 14:25:21 | INFO | MainThread | LINKUSDT | trend=BEAR | breakL=False | breakS=False | adx=31.38 | adx_ok=True | rising_ok=True | vol_ratio=0.36 | vol_up=True
+2026-02-21 14:25:21 | INFO | MainThread | DOGEUSDT | trend=BEAR | breakL=False | breakS=False | adx=43.84 | adx_ok=True | rising_ok=True | vol_ratio=0.74 | vol_up=True
+2026-02-21 14:25:21 | INFO | MainThread | ADAUSDT | trend=BEAR | breakL=False | breakS=False | adx=41.30 | adx_ok=True | rising_ok=True | vol_ratio=0.34 | vol_up=False
+2026-02-21 14:25:22 | INFO | MainThread | DOTUSDT | trend=BEAR | breakL=False | breakS=False | adx=40.35 | adx_ok=True | rising_ok=True | vol_ratio=0.91 | vol_up=False
+2026-02-21 14:30:06 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1771694999999
+2026-02-21 14:30:07 | INFO | MainThread | [CACHE] New closed candle LINKUSDT close_time=1771694999999
+2026-02-21 14:30:08 | INFO | MainThread | [CACHE] New closed candle DOGEUSDT close_time=1771694999999
+2026-02-21 14:30:09 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1771694999999
+2026-02-21 14:30:10 | INFO | MainThread | [CACHE] New closed candle DOTUSDT close_time=1771694999999
+2026-02-21 14:30:11 | INFO | MainThread | LINKUSDT | trend=BEAR | breakL=False | breakS=False | adx=30.21 | adx_ok=True | rising_ok=False | vol_ratio=0.77 | vol_up=True
+2026-02-21 14:30:11 | INFO | MainThread | DOGEUSDT | trend=BEAR | breakL=False | breakS=False | adx=45.76 | adx_ok=True | rising_ok=True | vol_ratio=0.46 | vol_up=False
+2026-02-21 14:30:11 | INFO | MainThread | ADAUSDT | trend=BEAR | breakL=False | breakS=False | adx=42.02 | adx_ok=True | rising_ok=True | vol_ratio=0.36 | vol_up=True
+2026-02-21 14:30:11 | INFO | MainThread | DOTUSDT | trend=BEAR | breakL=False | breakS=False | adx=41.23 | adx_ok=True | rising_ok=True | vol_ratio=1.22 | vol_up=True
+2026-02-21 14:30:19 | INFO | MainThread | [CACHE] New closed candle POLUSDT close_time=1771694999999
+2026-02-21 14:30:20 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1771694999999
+2026-02-21 14:30:21 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1771694999999
+2026-02-21 14:30:25 | INFO | MainThread | POLUSDT | trend=BEAR | breakL=False | breakS=False | adx=29.80 | adx_ok=True | rising_ok=True | vol_ratio=0.37 | vol_up=False
+2026-02-21 14:30:26 | INFO | MainThread | SOLUSDT | trend=BEAR | breakL=False | breakS=False | adx=27.57 | adx_ok=True | rising_ok=False | vol_ratio=2.07 | vol_up=True
+2026-02-21 14:30:26 | INFO | MainThread | XRPUSDT | trend=BEAR | breakL=False | breakS=True | adx=34.85 | adx_ok=True | rising_ok=True | vol_ratio=0.55 | vol_up=True
+2026-02-21 14:30:26 | INFO | MainThread | XRPUSDT → SHORT signal published
+2026-02-21 14:30:29 | WARNING | MainThread | [MARGIN] XRPUSDT auto-scaled | scale=0.597 | new_qty=340.463130
+2026-02-21 14:30:29 | ERROR | MainThread | [ORDER] Market order failed XRPUSDT: APIError(code=-2019): Margin is insufficient.
+Traceback (most recent call last):
+  File "/Users/joselt/Desktop/beast-money-maker/exchange/binance_futures.py", line 252, in place_market_order
+    order = self.client.futures_create_order(
+  File "/Users/joselt/Desktop/beast-money-maker/.venv/lib/python3.8/site-packages/binance/client.py", line 7951, in futures_create_order
+    return self._request_futures_api("post", "order", True, data=params)
+  File "/Users/joselt/Desktop/beast-money-maker/.venv/lib/python3.8/site-packages/binance/client.py", line 144, in _request_futures_api
+    return self._request(method, uri, signed, force_params, **kwargs)
+  File "/Users/joselt/Desktop/beast-money-maker/.venv/lib/python3.8/site-packages/binance/client.py", line 107, in _request
+    return self._handle_response(self.response)
+  File "/Users/joselt/Desktop/beast-money-maker/.venv/lib/python3.8/site-packages/binance/client.py", line 116, in _handle_response
+    raise BinanceAPIException(response, response.status_code, response.text)
+binance.exceptions.BinanceAPIException: APIError(code=-2019): Margin is insufficient.
+2026-02-21 14:30:30 | ERROR | MainThread | [ENTRY] Order execution failed.
+Traceback (most recent call last):
+  File "/Users/joselt/Desktop/beast-money-maker/execution/order_manager.py", line 279, in execute
+    order = self.exchange.place_market_order(
+  File "/Users/joselt/Desktop/beast-money-maker/exchange/binance_futures.py", line 252, in place_market_order
+    order = self.client.futures_create_order(
+  File "/Users/joselt/Desktop/beast-money-maker/.venv/lib/python3.8/site-packages/binance/client.py", line 7951, in futures_create_order
+    return self._request_futures_api("post", "order", True, data=params)
+  File "/Users/joselt/Desktop/beast-money-maker/.venv/lib/python3.8/site-packages/binance/client.py", line 144, in _request_futures_api
+    return self._request(method, uri, signed, force_params, **kwargs)
+  File "/Users/joselt/Desktop/beast-money-maker/.venv/lib/python3.8/site-packages/binance/client.py", line 107, in _request
+    return self._handle_response(self.response)
+  File "/Users/joselt/Desktop/beast-money-maker/.venv/lib/python3.8/site-packages/binance/client.py", line 116, in _handle_response
+    raise BinanceAPIException(response, response.status_code, response.text)
+binance.exceptions.BinanceAPIException: APIError(code=-2019): Margin is insufficient.
+2026-02-21 14:35:06 | INFO | MainThread | [CACHE] New closed candle POLUSDT close_time=1771695299999
+2026-02-21 14:35:07 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1771695299999
+2026-02-21 14:35:09 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1771695299999
+2026-02-21 14:35:10 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1771695299999
+2026-02-21 14:35:11 | INFO | MainThread | [CACHE] New closed candle LINKUSDT close_time=1771695299999
+2026-02-21 14:35:12 | INFO | MainThread | [CACHE] New closed candle DOGEUSDT close_time=1771695299999
+2026-02-21 14:35:13 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1771695299999
+2026-02-21 14:35:15 | INFO | MainThread | [CACHE] New closed candle DOTUSDT close_time=1771695299999
+2026-02-21 14:35:15 | INFO | MainThread | POLUSDT | trend=BEAR | breakL=False | breakS=False | adx=29.85 | adx_ok=True | rising_ok=True | vol_ratio=0.24 | vol_up=False
+2026-02-21 14:35:15 | INFO | MainThread | SOLUSDT | trend=BEAR | breakL=False | breakS=False | adx=26.64 | adx_ok=True | rising_ok=False | vol_ratio=0.22 | vol_up=False
+2026-02-21 14:35:15 | INFO | MainThread | XRPUSDT | trend=BEAR | breakL=False | breakS=False | adx=36.05 | adx_ok=True | rising_ok=True | vol_ratio=0.68 | vol_up=True
+2026-02-21 14:35:15 | INFO | MainThread | BNBUSDT | trend=BEAR | breakL=False | breakS=False | adx=38.50 | adx_ok=True | rising_ok=False | vol_ratio=0.49 | vol_up=True
+2026-02-21 14:35:15 | INFO | MainThread | LINKUSDT | trend=BEAR | breakL=False | breakS=False | adx=29.13 | adx_ok=True | rising_ok=False | vol_ratio=0.32 | vol_up=False
+2026-02-21 14:35:15 | INFO | MainThread | DOGEUSDT | trend=BEAR | breakL=False | breakS=False | adx=47.61 | adx_ok=True | rising_ok=True | vol_ratio=0.49 | vol_up=True
+2026-02-21 14:35:15 | INFO | MainThread | ADAUSDT | trend=BEAR | breakL=False | breakS=False | adx=42.87 | adx_ok=True | rising_ok=True | vol_ratio=0.24 | vol_up=False
+2026-02-21 14:35:15 | INFO | MainThread | DOTUSDT | trend=BEAR | breakL=False | breakS=False | adx=42.06 | adx_ok=True | rising_ok=True | vol_ratio=0.25 | vol_up=False
+2026-02-21 14:40:06 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1771695599999
+2026-02-21 14:40:08 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1771695599999
+2026-02-21 14:40:09 | INFO | MainThread | [CACHE] New closed candle LINKUSDT close_time=1771695599999
+2026-02-21 14:40:10 | INFO | MainThread | [CACHE] New closed candle DOGEUSDT close_time=1771695599999
+2026-02-21 14:40:11 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1771695599999
+2026-02-21 14:40:13 | INFO | MainThread | [CACHE] New closed candle DOTUSDT close_time=1771695599999
+2026-02-21 14:40:13 | INFO | MainThread | SOLUSDT | trend=BEAR | breakL=False | breakS=False | adx=24.77 | adx_ok=True | rising_ok=False | vol_ratio=0.54 | vol_up=True
+2026-02-21 14:40:13 | INFO | MainThread | BNBUSDT | trend=BEAR | breakL=True | breakS=False | adx=36.62 | adx_ok=True | rising_ok=False | vol_ratio=0.69 | vol_up=True
+2026-02-21 14:40:13 | INFO | MainThread | LINKUSDT | trend=BEAR | breakL=True | breakS=False | adx=27.30 | adx_ok=True | rising_ok=False | vol_ratio=0.43 | vol_up=True
+2026-02-21 14:40:13 | INFO | MainThread | DOGEUSDT | trend=BEAR | breakL=False | breakS=False | adx=48.43 | adx_ok=True | rising_ok=True | vol_ratio=0.58 | vol_up=True
+2026-02-21 14:40:13 | INFO | MainThread | ADAUSDT | trend=BEAR | breakL=False | breakS=False | adx=43.92 | adx_ok=True | rising_ok=True | vol_ratio=0.86 | vol_up=True
+2026-02-21 14:40:13 | INFO | MainThread | DOTUSDT | trend=BEAR | breakL=False | breakS=False | adx=42.15 | adx_ok=True | rising_ok=True | vol_ratio=0.67 | vol_up=True
+2026-02-21 14:40:22 | INFO | MainThread | [CACHE] New closed candle POLUSDT close_time=1771695599999
+2026-02-21 14:40:23 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1771695599999
+2026-02-21 14:40:28 | INFO | MainThread | POLUSDT | trend=BEAR | breakL=False | breakS=False | adx=29.26 | adx_ok=True | rising_ok=False | vol_ratio=0.47 | vol_up=True
+2026-02-21 14:40:28 | INFO | MainThread | XRPUSDT | trend=BEAR | breakL=False | breakS=False | adx=36.37 | adx_ok=True | rising_ok=True | vol_ratio=0.52 | vol_up=False
+2026-02-21 14:45:11 | INFO | MainThread | [CACHE] New closed candle POLUSDT close_time=1771695899999
+2026-02-21 14:45:12 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1771695899999
+2026-02-21 14:45:13 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1771695899999
+2026-02-21 14:45:14 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1771695899999
+2026-02-21 14:45:15 | INFO | MainThread | [CACHE] New closed candle LINKUSDT close_time=1771695899999
+2026-02-21 14:45:17 | INFO | MainThread | [CACHE] New closed candle DOGEUSDT close_time=1771695899999
+2026-02-21 14:45:18 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1771695899999
+2026-02-21 14:45:19 | INFO | MainThread | [CACHE] New closed candle DOTUSDT close_time=1771695899999
+2026-02-21 14:45:20 | INFO | MainThread | POLUSDT | trend=BEAR | breakL=False | breakS=False | adx=27.75 | adx_ok=True | rising_ok=False | vol_ratio=0.63 | vol_up=True
+2026-02-21 14:45:20 | INFO | MainThread | SOLUSDT | trend=BULL | breakL=True | breakS=False | adx=24.00 | adx_ok=True | rising_ok=False | vol_ratio=0.89 | vol_up=True
+2026-02-21 14:45:20 | INFO | MainThread | XRPUSDT | trend=BEAR | breakL=False | breakS=False | adx=35.48 | adx_ok=True | rising_ok=False | vol_ratio=0.60 | vol_up=True
+2026-02-21 14:45:20 | INFO | MainThread | BNBUSDT | trend=BEAR | breakL=False | breakS=False | adx=34.83 | adx_ok=True | rising_ok=False | vol_ratio=0.99 | vol_up=True
+2026-02-21 14:45:20 | INFO | MainThread | LINKUSDT | trend=BULL | breakL=False | breakS=False | adx=26.29 | adx_ok=True | rising_ok=False | vol_ratio=0.69 | vol_up=True
+2026-02-21 14:45:20 | INFO | MainThread | DOGEUSDT | trend=BEAR | breakL=False | breakS=False | adx=47.69 | adx_ok=True | rising_ok=False | vol_ratio=0.80 | vol_up=True
+2026-02-21 14:45:20 | INFO | MainThread | ADAUSDT | trend=BEAR | breakL=False | breakS=False | adx=43.02 | adx_ok=True | rising_ok=False | vol_ratio=0.59 | vol_up=False
+2026-02-21 14:45:20 | INFO | MainThread | DOTUSDT | trend=BEAR | breakL=False | breakS=False | adx=40.55 | adx_ok=True | rising_ok=False | vol_ratio=1.35 | vol_up=True
+2026-02-21 14:50:04 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1771696199999
+2026-02-21 14:50:05 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1771696199999
+2026-02-21 14:50:07 | INFO | MainThread | [CACHE] New closed candle LINKUSDT close_time=1771696199999
+2026-02-21 14:50:08 | INFO | MainThread | [CACHE] New closed candle DOGEUSDT close_time=1771696199999
+2026-02-21 14:50:09 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1771696199999
+2026-02-21 14:50:10 | INFO | MainThread | [CACHE] New closed candle DOTUSDT close_time=1771696199999
+2026-02-21 14:50:11 | INFO | MainThread | XRPUSDT | trend=BEAR | breakL=False | breakS=False | adx=34.52 | adx_ok=True | rising_ok=False | vol_ratio=0.69 | vol_up=True
+2026-02-21 14:50:11 | INFO | MainThread | BNBUSDT | trend=BEAR | breakL=False | breakS=False | adx=33.20 | adx_ok=True | rising_ok=False | vol_ratio=0.43 | vol_up=False
+2026-02-21 14:50:11 | INFO | MainThread | LINKUSDT | trend=BULL | breakL=False | breakS=False | adx=25.50 | adx_ok=True | rising_ok=False | vol_ratio=0.48 | vol_up=False
+2026-02-21 14:50:11 | INFO | MainThread | DOGEUSDT | trend=BEAR | breakL=False | breakS=False | adx=47.00 | adx_ok=True | rising_ok=False | vol_ratio=0.37 | vol_up=False
+2026-02-21 14:50:11 | INFO | MainThread | ADAUSDT | trend=BEAR | breakL=False | breakS=False | adx=41.96 | adx_ok=True | rising_ok=False | vol_ratio=0.53 | vol_up=False
+2026-02-21 14:50:12 | INFO | MainThread | DOTUSDT | trend=BEAR | breakL=False | breakS=False | adx=39.05 | adx_ok=True | rising_ok=False | vol_ratio=0.95 | vol_up=False
+2026-02-21 14:50:20 | INFO | MainThread | [CACHE] New closed candle POLUSDT close_time=1771696199999
+2026-02-21 14:50:22 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1771696199999
+2026-02-21 14:50:27 | INFO | MainThread | POLUSDT | trend=BEAR | breakL=False | breakS=False | adx=26.35 | adx_ok=True | rising_ok=False | vol_ratio=0.39 | vol_up=False
+2026-02-21 14:50:27 | INFO | MainThread | SOLUSDT | trend=BULL | breakL=False | breakS=False | adx=23.28 | adx_ok=True | rising_ok=False | vol_ratio=0.80 | vol_up=False
+2026-02-21 14:55:08 | INFO | MainThread | [CACHE] New closed candle POLUSDT close_time=1771696499999
+2026-02-21 14:55:09 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1771696499999
+2026-02-21 14:55:10 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1771696499999
+2026-02-21 14:55:11 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1771696499999
+2026-02-21 14:55:13 | INFO | MainThread | [CACHE] New closed candle LINKUSDT close_time=1771696499999
+2026-02-21 14:55:14 | INFO | MainThread | [CACHE] New closed candle DOGEUSDT close_time=1771696499999
+2026-02-21 14:55:15 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1771696499999
+2026-02-21 14:55:16 | INFO | MainThread | [CACHE] New closed candle DOTUSDT close_time=1771696499999
+2026-02-21 14:55:17 | INFO | MainThread | POLUSDT | trend=BEAR | breakL=False | breakS=False | adx=25.28 | adx_ok=True | rising_ok=False | vol_ratio=0.42 | vol_up=False
+2026-02-21 14:55:17 | INFO | MainThread | SOLUSDT | trend=BULL | breakL=False | breakS=False | adx=22.05 | adx_ok=True | rising_ok=False | vol_ratio=0.47 | vol_up=False
+2026-02-21 14:55:17 | INFO | MainThread | XRPUSDT | trend=BEAR | breakL=False | breakS=False | adx=33.63 | adx_ok=True | rising_ok=False | vol_ratio=0.38 | vol_up=False
+2026-02-21 14:55:17 | INFO | MainThread | BNBUSDT | trend=BULL | breakL=False | breakS=False | adx=31.69 | adx_ok=True | rising_ok=False | vol_ratio=0.29 | vol_up=False
+2026-02-21 14:55:17 | INFO | MainThread | LINKUSDT | trend=BULL | breakL=False | breakS=False | adx=25.20 | adx_ok=True | rising_ok=False | vol_ratio=1.18 | vol_up=True
+2026-02-21 14:55:17 | INFO | MainThread | DOGEUSDT | trend=BEAR | breakL=False | breakS=False | adx=46.52 | adx_ok=True | rising_ok=False | vol_ratio=0.39 | vol_up=True
+2026-02-21 14:55:17 | INFO | MainThread | ADAUSDT | trend=BEAR | breakL=False | breakS=False | adx=40.73 | adx_ok=True | rising_ok=False | vol_ratio=0.47 | vol_up=False
+2026-02-21 14:55:17 | INFO | MainThread | DOTUSDT | trend=BEAR | breakL=False | breakS=False | adx=37.67 | adx_ok=True | rising_ok=False | vol_ratio=0.58 | vol_up=False
+2026-02-21 15:00:08 | INFO | MainThread | [CACHE] New closed candle POLUSDT close_time=1771696799999
+2026-02-21 15:00:09 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1771696799999
+2026-02-21 15:00:10 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1771696799999
+2026-02-21 15:00:12 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1771696799999
+2026-02-21 15:00:13 | INFO | MainThread | [CACHE] New closed candle LINKUSDT close_time=1771696799999
+2026-02-21 15:00:14 | INFO | MainThread | [CACHE] New closed candle DOGEUSDT close_time=1771696799999
+2026-02-21 15:00:15 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1771696799999
+2026-02-21 15:00:16 | INFO | MainThread | [CACHE] New closed candle DOTUSDT close_time=1771696799999
+2026-02-21 15:00:16 | INFO | MainThread | POLUSDT | trend=BEAR | breakL=False | breakS=False | adx=24.01 | adx_ok=True | rising_ok=False | vol_ratio=0.37 | vol_up=False
+2026-02-21 15:00:16 | INFO | MainThread | SOLUSDT | trend=BULL | breakL=False | breakS=False | adx=20.91 | adx_ok=True | rising_ok=False | vol_ratio=0.28 | vol_up=False
+2026-02-21 15:00:16 | INFO | MainThread | XRPUSDT | trend=BEAR | breakL=False | breakS=False | adx=32.80 | adx_ok=True | rising_ok=False | vol_ratio=0.27 | vol_up=False
+2026-02-21 15:00:16 | INFO | MainThread | BNBUSDT | trend=BULL | breakL=False | breakS=False | adx=29.87 | adx_ok=True | rising_ok=False | vol_ratio=0.65 | vol_up=True
+2026-02-21 15:00:16 | INFO | MainThread | LINKUSDT | trend=BULL | breakL=False | breakS=False | adx=24.92 | adx_ok=True | rising_ok=False | vol_ratio=0.33 | vol_up=False
+2026-02-21 15:00:17 | INFO | MainThread | DOGEUSDT | trend=BEAR | breakL=False | breakS=False | adx=46.35 | adx_ok=True | rising_ok=False | vol_ratio=0.30 | vol_up=False
+2026-02-21 15:00:17 | INFO | MainThread | ADAUSDT | trend=BEAR | breakL=False | breakS=False | adx=39.59 | adx_ok=True | rising_ok=False | vol_ratio=0.48 | vol_up=False
+2026-02-21 15:00:17 | INFO | MainThread | DOTUSDT | trend=BEAR | breakL=False | breakS=False | adx=36.38 | adx_ok=True | rising_ok=False | vol_ratio=0.81 | vol_up=True
+2026-02-21 15:05:11 | INFO | MainThread | [CACHE] New closed candle POLUSDT close_time=1771697099999
+2026-02-21 15:05:12 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1771697099999
+2026-02-21 15:05:13 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1771697099999
+2026-02-21 15:05:14 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1771697099999
+2026-02-21 15:05:15 | INFO | MainThread | [CACHE] New closed candle LINKUSDT close_time=1771697099999
+2026-02-21 15:05:16 | INFO | MainThread | [CACHE] New closed candle DOGEUSDT close_time=1771697099999
+2026-02-21 15:05:18 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1771697099999
+2026-02-21 15:05:19 | INFO | MainThread | [CACHE] New closed candle DOTUSDT close_time=1771697099999
+2026-02-21 15:05:19 | INFO | MainThread | POLUSDT | trend=BEAR | breakL=False | breakS=False | adx=22.57 | adx_ok=True | rising_ok=False | vol_ratio=1.28 | vol_up=True
+2026-02-21 15:05:19 | INFO | MainThread | SOLUSDT | trend=BULL | breakL=False | breakS=False | adx=20.68 | adx_ok=True | rising_ok=False | vol_ratio=0.41 | vol_up=True
+2026-02-21 15:05:19 | INFO | MainThread | XRPUSDT | trend=BEAR | breakL=False | breakS=False | adx=31.02 | adx_ok=True | rising_ok=False | vol_ratio=1.40 | vol_up=True
+2026-02-21 15:05:19 | INFO | MainThread | BNBUSDT | trend=BULL | breakL=False | breakS=False | adx=28.37 | adx_ok=True | rising_ok=False | vol_ratio=0.59 | vol_up=False
+2026-02-21 15:05:20 | INFO | MainThread | LINKUSDT | trend=BULL | breakL=False | breakS=False | adx=24.72 | adx_ok=True | rising_ok=False | vol_ratio=0.88 | vol_up=True
+2026-02-21 15:05:20 | INFO | MainThread | DOGEUSDT | trend=BEAR | breakL=False | breakS=False | adx=45.07 | adx_ok=True | rising_ok=False | vol_ratio=0.38 | vol_up=True
+2026-02-21 15:05:20 | INFO | MainThread | ADAUSDT | trend=BEAR | breakL=True | breakS=False | adx=36.97 | adx_ok=True | rising_ok=False | vol_ratio=0.90 | vol_up=True
+2026-02-21 15:05:21 | INFO | MainThread | DOTUSDT | trend=BEAR | breakL=False | breakS=False | adx=34.08 | adx_ok=True | rising_ok=False | vol_ratio=1.35 | vol_up=True
