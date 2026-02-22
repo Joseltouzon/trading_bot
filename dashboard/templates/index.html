@@ -4,12 +4,62 @@
 <div class="alert {% if bot_status == 'RUNNING' %}alert-success{% else %}alert-danger{% endif %}">
     Bot Status: <strong>{{ bot_status }}</strong>
 </div>
-<div class="row">
+
+<div class="row mt-4">
+
+    <div class="col-md-3">
+        <div class="card bg-secondary">
+            <div class="card-body">
+                <h5>Equity Total</h5>
+                <h3 class="text-light">
+                    ${{ "%.2f"|format(account.equity or 0) }}
+                </h3>
+            </div>
+        </div>
+    </div>
+
     <div class="col-md-3">
         <div class="card bg-secondary">
             <div class="card-body">
                 <h5>Equity</h5>
                 <h3>${{ stats.equity }}</h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card bg-secondary">
+            <div class="card-body">
+                <h5>Capital en Uso</h5>
+                <h3 class="text-warning">
+                    ${{ "%.2f"|format(account.used_margin or 0) }}
+                </h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card bg-secondary">
+            <div class="card-body">
+                <h5>Disponible</h5>
+                <h3 class="text-success">
+                    ${{ "%.2f"|format(account.available or 0) }}
+                </h3>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="row mt-4">
+    
+    <div class="col-md-3">
+        <div class="card bg-secondary">
+            <div class="card-body">
+                <h5>Max Drawdown</h5>
+                <h3 class="text-danger">
+                    {{ max_drawdown }}%
+                </h3>
             </div>
         </div>
     </div>
@@ -85,21 +135,6 @@
                     {% else %}
                         0
                     {% endif %}
-                </h3>
-            </div>
-        </div>
-    </div>
-
-</div>
-
-<div class="row mt-4">
-
-    <div class="col-md-3">
-        <div class="card bg-secondary">
-            <div class="card-body">
-                <h5>Max Drawdown</h5>
-                <h3 class="text-danger">
-                    {{ max_drawdown }}%
                 </h3>
             </div>
         </div>

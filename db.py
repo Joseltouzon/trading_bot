@@ -353,13 +353,13 @@ class Database:
 
     def calculate_drawdown(self, equity_curve):
         if not equity_curve:
-            return 0
+            return 0.0
 
-        peak = equity_curve[0]["total_balance"]
-        max_drawdown = 0
+        peak = float(equity_curve[0]["total_balance"])
+        max_drawdown = 0.0
 
         for point in equity_curve:
-            balance = point["total_balance"]
+            balance = float(point["total_balance"])
 
             if balance > peak:
                 peak = balance
@@ -375,17 +375,17 @@ class Database:
         if not equity_curve:
             return []
 
-        peak = equity_curve[0]["total_balance"]
+        peak = float(equity_curve[0]["total_balance"])
         drawdown_curve = []
 
         for point in equity_curve:
-            balance = point["total_balance"]
+            balance = float(point["total_balance"])
 
             if balance > peak:
                 peak = balance
 
             drawdown = (peak - balance) / peak * 100
-            drawdown_curve.append(round(drawdown, 2))
+            drawdown_curve.append(round(float(drawdown), 2))
 
         return drawdown_curve
 
@@ -419,3 +419,34 @@ class Database:
                 return None
 
             return row        
+
+    def save_account_snapshot(self, equity, used_margin, available):
+        with self.cursor() as cur:
+            cur.execute("""
+                INSERT INTO account_snapshots
+                (equity, used_margin, available)
+                VALUES (%s, %s, %s);
+            """, (
+                equity,
+                used_margin,
+                available
+            ))
+
+    def get_latest_account_snapshot(self):
+        with self.cursor() as cur:
+            cur.execute("""
+                SELECT equity, used_margin, available
+                FROM account_snapshots
+                ORDER BY created_at DESC
+                LIMIT 1
+            """)
+            row = cur.fetchone()
+
+            if not row:
+                return None
+
+            return {
+                "equity": float(row["equity"]),
+                "used_margin": float(row["used_margin"]),
+                "available": float(row["available"])
+            }

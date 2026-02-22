@@ -129,6 +129,14 @@ class BinanceFutures:
             return self.cache.get("futures_account", self.client.futures_account)
         return self.client.futures_account()
 
+    def get_account_info(self):
+        data = self.client.futures_account()
+        return {
+            "equity": float(data["totalWalletBalance"]),
+            "used_margin": float(data["totalPositionInitialMargin"]),
+            "available": float(data["availableBalance"])
+        }
+
     def get_equity(self) -> float:
         """
         Para futures, totalMarginBalance suele representar mejor el equity.

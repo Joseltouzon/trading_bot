@@ -135,7 +135,7 @@ class EventLoop:
                     realized = None
 
                     if trade:
-                        exit_price = trade.get("price")
+                        exit_price = float(trade.get("avgPrice") or trade.get("exit_price") or 0)
                         realized = trade.get("realizedPnl")
 
                     self.om.db.close_position(

@@ -118,7 +118,15 @@ def main():
         f"Trailing: {st.trailing_pct}%"
     )
 
+    # para no guardar a cada rato en la base el snapshot
+    last_account_snapshot = 0
+    ACCOUNT_SNAPSHOT_INTERVAL = 15  # segundos
+
+    last_equity_snapshot = 0
+    EQUITY_SNAPSHOT_INTERVAL = 60  # segundos
+
     # ================= MASTER LOOP (REST) =================
+
     while True:
         try:
             # RELOAD STATE DINÁMICO PARA CARGAR CONFIG DEL DASHBOARD
@@ -147,6 +155,42 @@ def main():
 
             # 6) Control de Riesgo
             risk_monitor.check()    
+
+            # 7) SNAPSHOT DE CUENTA
+            try:
+                acc = exchange.get_account_info()
+                now = time.time()
+
+                # ================= ACCOUNT SNAPSHOT (optimizado) =================
+                if now - last_account_snapshot > ACCOUNT_SNAPSHOT_INTERVAL:
+
+                    db.save_account_snapshot(
+                        equity=acc["equity"],
+                        used_margin=acc["used_margin"],
+                        available=acc["available"]
+                    )
+
+                    last_account_snapshot = now
+
+                # ================= EQUITY SNAPSHOT (histórico) =================
+                if now - last_equity_snapshot > EQUITY_SNAPSHOT_INTERVAL:
+
+                    unrealized_pnl = (
+                        acc["equity"]
+                        - acc["available"]
+                        - acc["used_margin"]
+                    )
+
+                    db.save_equity_snapshot(
+                        total_balance=acc["equity"],
+                        available_balance=acc["available"],
+                        unrealized_pnl=unrealized_pnl
+                    )
+
+                    last_equity_snapshot = now
+
+            except Exception as e:
+                log.warning(f"Account snapshot error: {e}")
 
             time.sleep(CFG.LOOP_SLEEP_SECONDS)
 

@@ -70,7 +70,7 @@ class TrailingManager:
                     realized = None
 
                     if trade:
-                        exit_price = trade.get("exit_price")
+                        exit_price = float(trade.get("avgPrice") or trade.get("exit_price") or 0)
                         realized = trade.get("realizedPnl")
 
                     self.db.close_position(
@@ -86,7 +86,7 @@ class TrailingManager:
 
                 except Exception as e:
                     self.log.warning(f"{symbol} DB close failed: {e}")
-                    
+
             # limpiar estado memoria
             st.trail.pop(symbol, None)
             st.stop_orders.pop(symbol, None)
