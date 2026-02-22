@@ -234,6 +234,54 @@ class BinanceFutures:
 
         return positions
 
+    def get_position_history(self, symbol: str, open_time: int):
+        """
+        Devuelve información real del cierre de una posición.
+        open_time debe estar en ms (timestamp Binance).
+        """
+
+        try:
+            trades = self.client.futures_account_trades(
+                symbol=symbol,
+                startTime=open_time
+            )
+
+            if not trades:
+                return None
+
+            total_realized = 0.0
+            total_qty = 0.0
+            weighted_price = 0.0
+
+            for t in trades:
+
+                realized = float(t.get("realizedPnl", 0))
+                qty = abs(float(t.get("qty", 0)))
+                price = float(t.get("price", 0))
+
+                # Solo contamos trades que realmente cierran/reducen
+                if realized != 0:
+
+                    total_realized += realized
+                    total_qty += qty
+                    weighted_price += price * qty
+
+            if total_qty == 0:
+                return None
+
+            avg_exit_price = weighted_price / total_qty
+
+            return {
+                "symbol": symbol,
+                "exit_price": avg_exit_price,
+                "closed_qty": total_qty,
+                "realizedPnl": total_realized
+            }
+
+        except Exception as e:
+            self.logger.warning(f"{symbol} get_position_history failed: {e}")
+            return None
+            
     # ============================================================
     # ORDERS
     # ============================================================
@@ -261,28 +309,38 @@ class BinanceFutures:
             self.logger.exception(f"[ORDER] Market order failed {symbol}: {e}")
             raise
 
-    def place_reduce_only_stop(self, symbol: str, side: str, stop_price: float):
+    def place_reduce_only_stop(self, symbol: str, side: str, quantity: float, stop_price: float):
         """
-        STOP_MARKET con closePosition=True (cierra toda la posición).
-        side: "LONG" | "SHORT" (indica la dirección de la posición abierta)
+        STOP_MARKET reduceOnly=True
+        side debe ser directamente "BUY" o "SELL"
         """
-        close_side = SIDE_SELL if side == "LONG" else SIDE_BUY
+
+        if side not in ["BUY", "SELL"]:
+            raise ValueError(f"Invalid stop side: {side}")
 
         sp = self.normalize_price(symbol, float(stop_price))
+        qty = self.normalize_qty(symbol, float(quantity))
+
         if sp <= 0:
             raise ValueError(f"Invalid stop_price after normalization. symbol={symbol} stop_price={stop_price}")
 
         try:
             order = self.client.futures_create_order(
                 symbol=symbol,
-                side=close_side,
+                side=side,
                 type=FUTURE_ORDER_TYPE_STOP_MARKET,
+                quantity=qty,
                 stopPrice=sp,
-                closePosition=True
+                reduceOnly=True,
+                closePosition=False
             )
-            # self.logger.info(f"STOP RAW RESPONSE: {order}") debug
-            self.logger.info(f"[ORDER] STOP_MARKET {symbol} close_for={side} stop={sp}")
+
+            self.logger.info(
+                f"[ORDER] STOP_MARKET {symbol} side={side} qty={qty} stop={sp}"
+            )
+
             return order
+
         except Exception as e:
             self.logger.exception(f"[ORDER] Stop order failed {symbol}: {e}")
             raise

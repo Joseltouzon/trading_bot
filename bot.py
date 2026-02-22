@@ -59,7 +59,6 @@ def main():
         testnet=getattr(CFG, "TESTNET", False)
     )
 
-
     # ================= STATE =================
     defaults = BotState(
         paused=False,
@@ -106,7 +105,7 @@ def main():
     event_loop = EventLoop(bus, market, exchange, om, log)
     risk_monitor = RiskMonitor(st, exchange, telegram, log)
 
-    # ✅ NUEVO: Motor de señales desacoplado de WS
+    # Motor de señales 
     signal_engine = SignalEngine(market, bus, log)
 
     mode = "PAPER" if st.paper_trading else "PRODUCCIÓN"
@@ -144,7 +143,7 @@ def main():
 
             # 5) Telegram polling (si existe)
             if hasattr(telegram, "poll_once"):
-                telegram.poll_once(st, exchange)
+                telegram.poll_once(st, exchange, db)
 
             # 6) Control de Riesgo
             risk_monitor.check()    

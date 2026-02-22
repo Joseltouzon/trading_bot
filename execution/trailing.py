@@ -6,7 +6,7 @@ from db import Database
 
 
 class TrailingManager:
-    def __init__(self, exchange, market, order_manager, db, tg_send, logger):
+    def __init__(self, exchange, market, order_manager, db, tg_send, logger): 
         self.exchange = exchange
         self.market = market
         self.order_manager = order_manager
@@ -52,13 +52,32 @@ class TrailingManager:
 
             if position_id:
                 try:
-                    # Obtener precio actual como aproximación de salida
-                    exit_price = float(self.exchange.get_mark_price(symbol) or 0.0)
+
+                    # Necesitamos open_time desde DB
+                    pos = self.db.get_position_by_id(position_id)
+
+                    if not pos:
+                        return
+
+                    open_time_ms = int(pos["opened_at"].timestamp() * 1000)
+
+                    trade = self.exchange.get_position_history(
+                        symbol=symbol,
+                        open_time=open_time_ms
+                    )
+
+                    exit_price = None
+                    realized = None
+
+                    if trade:
+                        exit_price = trade.get("exit_price")
+                        realized = trade.get("realizedPnl")
 
                     self.db.close_position(
                         position_id=position_id,
                         exit_price=exit_price,
-                        realized_pnl=None  # lo podemos calcular después con precisión
+                        realized_pnl=realized,
+                        close_reason="EXCHANGE_CLOSED"
                     )
 
                     self.db.deactivate_stops(position_id)
@@ -67,7 +86,7 @@ class TrailingManager:
 
                 except Exception as e:
                     self.log.warning(f"{symbol} DB close failed: {e}")
-
+                    
             # limpiar estado memoria
             st.trail.pop(symbol, None)
             st.stop_orders.pop(symbol, None)

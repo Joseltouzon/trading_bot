@@ -8,11 +8,7 @@ from strategy.pivots import last_pivot_levels
 
 
 def compute_signals(df: pd.DataFrame) -> dict:
-    """
-    IMPORTANTE:
-    df (REST) normalmente incluye la vela en curso como última fila.
-    Para señales, usamos SOLO velas cerradas => df_closed = df.iloc[:-1]
-    """
+
     if df is None or len(df) < 50:
         return {
             "trend": "NONE",
@@ -28,10 +24,9 @@ def compute_signals(df: pd.DataFrame) -> dict:
             "last_pl": None,
         }
 
-    # quitar vela en formación
     df_closed = df.iloc[:-1].copy()
     if len(df_closed) < 30:
-        df_closed = df.copy()  # fallback raro
+        df_closed = df.copy()
 
     close = df_closed["close"]
     volume = df_closed["volume"]
@@ -42,38 +37,80 @@ def compute_signals(df: pd.DataFrame) -> dict:
     df_closed["atr"] = atr(df_closed, CFG.ATR_PERIOD)
     df_closed["volume_ma"] = volume.rolling(20).mean()
 
-    last = df_closed.iloc[-1]   # última CERRADA
+    last = df_closed.iloc[-1]
     prev = df_closed.iloc[-2]
 
-    # Trend
-    if last["ema_fast"] > last["ema_slow"]:
-        trend = "BULL"
-    elif last["ema_fast"] < last["ema_slow"]:
-        trend = "BEAR"
-    else:
-        trend = "NONE"
+    # ============================
+    # TREND + SLOPE FILTER
+    # ============================
 
-    # Pivots sobre velas cerradas
+    trend = "NONE"
+
+    ema_diff = last["ema_fast"] - last["ema_slow"]
+    slope = last["ema_fast"] - df_closed["ema_fast"].iloc[-3]
+
+    slope_pct = (slope / last["close"]) * 100 if last["close"] > 0 else 0
+    min_slope_pct = getattr(CFG, "MIN_EMA_SLOPE_PCT", 0.02)
+
+    if abs(slope_pct) < min_slope_pct:
+        trend = "NONE"
+    else:
+        if ema_diff > 0:
+            trend = "BULL"
+        elif ema_diff < 0:
+            trend = "BEAR"
+
+    # ============================
+    # PIVOTS
+    # ============================
+
     last_ph, last_pl = last_pivot_levels(df_closed, CFG.PIVOT_LEN)
 
-    # Volumen ratio correcto (vela cerrada / MA cerrada)
+    # ============================
+    # VOLUME
+    # ============================
+
     vol_ma = float(last["volume_ma"]) if float(last["volume_ma"]) > 0 else float(volume.mean())
     vol_ratio = float(last["volume"]) / vol_ma if vol_ma > 0 else 1.0
     vol_increasing = float(last["volume"]) > float(prev["volume"])
 
-    volume_confirmed = (vol_ratio >= CFG.VOLUME_MIN_RATIO) or vol_increasing
+    volume_confirmed = (vol_ratio >= CFG.VOLUME_MIN_RATIO) and vol_increasing
 
-    # Breakout confirmado al cierre
+    # ============================
+    # ATR FILTER (evita mercado muerto)
+    # ============================
+
+    atr_val = float(last["atr"])
+    atr_pct = (atr_val / last["close"]) * 100 if last["close"] > 0 else 0
+    min_atr_pct = getattr(CFG, "MIN_ATR_PCT", 0.20)
+
+    volatility_ok = atr_pct >= min_atr_pct
+
+    # ============================
+    # BREAKOUT
+    # ============================
+
     breakout_long = False
     breakout_short = False
 
-    if last_ph is not None and volume_confirmed:
-        breakout_long = (prev["close"] <= last_ph) and (last["close"] > last_ph)
+    if volatility_ok and volume_confirmed:
 
-    if last_pl is not None and volume_confirmed:
-        breakout_short = (prev["close"] >= last_pl) and (last["close"] < last_pl)
+        if trend == "BULL" and last_ph is not None:
+            breakout_long = (
+                prev["close"] <= last_ph and
+                last["close"] > last_ph
+            )
 
+        if trend == "BEAR" and last_pl is not None:
+            breakout_short = (
+                prev["close"] >= last_pl and
+                last["close"] < last_pl
+            )
+
+    # ============================
     # ADX
+    # ============================
+
     adx_val = float(last["adx"])
     adx_prev = float(prev["adx"])
     adx_increasing = adx_val > adx_prev
@@ -86,12 +123,11 @@ def compute_signals(df: pd.DataFrame) -> dict:
         "breakout_short": bool(breakout_short),
         "adx": adx_val,
         "adx_increasing": bool(adx_increasing),
-        "atr": float(last["atr"]),
+        "atr": atr_val,
         "vol_ratio": float(vol_ratio),
         "vol_increasing": bool(vol_increasing),
         "close": float(last["close"]),
     }
-
 
 
 def build_initial_sl(direction: str, df: pd.DataFrame, atr_val: float):

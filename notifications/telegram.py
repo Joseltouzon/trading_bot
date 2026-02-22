@@ -39,7 +39,7 @@ class Telegram:
     # POLL
     # ============================================================
 
-    def poll_once(self, st, exchange):
+    def poll_once(self, st, exchange, db):
         try:
             url = f"https://api.telegram.org/bot{self.token}/getUpdates"
             params = {"timeout": 0, "offset": self._last_update_id + 1}
@@ -60,7 +60,7 @@ class Telegram:
 
                 text = (msg.get("text") or "").strip()
                 if text:
-                    self._handle_command(st, text, exchange)
+                    self._handle_command(st, text, exchange, db)
 
         except Exception as e:
             self.log.warning(f"[TG poll] error: {e}")

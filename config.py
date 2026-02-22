@@ -15,8 +15,8 @@ KLINES_LIMIT = 500
 # =========================
 # STRATEGY
 # =========================
-EMA_FAST = 9  # 20
-EMA_SLOW = 21  #50
+EMA_FAST = 20  # 20
+EMA_SLOW = 50  #50
 
 ADX_PERIOD = 14
 ATR_PERIOD = 14

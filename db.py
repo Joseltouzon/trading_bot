@@ -50,8 +50,10 @@ class Database:
             """, (symbol, side, qty, entry_price, strategy_tag))
             return cur.fetchone()["id"]
 
-    def close_position(self, position_id, exit_price, realized_pnl):
+    def close_position(self, position_id, exit_price, realized_pnl, close_reason=None):
         with self.cursor() as cur:
+
+            # 1️⃣ actualizar posición
             cur.execute("""
                 UPDATE positions
                 SET status='CLOSED',
@@ -60,6 +62,29 @@ class Database:
                     closed_at=NOW()
                 WHERE id=%s;
             """, (exit_price, realized_pnl, position_id))
+
+            # 2️⃣ desactivar stops
+            cur.execute("""
+                UPDATE position_stops
+                SET is_active=FALSE,
+                    canceled_at=NOW()
+                WHERE position_id=%s
+                AND is_active=TRUE;
+            """, (position_id,))
+
+            # 3️⃣ evento histórico
+            cur.execute("""
+                INSERT INTO position_events (position_id, event_type, payload)
+                VALUES (%s,%s,%s);
+            """, (
+                position_id,
+                "CLOSED",
+                json.dumps({
+                    "exit_price": exit_price,
+                    "realized_pnl": realized_pnl,
+                    "reason": close_reason
+                })
+            ))
 
     # ==========================================================
     # STOPS (Trailing histórico)
@@ -193,6 +218,14 @@ class Database:
                 available_balance,
                 unrealized_pnl
             ))
+
+    def update_position_qty(self, position_id, new_qty):
+        with self.cursor() as cur:
+            cur.execute("""
+                UPDATE positions
+                SET qty=%s
+                WHERE id=%s
+            """, (new_qty, position_id))
 
     # ==========================================================
     # DASHBOARD
@@ -355,3 +388,34 @@ class Database:
             drawdown_curve.append(round(drawdown, 2))
 
         return drawdown_curve
+
+    # ==========================================================
+    # POSITIONS EVENTS
+    # ==========================================================
+
+    def create_position_event(self, position_id, event_type, payload=None):
+        with self.cursor() as cur:
+            cur.execute("""
+                INSERT INTO position_events (position_id, event_type, payload)
+                VALUES (%s,%s,%s);
+            """, (
+                position_id,
+                event_type,
+                json.dumps(payload) if payload else None
+            ))
+
+    def get_position_by_id(self, position_id):
+        with self.cursor() as cur:
+            cur.execute("""
+                SELECT *
+                FROM positions
+                WHERE id = %s
+                LIMIT 1;
+            """, (position_id,))
+
+            row = cur.fetchone()
+
+            if not row:
+                return None
+
+            return row        

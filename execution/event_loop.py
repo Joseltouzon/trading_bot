@@ -39,7 +39,7 @@ class EventLoop:
 
         except Exception as e:
             # Si no podemos calcular equity, mejor NO bloquear por esto.
-            self.log.warning(f"[DAILY LOSS] could not compute dd: {e}")
+            self.log.warning(f"[DAILY LOSS] could not compute dd: {e}") 
             return False
 
     def _max_positions_reached(self, st) -> bool:
@@ -101,6 +101,80 @@ class EventLoop:
             "until_ms": until_ms,
             "bars": bars
         }
+
+    def reconcile_filled_orders(self, st):
+        try:
+            exchange_positions = self.exchange.get_open_positions()
+            exchange_map = {
+                p["symbol"]: float(p["positionAmt"])
+                for p in exchange_positions
+            }
+
+            db_open = self.om.db.get_open_positions()
+
+            for pos in db_open:
+
+                symbol = pos["symbol"]
+                db_qty = float(pos["qty"])
+
+                ex_qty = abs(exchange_map.get(symbol, 0.0))
+
+                # ===============================
+                # POSICIÓN TOTALMENTE CERRADA
+                # ===============================
+                if ex_qty == 0.0:
+
+                    open_time_ms = int(pos["opened_at"].timestamp() * 1000)
+
+                    trade = self.exchange.get_position_history(
+                        symbol=symbol,
+                        open_time=open_time_ms
+                    )
+
+                    exit_price = None
+                    realized = None
+
+                    if trade:
+                        exit_price = trade.get("price")
+                        realized = trade.get("realizedPnl")
+
+                    self.om.db.close_position(
+                        position_id=pos["id"],
+                        exit_price=exit_price,
+                        realized_pnl=realized,
+                        close_reason="STOP_OR_MANUAL"
+                    )
+
+                    continue
+
+                # ===============================
+                # REDUCCIÓN PARCIAL
+                # ===============================
+                if ex_qty < db_qty:
+
+                    reduced = db_qty - ex_qty
+
+                    self.om.db.update_position_qty(
+                        position_id=pos["id"],
+                        new_qty=ex_qty
+                    )
+
+                    self.om.db.create_position_event(
+                        position_id=pos["id"],
+                        event_type="PARTIAL_CLOSE",
+                        payload={
+                            "reduced_qty": reduced,
+                            "remaining_qty": ex_qty
+                        }
+                    )
+
+                    self.log.info(
+                        f"[RECONCILE] {symbol} partial close detected "
+                        f"reduced={reduced:.6f} remaining={ex_qty:.6f}"
+                    )
+
+        except Exception as e:
+            self.log.warning(f"[RECONCILE] {e}")
 
     # ============================================================
     # SIGNAL BUILD
@@ -173,6 +247,7 @@ class EventLoop:
         Ejecuta un solo ciclo (modo REST/polling).
         Devuelve True si procesó algo (aunque no haya entrado).
         """
+        self.reconcile_filled_orders(st)
         # Pausa manual
         if st.paused:
             return False

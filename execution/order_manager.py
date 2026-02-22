@@ -20,59 +20,21 @@ class OrderManager:
         )
 
     # ============================================================
-    # STOP HELPERS
-    # ============================================================
-
-    def cancel_stop_if_exists(self, st, symbol: str):
-        prev = st.stop_orders.get(symbol)
-        if not prev:
-            return
-
-        order_id = prev.get("order_id")
-        if not order_id:
-            st.stop_orders.pop(symbol, None)
-            self.db.save_state(st.__dict__)
-            return
-
-        try:
-            self.exchange.cancel_order(symbol, int(order_id))
-        except Exception as e:
-            self.logger.warning(f"[STOP] could not cancel old stop {symbol}: {e}")
-
-        st.stop_orders.pop(symbol, None)
-        self.db.save_state(st.__dict__)
-
-    def place_stop(self, st, symbol: str, side: str, stop_price: float):
-        stop_price = float(stop_price)
-
-        try:
-            order = self.exchange.place_reduce_only_stop(
-                symbol=symbol,
-                side=side,
-                stop_price=stop_price
-            )
-
-            st.stop_orders[symbol] = {
-                "order_id": int(order.get("orderId")) if order and order.get("orderId") else None,
-                "stop_price": float(stop_price),
-                "side": side
-            }
-            self.db.save_state(st.__dict__)
-
-            return order
-
-        except Exception:
-            self.logger.exception(f"[STOP] failed placing stop {symbol}")
-            return False
-
-    # ============================================================
     # REPLACE STOP (Trailing Compatible + DB)
     # ============================================================
 
-    def replace_stop_order(self, st, symbol: str, side: str, qty: float, new_sl: float):
+    def replace_stop_order(self, st, symbol: str, position_side: str, qty: float, new_sl: float):
+        # Convertir dirección de posición a lado de orden
+        if position_side == "LONG":
+            order_side = "SELL"   # stop para cerrar long
+        elif position_side == "SHORT":
+            order_side = "BUY"    # stop para cerrar short
+        else:
+            self.logger.error(f"{symbol} invalid position_side={position_side}")
+            return False
 
         try:
-            existing = st.stop_orders.get(symbol)
+            existing = st.stop_orders.get(symbol) 
 
             # 1️⃣ Cancelar stop anterior si existe
             if existing:
@@ -89,10 +51,11 @@ class OrderManager:
                     except Exception as e:
                         self.logger.warning(f"{symbol} stop cancel warning: {e}")
 
-            # 2️⃣ Crear nuevo STOP_MARKET (closePosition=True)
+            # 2️⃣ Crear nuevo STOP_MARKET (closePosition=False)
             stop_order = self.exchange.place_reduce_only_stop(
                 symbol=symbol,
-                side=side,
+                side=order_side,
+                quantity=qty,
                 stop_price=new_sl
             )
 
@@ -131,7 +94,7 @@ class OrderManager:
                 self.db.create_order(
                     position_id=position_id,
                     symbol=symbol,
-                    side=side,
+                    side=order_side,
                     order_type="STOP_MARKET",
                     is_reduce_only=True,
                     is_close_position=True,
