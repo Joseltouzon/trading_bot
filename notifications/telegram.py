@@ -6,6 +6,7 @@ from typing import Optional
 
 import config as CFG
 from core.utils import clamp
+from core.control import pause_bot, resume_bot, close_all_positions, panic_mode
 
 
 class Telegram:
@@ -68,7 +69,7 @@ class Telegram:
     # COMMAND HANDLER
     # ============================================================
 
-    def _handle_command(self, st, text: str, exchange):
+    def _handle_command(self, st, text: str, exchange, db):
 
         parts = text.split()
         cmd = parts[0].lower()
@@ -98,14 +99,12 @@ class Telegram:
         # ========================================================
 
         if cmd == "/pause":
-            st.paused = True
-            self.db.save_state(st.__dict__)
+            pause_bot(st, self.db)
             self.send("⏸ <b>Bot pausado</b>")
             return
 
         if cmd == "/resume":
-            st.paused = False
-            self.db.save_state(st.__dict__)
+            resume_bot(st, self.db)
             self.send("▶️ <b>Bot reanudado</b>")
             return
 
@@ -305,30 +304,13 @@ class Telegram:
                 self.send("No hay posiciones abiertas.")
                 return
 
-            closed = 0
-            failed = []
-
             if len(parts) < 2 or parts[1].lower() != "confirm":
                 self.send("⚠️ Para confirmar usa:\n/close_all confirm")
                 return
 
-            for p in pos:
-                try:
-                    exchange.close_position(p["symbol"])
-                    closed += 1
-                except Exception as e:
-                    failed.append(p["symbol"])
+            n = close_all_positions(exchange)
+            self.send(f"🚨 Cerradas: {n}")
 
-            msg = (
-                f"🚨 <b>Close All ejecutado</b>\n\n"
-                f"Cerradas: {closed}\n"
-                f"Fallidas: {len(failed)}"
-            )
-
-            if failed:
-                msg += "\nErrores: " + ", ".join(failed)
-
-            self.send(msg)
             return
 
         if cmd == "/close" and len(parts) >= 2:
@@ -402,4 +384,11 @@ class Telegram:
             CFG.TRAILING_ACTIVATION_PCT = val
             self.send(f"Trailing activation: {val}%")
             return
- 
+
+        # ========================================================
+        # PANIC ATTACK
+        # ======================================================== 
+
+        if cmd == "/panic":
+            panic_mode(st, exchange, self.db, self)
+            return

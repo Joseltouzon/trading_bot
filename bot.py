@@ -20,7 +20,8 @@ from execution.signal_bus import SignalBus
 from execution.order_manager import OrderManager
 from execution.trailing import TrailingManager
 from execution.event_loop import EventLoop
-from strategy.signal_engine import SignalEngine  
+from strategy.signal_engine import SignalEngine
+from core.risk_monitor import RiskMonitor  
 
 
 def validate_config():
@@ -103,6 +104,7 @@ def main():
     om = OrderManager(exchange, log, db, telegram.send)
     trailing = TrailingManager(exchange, market, om, db, telegram.send, log)
     event_loop = EventLoop(bus, market, exchange, om, log)
+    risk_monitor = RiskMonitor(st, exchange, telegram, log)
 
     # ✅ NUEVO: Motor de señales desacoplado de WS
     signal_engine = SignalEngine(market, bus, log)
@@ -143,6 +145,9 @@ def main():
             # 5) Telegram polling (si existe)
             if hasattr(telegram, "poll_once"):
                 telegram.poll_once(st, exchange)
+
+            # 6) Control de Riesgo
+            risk_monitor.check()    
 
             time.sleep(CFG.LOOP_SLEEP_SECONDS)
 

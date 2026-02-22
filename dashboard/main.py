@@ -66,3 +66,4 @@ def update_settings(
     state["max_positions"] = max_positions
     db.save_state(state)
     return RedirectResponse("/", status_code=303)
+    

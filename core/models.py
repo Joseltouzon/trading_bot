@@ -21,6 +21,7 @@ class BotState:
     trail: Dict[str, dict] = field(default_factory=dict)
     cooldown: Dict[str, dict] = field(default_factory=dict)
     stop_orders: Dict[str, dict] = field(default_factory=dict)
+    position_ids: Dict[str, dict] = field(default_factory=dict)
 
     day_key: Optional[str] = None
     day_start_equity: float = 0.0
