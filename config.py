@@ -30,11 +30,11 @@ VOLUME_MIN_RATIO = 1.20  # 1.2
 # =========================
 # EXECUTION / RISK
 # =========================
-DEFAULT_RISK_PCT = 1.0  # 1.0
+DEFAULT_RISK_PCT = 1.5  # 1.0 es conservador cuando llegemos a 1000 vemos de cambiar
 MAX_RISK_PCT_ALLOWED = 10.0
 MIN_NOTIONAL_USDT = 20
 
-DEFAULT_LEVERAGE = 5
+DEFAULT_LEVERAGE = 5   # x5
 MAX_OPEN_POSITIONS = 2
 
 MARGIN_TYPE = "ISOLATED"

@@ -186,34 +186,44 @@ class EventLoop:
     def _build_signal_dict(self, ev, st):
         """
         Convierte SignalEvent -> dict esperado por OrderManager.execute()
-
-        OrderManager.execute espera:
-        {
-            "symbol": str,
-            "side": "LONG" | "SHORT",
-            "price": float,
-            "qty": float,
-            "atr": float,
-            "bar_close_ms": int,
-            "initial_sl": float | None
-        }
         """
+
         sym = ev.symbol
         side = ev.direction
         sig = ev.signal
 
         price = float(sig.get("close", 0.0))
         atr = float(sig.get("atr", 0.0))
+
         if price <= 0 or atr <= 0:
             return None
 
-        # Qty por riesgo (mantengo tu lógica actual)
+        # ==========================
+        # RISK MANAGEMENT
+        # ==========================
+
         equity = float(self.exchange.get_equity())
-        risk_usdt = equity * (float(st.risk_pct) / 100.0)
+
+        max_positions = int(getattr(CFG, "MAX_OPEN_POSITIONS", 1))
+        base_risk_pct = float(getattr(CFG, "DEFAULT_RISK_PCT", 1.0))
+
+        # Dividimos el riesgo total permitido entre los slots máximos
+        risk_pct_per_trade = base_risk_pct / max_positions
+
+        risk_usdt = equity * (risk_pct_per_trade / 100.0)
+
+        # ==========================
+        # STOP DIST 
+        # ==========================
 
         stop_dist = max(atr * 0.5, price * 0.001)
+
         qty = risk_usdt / stop_dist
         qty = max(qty, 0.001)
+
+        # ==========================
+        # INITIAL SL 
+        # ==========================
 
         sl_mult = float(getattr(CFG, "INITIAL_SL_ATR_MULT", 2.0))
         min_sl_pct = float(getattr(CFG, "MIN_INITIAL_SL_PCT", 0.3))
@@ -326,16 +336,3 @@ class EventLoop:
             self._set_cooldown(st, symbol, bar_close_ms)
 
         return True
-
-    def loop(self, st):
-        """
-        Loop continuo (si quisieras modo thread).
-        """
-        while True:
-            try:
-                did = self.loop_once(st)
-                if not did:
-                    time.sleep(0.05)
-            except Exception:
-                self.log.exception("[EventLoop] critical error")
-                time.sleep(0.5)

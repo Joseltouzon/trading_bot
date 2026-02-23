@@ -7060,3 +7060,771 @@ binance.exceptions.BinanceAPIException: APIError(code=-2019): Margin is insuffic
 2026-02-23 14:50:27 | INFO | MainThread | BNBUSDT | trend=BEAR | breakL=False | breakS=False | adx=38.66 | adx_ok=True | rising_ok=True | vol_ratio=0.67 | vol_up=False
 2026-02-23 14:50:27 | INFO | MainThread | LINKUSDT | trend=BEAR | breakL=False | breakS=False | adx=32.63 | adx_ok=True | rising_ok=True | vol_ratio=0.65 | vol_up=False
 2026-02-23 14:50:27 | INFO | MainThread | DOGEUSDT | trend=BEAR | breakL=False | breakS=False | adx=35.78 | adx_ok=True | rising_ok=True | vol_ratio=0.46 | vol_up=False
+2026-02-23 14:59:52 | INFO | MainThread | [CACHE INIT] POLUSDT loaded 500 candles
+2026-02-23 14:59:53 | INFO | MainThread | [CACHE INIT] SOLUSDT loaded 500 candles
+2026-02-23 14:59:53 | INFO | MainThread | [CACHE INIT] XRPUSDT loaded 500 candles
+2026-02-23 14:59:54 | INFO | MainThread | [CACHE INIT] BNBUSDT loaded 500 candles
+2026-02-23 14:59:55 | INFO | MainThread | [CACHE INIT] LINKUSDT loaded 500 candles
+2026-02-23 14:59:56 | INFO | MainThread | [CACHE INIT] DOGEUSDT loaded 500 candles
+2026-02-23 14:59:56 | INFO | MainThread | [CACHE INIT] ADAUSDT loaded 500 candles
+2026-02-23 14:59:57 | INFO | MainThread | [CACHE INIT] DOTUSDT loaded 500 candles
+2026-02-23 15:00:04 | INFO | MainThread | POLUSDT | trend=BEAR | breakL=False | breakS=False | adx=25.95 | adx_ok=True | rising_ok=True | vol_ratio=0.86 | vol_up=True
+2026-02-23 15:00:04 | INFO | MainThread | SOLUSDT | trend=BEAR | breakL=False | breakS=False | adx=39.90 | adx_ok=True | rising_ok=True | vol_ratio=1.94 | vol_up=True
+2026-02-23 15:00:05 | INFO | MainThread | XRPUSDT | trend=BEAR | breakL=False | breakS=False | adx=35.13 | adx_ok=True | rising_ok=True | vol_ratio=1.07 | vol_up=True
+2026-02-23 15:00:05 | INFO | MainThread | BNBUSDT | trend=BEAR | breakL=False | breakS=False | adx=41.02 | adx_ok=True | rising_ok=True | vol_ratio=1.83 | vol_up=True
+2026-02-23 15:00:05 | INFO | MainThread | LINKUSDT | trend=BEAR | breakL=False | breakS=False | adx=34.30 | adx_ok=True | rising_ok=True | vol_ratio=1.21 | vol_up=True
+2026-02-23 15:00:05 | INFO | MainThread | DOGEUSDT | trend=BEAR | breakL=False | breakS=False | adx=37.79 | adx_ok=True | rising_ok=True | vol_ratio=1.42 | vol_up=True
+2026-02-23 15:00:05 | INFO | MainThread | ADAUSDT | trend=BEAR | breakL=False | breakS=False | adx=41.59 | adx_ok=True | rising_ok=True | vol_ratio=2.24 | vol_up=True
+2026-02-23 15:00:05 | INFO | MainThread | DOTUSDT | trend=BEAR | breakL=False | breakS=False | adx=38.33 | adx_ok=True | rising_ok=True | vol_ratio=1.27 | vol_up=True
+2026-02-23 15:05:09 | INFO | MainThread | [CACHE] New closed candle POLUSDT close_time=1771869899999
+2026-02-23 15:05:10 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1771869899999
+2026-02-23 15:05:12 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1771869899999
+2026-02-23 15:05:13 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1771869899999
+2026-02-23 15:05:14 | INFO | MainThread | [CACHE] New closed candle LINKUSDT close_time=1771869899999
+2026-02-23 15:05:15 | INFO | MainThread | [CACHE] New closed candle DOGEUSDT close_time=1771869899999
+2026-02-23 15:05:16 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1771869899999
+2026-02-23 15:05:17 | INFO | MainThread | [CACHE] New closed candle DOTUSDT close_time=1771869899999
+2026-02-23 15:05:18 | INFO | MainThread | POLUSDT | trend=BEAR | breakL=False | breakS=False | adx=24.56 | adx_ok=True | rising_ok=False | vol_ratio=0.83 | vol_up=False
+2026-02-23 15:05:18 | INFO | MainThread | SOLUSDT | trend=NONE | breakL=False | breakS=False | adx=38.69 | adx_ok=True | rising_ok=False | vol_ratio=1.49 | vol_up=False
+2026-02-23 15:05:18 | INFO | MainThread | XRPUSDT | trend=BEAR | breakL=False | breakS=False | adx=32.86 | adx_ok=True | rising_ok=False | vol_ratio=2.16 | vol_up=True
+2026-02-23 15:05:18 | INFO | MainThread | BNBUSDT | trend=NONE | breakL=False | breakS=False | adx=40.88 | adx_ok=True | rising_ok=False | vol_ratio=1.12 | vol_up=False
+2026-02-23 15:05:18 | INFO | MainThread | LINKUSDT | trend=BEAR | breakL=False | breakS=False | adx=32.95 | adx_ok=True | rising_ok=False | vol_ratio=1.74 | vol_up=True
+2026-02-23 15:05:18 | INFO | MainThread | DOGEUSDT | trend=NONE | breakL=False | breakS=False | adx=37.56 | adx_ok=True | rising_ok=False | vol_ratio=2.75 | vol_up=True
+2026-02-23 15:05:18 | INFO | MainThread | ADAUSDT | trend=NONE | breakL=False | breakS=False | adx=40.36 | adx_ok=True | rising_ok=False | vol_ratio=1.94 | vol_up=False
+2026-02-23 15:05:18 | INFO | MainThread | DOTUSDT | trend=BEAR | breakL=False | breakS=False | adx=35.51 | adx_ok=True | rising_ok=False | vol_ratio=1.50 | vol_up=True
+2026-02-23 15:10:12 | INFO | MainThread | [CACHE] New closed candle POLUSDT close_time=1771870199999
+2026-02-23 15:10:13 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1771870199999
+2026-02-23 15:10:14 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1771870199999
+2026-02-23 15:10:16 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1771870199999
+2026-02-23 15:10:17 | INFO | MainThread | [CACHE] New closed candle LINKUSDT close_time=1771870199999
+2026-02-23 15:10:18 | INFO | MainThread | [CACHE] New closed candle DOGEUSDT close_time=1771870199999
+2026-02-23 15:10:19 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1771870199999
+2026-02-23 15:10:20 | INFO | MainThread | [CACHE] New closed candle DOTUSDT close_time=1771870199999
+2026-02-23 15:10:21 | INFO | MainThread | POLUSDT | trend=NONE | breakL=False | breakS=False | adx=23.59 | adx_ok=True | rising_ok=False | vol_ratio=0.61 | vol_up=False
+2026-02-23 15:10:21 | INFO | MainThread | SOLUSDT | trend=NONE | breakL=False | breakS=False | adx=37.55 | adx_ok=True | rising_ok=False | vol_ratio=0.71 | vol_up=False
+2026-02-23 15:10:21 | INFO | MainThread | XRPUSDT | trend=BEAR | breakL=False | breakS=False | adx=30.89 | adx_ok=True | rising_ok=False | vol_ratio=0.79 | vol_up=False
+2026-02-23 15:10:21 | INFO | MainThread | BNBUSDT | trend=NONE | breakL=False | breakS=False | adx=40.31 | adx_ok=True | rising_ok=False | vol_ratio=0.76 | vol_up=False
+2026-02-23 15:10:21 | INFO | MainThread | LINKUSDT | trend=BEAR | breakL=False | breakS=False | adx=31.78 | adx_ok=True | rising_ok=False | vol_ratio=1.08 | vol_up=False
+2026-02-23 15:10:21 | INFO | MainThread | DOGEUSDT | trend=BEAR | breakL=False | breakS=False | adx=36.49 | adx_ok=True | rising_ok=False | vol_ratio=0.85 | vol_up=False
+2026-02-23 15:10:21 | INFO | MainThread | ADAUSDT | trend=BEAR | breakL=False | breakS=False | adx=38.85 | adx_ok=True | rising_ok=False | vol_ratio=0.93 | vol_up=False
+2026-02-23 15:10:21 | INFO | MainThread | DOTUSDT | trend=BEAR | breakL=False | breakS=False | adx=33.32 | adx_ok=True | rising_ok=False | vol_ratio=0.64 | vol_up=False
+2026-02-23 15:15:07 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1771870499999
+2026-02-23 15:15:09 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1771870499999
+2026-02-23 15:15:10 | INFO | MainThread | [CACHE] New closed candle LINKUSDT close_time=1771870499999
+2026-02-23 15:15:11 | INFO | MainThread | [CACHE] New closed candle DOGEUSDT close_time=1771870499999
+2026-02-23 15:15:12 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1771870499999
+2026-02-23 15:15:13 | INFO | MainThread | [CACHE] New closed candle DOTUSDT close_time=1771870499999
+2026-02-23 15:15:14 | INFO | MainThread | XRPUSDT | trend=BEAR | breakL=False | breakS=False | adx=29.07 | adx_ok=True | rising_ok=False | vol_ratio=0.56 | vol_up=False
+2026-02-23 15:15:14 | INFO | MainThread | BNBUSDT | trend=NONE | breakL=False | breakS=False | adx=39.79 | adx_ok=True | rising_ok=False | vol_ratio=0.71 | vol_up=False
+2026-02-23 15:15:14 | INFO | MainThread | LINKUSDT | trend=BEAR | breakL=False | breakS=False | adx=30.69 | adx_ok=True | rising_ok=False | vol_ratio=0.42 | vol_up=False
+2026-02-23 15:15:14 | INFO | MainThread | DOGEUSDT | trend=BEAR | breakL=False | breakS=False | adx=35.49 | adx_ok=True | rising_ok=False | vol_ratio=0.52 | vol_up=False
+2026-02-23 15:15:14 | INFO | MainThread | ADAUSDT | trend=BEAR | breakL=False | breakS=False | adx=37.45 | adx_ok=True | rising_ok=False | vol_ratio=0.50 | vol_up=False
+2026-02-23 15:15:14 | INFO | MainThread | DOTUSDT | trend=BEAR | breakL=False | breakS=False | adx=31.29 | adx_ok=True | rising_ok=False | vol_ratio=0.84 | vol_up=True
+2026-02-23 15:15:29 | INFO | MainThread | [CACHE] New closed candle POLUSDT close_time=1771870499999
+2026-02-23 15:15:30 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1771870499999
+2026-02-23 15:15:35 | INFO | MainThread | POLUSDT | trend=BEAR | breakL=False | breakS=False | adx=22.59 | adx_ok=True | rising_ok=False | vol_ratio=0.60 | vol_up=False
+2026-02-23 15:15:35 | INFO | MainThread | SOLUSDT | trend=NONE | breakL=False | breakS=False | adx=36.49 | adx_ok=True | rising_ok=False | vol_ratio=0.59 | vol_up=False
+2026-02-23 15:20:11 | INFO | MainThread | [CACHE] New closed candle POLUSDT close_time=1771870799999
+2026-02-23 15:20:12 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1771870799999
+2026-02-23 15:20:13 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1771870799999
+2026-02-23 15:20:15 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1771870799999
+2026-02-23 15:20:16 | INFO | MainThread | [CACHE] New closed candle LINKUSDT close_time=1771870799999
+2026-02-23 15:20:17 | INFO | MainThread | [CACHE] New closed candle DOGEUSDT close_time=1771870799999
+2026-02-23 15:20:18 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1771870799999
+2026-02-23 15:20:19 | INFO | MainThread | [CACHE] New closed candle DOTUSDT close_time=1771870799999
+2026-02-23 15:20:20 | INFO | MainThread | POLUSDT | trend=BEAR | breakL=False | breakS=False | adx=21.98 | adx_ok=True | rising_ok=False | vol_ratio=0.92 | vol_up=True
+2026-02-23 15:20:20 | INFO | MainThread | SOLUSDT | trend=BEAR | breakL=False | breakS=False | adx=35.85 | adx_ok=True | rising_ok=False | vol_ratio=0.98 | vol_up=True
+2026-02-23 15:20:20 | INFO | MainThread | XRPUSDT | trend=BEAR | breakL=False | breakS=False | adx=28.03 | adx_ok=True | rising_ok=False | vol_ratio=0.84 | vol_up=True
+2026-02-23 15:20:20 | INFO | MainThread | BNBUSDT | trend=BEAR | breakL=False | breakS=False | adx=39.81 | adx_ok=True | rising_ok=True | vol_ratio=0.73 | vol_up=True
+2026-02-23 15:20:20 | INFO | MainThread | LINKUSDT | trend=BEAR | breakL=False | breakS=False | adx=30.25 | adx_ok=True | rising_ok=False | vol_ratio=0.57 | vol_up=True
+2026-02-23 15:20:20 | INFO | MainThread | DOGEUSDT | trend=BEAR | breakL=False | breakS=False | adx=35.15 | adx_ok=True | rising_ok=False | vol_ratio=0.53 | vol_up=False
+2026-02-23 15:20:20 | INFO | MainThread | ADAUSDT | trend=NONE | breakL=False | breakS=False | adx=36.50 | adx_ok=True | rising_ok=False | vol_ratio=0.51 | vol_up=True
+2026-02-23 15:20:20 | INFO | MainThread | DOTUSDT | trend=BEAR | breakL=False | breakS=False | adx=29.94 | adx_ok=True | rising_ok=False | vol_ratio=1.06 | vol_up=True
+2026-02-23 15:25:14 | INFO | MainThread | [CACHE] New closed candle POLUSDT close_time=1771871099999
+2026-02-23 15:25:15 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1771871099999
+2026-02-23 15:25:16 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1771871099999
+2026-02-23 15:25:17 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1771871099999
+2026-02-23 15:25:19 | INFO | MainThread | [CACHE] New closed candle LINKUSDT close_time=1771871099999
+2026-02-23 15:25:20 | INFO | MainThread | [CACHE] New closed candle DOGEUSDT close_time=1771871099999
+2026-02-23 15:25:21 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1771871099999
+2026-02-23 15:25:22 | INFO | MainThread | [CACHE] New closed candle DOTUSDT close_time=1771871099999
+2026-02-23 15:25:22 | INFO | MainThread | POLUSDT | trend=BEAR | breakL=False | breakS=False | adx=20.85 | adx_ok=True | rising_ok=False | vol_ratio=0.52 | vol_up=False
+2026-02-23 15:25:22 | INFO | MainThread | SOLUSDT | trend=NONE | breakL=False | breakS=False | adx=35.02 | adx_ok=True | rising_ok=False | vol_ratio=0.80 | vol_up=False
+2026-02-23 15:25:22 | INFO | MainThread | XRPUSDT | trend=BEAR | breakL=False | breakS=False | adx=26.79 | adx_ok=True | rising_ok=False | vol_ratio=0.42 | vol_up=False
+2026-02-23 15:25:22 | INFO | MainThread | BNBUSDT | trend=BEAR | breakL=False | breakS=False | adx=39.52 | adx_ok=True | rising_ok=False | vol_ratio=0.64 | vol_up=False
+2026-02-23 15:25:22 | INFO | MainThread | LINKUSDT | trend=BEAR | breakL=False | breakS=False | adx=29.90 | adx_ok=True | rising_ok=False | vol_ratio=0.69 | vol_up=True
+2026-02-23 15:25:22 | INFO | MainThread | DOGEUSDT | trend=BEAR | breakL=False | breakS=False | adx=34.98 | adx_ok=True | rising_ok=False | vol_ratio=0.86 | vol_up=True
+2026-02-23 15:25:22 | INFO | MainThread | ADAUSDT | trend=NONE | breakL=False | breakS=False | adx=35.28 | adx_ok=True | rising_ok=False | vol_ratio=0.43 | vol_up=False
+2026-02-23 15:25:23 | INFO | MainThread | DOTUSDT | trend=BEAR | breakL=False | breakS=False | adx=28.26 | adx_ok=True | rising_ok=False | vol_ratio=0.61 | vol_up=False
+2026-02-23 15:30:04 | INFO | MainThread | [CACHE] New closed candle DOGEUSDT close_time=1771871399999
+2026-02-23 15:30:21 | INFO | MainThread | [CACHE] New closed candle POLUSDT close_time=1771871399999
+2026-02-23 15:30:22 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1771871399999
+2026-02-23 15:30:23 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1771871399999
+2026-02-23 15:30:24 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1771871399999
+2026-02-23 15:30:25 | INFO | MainThread | [CACHE] New closed candle LINKUSDT close_time=1771871399999
+2026-02-23 15:30:27 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1771871399999
+2026-02-23 15:30:28 | INFO | MainThread | [CACHE] New closed candle DOTUSDT close_time=1771871399999
+2026-02-23 15:30:29 | INFO | MainThread | POLUSDT | trend=NONE | breakL=False | breakS=False | adx=19.59 | adx_ok=True | rising_ok=False | vol_ratio=0.44 | vol_up=False
+2026-02-23 15:30:29 | INFO | MainThread | SOLUSDT | trend=BEAR | breakL=False | breakS=False | adx=34.04 | adx_ok=True | rising_ok=False | vol_ratio=0.40 | vol_up=False
+2026-02-23 15:30:29 | INFO | MainThread | XRPUSDT | trend=BEAR | breakL=False | breakS=False | adx=25.51 | adx_ok=True | rising_ok=False | vol_ratio=0.58 | vol_up=True
+2026-02-23 15:30:29 | INFO | MainThread | BNBUSDT | trend=NONE | breakL=False | breakS=False | adx=39.26 | adx_ok=True | rising_ok=False | vol_ratio=0.33 | vol_up=False
+2026-02-23 15:30:29 | INFO | MainThread | LINKUSDT | trend=NONE | breakL=False | breakS=False | adx=29.54 | adx_ok=True | rising_ok=False | vol_ratio=0.28 | vol_up=False
+2026-02-23 15:30:29 | INFO | MainThread | ADAUSDT | trend=BEAR | breakL=False | breakS=False | adx=34.15 | adx_ok=True | rising_ok=False | vol_ratio=1.37 | vol_up=True
+2026-02-23 15:30:29 | INFO | MainThread | DOTUSDT | trend=BEAR | breakL=False | breakS=False | adx=26.70 | adx_ok=True | rising_ok=False | vol_ratio=0.45 | vol_up=False
+2026-02-23 15:35:11 | INFO | MainThread | [CACHE] New closed candle POLUSDT close_time=1771871699999
+2026-02-23 15:35:12 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1771871699999
+2026-02-23 15:35:13 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1771871699999
+2026-02-23 15:35:14 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1771871699999
+2026-02-23 15:35:15 | INFO | MainThread | [CACHE] New closed candle LINKUSDT close_time=1771871699999
+2026-02-23 15:35:16 | INFO | MainThread | [CACHE] New closed candle DOGEUSDT close_time=1771871699999
+2026-02-23 15:35:18 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1771871699999
+2026-02-23 15:35:19 | INFO | MainThread | [CACHE] New closed candle DOTUSDT close_time=1771871699999
+2026-02-23 15:35:19 | INFO | MainThread | POLUSDT | trend=BEAR | breakL=False | breakS=False | adx=18.76 | adx_ok=True | rising_ok=False | vol_ratio=0.45 | vol_up=False
+2026-02-23 15:35:19 | INFO | MainThread | SOLUSDT | trend=BEAR | breakL=False | breakS=False | adx=31.93 | adx_ok=True | rising_ok=False | vol_ratio=0.87 | vol_up=True
+2026-02-23 15:35:19 | INFO | MainThread | XRPUSDT | trend=BEAR | breakL=False | breakS=False | adx=24.10 | adx_ok=True | rising_ok=False | vol_ratio=0.65 | vol_up=True
+2026-02-23 15:35:19 | INFO | MainThread | BNBUSDT | trend=NONE | breakL=False | breakS=False | adx=38.40 | adx_ok=True | rising_ok=False | vol_ratio=0.42 | vol_up=True
+2026-02-23 15:35:19 | INFO | MainThread | LINKUSDT | trend=BEAR | breakL=False | breakS=False | adx=28.57 | adx_ok=True | rising_ok=False | vol_ratio=0.34 | vol_up=True
+2026-02-23 15:35:19 | INFO | MainThread | DOGEUSDT | trend=BEAR | breakL=False | breakS=False | adx=34.12 | adx_ok=True | rising_ok=False | vol_ratio=0.36 | vol_up=False
+2026-02-23 15:35:19 | INFO | MainThread | ADAUSDT | trend=BEAR | breakL=False | breakS=False | adx=33.26 | adx_ok=True | rising_ok=False | vol_ratio=0.34 | vol_up=False
+2026-02-23 15:35:19 | INFO | MainThread | DOTUSDT | trend=BEAR | breakL=False | breakS=False | adx=25.45 | adx_ok=True | rising_ok=False | vol_ratio=1.39 | vol_up=True
+2026-02-23 15:40:06 | INFO | MainThread | [CACHE] New closed candle POLUSDT close_time=1771871999999
+2026-02-23 15:40:07 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1771871999999
+2026-02-23 15:40:08 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1771871999999
+2026-02-23 15:40:09 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1771871999999
+2026-02-23 15:40:11 | INFO | MainThread | [CACHE] New closed candle LINKUSDT close_time=1771871999999
+2026-02-23 15:40:12 | INFO | MainThread | [CACHE] New closed candle DOGEUSDT close_time=1771871999999
+2026-02-23 15:40:13 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1771871999999
+2026-02-23 15:40:14 | INFO | MainThread | [CACHE] New closed candle DOTUSDT close_time=1771871999999
+2026-02-23 15:40:14 | INFO | MainThread | POLUSDT | trend=NONE | breakL=False | breakS=False | adx=17.66 | adx_ok=False | rising_ok=False | vol_ratio=0.56 | vol_up=True
+2026-02-23 15:40:14 | INFO | MainThread | SOLUSDT | trend=BEAR | breakL=False | breakS=False | adx=30.53 | adx_ok=True | rising_ok=False | vol_ratio=1.47 | vol_up=True
+2026-02-23 15:40:14 | INFO | MainThread | XRPUSDT | trend=BEAR | breakL=False | breakS=False | adx=23.14 | adx_ok=True | rising_ok=False | vol_ratio=1.03 | vol_up=True
+2026-02-23 15:40:14 | INFO | MainThread | BNBUSDT | trend=BEAR | breakL=False | breakS=False | adx=35.99 | adx_ok=True | rising_ok=False | vol_ratio=1.47 | vol_up=True
+2026-02-23 15:40:14 | INFO | MainThread | LINKUSDT | trend=BEAR | breakL=False | breakS=False | adx=26.66 | adx_ok=True | rising_ok=False | vol_ratio=0.89 | vol_up=True
+2026-02-23 15:40:14 | INFO | MainThread | DOGEUSDT | trend=BEAR | breakL=False | breakS=False | adx=32.45 | adx_ok=True | rising_ok=False | vol_ratio=0.67 | vol_up=True
+2026-02-23 15:40:14 | INFO | MainThread | ADAUSDT | trend=BEAR | breakL=False | breakS=False | adx=31.01 | adx_ok=True | rising_ok=False | vol_ratio=0.85 | vol_up=True
+2026-02-23 15:40:15 | INFO | MainThread | DOTUSDT | trend=BEAR | breakL=False | breakS=False | adx=24.43 | adx_ok=True | rising_ok=False | vol_ratio=0.67 | vol_up=False
+2026-02-23 15:45:10 | INFO | MainThread | [CACHE] New closed candle POLUSDT close_time=1771872299999
+2026-02-23 15:45:11 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1771872299999
+2026-02-23 15:45:12 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1771872299999
+2026-02-23 15:45:13 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1771872299999
+2026-02-23 15:45:14 | INFO | MainThread | [CACHE] New closed candle LINKUSDT close_time=1771872299999
+2026-02-23 15:45:15 | INFO | MainThread | [CACHE] New closed candle DOGEUSDT close_time=1771872299999
+2026-02-23 15:45:17 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1771872299999
+2026-02-23 15:45:18 | INFO | MainThread | [CACHE] New closed candle DOTUSDT close_time=1771872299999
+2026-02-23 15:45:18 | INFO | MainThread | POLUSDT | trend=NONE | breakL=False | breakS=False | adx=16.65 | adx_ok=False | rising_ok=False | vol_ratio=0.48 | vol_up=False
+2026-02-23 15:45:18 | INFO | MainThread | SOLUSDT | trend=BEAR | breakL=False | breakS=False | adx=29.23 | adx_ok=True | rising_ok=False | vol_ratio=0.51 | vol_up=False
+2026-02-23 15:45:18 | INFO | MainThread | XRPUSDT | trend=BEAR | breakL=False | breakS=False | adx=22.24 | adx_ok=True | rising_ok=False | vol_ratio=0.41 | vol_up=False
+2026-02-23 15:45:18 | INFO | MainThread | BNBUSDT | trend=BEAR | breakL=False | breakS=False | adx=33.75 | adx_ok=True | rising_ok=False | vol_ratio=0.70 | vol_up=False
+2026-02-23 15:45:18 | INFO | MainThread | LINKUSDT | trend=BEAR | breakL=False | breakS=False | adx=24.88 | adx_ok=True | rising_ok=False | vol_ratio=0.47 | vol_up=False
+2026-02-23 15:45:18 | INFO | MainThread | DOGEUSDT | trend=BEAR | breakL=False | breakS=False | adx=30.90 | adx_ok=True | rising_ok=False | vol_ratio=0.24 | vol_up=False
+2026-02-23 15:45:18 | INFO | MainThread | ADAUSDT | trend=BEAR | breakL=False | breakS=False | adx=28.92 | adx_ok=True | rising_ok=False | vol_ratio=0.30 | vol_up=False
+2026-02-23 15:45:18 | INFO | MainThread | DOTUSDT | trend=BEAR | breakL=False | breakS=False | adx=23.49 | adx_ok=True | rising_ok=False | vol_ratio=0.37 | vol_up=False
+2026-02-23 15:50:17 | INFO | MainThread | [CACHE] New closed candle POLUSDT close_time=1771872599999
+2026-02-23 15:50:19 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1771872599999
+2026-02-23 15:50:20 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1771872599999
+2026-02-23 15:50:21 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1771872599999
+2026-02-23 15:50:22 | INFO | MainThread | [CACHE] New closed candle LINKUSDT close_time=1771872599999
+2026-02-23 15:50:23 | INFO | MainThread | [CACHE] New closed candle DOGEUSDT close_time=1771872599999
+2026-02-23 15:50:24 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1771872599999
+2026-02-23 15:50:25 | INFO | MainThread | [CACHE] New closed candle DOTUSDT close_time=1771872599999
+2026-02-23 15:50:26 | INFO | MainThread | POLUSDT | trend=BEAR | breakL=False | breakS=False | adx=15.73 | adx_ok=False | rising_ok=False | vol_ratio=0.37 | vol_up=False
+2026-02-23 15:50:26 | INFO | MainThread | SOLUSDT | trend=BEAR | breakL=False | breakS=False | adx=27.33 | adx_ok=True | rising_ok=False | vol_ratio=0.45 | vol_up=False
+2026-02-23 15:50:26 | INFO | MainThread | XRPUSDT | trend=BEAR | breakL=False | breakS=False | adx=20.75 | adx_ok=True | rising_ok=False | vol_ratio=0.24 | vol_up=False
+2026-02-23 15:50:26 | INFO | MainThread | BNBUSDT | trend=BEAR | breakL=False | breakS=False | adx=32.27 | adx_ok=True | rising_ok=False | vol_ratio=0.47 | vol_up=False
+2026-02-23 15:50:26 | INFO | MainThread | LINKUSDT | trend=BEAR | breakL=False | breakS=False | adx=23.75 | adx_ok=True | rising_ok=False | vol_ratio=0.47 | vol_up=False
+2026-02-23 15:50:26 | INFO | MainThread | DOGEUSDT | trend=NONE | breakL=False | breakS=False | adx=30.00 | adx_ok=True | rising_ok=False | vol_ratio=0.27 | vol_up=True
+2026-02-23 15:50:26 | INFO | MainThread | ADAUSDT | trend=BEAR | breakL=False | breakS=False | adx=27.63 | adx_ok=True | rising_ok=False | vol_ratio=0.34 | vol_up=True
+2026-02-23 15:50:26 | INFO | MainThread | DOTUSDT | trend=BEAR | breakL=False | breakS=False | adx=22.07 | adx_ok=True | rising_ok=False | vol_ratio=0.59 | vol_up=True
+2026-02-23 15:55:04 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1771872899999
+2026-02-23 15:55:06 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1771872899999
+2026-02-23 15:55:07 | INFO | MainThread | [CACHE] New closed candle LINKUSDT close_time=1771872899999
+2026-02-23 15:55:08 | INFO | MainThread | [CACHE] New closed candle DOGEUSDT close_time=1771872899999
+2026-02-23 15:55:10 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1771872899999
+2026-02-23 15:55:11 | INFO | MainThread | [CACHE] New closed candle DOTUSDT close_time=1771872899999
+2026-02-23 15:55:11 | INFO | MainThread | BNBUSDT | trend=BEAR | breakL=False | breakS=False | adx=31.00 | adx_ok=True | rising_ok=False | vol_ratio=0.26 | vol_up=False
+2026-02-23 15:55:11 | INFO | MainThread | LINKUSDT | trend=BEAR | breakL=False | breakS=False | adx=22.97 | adx_ok=True | rising_ok=False | vol_ratio=0.23 | vol_up=False
+2026-02-23 15:55:11 | INFO | MainThread | DOGEUSDT | trend=BEAR | breakL=False | breakS=False | adx=29.16 | adx_ok=True | rising_ok=False | vol_ratio=0.20 | vol_up=False
+2026-02-23 15:55:11 | INFO | MainThread | ADAUSDT | trend=NONE | breakL=False | breakS=False | adx=26.78 | adx_ok=True | rising_ok=False | vol_ratio=0.25 | vol_up=False
+2026-02-23 15:55:11 | INFO | MainThread | DOTUSDT | trend=NONE | breakL=False | breakS=False | adx=21.14 | adx_ok=True | rising_ok=False | vol_ratio=0.31 | vol_up=False
+2026-02-23 15:55:26 | INFO | MainThread | [CACHE] New closed candle POLUSDT close_time=1771872899999
+2026-02-23 15:55:28 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1771872899999
+2026-02-23 15:55:33 | INFO | MainThread | POLUSDT | trend=BEAR | breakL=False | breakS=False | adx=15.11 | adx_ok=False | rising_ok=False | vol_ratio=0.58 | vol_up=True
+2026-02-23 15:55:33 | INFO | MainThread | XRPUSDT | trend=BEAR | breakL=False | breakS=False | adx=19.37 | adx_ok=True | rising_ok=False | vol_ratio=0.22 | vol_up=False
+2026-02-23 16:00:17 | INFO | MainThread | [CACHE] New closed candle POLUSDT close_time=1771873199999
+2026-02-23 16:00:18 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1771873199999
+2026-02-23 16:00:19 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1771873199999
+2026-02-23 16:00:21 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1771873199999
+2026-02-23 16:00:22 | INFO | MainThread | [CACHE] New closed candle LINKUSDT close_time=1771873199999
+2026-02-23 16:00:23 | INFO | MainThread | [CACHE] New closed candle DOGEUSDT close_time=1771873199999
+2026-02-23 16:00:24 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1771873199999
+2026-02-23 16:00:25 | INFO | MainThread | [CACHE] New closed candle DOTUSDT close_time=1771873199999
+2026-02-23 16:00:25 | INFO | MainThread | POLUSDT | trend=BEAR | breakL=False | breakS=False | adx=15.45 | adx_ok=False | rising_ok=True | vol_ratio=0.64 | vol_up=True
+2026-02-23 16:00:25 | INFO | MainThread | SOLUSDT | trend=NONE | breakL=False | breakS=False | adx=24.52 | adx_ok=True | rising_ok=False | vol_ratio=0.71 | vol_up=True
+2026-02-23 16:00:26 | INFO | MainThread | XRPUSDT | trend=NONE | breakL=False | breakS=False | adx=18.80 | adx_ok=True | rising_ok=False | vol_ratio=0.74 | vol_up=True
+2026-02-23 16:00:26 | INFO | MainThread | BNBUSDT | trend=NONE | breakL=False | breakS=False | adx=30.56 | adx_ok=True | rising_ok=False | vol_ratio=0.64 | vol_up=True
+2026-02-23 16:00:26 | INFO | MainThread | LINKUSDT | trend=BEAR | breakL=False | breakS=False | adx=23.10 | adx_ok=True | rising_ok=True | vol_ratio=0.48 | vol_up=True
+2026-02-23 16:00:26 | INFO | MainThread | DOGEUSDT | trend=BEAR | breakL=False | breakS=True | adx=29.29 | adx_ok=True | rising_ok=True | vol_ratio=1.64 | vol_up=True
+2026-02-23 16:00:26 | INFO | MainThread | DOGEUSDT → SHORT signal published
+2026-02-23 16:00:26 | INFO | MainThread | ADAUSDT | trend=BEAR | breakL=False | breakS=False | adx=26.75 | adx_ok=True | rising_ok=False | vol_ratio=0.66 | vol_up=True
+2026-02-23 16:00:26 | INFO | MainThread | DOTUSDT | trend=BEAR | breakL=False | breakS=False | adx=21.10 | adx_ok=True | rising_ok=False | vol_ratio=0.63 | vol_up=True
+2026-02-23 16:00:31 | INFO | MainThread | [ORDER] MARKET DOGEUSDT SHORT qty=6677.0
+2026-02-23 16:00:31 | INFO | MainThread | [ENTRY] DOGEUSDT SHORT qty=6677.897430
+2026-02-23 16:00:31 | INFO | MainThread | [ORDER] STOP_MARKET DOGEUSDT side=BUY qty=6677.0 stop=0.09433
+2026-02-23 16:00:31 | INFO | MainThread | DOGEUSDT SL updated -> 0.0943 (algoId=1000000886280550)
+2026-02-23 16:00:31 | INFO | MainThread | [SL] initial stop placed DOGEUSDT SHORT sl=0.09433072695298571
+2026-02-23 16:01:23 | INFO | MainThread | [RECONCILE] DOGEUSDT partial close detected reduced=0.897430 remaining=6677.000000
+2026-02-23 16:05:10 | INFO | MainThread | [CACHE] New closed candle POLUSDT close_time=1771873499999
+2026-02-23 16:05:11 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1771873499999
+2026-02-23 16:05:12 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1771873499999
+2026-02-23 16:05:13 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1771873499999
+2026-02-23 16:05:14 | INFO | MainThread | [CACHE] New closed candle LINKUSDT close_time=1771873499999
+2026-02-23 16:05:15 | INFO | MainThread | [CACHE] New closed candle DOGEUSDT close_time=1771873499999
+2026-02-23 16:05:17 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1771873499999
+2026-02-23 16:05:18 | INFO | MainThread | [CACHE] New closed candle DOTUSDT close_time=1771873499999
+2026-02-23 16:05:18 | INFO | MainThread | POLUSDT | trend=BEAR | breakL=False | breakS=False | adx=16.03 | adx_ok=False | rising_ok=True | vol_ratio=1.15 | vol_up=True
+2026-02-23 16:05:18 | INFO | MainThread | SOLUSDT | trend=BEAR | breakL=False | breakS=False | adx=23.61 | adx_ok=True | rising_ok=False | vol_ratio=0.68 | vol_up=False
+2026-02-23 16:05:18 | INFO | MainThread | XRPUSDT | trend=BEAR | breakL=False | breakS=False | adx=18.36 | adx_ok=True | rising_ok=False | vol_ratio=0.51 | vol_up=False
+2026-02-23 16:05:18 | INFO | MainThread | BNBUSDT | trend=BEAR | breakL=False | breakS=False | adx=30.16 | adx_ok=True | rising_ok=False | vol_ratio=0.69 | vol_up=True
+2026-02-23 16:05:18 | INFO | MainThread | LINKUSDT | trend=BEAR | breakL=False | breakS=False | adx=23.22 | adx_ok=True | rising_ok=True | vol_ratio=0.57 | vol_up=True
+2026-02-23 16:05:18 | INFO | MainThread | DOGEUSDT | trend=BEAR | breakL=False | breakS=False | adx=29.47 | adx_ok=True | rising_ok=True | vol_ratio=0.63 | vol_up=False
+2026-02-23 16:05:18 | INFO | MainThread | ADAUSDT | trend=BEAR | breakL=False | breakS=False | adx=26.73 | adx_ok=True | rising_ok=False | vol_ratio=0.54 | vol_up=False
+2026-02-23 16:05:18 | INFO | MainThread | DOTUSDT | trend=BEAR | breakL=False | breakS=False | adx=21.22 | adx_ok=True | rising_ok=True | vol_ratio=0.83 | vol_up=True
+2026-02-23 16:10:13 | INFO | MainThread | [CACHE] New closed candle POLUSDT close_time=1771873799999
+2026-02-23 16:10:14 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1771873799999
+2026-02-23 16:10:15 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1771873799999
+2026-02-23 16:10:17 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1771873799999
+2026-02-23 16:10:18 | INFO | MainThread | [CACHE] New closed candle LINKUSDT close_time=1771873799999
+2026-02-23 16:10:19 | INFO | MainThread | [CACHE] New closed candle DOGEUSDT close_time=1771873799999
+2026-02-23 16:10:20 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1771873799999
+2026-02-23 16:10:21 | INFO | MainThread | [CACHE] New closed candle DOTUSDT close_time=1771873799999
+2026-02-23 16:10:22 | INFO | MainThread | POLUSDT | trend=BEAR | breakL=False | breakS=False | adx=16.64 | adx_ok=False | rising_ok=True | vol_ratio=0.62 | vol_up=False
+2026-02-23 16:10:22 | INFO | MainThread | SOLUSDT | trend=NONE | breakL=False | breakS=False | adx=22.07 | adx_ok=True | rising_ok=False | vol_ratio=0.46 | vol_up=False
+2026-02-23 16:10:22 | INFO | MainThread | XRPUSDT | trend=BEAR | breakL=False | breakS=False | adx=17.94 | adx_ok=False | rising_ok=False | vol_ratio=0.44 | vol_up=False
+2026-02-23 16:10:22 | INFO | MainThread | BNBUSDT | trend=BEAR | breakL=False | breakS=False | adx=29.49 | adx_ok=True | rising_ok=False | vol_ratio=0.52 | vol_up=False
+2026-02-23 16:10:22 | INFO | MainThread | LINKUSDT | trend=BEAR | breakL=False | breakS=False | adx=23.03 | adx_ok=True | rising_ok=False | vol_ratio=0.38 | vol_up=False
+2026-02-23 16:10:22 | INFO | MainThread | DOGEUSDT | trend=BEAR | breakL=False | breakS=False | adx=30.14 | adx_ok=True | rising_ok=True | vol_ratio=1.47 | vol_up=True
+2026-02-23 16:10:22 | INFO | MainThread | ADAUSDT | trend=BEAR | breakL=False | breakS=False | adx=26.70 | adx_ok=True | rising_ok=False | vol_ratio=0.63 | vol_up=True
+2026-02-23 16:10:22 | INFO | MainThread | DOTUSDT | trend=BEAR | breakL=False | breakS=False | adx=21.09 | adx_ok=True | rising_ok=False | vol_ratio=0.99 | vol_up=True
+2026-02-23 16:15:05 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1771874099999
+2026-02-23 16:15:07 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1771874099999
+2026-02-23 16:15:08 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1771874099999
+2026-02-23 16:15:09 | INFO | MainThread | [CACHE] New closed candle LINKUSDT close_time=1771874099999
+2026-02-23 16:15:10 | INFO | MainThread | [CACHE] New closed candle DOGEUSDT close_time=1771874099999
+2026-02-23 16:15:11 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1771874099999
+2026-02-23 16:15:12 | INFO | MainThread | [CACHE] New closed candle DOTUSDT close_time=1771874099999
+2026-02-23 16:15:13 | INFO | MainThread | SOLUSDT | trend=BEAR | breakL=False | breakS=False | adx=20.53 | adx_ok=True | rising_ok=False | vol_ratio=0.24 | vol_up=False
+2026-02-23 16:15:13 | INFO | MainThread | XRPUSDT | trend=BEAR | breakL=False | breakS=False | adx=17.93 | adx_ok=False | rising_ok=False | vol_ratio=0.39 | vol_up=False
+2026-02-23 16:15:13 | INFO | MainThread | BNBUSDT | trend=BEAR | breakL=False | breakS=False | adx=28.96 | adx_ok=True | rising_ok=False | vol_ratio=0.34 | vol_up=False
+2026-02-23 16:15:13 | INFO | MainThread | LINKUSDT | trend=BEAR | breakL=False | breakS=False | adx=22.85 | adx_ok=True | rising_ok=False | vol_ratio=0.35 | vol_up=False
+2026-02-23 16:15:13 | INFO | MainThread | DOGEUSDT | trend=BEAR | breakL=False | breakS=False | adx=30.76 | adx_ok=True | rising_ok=True | vol_ratio=1.03 | vol_up=False
+2026-02-23 16:15:13 | INFO | MainThread | ADAUSDT | trend=BEAR | breakL=False | breakS=False | adx=26.68 | adx_ok=True | rising_ok=False | vol_ratio=0.25 | vol_up=False
+2026-02-23 16:15:13 | INFO | MainThread | DOTUSDT | trend=BEAR | breakL=False | breakS=False | adx=20.96 | adx_ok=True | rising_ok=False | vol_ratio=0.41 | vol_up=False
+2026-02-23 16:15:28 | INFO | MainThread | [CACHE] New closed candle POLUSDT close_time=1771874099999
+2026-02-23 16:15:34 | INFO | MainThread | POLUSDT | trend=BEAR | breakL=False | breakS=False | adx=17.55 | adx_ok=False | rising_ok=True | vol_ratio=0.89 | vol_up=True
+2026-02-23 16:17:45 | WARNING | MainThread | [CACHE] mark price error XRPUSDT: HTTPSConnectionPool(host='fapi.binance.com', port=443): Read timed out. (read timeout=10)
+2026-02-23 16:18:01 | WARNING | MainThread | [CACHE] update error BNBUSDT: HTTPSConnectionPool(host='fapi.binance.com', port=443): Max retries exceeded with url: /fapi/v1/klines?interval=5m&limit=2&symbol=BNBUSDT (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x11aec3580>: Failed to resolve 'fapi.binance.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-02-23 16:18:02 | WARNING | MainThread | [CACHE] update error LINKUSDT: HTTPSConnectionPool(host='fapi.binance.com', port=443): Max retries exceeded with url: /fapi/v1/klines?interval=5m&limit=2&symbol=LINKUSDT (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x11aec3670>: Failed to resolve 'fapi.binance.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-02-23 16:18:02 | WARNING | MainThread | [CACHE] update error DOGEUSDT: HTTPSConnectionPool(host='fapi.binance.com', port=443): Max retries exceeded with url: /fapi/v1/klines?interval=5m&limit=2&symbol=DOGEUSDT (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x11afd6bb0>: Failed to resolve 'fapi.binance.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-02-23 16:18:02 | WARNING | MainThread | [CACHE] update error ADAUSDT: HTTPSConnectionPool(host='fapi.binance.com', port=443): Max retries exceeded with url: /fapi/v1/klines?interval=5m&limit=2&symbol=ADAUSDT (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x11afd60a0>: Failed to resolve 'fapi.binance.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-02-23 16:18:02 | WARNING | MainThread | [CACHE] update error DOTUSDT: HTTPSConnectionPool(host='fapi.binance.com', port=443): Max retries exceeded with url: /fapi/v1/klines?interval=5m&limit=2&symbol=DOTUSDT (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x11afd6850>: Failed to resolve 'fapi.binance.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-02-23 16:18:02 | WARNING | MainThread | [RECONCILE] HTTPSConnectionPool(host='fapi.binance.com', port=443): Max retries exceeded with url: /fapi/v3/positionRisk?recvWindow=10000&timestamp=1771874282053&signature=ea9a826e690944c697ee030a0f3fdeff9cc22cf75f65c272f2d89eaf52d26dcc (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x11afd6670>: Failed to resolve 'fapi.binance.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-02-23 16:18:02 | WARNING | MainThread | [DAILY LOSS] could not compute dd: HTTPSConnectionPool(host='fapi.binance.com', port=443): Max retries exceeded with url: /fapi/v2/account?recvWindow=10000&timestamp=1771874282059&signature=e38e7ad49f5d66f9ef955300c777716e273c82c1427d52dd0ecd2af544c74f42 (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x11d493070>: Failed to resolve 'fapi.binance.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-02-23 16:18:02 | WARNING | MainThread | [TG] error: HTTPSConnectionPool(host='api.telegram.org', port=443): Max retries exceeded with url: /bot8595800756:AAFOl0BFwrOQcy3tsjHD7uHYdCnuHPdftfE/sendMessage (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x11afd66d0>: Failed to resolve 'api.telegram.org' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-02-23 16:18:02 | WARNING | MainThread | [TG poll] error: HTTPSConnectionPool(host='api.telegram.org', port=443): Max retries exceeded with url: /bot8595800756:AAFOl0BFwrOQcy3tsjHD7uHYdCnuHPdftfE/getUpdates?timeout=0&offset=1 (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x11aec38e0>: Failed to resolve 'api.telegram.org' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-02-23 16:18:02 | WARNING | MainThread | [TG] error: HTTPSConnectionPool(host='api.telegram.org', port=443): Max retries exceeded with url: /bot8595800756:AAFOl0BFwrOQcy3tsjHD7uHYdCnuHPdftfE/sendMessage (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x11d493520>: Failed to resolve 'api.telegram.org' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-02-23 16:18:17 | WARNING | MainThread | [CACHE] update error POLUSDT: HTTPSConnectionPool(host='fapi.binance.com', port=443): Max retries exceeded with url: /fapi/v1/klines?interval=5m&limit=2&symbol=POLUSDT (Caused by ConnectTimeoutError(<urllib3.connection.HTTPSConnection object at 0x11d493850>, 'Connection to fapi.binance.com timed out. (connect timeout=10)'))
+2026-02-23 16:18:27 | WARNING | MainThread | [CACHE] update error SOLUSDT: HTTPSConnectionPool(host='fapi.binance.com', port=443): Max retries exceeded with url: /fapi/v1/klines?interval=5m&limit=2&symbol=SOLUSDT (Caused by ConnectTimeoutError(<urllib3.connection.HTTPSConnection object at 0x11d493c10>, 'Connection to fapi.binance.com timed out. (connect timeout=10)'))
+2026-02-23 16:18:40 | WARNING | MainThread | [CACHE] update error XRPUSDT: HTTPSConnectionPool(host='fapi.binance.com', port=443): Max retries exceeded with url: /fapi/v1/klines?interval=5m&limit=2&symbol=XRPUSDT (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x11d49d070>: Failed to resolve 'fapi.binance.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-02-23 16:18:41 | WARNING | MainThread | [CACHE] update error BNBUSDT: HTTPSConnectionPool(host='fapi.binance.com', port=443): Max retries exceeded with url: /fapi/v1/klines?interval=5m&limit=2&symbol=BNBUSDT (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x11d49d340>: Failed to resolve 'fapi.binance.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-02-23 16:18:41 | WARNING | MainThread | [CACHE] update error LINKUSDT: HTTPSConnectionPool(host='fapi.binance.com', port=443): Max retries exceeded with url: /fapi/v1/klines?interval=5m&limit=2&symbol=LINKUSDT (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x11acf44c0>: Failed to resolve 'fapi.binance.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-02-23 16:18:41 | WARNING | MainThread | [CACHE] update error DOGEUSDT: HTTPSConnectionPool(host='fapi.binance.com', port=443): Max retries exceeded with url: /fapi/v1/klines?interval=5m&limit=2&symbol=DOGEUSDT (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x11aec3370>: Failed to resolve 'fapi.binance.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-02-23 16:18:41 | WARNING | MainThread | [CACHE] update error ADAUSDT: HTTPSConnectionPool(host='fapi.binance.com', port=443): Max retries exceeded with url: /fapi/v1/klines?interval=5m&limit=2&symbol=ADAUSDT (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x11aec3730>: Failed to resolve 'fapi.binance.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-02-23 16:18:41 | WARNING | MainThread | [CACHE] update error DOTUSDT: HTTPSConnectionPool(host='fapi.binance.com', port=443): Max retries exceeded with url: /fapi/v1/klines?interval=5m&limit=2&symbol=DOTUSDT (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x11aec37f0>: Failed to resolve 'fapi.binance.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-02-23 16:18:41 | WARNING | MainThread | [RECONCILE] HTTPSConnectionPool(host='fapi.binance.com', port=443): Max retries exceeded with url: /fapi/v3/positionRisk?recvWindow=10000&timestamp=1771874321122&signature=bbb28e4bbeb133e38dc91b9e95688a323caf861a398987bc4ec5fbee11f987d4 (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x11afd62e0>: Failed to resolve 'fapi.binance.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-02-23 16:18:41 | WARNING | MainThread | [DAILY LOSS] could not compute dd: HTTPSConnectionPool(host='fapi.binance.com', port=443): Max retries exceeded with url: /fapi/v2/account?recvWindow=10000&timestamp=1771874321146&signature=6ffc93d68c0f520aa9bbb57a1bfd63a314540667d36bfa3896c698e17d6bece3 (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x11afd68b0>: Failed to resolve 'fapi.binance.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-02-23 16:18:41 | WARNING | MainThread | [TG] error: HTTPSConnectionPool(host='api.telegram.org', port=443): Max retries exceeded with url: /bot8595800756:AAFOl0BFwrOQcy3tsjHD7uHYdCnuHPdftfE/sendMessage (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x11d493af0>: Failed to resolve 'api.telegram.org' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-02-23 16:18:41 | WARNING | MainThread | [TG poll] error: HTTPSConnectionPool(host='api.telegram.org', port=443): Max retries exceeded with url: /bot8595800756:AAFOl0BFwrOQcy3tsjHD7uHYdCnuHPdftfE/getUpdates?timeout=0&offset=1 (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x11d49d4c0>: Failed to resolve 'api.telegram.org' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-02-23 16:18:41 | WARNING | MainThread | [TG] error: HTTPSConnectionPool(host='api.telegram.org', port=443): Max retries exceeded with url: /bot8595800756:AAFOl0BFwrOQcy3tsjHD7uHYdCnuHPdftfE/sendMessage (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x11d493d90>: Failed to resolve 'api.telegram.org' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-02-23 16:20:09 | INFO | MainThread | [CACHE] New closed candle POLUSDT close_time=1771874399999
+2026-02-23 16:20:10 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1771874399999
+2026-02-23 16:20:12 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1771874399999
+2026-02-23 16:20:13 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1771874399999
+2026-02-23 16:20:14 | INFO | MainThread | [CACHE] New closed candle LINKUSDT close_time=1771874399999
+2026-02-23 16:20:15 | INFO | MainThread | [CACHE] New closed candle DOGEUSDT close_time=1771874399999
+2026-02-23 16:20:16 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1771874399999
+2026-02-23 16:20:17 | INFO | MainThread | [CACHE] New closed candle DOTUSDT close_time=1771874399999
+2026-02-23 16:20:18 | INFO | MainThread | POLUSDT | trend=BEAR | breakL=False | breakS=False | adx=18.48 | adx_ok=True | rising_ok=True | vol_ratio=0.62 | vol_up=False
+2026-02-23 16:20:18 | INFO | MainThread | SOLUSDT | trend=BEAR | breakL=False | breakS=False | adx=19.45 | adx_ok=True | rising_ok=False | vol_ratio=0.33 | vol_up=True
+2026-02-23 16:20:18 | INFO | MainThread | XRPUSDT | trend=BEAR | breakL=False | breakS=False | adx=18.24 | adx_ok=True | rising_ok=True | vol_ratio=0.48 | vol_up=True
+2026-02-23 16:20:18 | INFO | MainThread | BNBUSDT | trend=BEAR | breakL=False | breakS=False | adx=28.90 | adx_ok=True | rising_ok=False | vol_ratio=0.73 | vol_up=True
+2026-02-23 16:20:18 | INFO | MainThread | LINKUSDT | trend=BEAR | breakL=False | breakS=False | adx=23.17 | adx_ok=True | rising_ok=True | vol_ratio=0.85 | vol_up=True
+2026-02-23 16:20:18 | INFO | MainThread | DOGEUSDT | trend=BEAR | breakL=False | breakS=False | adx=31.34 | adx_ok=True | rising_ok=True | vol_ratio=0.71 | vol_up=False
+2026-02-23 16:20:18 | INFO | MainThread | ADAUSDT | trend=BEAR | breakL=False | breakS=False | adx=27.08 | adx_ok=True | rising_ok=True | vol_ratio=0.54 | vol_up=True
+2026-02-23 16:20:18 | INFO | MainThread | DOTUSDT | trend=BEAR | breakL=False | breakS=False | adx=21.20 | adx_ok=True | rising_ok=True | vol_ratio=1.44 | vol_up=True
+2026-02-23 16:22:44 | INFO | MainThread | [CANCEL] ALGO STOP DOGEUSDT algoId=1000000886280550
+2026-02-23 16:22:45 | INFO | MainThread | [ORDER] STOP_MARKET DOGEUSDT side=BUY qty=6677.0 stop=0.0931
+2026-02-23 16:22:45 | INFO | MainThread | DOGEUSDT SL updated -> 0.0931 (algoId=1000000886454673)
+2026-02-23 16:22:57 | INFO | MainThread | [CANCEL] ALGO STOP DOGEUSDT algoId=1000000886454673
+2026-02-23 16:22:57 | INFO | MainThread | [ORDER] STOP_MARKET DOGEUSDT side=BUY qty=6677.0 stop=0.09305
+2026-02-23 16:22:57 | INFO | MainThread | DOGEUSDT SL updated -> 0.0931 (algoId=1000000886456738)
+2026-02-23 16:25:04 | INFO | MainThread | [CACHE] New closed candle DOTUSDT close_time=1771874699999
+2026-02-23 16:25:17 | INFO | MainThread | [CACHE] New closed candle POLUSDT close_time=1771874699999
+2026-02-23 16:25:18 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1771874699999
+2026-02-23 16:25:19 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1771874699999
+2026-02-23 16:25:20 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1771874699999
+2026-02-23 16:25:21 | INFO | MainThread | [CACHE] New closed candle LINKUSDT close_time=1771874699999
+2026-02-23 16:25:22 | INFO | MainThread | [CACHE] New closed candle DOGEUSDT close_time=1771874699999
+2026-02-23 16:25:24 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1771874699999
+2026-02-23 16:25:25 | INFO | MainThread | POLUSDT | trend=BEAR | breakL=False | breakS=False | adx=19.59 | adx_ok=True | rising_ok=True | vol_ratio=0.70 | vol_up=True
+2026-02-23 16:25:25 | INFO | MainThread | SOLUSDT | trend=BEAR | breakL=False | breakS=False | adx=19.29 | adx_ok=True | rising_ok=False | vol_ratio=0.91 | vol_up=True
+2026-02-23 16:25:25 | INFO | MainThread | XRPUSDT | trend=BEAR | breakL=False | breakS=False | adx=19.20 | adx_ok=True | rising_ok=True | vol_ratio=1.05 | vol_up=True
+2026-02-23 16:25:25 | INFO | MainThread | BNBUSDT | trend=BEAR | breakL=False | breakS=True | adx=29.66 | adx_ok=True | rising_ok=True | vol_ratio=1.44 | vol_up=True
+2026-02-23 16:25:25 | INFO | MainThread | BNBUSDT → SHORT signal published
+2026-02-23 16:25:25 | INFO | MainThread | LINKUSDT | trend=BEAR | breakL=False | breakS=False | adx=24.11 | adx_ok=True | rising_ok=True | vol_ratio=1.15 | vol_up=True
+2026-02-23 16:25:25 | INFO | MainThread | DOGEUSDT | trend=BEAR | breakL=False | breakS=False | adx=32.76 | adx_ok=True | rising_ok=True | vol_ratio=1.74 | vol_up=True
+2026-02-23 16:25:25 | INFO | MainThread | ADAUSDT | trend=BEAR | breakL=False | breakS=False | adx=28.15 | adx_ok=True | rising_ok=True | vol_ratio=1.11 | vol_up=True
+2026-02-23 16:25:28 | WARNING | MainThread | [MARGIN] validation error BNBUSDT: name 'SAFETY_BUFFER' is not defined
+2026-02-23 16:30:05 | INFO | MainThread | [CACHE] New closed candle POLUSDT close_time=1771874999999
+2026-02-23 16:30:06 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1771874999999
+2026-02-23 16:30:08 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1771874999999
+2026-02-23 16:30:09 | INFO | MainThread | [CACHE] New closed candle LINKUSDT close_time=1771874999999
+2026-02-23 16:30:10 | INFO | MainThread | [CACHE] New closed candle DOGEUSDT close_time=1771874999999
+2026-02-23 16:30:11 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1771874999999
+2026-02-23 16:30:12 | INFO | MainThread | [CACHE] New closed candle DOTUSDT close_time=1771874999999
+2026-02-23 16:30:13 | INFO | MainThread | SOLUSDT | trend=BEAR | breakL=False | breakS=False | adx=19.34 | adx_ok=True | rising_ok=True | vol_ratio=0.36 | vol_up=False
+2026-02-23 16:30:13 | INFO | MainThread | BNBUSDT | trend=BEAR | breakL=False | breakS=False | adx=30.37 | adx_ok=True | rising_ok=True | vol_ratio=0.36 | vol_up=False
+2026-02-23 16:30:13 | INFO | MainThread | LINKUSDT | trend=BEAR | breakL=False | breakS=False | adx=24.98 | adx_ok=True | rising_ok=True | vol_ratio=0.77 | vol_up=False
+2026-02-23 16:30:13 | INFO | MainThread | DOGEUSDT | trend=BEAR | breakL=False | breakS=False | adx=34.08 | adx_ok=True | rising_ok=True | vol_ratio=0.34 | vol_up=False
+2026-02-23 16:30:13 | INFO | MainThread | ADAUSDT | trend=BEAR | breakL=False | breakS=False | adx=29.14 | adx_ok=True | rising_ok=True | vol_ratio=0.61 | vol_up=False
+2026-02-23 16:30:13 | INFO | MainThread | DOTUSDT | trend=BEAR | breakL=False | breakS=False | adx=22.27 | adx_ok=True | rising_ok=True | vol_ratio=0.22 | vol_up=False
+2026-02-23 16:30:29 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1771874999999
+2026-02-23 16:30:34 | INFO | MainThread | XRPUSDT | trend=BEAR | breakL=False | breakS=False | adx=20.09 | adx_ok=True | rising_ok=True | vol_ratio=0.31 | vol_up=False
+2026-02-23 16:35:10 | INFO | MainThread | [CACHE] New closed candle POLUSDT close_time=1771875299999
+2026-02-23 16:35:11 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1771875299999
+2026-02-23 16:35:13 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1771875299999
+2026-02-23 16:35:14 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1771875299999
+2026-02-23 16:35:15 | INFO | MainThread | [CACHE] New closed candle LINKUSDT close_time=1771875299999
+2026-02-23 16:35:16 | INFO | MainThread | [CACHE] New closed candle DOGEUSDT close_time=1771875299999
+2026-02-23 16:35:17 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1771875299999
+2026-02-23 16:35:18 | INFO | MainThread | [CACHE] New closed candle DOTUSDT close_time=1771875299999
+2026-02-23 16:35:19 | INFO | MainThread | POLUSDT | trend=BEAR | breakL=False | breakS=False | adx=20.23 | adx_ok=True | rising_ok=False | vol_ratio=1.07 | vol_up=True
+2026-02-23 16:35:19 | INFO | MainThread | SOLUSDT | trend=BEAR | breakL=False | breakS=False | adx=19.55 | adx_ok=True | rising_ok=True | vol_ratio=0.71 | vol_up=True
+2026-02-23 16:35:19 | INFO | MainThread | XRPUSDT | trend=BEAR | breakL=False | breakS=False | adx=20.43 | adx_ok=True | rising_ok=True | vol_ratio=0.84 | vol_up=True
+2026-02-23 16:35:19 | INFO | MainThread | BNBUSDT | trend=BEAR | breakL=False | breakS=False | adx=30.49 | adx_ok=True | rising_ok=True | vol_ratio=0.82 | vol_up=True
+2026-02-23 16:35:19 | INFO | MainThread | LINKUSDT | trend=BEAR | breakL=False | breakS=False | adx=25.38 | adx_ok=True | rising_ok=True | vol_ratio=0.64 | vol_up=False
+2026-02-23 16:35:19 | INFO | MainThread | DOGEUSDT | trend=BEAR | breakL=False | breakS=False | adx=34.78 | adx_ok=True | rising_ok=True | vol_ratio=0.73 | vol_up=True
+2026-02-23 16:35:19 | INFO | MainThread | ADAUSDT | trend=BEAR | breakL=False | breakS=False | adx=28.99 | adx_ok=True | rising_ok=False | vol_ratio=0.70 | vol_up=True
+2026-02-23 16:35:19 | INFO | MainThread | DOTUSDT | trend=BEAR | breakL=False | breakS=False | adx=22.13 | adx_ok=True | rising_ok=False | vol_ratio=1.26 | vol_up=True
+2026-02-23 16:40:07 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1771875599999
+2026-02-23 16:40:08 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1771875599999
+2026-02-23 16:40:09 | INFO | MainThread | [CACHE] New closed candle LINKUSDT close_time=1771875599999
+2026-02-23 16:40:10 | INFO | MainThread | [CACHE] New closed candle DOGEUSDT close_time=1771875599999
+2026-02-23 16:40:12 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1771875599999
+2026-02-23 16:40:13 | INFO | MainThread | [CACHE] New closed candle DOTUSDT close_time=1771875599999
+2026-02-23 16:40:13 | INFO | MainThread | XRPUSDT | trend=BEAR | breakL=False | breakS=False | adx=21.06 | adx_ok=True | rising_ok=True | vol_ratio=0.89 | vol_up=False
+2026-02-23 16:40:13 | INFO | MainThread | BNBUSDT | trend=BEAR | breakL=False | breakS=False | adx=31.12 | adx_ok=True | rising_ok=True | vol_ratio=0.95 | vol_up=True
+2026-02-23 16:40:13 | INFO | MainThread | LINKUSDT | trend=BEAR | breakL=False | breakS=False | adx=26.22 | adx_ok=True | rising_ok=True | vol_ratio=1.27 | vol_up=True
+2026-02-23 16:40:13 | INFO | MainThread | DOGEUSDT | trend=BEAR | breakL=False | breakS=False | adx=35.72 | adx_ok=True | rising_ok=True | vol_ratio=0.78 | vol_up=True
+2026-02-23 16:40:13 | INFO | MainThread | ADAUSDT | trend=BEAR | breakL=False | breakS=False | adx=29.24 | adx_ok=True | rising_ok=True | vol_ratio=0.94 | vol_up=True
+2026-02-23 16:40:13 | INFO | MainThread | DOTUSDT | trend=BEAR | breakL=False | breakS=False | adx=22.56 | adx_ok=True | rising_ok=True | vol_ratio=1.31 | vol_up=True
+2026-02-23 16:40:25 | INFO | MainThread | [CACHE] New closed candle POLUSDT close_time=1771875599999
+2026-02-23 16:40:27 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1771875599999
+2026-02-23 16:40:33 | INFO | MainThread | POLUSDT | trend=BEAR | breakL=False | breakS=False | adx=19.87 | adx_ok=True | rising_ok=False | vol_ratio=0.68 | vol_up=False
+2026-02-23 16:40:33 | INFO | MainThread | SOLUSDT | trend=BEAR | breakL=False | breakS=False | adx=20.53 | adx_ok=True | rising_ok=True | vol_ratio=1.35 | vol_up=True
+2026-02-23 16:42:33 | WARNING | MainThread | [CACHE] mark price error SOLUSDT: HTTPSConnectionPool(host='fapi.binance.com', port=443): Read timed out. (read timeout=10)
+2026-02-23 16:43:25 | WARNING | MainThread | [CACHE] update error DOGEUSDT: HTTPSConnectionPool(host='fapi.binance.com', port=443): Read timed out. (read timeout=10)
+2026-02-23 16:45:09 | INFO | MainThread | [CACHE] New closed candle POLUSDT close_time=1771875899999
+2026-02-23 16:45:10 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1771875899999
+2026-02-23 16:45:11 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1771875899999
+2026-02-23 16:45:13 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1771875899999
+2026-02-23 16:45:14 | INFO | MainThread | [CACHE] New closed candle LINKUSDT close_time=1771875899999
+2026-02-23 16:45:15 | INFO | MainThread | [CACHE] New closed candle DOGEUSDT close_time=1771875899999
+2026-02-23 16:45:16 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1771875899999
+2026-02-23 16:45:17 | INFO | MainThread | [CACHE] New closed candle DOTUSDT close_time=1771875899999
+2026-02-23 16:45:18 | INFO | MainThread | POLUSDT | trend=BEAR | breakL=False | breakS=False | adx=19.48 | adx_ok=True | rising_ok=False | vol_ratio=0.81 | vol_up=True
+2026-02-23 16:45:18 | INFO | MainThread | SOLUSDT | trend=BEAR | breakL=False | breakS=False | adx=21.43 | adx_ok=True | rising_ok=True | vol_ratio=0.82 | vol_up=False
+2026-02-23 16:45:18 | INFO | MainThread | XRPUSDT | trend=BEAR | breakL=False | breakS=False | adx=20.89 | adx_ok=True | rising_ok=False | vol_ratio=1.14 | vol_up=True
+2026-02-23 16:45:18 | INFO | MainThread | BNBUSDT | trend=BEAR | breakL=False | breakS=False | adx=31.61 | adx_ok=True | rising_ok=True | vol_ratio=1.13 | vol_up=True
+2026-02-23 16:45:18 | INFO | MainThread | LINKUSDT | trend=BEAR | breakL=False | breakS=False | adx=26.59 | adx_ok=True | rising_ok=True | vol_ratio=0.79 | vol_up=False
+2026-02-23 16:45:18 | INFO | MainThread | DOGEUSDT | trend=BEAR | breakL=False | breakS=False | adx=36.03 | adx_ok=True | rising_ok=True | vol_ratio=0.68 | vol_up=False
+2026-02-23 16:45:18 | INFO | MainThread | ADAUSDT | trend=BEAR | breakL=False | breakS=False | adx=29.18 | adx_ok=True | rising_ok=False | vol_ratio=1.49 | vol_up=True
+2026-02-23 16:45:18 | INFO | MainThread | DOTUSDT | trend=BEAR | breakL=False | breakS=False | adx=22.95 | adx_ok=True | rising_ok=True | vol_ratio=1.32 | vol_up=False
+2026-02-23 16:50:07 | INFO | MainThread | [CACHE] New closed candle LINKUSDT close_time=1771876199999
+2026-02-23 16:50:09 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1771876199999
+2026-02-23 16:50:10 | INFO | MainThread | [CACHE] New closed candle DOTUSDT close_time=1771876199999
+2026-02-23 16:50:10 | INFO | MainThread | LINKUSDT | trend=BEAR | breakL=False | breakS=False | adx=26.43 | adx_ok=True | rising_ok=False | vol_ratio=0.94 | vol_up=True
+2026-02-23 16:50:10 | INFO | MainThread | ADAUSDT | trend=BEAR | breakL=False | breakS=False | adx=29.37 | adx_ok=True | rising_ok=True | vol_ratio=0.81 | vol_up=False
+2026-02-23 16:50:10 | INFO | MainThread | DOTUSDT | trend=BEAR | breakL=False | breakS=False | adx=23.84 | adx_ok=True | rising_ok=True | vol_ratio=0.77 | vol_up=False
+2026-02-23 16:50:25 | INFO | MainThread | [CACHE] New closed candle POLUSDT close_time=1771876199999
+2026-02-23 16:50:27 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1771876199999
+2026-02-23 16:50:28 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1771876199999
+2026-02-23 16:50:29 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1771876199999
+2026-02-23 16:50:33 | INFO | MainThread | [CACHE] New closed candle DOGEUSDT close_time=1771876199999
+2026-02-23 16:50:35 | INFO | MainThread | POLUSDT | trend=BEAR | breakL=False | breakS=False | adx=19.57 | adx_ok=True | rising_ok=True | vol_ratio=1.31 | vol_up=True
+2026-02-23 16:50:35 | INFO | MainThread | SOLUSDT | trend=BEAR | breakL=False | breakS=False | adx=22.56 | adx_ok=True | rising_ok=True | vol_ratio=1.12 | vol_up=True
+2026-02-23 16:50:35 | INFO | MainThread | XRPUSDT | trend=BEAR | breakL=False | breakS=False | adx=21.03 | adx_ok=True | rising_ok=True | vol_ratio=1.23 | vol_up=True
+2026-02-23 16:50:35 | INFO | MainThread | BNBUSDT | trend=BEAR | breakL=False | breakS=False | adx=32.63 | adx_ok=True | rising_ok=True | vol_ratio=2.03 | vol_up=True
+2026-02-23 16:50:35 | INFO | MainThread | DOGEUSDT | trend=BEAR | breakL=False | breakS=False | adx=36.41 | adx_ok=True | rising_ok=True | vol_ratio=0.74 | vol_up=True
+2026-02-23 16:55:11 | INFO | MainThread | [CACHE] New closed candle POLUSDT close_time=1771876499999
+2026-02-23 16:55:12 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1771876499999
+2026-02-23 16:55:13 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1771876499999
+2026-02-23 16:55:15 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1771876499999
+2026-02-23 16:55:16 | INFO | MainThread | [CACHE] New closed candle LINKUSDT close_time=1771876499999
+2026-02-23 16:55:17 | INFO | MainThread | [CACHE] New closed candle DOGEUSDT close_time=1771876499999
+2026-02-23 16:55:18 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1771876499999
+2026-02-23 16:55:19 | INFO | MainThread | [CACHE] New closed candle DOTUSDT close_time=1771876499999
+2026-02-23 16:55:20 | INFO | MainThread | POLUSDT | trend=BEAR | breakL=False | breakS=False | adx=19.66 | adx_ok=True | rising_ok=True | vol_ratio=0.65 | vol_up=False
+2026-02-23 16:55:20 | INFO | MainThread | SOLUSDT | trend=BEAR | breakL=False | breakS=False | adx=23.60 | adx_ok=True | rising_ok=True | vol_ratio=1.30 | vol_up=True
+2026-02-23 16:55:20 | INFO | MainThread | XRPUSDT | trend=BEAR | breakL=False | breakS=False | adx=21.16 | adx_ok=True | rising_ok=True | vol_ratio=0.49 | vol_up=False
+2026-02-23 16:55:20 | INFO | MainThread | BNBUSDT | trend=BEAR | breakL=False | breakS=False | adx=33.60 | adx_ok=True | rising_ok=True | vol_ratio=1.59 | vol_up=False
+2026-02-23 16:55:20 | INFO | MainThread | LINKUSDT | trend=BEAR | breakL=False | breakS=False | adx=26.28 | adx_ok=True | rising_ok=False | vol_ratio=0.69 | vol_up=False
+2026-02-23 16:55:20 | INFO | MainThread | DOGEUSDT | trend=BEAR | breakL=False | breakS=False | adx=36.76 | adx_ok=True | rising_ok=True | vol_ratio=0.50 | vol_up=False
+2026-02-23 16:55:20 | INFO | MainThread | ADAUSDT | trend=BEAR | breakL=False | breakS=False | adx=29.55 | adx_ok=True | rising_ok=True | vol_ratio=0.63 | vol_up=False
+2026-02-23 16:55:20 | INFO | MainThread | DOTUSDT | trend=BEAR | breakL=False | breakS=False | adx=24.67 | adx_ok=True | rising_ok=True | vol_ratio=0.59 | vol_up=False
+2026-02-23 17:00:17 | INFO | MainThread | [CACHE] New closed candle POLUSDT close_time=1771876799999
+2026-02-23 17:00:18 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1771876799999
+2026-02-23 17:00:20 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1771876799999
+2026-02-23 17:00:21 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1771876799999
+2026-02-23 17:00:22 | INFO | MainThread | [CACHE] New closed candle LINKUSDT close_time=1771876799999
+2026-02-23 17:00:23 | INFO | MainThread | [CACHE] New closed candle DOGEUSDT close_time=1771876799999
+2026-02-23 17:00:24 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1771876799999
+2026-02-23 17:00:26 | INFO | MainThread | [CACHE] New closed candle DOTUSDT close_time=1771876799999
+2026-02-23 17:00:26 | INFO | MainThread | POLUSDT | trend=BEAR | breakL=False | breakS=False | adx=18.47 | adx_ok=True | rising_ok=False | vol_ratio=0.84 | vol_up=True
+2026-02-23 17:00:26 | INFO | MainThread | SOLUSDT | trend=BEAR | breakL=False | breakS=False | adx=23.75 | adx_ok=True | rising_ok=True | vol_ratio=0.56 | vol_up=False
+2026-02-23 17:00:26 | INFO | MainThread | XRPUSDT | trend=BEAR | breakL=False | breakS=False | adx=21.28 | adx_ok=True | rising_ok=True | vol_ratio=0.47 | vol_up=False
+2026-02-23 17:00:27 | INFO | MainThread | BNBUSDT | trend=BEAR | breakL=False | breakS=False | adx=34.45 | adx_ok=True | rising_ok=True | vol_ratio=0.94 | vol_up=False
+2026-02-23 17:00:27 | INFO | MainThread | LINKUSDT | trend=BEAR | breakL=False | breakS=False | adx=25.77 | adx_ok=True | rising_ok=False | vol_ratio=0.72 | vol_up=True
+2026-02-23 17:00:27 | INFO | MainThread | DOGEUSDT | trend=BEAR | breakL=False | breakS=False | adx=36.11 | adx_ok=True | rising_ok=False | vol_ratio=0.65 | vol_up=True
+2026-02-23 17:00:27 | INFO | MainThread | ADAUSDT | trend=BEAR | breakL=False | breakS=False | adx=28.91 | adx_ok=True | rising_ok=False | vol_ratio=0.51 | vol_up=False
+2026-02-23 17:00:27 | INFO | MainThread | DOTUSDT | trend=BEAR | breakL=False | breakS=False | adx=25.43 | adx_ok=True | rising_ok=True | vol_ratio=0.85 | vol_up=True
+2026-02-23 17:05:18 | INFO | MainThread | [CACHE] New closed candle POLUSDT close_time=1771877099999
+2026-02-23 17:05:19 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1771877099999
+2026-02-23 17:05:20 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1771877099999
+2026-02-23 17:05:21 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1771877099999
+2026-02-23 17:05:23 | INFO | MainThread | [CACHE] New closed candle LINKUSDT close_time=1771877099999
+2026-02-23 17:05:24 | INFO | MainThread | [CACHE] New closed candle DOGEUSDT close_time=1771877099999
+2026-02-23 17:05:25 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1771877099999
+2026-02-23 17:05:26 | INFO | MainThread | [CACHE] New closed candle DOTUSDT close_time=1771877099999
+2026-02-23 17:05:26 | INFO | MainThread | POLUSDT | trend=BEAR | breakL=False | breakS=False | adx=17.36 | adx_ok=False | rising_ok=False | vol_ratio=0.75 | vol_up=False
+2026-02-23 17:05:26 | INFO | MainThread | SOLUSDT | trend=NONE | breakL=False | breakS=False | adx=23.55 | adx_ok=True | rising_ok=False | vol_ratio=0.45 | vol_up=False
+2026-02-23 17:05:26 | INFO | MainThread | XRPUSDT | trend=BEAR | breakL=False | breakS=False | adx=21.74 | adx_ok=True | rising_ok=True | vol_ratio=0.83 | vol_up=True
+2026-02-23 17:05:26 | INFO | MainThread | BNBUSDT | trend=BEAR | breakL=False | breakS=False | adx=35.23 | adx_ok=True | rising_ok=True | vol_ratio=0.65 | vol_up=False
+2026-02-23 17:05:27 | INFO | MainThread | LINKUSDT | trend=NONE | breakL=False | breakS=False | adx=24.61 | adx_ok=True | rising_ok=False | vol_ratio=1.20 | vol_up=True
+2026-02-23 17:05:27 | INFO | MainThread | DOGEUSDT | trend=NONE | breakL=False | breakS=False | adx=34.48 | adx_ok=True | rising_ok=False | vol_ratio=0.94 | vol_up=True
+2026-02-23 17:05:27 | INFO | MainThread | ADAUSDT | trend=BEAR | breakL=False | breakS=False | adx=28.61 | adx_ok=True | rising_ok=False | vol_ratio=1.57 | vol_up=True
+2026-02-23 17:05:27 | INFO | MainThread | DOTUSDT | trend=BEAR | breakL=False | breakS=False | adx=26.51 | adx_ok=True | rising_ok=True | vol_ratio=1.49 | vol_up=True
+2026-02-23 17:10:08 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1771877399999
+2026-02-23 17:10:09 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1771877399999
+2026-02-23 17:10:10 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1771877399999
+2026-02-23 17:10:11 | INFO | MainThread | [CACHE] New closed candle LINKUSDT close_time=1771877399999
+2026-02-23 17:10:12 | INFO | MainThread | [CACHE] New closed candle DOGEUSDT close_time=1771877399999
+2026-02-23 17:10:14 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1771877399999
+2026-02-23 17:10:15 | INFO | MainThread | [CACHE] New closed candle DOTUSDT close_time=1771877399999
+2026-02-23 17:10:15 | INFO | MainThread | SOLUSDT | trend=NONE | breakL=False | breakS=False | adx=23.35 | adx_ok=True | rising_ok=False | vol_ratio=0.48 | vol_up=True
+2026-02-23 17:10:15 | INFO | MainThread | XRPUSDT | trend=BEAR | breakL=False | breakS=False | adx=22.16 | adx_ok=True | rising_ok=True | vol_ratio=0.69 | vol_up=False
+2026-02-23 17:10:15 | INFO | MainThread | BNBUSDT | trend=BEAR | breakL=False | breakS=False | adx=35.96 | adx_ok=True | rising_ok=True | vol_ratio=0.72 | vol_up=True
+2026-02-23 17:10:15 | INFO | MainThread | LINKUSDT | trend=NONE | breakL=False | breakS=False | adx=23.49 | adx_ok=True | rising_ok=False | vol_ratio=0.61 | vol_up=False
+2026-02-23 17:10:15 | INFO | MainThread | DOGEUSDT | trend=NONE | breakL=False | breakS=False | adx=32.89 | adx_ok=True | rising_ok=False | vol_ratio=0.68 | vol_up=False
+2026-02-23 17:10:15 | INFO | MainThread | ADAUSDT | trend=BEAR | breakL=False | breakS=False | adx=28.44 | adx_ok=True | rising_ok=False | vol_ratio=1.31 | vol_up=False
+2026-02-23 17:10:15 | INFO | MainThread | DOTUSDT | trend=BEAR | breakL=False | breakS=False | adx=27.50 | adx_ok=True | rising_ok=True | vol_ratio=0.96 | vol_up=False
+2026-02-23 17:10:32 | INFO | MainThread | [CACHE] New closed candle POLUSDT close_time=1771877399999
+2026-02-23 17:10:38 | INFO | MainThread | POLUSDT | trend=NONE | breakL=False | breakS=False | adx=16.73 | adx_ok=False | rising_ok=False | vol_ratio=0.57 | vol_up=False
+2026-02-23 17:15:13 | INFO | MainThread | [CACHE] New closed candle POLUSDT close_time=1771877699999
+2026-02-23 17:15:14 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1771877699999
+2026-02-23 17:15:15 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1771877699999
+2026-02-23 17:15:16 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1771877699999
+2026-02-23 17:15:18 | INFO | MainThread | [CACHE] New closed candle LINKUSDT close_time=1771877699999
+2026-02-23 17:15:19 | INFO | MainThread | [CACHE] New closed candle DOGEUSDT close_time=1771877699999
+2026-02-23 17:15:20 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1771877699999
+2026-02-23 17:15:21 | INFO | MainThread | [CACHE] New closed candle DOTUSDT close_time=1771877699999
+2026-02-23 17:15:22 | INFO | MainThread | POLUSDT | trend=BEAR | breakL=False | breakS=False | adx=16.26 | adx_ok=False | rising_ok=False | vol_ratio=0.67 | vol_up=True
+2026-02-23 17:15:22 | INFO | MainThread | SOLUSDT | trend=BEAR | breakL=False | breakS=False | adx=23.92 | adx_ok=True | rising_ok=True | vol_ratio=1.14 | vol_up=True
+2026-02-23 17:15:22 | INFO | MainThread | XRPUSDT | trend=BEAR | breakL=False | breakS=True | adx=23.28 | adx_ok=True | rising_ok=True | vol_ratio=1.39 | vol_up=True
+2026-02-23 17:15:22 | INFO | MainThread | XRPUSDT → SHORT signal published
+2026-02-23 17:15:22 | INFO | MainThread | BNBUSDT | trend=BEAR | breakL=False | breakS=False | adx=37.22 | adx_ok=True | rising_ok=True | vol_ratio=1.26 | vol_up=True
+2026-02-23 17:15:22 | INFO | MainThread | LINKUSDT | trend=BEAR | breakL=False | breakS=False | adx=22.92 | adx_ok=True | rising_ok=False | vol_ratio=1.35 | vol_up=True
+2026-02-23 17:15:22 | INFO | MainThread | DOGEUSDT | trend=BEAR | breakL=False | breakS=False | adx=31.71 | adx_ok=True | rising_ok=False | vol_ratio=0.77 | vol_up=True
+2026-02-23 17:15:22 | INFO | MainThread | ADAUSDT | trend=BEAR | breakL=False | breakS=False | adx=28.57 | adx_ok=True | rising_ok=True | vol_ratio=1.11 | vol_up=False
+2026-02-23 17:15:22 | INFO | MainThread | DOTUSDT | trend=BEAR | breakL=False | breakS=False | adx=28.61 | adx_ok=True | rising_ok=True | vol_ratio=0.82 | vol_up=False
+2026-02-23 17:15:25 | WARNING | MainThread | [MARGIN] validation error XRPUSDT: name 'SAFETY_BUFFER' is not defined
+2026-02-23 17:20:22 | INFO | MainThread | [CACHE] New closed candle POLUSDT close_time=1771877999999
+2026-02-23 17:20:23 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1771877999999
+2026-02-23 17:20:24 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1771877999999
+2026-02-23 17:20:25 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1771877999999
+2026-02-23 17:20:27 | INFO | MainThread | [CACHE] New closed candle LINKUSDT close_time=1771877999999
+2026-02-23 17:20:28 | INFO | MainThread | [CACHE] New closed candle DOGEUSDT close_time=1771877999999
+2026-02-23 17:20:29 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1771877999999
+2026-02-23 17:20:30 | INFO | MainThread | [CACHE] New closed candle DOTUSDT close_time=1771877999999
+2026-02-23 17:20:31 | INFO | MainThread | POLUSDT | trend=BEAR | breakL=False | breakS=False | adx=16.49 | adx_ok=False | rising_ok=True | vol_ratio=0.73 | vol_up=True
+2026-02-23 17:20:31 | INFO | MainThread | SOLUSDT | trend=BEAR | breakL=False | breakS=False | adx=24.64 | adx_ok=True | rising_ok=True | vol_ratio=1.32 | vol_up=True
+2026-02-23 17:20:31 | INFO | MainThread | XRPUSDT | trend=BEAR | breakL=False | breakS=False | adx=24.79 | adx_ok=True | rising_ok=True | vol_ratio=1.34 | vol_up=False
+2026-02-23 17:20:31 | INFO | MainThread | BNBUSDT | trend=BEAR | breakL=False | breakS=False | adx=38.56 | adx_ok=True | rising_ok=True | vol_ratio=1.38 | vol_up=True
+2026-02-23 17:20:31 | INFO | MainThread | LINKUSDT | trend=BEAR | breakL=False | breakS=False | adx=22.58 | adx_ok=True | rising_ok=False | vol_ratio=1.56 | vol_up=True
+2026-02-23 17:20:31 | INFO | MainThread | DOGEUSDT | trend=BEAR | breakL=False | breakS=False | adx=30.74 | adx_ok=True | rising_ok=False | vol_ratio=0.80 | vol_up=True
+2026-02-23 17:20:31 | INFO | MainThread | ADAUSDT | trend=BEAR | breakL=False | breakS=False | adx=28.88 | adx_ok=True | rising_ok=True | vol_ratio=1.34 | vol_up=True
+2026-02-23 17:20:31 | INFO | MainThread | DOTUSDT | trend=BEAR | breakL=False | breakS=False | adx=29.82 | adx_ok=True | rising_ok=True | vol_ratio=1.26 | vol_up=True
+2026-02-23 17:25:08 | INFO | MainThread | [CACHE] New closed candle POLUSDT close_time=1771878299999
+2026-02-23 17:25:09 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1771878299999
+2026-02-23 17:25:10 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1771878299999
+2026-02-23 17:25:11 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1771878299999
+2026-02-23 17:25:12 | INFO | MainThread | [CACHE] New closed candle LINKUSDT close_time=1771878299999
+2026-02-23 17:25:14 | INFO | MainThread | [CACHE] New closed candle DOGEUSDT close_time=1771878299999
+2026-02-23 17:25:15 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1771878299999
+2026-02-23 17:25:16 | INFO | MainThread | [CACHE] New closed candle DOTUSDT close_time=1771878299999
+2026-02-23 17:25:16 | INFO | MainThread | POLUSDT | trend=BEAR | breakL=False | breakS=False | adx=16.08 | adx_ok=False | rising_ok=False | vol_ratio=0.89 | vol_up=True
+2026-02-23 17:25:16 | INFO | MainThread | SOLUSDT | trend=BEAR | breakL=False | breakS=False | adx=24.61 | adx_ok=True | rising_ok=False | vol_ratio=0.95 | vol_up=False
+2026-02-23 17:25:16 | INFO | MainThread | XRPUSDT | trend=BEAR | breakL=False | breakS=False | adx=25.62 | adx_ok=True | rising_ok=True | vol_ratio=1.16 | vol_up=False
+2026-02-23 17:25:16 | INFO | MainThread | BNBUSDT | trend=BEAR | breakL=False | breakS=False | adx=39.77 | adx_ok=True | rising_ok=True | vol_ratio=0.99 | vol_up=False
+2026-02-23 17:25:16 | INFO | MainThread | LINKUSDT | trend=BEAR | breakL=False | breakS=False | adx=21.27 | adx_ok=True | rising_ok=False | vol_ratio=1.75 | vol_up=True
+2026-02-23 17:25:16 | INFO | MainThread | DOGEUSDT | trend=BEAR | breakL=False | breakS=False | adx=29.96 | adx_ok=True | rising_ok=False | vol_ratio=0.72 | vol_up=False
+2026-02-23 17:25:16 | INFO | MainThread | ADAUSDT | trend=BEAR | breakL=False | breakS=False | adx=28.62 | adx_ok=True | rising_ok=False | vol_ratio=1.04 | vol_up=False
+2026-02-23 17:25:16 | INFO | MainThread | DOTUSDT | trend=BEAR | breakL=False | breakS=False | adx=30.47 | adx_ok=True | rising_ok=True | vol_ratio=1.24 | vol_up=True
+2026-02-23 17:30:22 | INFO | MainThread | [CACHE] New closed candle POLUSDT close_time=1771878599999
+2026-02-23 17:30:23 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1771878599999
+2026-02-23 17:30:25 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1771878599999
+2026-02-23 17:30:26 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1771878599999
+2026-02-23 17:30:27 | INFO | MainThread | [CACHE] New closed candle LINKUSDT close_time=1771878599999
+2026-02-23 17:30:28 | INFO | MainThread | [CACHE] New closed candle DOGEUSDT close_time=1771878599999
+2026-02-23 17:30:29 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1771878599999
+2026-02-23 17:30:31 | INFO | MainThread | [CACHE] New closed candle DOTUSDT close_time=1771878599999
+2026-02-23 17:30:31 | INFO | MainThread | POLUSDT | trend=BEAR | breakL=False | breakS=False | adx=15.84 | adx_ok=False | rising_ok=False | vol_ratio=0.51 | vol_up=False
+2026-02-23 17:30:31 | INFO | MainThread | SOLUSDT | trend=BEAR | breakL=False | breakS=False | adx=25.05 | adx_ok=True | rising_ok=True | vol_ratio=0.74 | vol_up=False
+2026-02-23 17:30:31 | INFO | MainThread | XRPUSDT | trend=BEAR | breakL=False | breakS=False | adx=26.66 | adx_ok=True | rising_ok=True | vol_ratio=0.56 | vol_up=False
+2026-02-23 17:30:31 | INFO | MainThread | BNBUSDT | trend=BEAR | breakL=False | breakS=False | adx=40.89 | adx_ok=True | rising_ok=True | vol_ratio=2.24 | vol_up=True
+2026-02-23 17:30:32 | INFO | MainThread | LINKUSDT | trend=BEAR | breakL=False | breakS=False | adx=20.09 | adx_ok=True | rising_ok=False | vol_ratio=0.66 | vol_up=False
+2026-02-23 17:30:32 | INFO | MainThread | DOGEUSDT | trend=BEAR | breakL=False | breakS=False | adx=29.54 | adx_ok=True | rising_ok=False | vol_ratio=0.95 | vol_up=True
+2026-02-23 17:30:32 | INFO | MainThread | ADAUSDT | trend=BEAR | breakL=False | breakS=False | adx=28.37 | adx_ok=True | rising_ok=False | vol_ratio=0.78 | vol_up=False
+2026-02-23 17:30:32 | INFO | MainThread | DOTUSDT | trend=BEAR | breakL=False | breakS=False | adx=31.07 | adx_ok=True | rising_ok=True | vol_ratio=0.43 | vol_up=False
+2026-02-23 17:35:10 | INFO | MainThread | [CACHE] New closed candle POLUSDT close_time=1771878899999
+2026-02-23 17:35:11 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1771878899999
+2026-02-23 17:35:13 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1771878899999
+2026-02-23 17:35:14 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1771878899999
+2026-02-23 17:35:15 | INFO | MainThread | [CACHE] New closed candle LINKUSDT close_time=1771878899999
+2026-02-23 17:35:16 | INFO | MainThread | [CACHE] New closed candle DOGEUSDT close_time=1771878899999
+2026-02-23 17:35:17 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1771878899999
+2026-02-23 17:35:18 | INFO | MainThread | [CACHE] New closed candle DOTUSDT close_time=1771878899999
+2026-02-23 17:35:19 | INFO | MainThread | POLUSDT | trend=NONE | breakL=False | breakS=False | adx=15.18 | adx_ok=False | rising_ok=False | vol_ratio=2.59 | vol_up=True
+2026-02-23 17:35:19 | INFO | MainThread | SOLUSDT | trend=BEAR | breakL=False | breakS=False | adx=24.01 | adx_ok=True | rising_ok=False | vol_ratio=0.96 | vol_up=True
+2026-02-23 17:35:19 | INFO | MainThread | XRPUSDT | trend=BEAR | breakL=False | breakS=False | adx=26.57 | adx_ok=True | rising_ok=False | vol_ratio=1.08 | vol_up=True
+2026-02-23 17:35:19 | INFO | MainThread | BNBUSDT | trend=BEAR | breakL=False | breakS=False | adx=39.84 | adx_ok=True | rising_ok=False | vol_ratio=1.13 | vol_up=False
+2026-02-23 17:35:19 | INFO | MainThread | LINKUSDT | trend=BEAR | breakL=False | breakS=False | adx=19.57 | adx_ok=True | rising_ok=False | vol_ratio=1.05 | vol_up=True
+2026-02-23 17:35:19 | INFO | MainThread | DOGEUSDT | trend=BEAR | breakL=False | breakS=False | adx=28.27 | adx_ok=True | rising_ok=False | vol_ratio=0.90 | vol_up=False
+2026-02-23 17:35:19 | INFO | MainThread | ADAUSDT | trend=NONE | breakL=False | breakS=False | adx=26.35 | adx_ok=True | rising_ok=False | vol_ratio=1.29 | vol_up=True
+2026-02-23 17:35:19 | INFO | MainThread | DOTUSDT | trend=BEAR | breakL=False | breakS=False | adx=29.24 | adx_ok=True | rising_ok=False | vol_ratio=1.17 | vol_up=True
+2026-02-23 17:40:03 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1771879199999
+2026-02-23 17:40:05 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1771879199999
+2026-02-23 17:40:06 | INFO | MainThread | [CACHE] New closed candle LINKUSDT close_time=1771879199999
+2026-02-23 17:40:07 | INFO | MainThread | [CACHE] New closed candle DOGEUSDT close_time=1771879199999
+2026-02-23 17:40:08 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1771879199999
+2026-02-23 17:40:09 | INFO | MainThread | [CACHE] New closed candle DOTUSDT close_time=1771879199999
+2026-02-23 17:40:10 | INFO | MainThread | BNBUSDT | trend=NONE | breakL=False | breakS=False | adx=38.49 | adx_ok=True | rising_ok=False | vol_ratio=0.55 | vol_up=False
+2026-02-23 17:40:10 | INFO | MainThread | LINKUSDT | trend=BEAR | breakL=False | breakS=False | adx=19.56 | adx_ok=True | rising_ok=False | vol_ratio=0.92 | vol_up=False
+2026-02-23 17:40:10 | INFO | MainThread | DOGEUSDT | trend=NONE | breakL=False | breakS=False | adx=26.39 | adx_ok=True | rising_ok=False | vol_ratio=0.54 | vol_up=False
+2026-02-23 17:40:10 | INFO | MainThread | ADAUSDT | trend=BEAR | breakL=False | breakS=False | adx=24.98 | adx_ok=True | rising_ok=False | vol_ratio=0.73 | vol_up=False
+2026-02-23 17:40:10 | INFO | MainThread | DOTUSDT | trend=BEAR | breakL=False | breakS=False | adx=27.22 | adx_ok=True | rising_ok=False | vol_ratio=0.64 | vol_up=False
+2026-02-23 17:40:25 | INFO | MainThread | [CACHE] New closed candle POLUSDT close_time=1771879199999
+2026-02-23 17:40:27 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1771879199999
+2026-02-23 17:40:34 | INFO | MainThread | POLUSDT | trend=BEAR | breakL=False | breakS=False | adx=14.94 | adx_ok=False | rising_ok=False | vol_ratio=1.61 | vol_up=False
+2026-02-23 17:40:34 | INFO | MainThread | XRPUSDT | trend=NONE | breakL=False | breakS=False | adx=26.15 | adx_ok=True | rising_ok=False | vol_ratio=0.73 | vol_up=False
+2026-02-23 17:45:04 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1771879499999
+2026-02-23 17:45:05 | INFO | MainThread | [CACHE] New closed candle LINKUSDT close_time=1771879499999
+2026-02-23 17:45:06 | INFO | MainThread | [CACHE] New closed candle DOGEUSDT close_time=1771879499999
+2026-02-23 17:45:07 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1771879499999
+2026-02-23 17:45:09 | INFO | MainThread | [CACHE] New closed candle DOTUSDT close_time=1771879499999
+2026-02-23 17:45:09 | INFO | MainThread | LINKUSDT | trend=BEAR | breakL=False | breakS=False | adx=19.03 | adx_ok=True | rising_ok=False | vol_ratio=0.38 | vol_up=False
+2026-02-23 17:45:09 | INFO | MainThread | ADAUSDT | trend=BEAR | breakL=False | breakS=False | adx=23.37 | adx_ok=True | rising_ok=False | vol_ratio=0.55 | vol_up=False
+2026-02-23 17:45:09 | INFO | MainThread | DOTUSDT | trend=BEAR | breakL=False | breakS=False | adx=25.64 | adx_ok=True | rising_ok=False | vol_ratio=1.07 | vol_up=True
+2026-02-23 17:45:24 | INFO | MainThread | [CACHE] New closed candle POLUSDT close_time=1771879499999
+2026-02-23 17:45:25 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1771879499999
+2026-02-23 17:45:26 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1771879499999
+2026-02-23 17:45:30 | INFO | MainThread | POLUSDT | trend=NONE | breakL=False | breakS=False | adx=14.46 | adx_ok=False | rising_ok=False | vol_ratio=0.61 | vol_up=False
+2026-02-23 17:45:30 | INFO | MainThread | SOLUSDT | trend=BEAR | breakL=False | breakS=False | adx=22.21 | adx_ok=True | rising_ok=False | vol_ratio=0.42 | vol_up=False
+2026-02-23 17:45:30 | INFO | MainThread | XRPUSDT | trend=BEAR | breakL=False | breakS=False | adx=25.98 | adx_ok=True | rising_ok=False | vol_ratio=0.58 | vol_up=False
+2026-02-23 17:50:04 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1771879799999
+2026-02-23 17:50:06 | INFO | MainThread | [CACHE] New closed candle LINKUSDT close_time=1771879799999
+2026-02-23 17:50:07 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1771879799999
+2026-02-23 17:50:08 | INFO | MainThread | [CACHE] New closed candle DOTUSDT close_time=1771879799999
+2026-02-23 17:50:09 | INFO | MainThread | BNBUSDT | trend=BEAR | breakL=False | breakS=False | adx=37.26 | adx_ok=True | rising_ok=False | vol_ratio=0.60 | vol_up=True
+2026-02-23 17:50:09 | INFO | MainThread | LINKUSDT | trend=BEAR | breakL=False | breakS=False | adx=18.66 | adx_ok=True | rising_ok=False | vol_ratio=0.65 | vol_up=True
+2026-02-23 17:50:09 | INFO | MainThread | ADAUSDT | trend=BEAR | breakL=False | breakS=False | adx=21.80 | adx_ok=True | rising_ok=False | vol_ratio=0.42 | vol_up=False
+2026-02-23 17:50:09 | INFO | MainThread | DOTUSDT | trend=BEAR | breakL=False | breakS=False | adx=23.85 | adx_ok=True | rising_ok=False | vol_ratio=0.34 | vol_up=False
+2026-02-23 17:50:24 | INFO | MainThread | [CACHE] New closed candle POLUSDT close_time=1771879799999
+2026-02-23 17:50:25 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1771879799999
+2026-02-23 17:50:26 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1771879799999
+2026-02-23 17:50:29 | INFO | MainThread | [CACHE] New closed candle DOGEUSDT close_time=1771879799999
+2026-02-23 17:50:35 | INFO | MainThread | POLUSDT | trend=NONE | breakL=False | breakS=False | adx=13.54 | adx_ok=False | rising_ok=False | vol_ratio=1.86 | vol_up=True
+2026-02-23 17:50:35 | INFO | MainThread | SOLUSDT | trend=BEAR | breakL=False | breakS=False | adx=21.07 | adx_ok=True | rising_ok=False | vol_ratio=0.55 | vol_up=True
+2026-02-23 17:50:35 | INFO | MainThread | XRPUSDT | trend=BEAR | breakL=False | breakS=False | adx=25.51 | adx_ok=True | rising_ok=False | vol_ratio=0.52 | vol_up=False
+2026-02-23 17:50:36 | INFO | MainThread | DOGEUSDT | trend=NONE | breakL=False | breakS=False | adx=23.39 | adx_ok=True | rising_ok=False | vol_ratio=0.61 | vol_up=False
+2026-02-23 17:55:05 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1771880099999
+2026-02-23 17:55:06 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1771880099999
+2026-02-23 17:55:07 | INFO | MainThread | [CACHE] New closed candle LINKUSDT close_time=1771880099999
+2026-02-23 17:55:08 | INFO | MainThread | [CACHE] New closed candle DOGEUSDT close_time=1771880099999
+2026-02-23 17:55:09 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1771880099999
+2026-02-23 17:55:10 | INFO | MainThread | [CACHE] New closed candle DOTUSDT close_time=1771880099999
+2026-02-23 17:55:11 | INFO | MainThread | BNBUSDT | trend=BEAR | breakL=False | breakS=False | adx=35.88 | adx_ok=True | rising_ok=False | vol_ratio=0.45 | vol_up=False
+2026-02-23 17:55:11 | INFO | MainThread | LINKUSDT | trend=BEAR | breakL=False | breakS=False | adx=18.77 | adx_ok=True | rising_ok=True | vol_ratio=0.95 | vol_up=True
+2026-02-23 17:55:11 | INFO | MainThread | DOGEUSDT | trend=BEAR | breakL=False | breakS=False | adx=22.45 | adx_ok=True | rising_ok=False | vol_ratio=0.63 | vol_up=False
+2026-02-23 17:55:11 | INFO | MainThread | ADAUSDT | trend=BEAR | breakL=False | breakS=False | adx=20.86 | adx_ok=True | rising_ok=False | vol_ratio=0.64 | vol_up=True
+2026-02-23 17:55:11 | INFO | MainThread | DOTUSDT | trend=BEAR | breakL=False | breakS=False | adx=22.73 | adx_ok=True | rising_ok=False | vol_ratio=0.57 | vol_up=True
+2026-02-23 17:55:26 | INFO | MainThread | [CACHE] New closed candle POLUSDT close_time=1771880099999
+2026-02-23 17:55:27 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1771880099999
+2026-02-23 17:55:32 | INFO | MainThread | POLUSDT | trend=NONE | breakL=False | breakS=False | adx=12.68 | adx_ok=False | rising_ok=False | vol_ratio=1.12 | vol_up=False
+2026-02-23 17:55:32 | INFO | MainThread | SOLUSDT | trend=BEAR | breakL=False | breakS=False | adx=19.91 | adx_ok=True | rising_ok=False | vol_ratio=0.86 | vol_up=True
+2026-02-23 18:00:11 | INFO | MainThread | [CACHE] New closed candle POLUSDT close_time=1771880399999
+2026-02-23 18:00:12 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1771880399999
+2026-02-23 18:00:13 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1771880399999
+2026-02-23 18:00:15 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1771880399999
+2026-02-23 18:00:16 | INFO | MainThread | [CACHE] New closed candle LINKUSDT close_time=1771880399999
+2026-02-23 18:00:17 | INFO | MainThread | [CACHE] New closed candle DOGEUSDT close_time=1771880399999
+2026-02-23 18:00:18 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1771880399999
+2026-02-23 18:00:19 | INFO | MainThread | [CACHE] New closed candle DOTUSDT close_time=1771880399999
+2026-02-23 18:00:20 | INFO | MainThread | POLUSDT | trend=NONE | breakL=False | breakS=False | adx=11.79 | adx_ok=False | rising_ok=False | vol_ratio=0.92 | vol_up=False
+2026-02-23 18:00:20 | INFO | MainThread | SOLUSDT | trend=BEAR | breakL=False | breakS=False | adx=18.49 | adx_ok=True | rising_ok=False | vol_ratio=1.92 | vol_up=True
+2026-02-23 18:00:20 | INFO | MainThread | XRPUSDT | trend=NONE | breakL=False | breakS=False | adx=23.72 | adx_ok=True | rising_ok=False | vol_ratio=1.89 | vol_up=True
+2026-02-23 18:00:20 | INFO | MainThread | BNBUSDT | trend=BEAR | breakL=False | breakS=False | adx=31.47 | adx_ok=True | rising_ok=False | vol_ratio=1.72 | vol_up=True
+2026-02-23 18:00:20 | INFO | MainThread | LINKUSDT | trend=BEAR | breakL=False | breakS=False | adx=19.69 | adx_ok=True | rising_ok=True | vol_ratio=3.99 | vol_up=True
+2026-02-23 18:00:20 | INFO | MainThread | DOGEUSDT | trend=BEAR | breakL=False | breakS=False | adx=22.00 | adx_ok=True | rising_ok=False | vol_ratio=0.75 | vol_up=True
+2026-02-23 18:00:20 | INFO | MainThread | ADAUSDT | trend=BEAR | breakL=False | breakS=False | adx=20.46 | adx_ok=True | rising_ok=False | vol_ratio=0.79 | vol_up=True
+2026-02-23 18:00:20 | INFO | MainThread | DOTUSDT | trend=BEAR | breakL=False | breakS=False | adx=22.50 | adx_ok=True | rising_ok=False | vol_ratio=0.87 | vol_up=True
+2026-02-23 18:05:14 | INFO | MainThread | [CACHE] New closed candle POLUSDT close_time=1771880699999
+2026-02-23 18:05:15 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1771880699999
+2026-02-23 18:05:16 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1771880699999
+2026-02-23 18:05:17 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1771880699999
+2026-02-23 18:05:18 | INFO | MainThread | [CACHE] New closed candle LINKUSDT close_time=1771880699999
+2026-02-23 18:05:20 | INFO | MainThread | [CACHE] New closed candle DOGEUSDT close_time=1771880699999
+2026-02-23 18:05:21 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1771880699999
+2026-02-23 18:05:22 | INFO | MainThread | [CACHE] New closed candle DOTUSDT close_time=1771880699999
+2026-02-23 18:05:22 | INFO | MainThread | POLUSDT | trend=BEAR | breakL=False | breakS=False | adx=11.55 | adx_ok=False | rising_ok=False | vol_ratio=1.48 | vol_up=True
+2026-02-23 18:05:22 | INFO | MainThread | SOLUSDT | trend=NONE | breakL=False | breakS=False | adx=17.69 | adx_ok=False | rising_ok=False | vol_ratio=1.19 | vol_up=False
+2026-02-23 18:05:22 | INFO | MainThread | XRPUSDT | trend=BEAR | breakL=False | breakS=False | adx=24.01 | adx_ok=True | rising_ok=True | vol_ratio=3.02 | vol_up=True
+2026-02-23 18:05:22 | INFO | MainThread | BNBUSDT | trend=BEAR | breakL=False | breakS=False | adx=30.51 | adx_ok=True | rising_ok=False | vol_ratio=0.89 | vol_up=False
+2026-02-23 18:05:22 | INFO | MainThread | LINKUSDT | trend=BEAR | breakL=False | breakS=False | adx=20.75 | adx_ok=True | rising_ok=True | vol_ratio=1.23 | vol_up=False
+2026-02-23 18:05:22 | INFO | MainThread | DOGEUSDT | trend=BEAR | breakL=False | breakS=False | adx=21.50 | adx_ok=True | rising_ok=False | vol_ratio=1.14 | vol_up=True
+2026-02-23 18:05:22 | INFO | MainThread | ADAUSDT | trend=BEAR | breakL=False | breakS=False | adx=20.10 | adx_ok=True | rising_ok=False | vol_ratio=1.22 | vol_up=True
+2026-02-23 18:05:22 | INFO | MainThread | DOTUSDT | trend=BEAR | breakL=False | breakS=False | adx=22.28 | adx_ok=True | rising_ok=False | vol_ratio=1.04 | vol_up=True
+2026-02-23 18:10:15 | INFO | MainThread | [CACHE] New closed candle POLUSDT close_time=1771880999999
+2026-02-23 18:10:16 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1771880999999
+2026-02-23 18:10:17 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1771880999999
+2026-02-23 18:10:18 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1771880999999
+2026-02-23 18:10:19 | INFO | MainThread | [CACHE] New closed candle LINKUSDT close_time=1771880999999
+2026-02-23 18:10:21 | INFO | MainThread | [CACHE] New closed candle DOGEUSDT close_time=1771880999999
+2026-02-23 18:10:22 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1771880999999
+2026-02-23 18:10:23 | INFO | MainThread | [CACHE] New closed candle DOTUSDT close_time=1771880999999
+2026-02-23 18:10:23 | INFO | MainThread | POLUSDT | trend=BEAR | breakL=False | breakS=False | adx=11.38 | adx_ok=False | rising_ok=False | vol_ratio=0.87 | vol_up=False
+2026-02-23 18:10:23 | INFO | MainThread | SOLUSDT | trend=NONE | breakL=False | breakS=False | adx=16.94 | adx_ok=False | rising_ok=False | vol_ratio=1.13 | vol_up=False
+2026-02-23 18:10:23 | INFO | MainThread | XRPUSDT | trend=BEAR | breakL=False | breakS=False | adx=24.28 | adx_ok=True | rising_ok=True | vol_ratio=1.06 | vol_up=False
+2026-02-23 18:10:23 | INFO | MainThread | BNBUSDT | trend=BEAR | breakL=False | breakS=False | adx=29.71 | adx_ok=True | rising_ok=False | vol_ratio=0.69 | vol_up=False
+2026-02-23 18:10:23 | INFO | MainThread | LINKUSDT | trend=BEAR | breakL=False | breakS=False | adx=22.05 | adx_ok=True | rising_ok=True | vol_ratio=0.75 | vol_up=False
+2026-02-23 18:10:24 | INFO | MainThread | DOGEUSDT | trend=BEAR | breakL=False | breakS=False | adx=20.21 | adx_ok=True | rising_ok=False | vol_ratio=1.30 | vol_up=True
+2026-02-23 18:10:24 | INFO | MainThread | ADAUSDT | trend=BEAR | breakL=False | breakS=False | adx=19.76 | adx_ok=True | rising_ok=False | vol_ratio=1.21 | vol_up=True
+2026-02-23 18:10:24 | INFO | MainThread | DOTUSDT | trend=BEAR | breakL=False | breakS=False | adx=22.34 | adx_ok=True | rising_ok=True | vol_ratio=1.11 | vol_up=True
+2026-02-23 18:15:16 | INFO | MainThread | [CACHE] New closed candle POLUSDT close_time=1771881299999
+2026-02-23 18:15:18 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1771881299999
+2026-02-23 18:15:19 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1771881299999
+2026-02-23 18:15:20 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1771881299999
+2026-02-23 18:15:21 | INFO | MainThread | [CACHE] New closed candle LINKUSDT close_time=1771881299999
+2026-02-23 18:15:22 | INFO | MainThread | [CACHE] New closed candle DOGEUSDT close_time=1771881299999
+2026-02-23 18:15:24 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1771881299999
+2026-02-23 18:15:25 | INFO | MainThread | [CACHE] New closed candle DOTUSDT close_time=1771881299999
+2026-02-23 18:15:25 | INFO | MainThread | POLUSDT | trend=NONE | breakL=False | breakS=False | adx=11.22 | adx_ok=False | rising_ok=False | vol_ratio=0.60 | vol_up=False
+2026-02-23 18:15:25 | INFO | MainThread | SOLUSDT | trend=BEAR | breakL=False | breakS=False | adx=15.80 | adx_ok=False | rising_ok=False | vol_ratio=0.69 | vol_up=False
+2026-02-23 18:15:25 | INFO | MainThread | XRPUSDT | trend=BEAR | breakL=False | breakS=False | adx=24.27 | adx_ok=True | rising_ok=False | vol_ratio=0.59 | vol_up=False
+2026-02-23 18:15:25 | INFO | MainThread | BNBUSDT | trend=BEAR | breakL=False | breakS=False | adx=28.97 | adx_ok=True | rising_ok=False | vol_ratio=0.33 | vol_up=False
+2026-02-23 18:15:25 | INFO | MainThread | LINKUSDT | trend=BULL | breakL=False | breakS=False | adx=23.26 | adx_ok=True | rising_ok=True | vol_ratio=0.38 | vol_up=False
+2026-02-23 18:15:25 | INFO | MainThread | DOGEUSDT | trend=NONE | breakL=False | breakS=False | adx=19.01 | adx_ok=True | rising_ok=False | vol_ratio=0.61 | vol_up=False
+2026-02-23 18:15:25 | INFO | MainThread | ADAUSDT | trend=BEAR | breakL=False | breakS=False | adx=19.45 | adx_ok=True | rising_ok=False | vol_ratio=0.58 | vol_up=False
+2026-02-23 18:15:25 | INFO | MainThread | DOTUSDT | trend=BEAR | breakL=False | breakS=False | adx=22.65 | adx_ok=True | rising_ok=True | vol_ratio=0.59 | vol_up=False
+2026-02-23 18:20:05 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1771881599999
+2026-02-23 18:20:07 | INFO | MainThread | [CACHE] New closed candle LINKUSDT close_time=1771881599999
+2026-02-23 18:20:09 | INFO | MainThread | [CACHE] New closed candle DOGEUSDT close_time=1771881599999
+2026-02-23 18:20:10 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1771881599999
+2026-02-23 18:20:11 | INFO | MainThread | [CACHE] New closed candle DOTUSDT close_time=1771881599999
+2026-02-23 18:20:11 | INFO | MainThread | DOGEUSDT | trend=BEAR | breakL=False | breakS=False | adx=18.40 | adx_ok=True | rising_ok=False | vol_ratio=0.58 | vol_up=False
+2026-02-23 18:20:11 | INFO | MainThread | ADAUSDT | trend=BEAR | breakL=False | breakS=False | adx=19.57 | adx_ok=True | rising_ok=True | vol_ratio=0.56 | vol_up=False
+2026-02-23 18:20:11 | INFO | MainThread | DOTUSDT | trend=BEAR | breakL=False | breakS=False | adx=22.94 | adx_ok=True | rising_ok=True | vol_ratio=0.98 | vol_up=True
+2026-02-23 18:20:26 | INFO | MainThread | [CACHE] New closed candle POLUSDT close_time=1771881599999
+2026-02-23 18:20:28 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1771881599999
+2026-02-23 18:20:29 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1771881599999
+2026-02-23 18:20:34 | INFO | MainThread | POLUSDT | trend=BEAR | breakL=False | breakS=False | adx=10.86 | adx_ok=False | rising_ok=False | vol_ratio=0.88 | vol_up=True
+2026-02-23 18:20:34 | INFO | MainThread | XRPUSDT | trend=BEAR | breakL=False | breakS=False | adx=22.71 | adx_ok=True | rising_ok=False | vol_ratio=0.71 | vol_up=True
+2026-02-23 18:20:34 | INFO | MainThread | BNBUSDT | trend=BEAR | breakL=False | breakS=False | adx=28.88 | adx_ok=True | rising_ok=False | vol_ratio=0.33 | vol_up=False
+2026-02-23 18:25:13 | INFO | MainThread | [CACHE] New closed candle POLUSDT close_time=1771881899999
+2026-02-23 18:25:14 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1771881899999
+2026-02-23 18:25:15 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1771881899999
+2026-02-23 18:25:16 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1771881899999
+2026-02-23 18:25:18 | INFO | MainThread | [CACHE] New closed candle LINKUSDT close_time=1771881899999
+2026-02-23 18:25:19 | INFO | MainThread | [CACHE] New closed candle DOGEUSDT close_time=1771881899999
+2026-02-23 18:25:20 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1771881899999
+2026-02-23 18:25:21 | INFO | MainThread | [CACHE] New closed candle DOTUSDT close_time=1771881899999
+2026-02-23 18:25:22 | INFO | MainThread | POLUSDT | trend=BEAR | breakL=False | breakS=False | adx=10.52 | adx_ok=False | rising_ok=False | vol_ratio=0.54 | vol_up=False
+2026-02-23 18:25:22 | INFO | MainThread | SOLUSDT | trend=BEAR | breakL=False | breakS=False | adx=13.83 | adx_ok=False | rising_ok=False | vol_ratio=0.59 | vol_up=True
+2026-02-23 18:25:22 | INFO | MainThread | XRPUSDT | trend=BEAR | breakL=False | breakS=False | adx=21.26 | adx_ok=True | rising_ok=False | vol_ratio=0.68 | vol_up=False
+2026-02-23 18:25:22 | INFO | MainThread | BNBUSDT | trend=BEAR | breakL=False | breakS=False | adx=28.80 | adx_ok=True | rising_ok=False | vol_ratio=0.41 | vol_up=True
+2026-02-23 18:25:22 | INFO | MainThread | LINKUSDT | trend=BULL | breakL=False | breakS=False | adx=25.38 | adx_ok=True | rising_ok=True | vol_ratio=0.36 | vol_up=False
+2026-02-23 18:25:22 | INFO | MainThread | DOGEUSDT | trend=BEAR | breakL=False | breakS=False | adx=17.84 | adx_ok=False | rising_ok=False | vol_ratio=0.58 | vol_up=False
+2026-02-23 18:25:23 | INFO | MainThread | ADAUSDT | trend=BEAR | breakL=False | breakS=False | adx=19.69 | adx_ok=True | rising_ok=True | vol_ratio=0.45 | vol_up=False
+2026-02-23 18:25:23 | INFO | MainThread | DOTUSDT | trend=BEAR | breakL=False | breakS=False | adx=23.20 | adx_ok=True | rising_ok=True | vol_ratio=0.70 | vol_up=False
+2026-02-23 18:30:07 | INFO | MainThread | [CACHE] New closed candle LINKUSDT close_time=1771882199999
+2026-02-23 18:30:09 | INFO | MainThread | [CACHE] New closed candle DOGEUSDT close_time=1771882199999
+2026-02-23 18:30:10 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1771882199999
+2026-02-23 18:30:11 | INFO | MainThread | [CACHE] New closed candle DOTUSDT close_time=1771882199999
+2026-02-23 18:30:12 | INFO | MainThread | DOGEUSDT | trend=NONE | breakL=False | breakS=False | adx=16.57 | adx_ok=False | rising_ok=False | vol_ratio=2.90 | vol_up=True
+2026-02-23 18:30:12 | INFO | MainThread | ADAUSDT | trend=BEAR | breakL=False | breakS=False | adx=19.57 | adx_ok=True | rising_ok=False | vol_ratio=0.51 | vol_up=True
+2026-02-23 18:30:12 | INFO | MainThread | DOTUSDT | trend=BULL | breakL=False | breakS=False | adx=23.45 | adx_ok=True | rising_ok=True | vol_ratio=1.14 | vol_up=True
+2026-02-23 18:30:26 | INFO | MainThread | [CACHE] New closed candle POLUSDT close_time=1771882199999
+2026-02-23 18:30:28 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1771882199999
+2026-02-23 18:30:29 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1771882199999
+2026-02-23 18:30:30 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1771882199999
+2026-02-23 18:30:34 | INFO | MainThread | POLUSDT | trend=NONE | breakL=False | breakS=False | adx=9.94 | adx_ok=False | rising_ok=False | vol_ratio=0.97 | vol_up=True
+2026-02-23 18:30:34 | INFO | MainThread | SOLUSDT | trend=BEAR | breakL=False | breakS=False | adx=12.84 | adx_ok=False | rising_ok=False | vol_ratio=0.26 | vol_up=False
+2026-02-23 18:30:35 | INFO | MainThread | XRPUSDT | trend=NONE | breakL=False | breakS=False | adx=19.91 | adx_ok=True | rising_ok=False | vol_ratio=0.43 | vol_up=False
+2026-02-23 18:30:35 | INFO | MainThread | BNBUSDT | trend=BEAR | breakL=False | breakS=False | adx=28.72 | adx_ok=True | rising_ok=False | vol_ratio=0.25 | vol_up=False
+2026-02-23 18:35:06 | INFO | MainThread | [CACHE] New closed candle LINKUSDT close_time=1771882499999
+2026-02-23 18:35:07 | INFO | MainThread | [CACHE] New closed candle DOGEUSDT close_time=1771882499999
+2026-02-23 18:35:09 | INFO | MainThread | [CACHE] New closed candle DOTUSDT close_time=1771882499999
+2026-02-23 18:35:09 | INFO | MainThread | LINKUSDT | trend=BULL | breakL=False | breakS=False | adx=27.12 | adx_ok=True | rising_ok=True | vol_ratio=0.41 | vol_up=False
+2026-02-23 18:35:09 | INFO | MainThread | DOGEUSDT | trend=NONE | breakL=False | breakS=False | adx=15.39 | adx_ok=False | rising_ok=False | vol_ratio=0.71 | vol_up=False
+2026-02-23 18:35:10 | INFO | MainThread | DOTUSDT | trend=BULL | breakL=False | breakS=False | adx=23.68 | adx_ok=True | rising_ok=True | vol_ratio=0.57 | vol_up=False
+2026-02-23 18:35:24 | INFO | MainThread | [CACHE] New closed candle POLUSDT close_time=1771882499999
+2026-02-23 18:35:26 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1771882499999
+2026-02-23 18:35:27 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1771882499999
+2026-02-23 18:35:28 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1771882499999
+2026-02-23 18:35:31 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1771882499999
+2026-02-23 18:35:32 | INFO | MainThread | POLUSDT | trend=NONE | breakL=False | breakS=False | adx=9.40 | adx_ok=False | rising_ok=False | vol_ratio=0.54 | vol_up=False
+2026-02-23 18:35:32 | INFO | MainThread | SOLUSDT | trend=NONE | breakL=False | breakS=False | adx=12.29 | adx_ok=False | rising_ok=False | vol_ratio=0.71 | vol_up=True
+2026-02-23 18:35:32 | INFO | MainThread | XRPUSDT | trend=BEAR | breakL=False | breakS=False | adx=18.67 | adx_ok=True | rising_ok=False | vol_ratio=0.61 | vol_up=True
+2026-02-23 18:35:32 | INFO | MainThread | BNBUSDT | trend=BEAR | breakL=False | breakS=False | adx=28.65 | adx_ok=True | rising_ok=False | vol_ratio=0.27 | vol_up=False
+2026-02-23 18:35:32 | INFO | MainThread | ADAUSDT | trend=BEAR | breakL=False | breakS=False | adx=19.46 | adx_ok=True | rising_ok=False | vol_ratio=0.35 | vol_up=False
+2026-02-23 18:40:07 | INFO | MainThread | [CACHE] New closed candle POLUSDT close_time=1771882799999
+2026-02-23 18:40:08 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1771882799999
+2026-02-23 18:40:09 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1771882799999
+2026-02-23 18:40:11 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1771882799999
+2026-02-23 18:40:12 | INFO | MainThread | [CACHE] New closed candle LINKUSDT close_time=1771882799999
+2026-02-23 18:40:13 | INFO | MainThread | [CACHE] New closed candle DOGEUSDT close_time=1771882799999
+2026-02-23 18:40:14 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1771882799999
+2026-02-23 18:40:15 | INFO | MainThread | [CACHE] New closed candle DOTUSDT close_time=1771882799999
+2026-02-23 18:40:16 | INFO | MainThread | POLUSDT | trend=NONE | breakL=False | breakS=False | adx=8.90 | adx_ok=False | rising_ok=False | vol_ratio=0.41 | vol_up=False
+2026-02-23 18:40:16 | INFO | MainThread | SOLUSDT | trend=NONE | breakL=False | breakS=False | adx=12.00 | adx_ok=False | rising_ok=False | vol_ratio=0.64 | vol_up=False
+2026-02-23 18:40:16 | INFO | MainThread | XRPUSDT | trend=NONE | breakL=False | breakS=False | adx=18.32 | adx_ok=True | rising_ok=False | vol_ratio=0.54 | vol_up=False
+2026-02-23 18:40:16 | INFO | MainThread | BNBUSDT | trend=NONE | breakL=False | breakS=False | adx=27.08 | adx_ok=True | rising_ok=False | vol_ratio=1.18 | vol_up=True
+2026-02-23 18:40:16 | INFO | MainThread | LINKUSDT | trend=BULL | breakL=False | breakS=False | adx=26.70 | adx_ok=True | rising_ok=False | vol_ratio=0.40 | vol_up=False
+2026-02-23 18:40:16 | INFO | MainThread | DOGEUSDT | trend=BEAR | breakL=False | breakS=False | adx=14.75 | adx_ok=False | rising_ok=False | vol_ratio=0.86 | vol_up=True
+2026-02-23 18:40:16 | INFO | MainThread | ADAUSDT | trend=NONE | breakL=False | breakS=False | adx=18.26 | adx_ok=True | rising_ok=False | vol_ratio=0.46 | vol_up=True
+2026-02-23 18:40:16 | INFO | MainThread | DOTUSDT | trend=BULL | breakL=False | breakS=False | adx=23.90 | adx_ok=True | rising_ok=True | vol_ratio=1.33 | vol_up=True
+2026-02-23 18:47:25 | INFO | MainThread | [CACHE INIT] POLUSDT loaded 500 candles
+2026-02-23 18:47:27 | INFO | MainThread | [CACHE INIT] SOLUSDT loaded 500 candles
+2026-02-23 18:47:28 | INFO | MainThread | [CACHE INIT] XRPUSDT loaded 500 candles
+2026-02-23 18:47:29 | INFO | MainThread | [CACHE INIT] BNBUSDT loaded 500 candles
+2026-02-23 18:47:30 | INFO | MainThread | [CACHE INIT] LINKUSDT loaded 500 candles
+2026-02-23 18:47:30 | INFO | MainThread | [CACHE INIT] DOGEUSDT loaded 500 candles
+2026-02-23 18:47:32 | INFO | MainThread | [CACHE INIT] ADAUSDT loaded 500 candles
+2026-02-23 18:47:33 | INFO | MainThread | [CACHE INIT] DOTUSDT loaded 500 candles
+2026-02-23 18:48:02 | INFO | MainThread | POLUSDT | trend=NONE | breakL=False | breakS=False | adx=10.41 | adx_ok=False | rising_ok=True | vol_ratio=2.02 | vol_up=True
+2026-02-23 18:48:02 | INFO | MainThread | SOLUSDT | trend=NONE | breakL=False | breakS=False | adx=12.17 | adx_ok=False | rising_ok=True | vol_ratio=1.39 | vol_up=True
+2026-02-23 18:48:02 | INFO | MainThread | XRPUSDT | trend=NONE | breakL=False | breakS=False | adx=17.82 | adx_ok=False | rising_ok=False | vol_ratio=1.23 | vol_up=True
+2026-02-23 18:48:02 | INFO | MainThread | BNBUSDT | trend=NONE | breakL=False | breakS=False | adx=26.64 | adx_ok=True | rising_ok=False | vol_ratio=0.96 | vol_up=False
+2026-02-23 18:48:02 | INFO | MainThread | LINKUSDT | trend=BULL | breakL=False | breakS=False | adx=27.23 | adx_ok=True | rising_ok=True | vol_ratio=1.08 | vol_up=True
+2026-02-23 18:48:02 | INFO | MainThread | DOGEUSDT | trend=NONE | breakL=False | breakS=False | adx=14.92 | adx_ok=False | rising_ok=True | vol_ratio=1.12 | vol_up=True
+2026-02-23 18:48:03 | INFO | MainThread | ADAUSDT | trend=NONE | breakL=False | breakS=False | adx=18.42 | adx_ok=True | rising_ok=True | vol_ratio=1.57 | vol_up=True
+2026-02-23 18:48:03 | INFO | MainThread | DOTUSDT | trend=BULL | breakL=False | breakS=False | adx=25.69 | adx_ok=True | rising_ok=True | vol_ratio=1.75 | vol_up=True
