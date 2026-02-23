@@ -194,6 +194,21 @@ class OrderManager:
             self.logger.warning(f"[SAFETY] Equity fetch error: {e}")
             return False
 
+        # =====  control de capital simultáneo antes de auto-scale de margin =====
+        account = self.exchange.get_account_info()
+
+        total_wallet = float(account.get("totalWalletBalance", 0))
+        total_initial_margin = float(account.get("totalInitialMargin", 0))
+
+        if total_wallet > 0:
+            usage_ratio = total_initial_margin / total_wallet
+
+            if usage_ratio >= CFG.MAX_CAPITAL_USAGE:
+                self.logger.warning(
+                    f"[CAPITAL] usage {usage_ratio:.2%} >= {MAX_CAPITAL_USAGE:.0%}. Skip {symbol}"
+                )
+                return False    
+
         # ============================================================
         # AUTO-SCALE MARGIN MANAGEMENT
         # ============================================================
@@ -209,7 +224,7 @@ class OrderManager:
 
                 if required_margin > available:
 
-                    scale_factor = available / required_margin
+                    scale_factor = (available * CFG.SAFETY_BUFFER) / required_margin
 
                     if scale_factor <= 0:
                         self.logger.warning(f"[MARGIN] {symbol} no available margin.")
@@ -217,6 +232,14 @@ class OrderManager:
 
                     qty *= scale_factor
                     notional = mark_price * qty
+
+                    required_margin = (notional / max(lev, 1.0))
+
+                    if required_margin > available * SAFETY_BUFFER:
+                        self.logger.warning(
+                            f"[MARGIN] {symbol} still insufficient after scaling."
+                        )
+                        return False
 
                     self.logger.warning(
                         f"[MARGIN] {symbol} auto-scaled | "

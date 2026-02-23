@@ -15,8 +15,8 @@ KLINES_LIMIT = 500
 # =========================
 # STRATEGY
 # =========================
-EMA_FAST = 20  # 20
-EMA_SLOW = 50  #50
+EMA_FAST = 15  # 20
+EMA_SLOW = 35  # 50
 
 ADX_PERIOD = 14
 ATR_PERIOD = 14
@@ -67,6 +67,13 @@ MAX_SLIPPAGE_RATIO = 0.003
 
 # Funding filter (0.0005 = 0.05%)
 FUNDING_THRESHOLD = 0.0005
+
+# controla capital antes del auto-scale de margin
+MAX_CAPITAL_USAGE = 0.85  # configurable
+
+# scale margin
+SAFETY_BUFFER = 0.90
+
 
 # =========================
 # REST POLLING (performance)

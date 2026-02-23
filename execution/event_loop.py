@@ -105,10 +105,13 @@ class EventLoop:
     def reconcile_filled_orders(self, st):
         try:
             exchange_positions = self.exchange.get_open_positions()
-            exchange_map = {
-                p["symbol"]: float(p["positionAmt"])
-                for p in exchange_positions
-            }
+            exchange_map = {}
+
+            for p in exchange_positions:
+                symbol = p.get("symbol")
+                if not symbol:
+                    continue
+                exchange_map[symbol] = float(p.get("size") or 0)
 
             db_open = self.om.db.get_open_positions()
 
