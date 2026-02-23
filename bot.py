@@ -59,7 +59,7 @@ def main():
         testnet=getattr(CFG, "TESTNET", False)
     )
 
-    # ================= STATE =================
+   # ================= STATE =================
     defaults = BotState(
         paused=False,
         risk_pct=CFG.DEFAULT_RISK_PCT,
@@ -75,7 +75,7 @@ def main():
 
     state_dict = db.load_state() or {}
 
-    # merge seguro usando dataclass real
+    # merge base
     merged_data = {
         **defaults.to_dict(),
         **state_dict
@@ -83,13 +83,38 @@ def main():
 
     st = BotState(**merged_data)
 
+    # ================= CONFIG SYNC =================
+
+    config_fields = {
+        "risk_pct": CFG.DEFAULT_RISK_PCT,
+        "leverage": CFG.DEFAULT_LEVERAGE,
+        "symbols": CFG.SYMBOLS.copy(),
+        "trailing_pct": CFG.TRAILING_PCT,
+        "max_positions": CFG.MAX_OPEN_POSITIONS,
+        "adx_min": CFG.DEFAULT_ADX_MIN,
+        "cooldown_bars": CFG.DEFAULT_COOLDOWN_BARS,
+        "daily_loss_limit_pct": CFG.DEFAULT_DAILY_LOSS_LIMIT_PCT,
+        "paper_trading": PAPER_TRADING,
+    }
+
+    updated = False
+
+    for field, config_value in config_fields.items():
+        if getattr(st, field) != config_value:
+            setattr(st, field, config_value)
+            updated = True
+
+    # ================= DAY INIT =================
+
     if not st.day_key:
         st.day_key = utc_day_key()
 
     if st.day_start_equity <= 0:
         st.day_start_equity = max(exchange.get_equity(), 0.0)
 
-    db.save_state(st.to_dict())
+    # Guardar si hubo sync o si era vacío
+    if updated or not state_dict:
+        db.save_state(st.to_dict())
 
     # ================= LEVERAGE =================
     for s in st.symbols:
@@ -154,7 +179,7 @@ def main():
                 telegram.poll_once(st, exchange, db)
 
             # 6) Control de Riesgo
-            risk_monitor.check()    
+            # risk_monitor.check()     va pero es media jedienta
 
             # 7) SNAPSHOT DE CUENTA
             try:

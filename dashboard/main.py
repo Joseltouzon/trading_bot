@@ -2,6 +2,7 @@ from fastapi import FastAPI, Request
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 from fastapi import Form
+from fastapi import Body
 from fastapi.responses import RedirectResponse
 from db import Database
 
@@ -100,3 +101,39 @@ def update_settings(
 @app.get("/account")
 def account_data():
     return db.get_latest_account_snapshot()
+
+
+@app.post("/update-config")
+async def update_config(payload: dict = Body(...)):
+
+    db = Database()
+    state = db.load_state()
+
+    # actualizar solo claves que existen
+    allowed_keys = [
+        "paused",
+        "risk_pct",
+        "leverage",
+        "max_positions",
+        "daily_loss_limit_pct",
+        "trailing_pct",
+        "adx_min",
+        "cooldown_bars",
+        "symbols"
+    ]
+
+    for key in allowed_keys:
+        if key in payload:
+            state[key] = payload[key]
+
+    if "risk_pct" in payload:
+        if payload["risk_pct"] <= 0 or payload["risk_pct"] > 5:
+            raise HTTPException(status_code=400, detail="risk_pct inválido")
+
+    if "leverage" in payload:
+        if payload["leverage"] < 1 or payload["leverage"] > 50:
+            raise HTTPException(status_code=400, detail="leverage inválido")        
+
+    db.save_state(state)
+
+    return {"status": "ok"}

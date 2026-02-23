@@ -1,6 +1,31 @@
 {% extends "base.html" %}
 
 {% block content %}
+
+<!-- NAV TABS -->
+<ul class="nav nav-pills mb-4">
+  <li class="nav-item">
+    <button class="nav-link active" data-bs-toggle="pill" data-bs-target="#overview">
+      <i class="bi bi-speedometer2"></i> Overview
+    </button>
+  </li>
+  <li class="nav-item">
+    <button class="nav-link" data-bs-toggle="pill" data-bs-target="#performance">
+      <i class="bi bi-graph-up"></i> Performance
+    </button>
+  </li>
+  <li class="nav-item">
+    <button class="nav-link" data-bs-toggle="pill" data-bs-target="#config">
+      <i class="bi bi-sliders"></i> Configuración
+    </button>
+  </li>
+</ul>
+
+<div class="tab-content">
+
+<!-- ========================= OVERVIEW TAB ========================= -->
+<div class="tab-pane fade show active" id="overview">
+
 <div class="alert {% if bot_status == 'RUNNING' %}alert-success{% else %}alert-danger{% endif %}">
     Bot Status: <strong>{{ bot_status }}</strong>
 </div>
@@ -11,18 +36,7 @@
         <div class="card bg-secondary">
             <div class="card-body">
                 <h5>Equity Total</h5>
-                <h3 class="text-light">
-                    ${{ "%.2f"|format(account.equity or 0) }}
-                </h3>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-md-3">
-        <div class="card bg-secondary">
-            <div class="card-body">
-                <h5>Equity</h5>
-                <h3>${{ stats.equity }}</h3>
+                <h3>${{ "%.2f"|format(account.equity or 0) }}</h3>
             </div>
         </div>
     </div>
@@ -42,23 +56,8 @@
         <div class="card bg-secondary">
             <div class="card-body">
                 <h5>Disponible</h5>
-                <h3 class="text-success" style="color: chartreuse !important;">
+                <h3 class="custom-success">
                     ${{ "%.2f"|format(account.available or 0) }}
-                </h3>
-            </div>
-        </div>
-    </div>
-
-</div>
-
-<div class="row mt-4">
-    
-    <div class="col-md-3">
-        <div class="card bg-secondary">
-            <div class="card-body">
-                <h5>Max Drawdown</h5>
-                <h3 class="text-danger">
-                    {{ max_drawdown }}%
                 </h3>
             </div>
         </div>
@@ -73,116 +72,6 @@
         </div>
     </div>
 
-    <div class="col-md-3">
-        <div class="card bg-secondary">
-            <div class="card-body">
-                <h5>Daily PnL</h5>
-                <h3 class="{% if stats.daily_pnl >= 1 %}custom-success{% else %}text-danger{% endif %}">
-                    {{ stats.daily_pnl }}%
-                </h3>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-3">
-        <div class="card bg-secondary">
-            <div class="card-body">
-                <h5>Win Rate</h5>
-                <h3>{{ stats.win_rate }}%</h3>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="row mt-4">
-
-    <div class="col-md-3">
-        <div class="card bg-secondary">
-            <div class="card-body">
-                <h5>Profit Factor</h5>
-                <h3 class="{% if performance.profit_factor >= 1 %}custom-success{% else %}text-danger{% endif %}">
-                    {{ performance.profit_factor }}
-                </h3>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-md-3">
-        <div class="card bg-secondary">
-            <div class="card-body">
-                <h5>Avg Win</h5>
-                <h3 class="text-success" style="color: chartreuse !important;">
-                    ${{ performance.avg_win }}
-                </h3>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-md-3">
-        <div class="card bg-secondary">
-            <div class="card-body">
-                <h5>Avg Loss</h5>
-                <h3 class="text-danger">
-                    ${{ performance.avg_loss }}
-                </h3>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-md-3">
-        <div class="card bg-secondary">
-            <div class="card-body">
-                <h5>Risk / Reward</h5>
-                <h3 class="{% if performance.avg_loss >= 1 %}custom-success{% else %}text-danger{% endif %}">
-                    {% if performance.avg_loss != 0 %}
-                        {{ (performance.avg_win / performance.avg_loss) | round(2) }}
-                    {% else %}
-                        0
-                    {% endif %}
-                </h3>
-            </div>
-        </div>
-    </div>
-
-</div>
-
-<div class="card bg-dark border-secondary mt-4">
-    <div class="card-body">
-        <h5 style="color: #fff;">Bot Controls</h5>
-
-        <div class="d-flex gap-2 mb-3">
-            <form method="post" action="/bot/pause">
-                <button class="btn btn-danger">Pause</button>
-            </form>
-
-            <form method="post" action="/bot/resume">
-                <button class="btn btn-success">Resume</button>
-            </form>
-        </div>
-
-        <form method="post" action="/bot/update-settings" class="row g-2">
-            <div class="col-md-4">
-                <label for="risk" style="color: #fff;">Risk %</label>
-                <input type="number" step="0.1" name="risk_pct" id="risk"
-                       value="{{ state.risk_pct }}"
-                       class="form-control"
-                       placeholder="Risk %">
-            </div>
-
-            <div class="col-md-4">
-                <label for="max_pos" style="color: #fff;">Max Positions</label>
-                <input type="number" name="max_positions" id="max_pos"
-                       value="{{ state.max_positions }}"
-                       class="form-control"
-                       placeholder="Max Positions">
-            </div>
-
-            <div class="col-md-4">
-                <button class="btn btn-primary w-100" style="margin-top: 25px;">
-                    Update Settings
-                </button>
-            </div>
-        </form>
-
-    </div>
 </div>
 
 <div class="mt-5">
@@ -195,27 +84,55 @@
     <canvas id="drawdownChart" height="60"></canvas>
 </div>
 
-<h4 class="mt-5">Open Positions</h4>
-<table class="table table-dark table-striped">
-    <thead>
-        <tr>
-            <th>Symbol</th>
-            <th>Side</th>
-            <th>Qty</th>
-            <th>Entry</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for p in open_positions %}
-        <tr>
-            <td>{{ p.symbol }}</td>
-            <td>{{ p.side }}</td>
-            <td>{{ p.qty }}</td>
-            <td>{{ p.entry_price }}</td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+</div>
+
+
+<!-- ========================= PERFORMANCE TAB ========================= -->
+<div class="tab-pane fade" id="performance">
+
+<div class="row mt-4">
+
+    <div class="col-md-3">
+        <div class="card bg-secondary">
+            <div class="card-body">
+                <h5>Max Drawdown</h5>
+                <h3 class="text-danger">{{ max_drawdown }}%</h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card bg-secondary">
+            <div class="card-body">
+                <h5>Daily PnL</h5>
+                <h3 class="{% if stats.daily_pnl >= 1 %}custom-success{% else %}text-danger{% endif %}">
+                    {{ stats.daily_pnl }}%
+                </h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card bg-secondary">
+            <div class="card-body">
+                <h5>Win Rate</h5>
+                <h3>{{ stats.win_rate }}%</h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card bg-secondary">
+            <div class="card-body">
+                <h5>Profit Factor</h5>
+                <h3 class="{% if performance.profit_factor >= 1 %}custom-success{% else %}text-danger{% endif %}">
+                    {{ performance.profit_factor }}
+                </h3>
+            </div>
+        </div>
+    </div>
+
+</div>
 
 <h4 class="mt-5">Recent Closed Trades</h4>
 <table class="table table-dark table-striped">
@@ -243,154 +160,235 @@
     </tbody>
 </table>
 
-<h4 class="mt-5">Recent Logs</h4>
-<div style="max-height:300px; overflow-y:auto;">
-    <ul class="list-group">
-        {% for log in logs %}
-        <li class="list-group-item bg-dark text-light">
-            [{{ log.level }}] {{ log.message }}
-        </li>
-        {% endfor %}
-    </ul>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<!-- ========================= CONFIG TAB ========================= -->
+<div class="tab-pane fade" id="config">
+
+<div class="card p-4">
+
+<h5 class="mb-4" style="color: #fff;">CONFIGURACION DEL BOT</h5>
+
+<form id="configForm" class="row g-3 needs-validation" novalidate>
+
+<div class="col-md-4">
+<label class="form-label" style="color: aquamarine;">Risk %</label>
+<input type="number" step="0.1" class="form-control"
+       name="risk_pct" value="{{ state.risk_pct }}" required min="0.1" max="10">
+<div class="invalid-feedback">Ingrese un valor válido (0.1 - 10).</div>
+</div>
+
+<div class="col-md-4">
+<label class="form-label" style="color: aquamarine;">Leverage</label>
+<input type="number" class="form-control"
+       name="leverage" value="{{ state.leverage }}" required min="1" max="50">
+<div class="invalid-feedback">Leverage inválido.</div>
+</div>
+
+<div class="col-md-4">
+<label class="form-label" style="color: aquamarine;">Max Positions</label>
+<input type="number" class="form-control"
+       name="max_positions" value="{{ state.max_positions }}" required min="1" max="20">
+<div class="invalid-feedback">Debe ser entre 1 y 20.</div>
+</div>
+
+<div class="col-md-6">
+<label class="form-label" style="color: aquamarine;">Daily Loss Limit %</label>
+<input type="number" step="0.1" class="form-control"
+       name="daily_loss_limit_pct" value="{{ state.daily_loss_limit_pct }}"
+       required min="0.1" max="20">
+<div class="invalid-feedback">Valor inválido.</div>
+</div>
+
+<div class="col-md-6">
+<label class="form-label" style="color: aquamarine;">Trailing %</label>
+<input type="number" step="0.1" class="form-control"
+       name="trailing_pct" value="{{ state.trailing_pct }}"
+       required min="0.1" max="10">
+<div class="invalid-feedback">Valor inválido.</div>
+</div>
+
+<div class="col-md-6">
+<label class="form-label" style="color: aquamarine;">ADX Min</label>
+<input type="number" class="form-control"
+       name="adx_min" value="{{ state.adx_min }}"
+       required min="5" max="50">
+<div class="invalid-feedback">ADX inválido.</div>
+</div>
+
+<div class="col-md-6">
+<label class="form-label" style="color: aquamarine;">Cooldown Bars</label>
+<input type="number" class="form-control"
+       name="cooldown_bars" value="{{ state.cooldown_bars }}"
+       required min="1" max="50">
+<div class="invalid-feedback">Valor inválido.</div>
+</div>
+
+<div class="col-12">
+<label class="form-label" style="color: aquamarine;">Symbols (comma separated)</label>
+<input type="text" class="form-control"
+       name="symbols" value="{{ state.symbols | join(',') }}" required>
+<div class="invalid-feedback">Ingrese al menos un símbolo.</div>
+</div>
+
+<div class="col-12 mt-3">
+<button type="button" class="btn btn-primary" id="openConfirm">
+Guardar Configuración
+</button>
+</div>
+
+</form>
+</div>
+</div>
+</div>
+
+<!-- ================= CONFIRM MODAL ================= -->
+
+<div class="modal fade" id="confirmModal">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content bg-dark border-secondary">
+      <div class="modal-header border-secondary">
+        <h5 class="modal-title">Confirmar Cambios</h5>
+        <button type="button" class="btn-close btn-close-white"
+                data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        ¿Estás seguro que querés aplicar esta configuración?
+      </div>
+      <div class="modal-footer border-secondary">
+        <button class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button class="btn btn-primary" id="confirmSave">Confirmar</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <script>
-    const equityData = {{ equity_curve | tojson }};
-    const drawdownData = {{ drawdown_curve | tojson }};
-    const maxDrawdown = {{ max_drawdown }};
+(() => {
+'use strict'
 
-    const labels = equityData.map(e => e.created_at);
-    const equityValues = equityData.map(e => e.total_balance);
+const form = document.getElementById('configForm')
+const openConfirm = document.getElementById('openConfirm')
+const confirmSave = document.getElementById('confirmSave')
+const modal = new bootstrap.Modal(document.getElementById('confirmModal'))
+const toastEl = document.getElementById('mainToast')
+const toastMsg = document.getElementById('toastMessage')
+const toast = new bootstrap.Toast(toastEl)
 
-    // Mostrar equity actual arriba
-    const currentEquity = equityValues.length ? equityValues[equityValues.length - 1] : 0;
+openConfirm.addEventListener('click', () => {
+    if (!form.checkValidity()) {
+        form.classList.add('was-validated')
+        return
+    }
+    modal.show()
+})
 
-    // ---------- EQUITY CHART ----------
+confirmSave.addEventListener('click', async () => {
 
-    const equityCtx = document.getElementById("equityChart").getContext("2d");
+    const formData = new FormData(form)
+    const data = {}
 
-    const equityGradient = equityCtx.createLinearGradient(0, 0, 0, 300);
-    equityGradient.addColorStop(0, "rgba(0,255,0,0.35)");
-    equityGradient.addColorStop(1, "rgba(0,255,0,0)");
-
-    new Chart(equityCtx, {
-        type: "line",
-        data: {
-            labels: labels,
-            datasets: [{
-                data: equityValues,
-                borderColor: "lime",
-                backgroundColor: equityGradient,
-                fill: true,
-                tension: 0.35,
-                pointRadius: 0,
-                borderWidth: 2
-            }]
-        },
-        options: {
-            animation: {
-                duration: 1200,
-                easing: 'easeOutQuart'
-            },
-            plugins: {
-                legend: { display: false },
-                tooltip: {
-                    backgroundColor: "#111",
-                    borderColor: "lime",
-                    borderWidth: 1,
-                    callbacks: {
-                        label: ctx => "$" + ctx.parsed.y.toFixed(2)
-                    }
-                }
-            },
-            scales: {
-                x: {
-                    ticks: { color: "#888" },
-                    grid: { display: false }
-                },
-                y: {
-                    ticks: {
-                        color: "#888",
-                        callback: value => "$" + value
-                    },
-                    grid: { color: "rgba(255,255,255,0.04)" }
-                }
-            }
+    formData.forEach((value, key) => {
+        if (key === "symbols") {
+            data[key] = value.split(",").map(s => s.trim())
+        } else {
+            data[key] = Number(value)
         }
-    });
+    })
 
-    // ---------- DRAWDOWN CHART ----------
+    const res = await fetch("/update-config", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(data)
+    })
 
-    const drawdownCtx = document.getElementById("drawdownChart").getContext("2d");
+    modal.hide()
 
-    const drawdownGradient = drawdownCtx.createLinearGradient(0, 0, 0, 300);
-    drawdownGradient.addColorStop(0, "rgba(255,0,0,0.4)");
-    drawdownGradient.addColorStop(1, "rgba(255,0,0,0)");
+    if (res.ok) {
+        toastEl.classList.remove("text-bg-danger")
+        toastEl.classList.add("text-bg-success")
+        toastMsg.innerText = "Configuración actualizada correctamente"
+        toast.show()
+        setTimeout(() => location.reload(), 1500)
+    } else {
+        toastEl.classList.remove("text-bg-success")
+        toastEl.classList.add("text-bg-danger")
+        toastMsg.innerText = "Error al actualizar configuración"
+        toast.show()
+    }
 
-    new Chart(drawdownCtx, {
-        type: "line",
-        data: {
-            labels: labels,
-            datasets: [
-                {
-                    data: drawdownData,
-                    borderColor: "red",
-                    backgroundColor: drawdownGradient,
-                    fill: true,
-                    tension: 0.35,
-                    pointRadius: 0,
-                    borderWidth: 2
-                },
-                {
-                    label: "Max DD",
-                    data: Array(labels.length).fill(maxDrawdown),
-                    borderColor: "rgba(255,0,0,0.6)",
-                    borderDash: [6,6],
-                    pointRadius: 0,
-                    fill: false
-                }
-            ]
-        },
-        options: {
-            animation: {
-                duration: 1200,
-                easing: 'easeOutQuart'
-            },
-            plugins: {
-                legend: { display: false },
-                tooltip: {
-                    backgroundColor: "#111",
-                    borderColor: "red",
-                    borderWidth: 1,
-                    callbacks: {
-                        label: ctx => ctx.parsed.y.toFixed(2) + "%"
-                    }
-                }
-            },
-            scales: {
-                x: {
-                    ticks: { color: "#888" },
-                    grid: { display: false }
-                },
-                y: {
-                    reverse: true,
-                    ticks: {
-                        color: "#888",
-                        callback: value => value + "%"
-                    },
-                    grid: { color: "rgba(255,0,0,0.05)" }
-                }
-            }
-        }
-    });
+})
+
+})()
+</script>
+
+<!-- ========================= CHARTS SCRIPT ========================= -->
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script> 
+
+<script> 
+const equityData = {{ equity_curve | tojson }}; 
+const drawdownData = {{ drawdown_curve | tojson }}; 
+const maxDrawdown = {{ max_drawdown }}; 
+
+const labels = equityData.map(e => e.created_at); 
+const equityValues = equityData.map(e => e.total_balance); 
+// Mostrar equity actual arriba // 
+const currentEquity = equityValues.length ? equityValues[equityValues.length - 1] : 0; 
+
+// ---------- EQUITY CHART ---------- //
+const equityCtx = document.getElementById("equityChart").getContext("2d"); 
+const equityGradient = equityCtx.createLinearGradient(0, 0, 0, 300); 
+equityGradient.addColorStop(0, "rgba(0,255,0,0.35)"); 
+equityGradient.addColorStop(1, "rgba(0,255,0,0)"); 
+new Chart(equityCtx, { type: "line", data: { labels: labels, datasets: [{ data: equityValues, borderColor: "lime", backgroundColor: equityGradient, fill: true, tension: 0.35, pointRadius: 0, borderWidth: 2 }] }, options: { animation: { duration: 1200, easing: 'easeOutQuart' }, plugins: { legend: { display: false }, tooltip: { backgroundColor: "#111", borderColor: "lime", borderWidth: 1, callbacks: { label: ctx => "$" + ctx.parsed.y.toFixed(2) } } }, scales: { x: { ticks: { color: "#888" }, grid: { display: false } }, y: { ticks: { color: "#888", callback: value => "$" + value }, grid: { color: "rgba(255,255,255,0.04)" } } } } });
+
+// ---------- DRAWDOWN CHART ---------- //
+const drawdownCtx = document.getElementById("drawdownChart").getContext("2d"); 
+const drawdownGradient = drawdownCtx.createLinearGradient(0, 0, 0, 300); 
+drawdownGradient.addColorStop(0, "rgba(255,0,0,0.4)"); 
+drawdownGradient.addColorStop(1, "rgba(255,0,0,0)"); 
+new Chart(drawdownCtx, { type: "line", data: { labels: labels, datasets: [ { data: drawdownData, borderColor: "red", backgroundColor: drawdownGradient, fill: true, tension: 0.35, pointRadius: 0, borderWidth: 2 }, { label: "Max DD", data: Array(labels.length).fill(maxDrawdown), borderColor: "rgba(255,0,0,0.6)", borderDash: [6,6], pointRadius: 0, fill: false } ] }, options: { animation: { duration: 1200, easing: 'easeOutQuart' }, plugins: { legend: { display: false }, tooltip: { backgroundColor: "#111", borderColor: "red", borderWidth: 1, callbacks: { label: ctx => ctx.parsed.y.toFixed(2) + "%" } } }, scales: { x: { ticks: { color: "#888" }, grid: { display: false } }, y: { reverse: true, ticks: { color: "#888", callback: value => value + "%" }, grid: { color: "rgba(255,0,0,0.05)" } } } } }); 
 </script>
 
 <script>
-    setTimeout(() => {
+document.getElementById("configForm").addEventListener("submit", async function(e) {
+    e.preventDefault();
+
+    const form = e.target;
+    const formData = new FormData(form);
+    const data = {};
+
+    formData.forEach((value, key) => {
+        if (key === "paused") {
+            data[key] = form.paused.checked;
+        } else if (key === "symbols") {
+            data[key] = value.split(",").map(s => s.trim());
+        } else {
+            data[key] = Number(value);
+        }
+    });
+
+    const res = await fetch("/update-config", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(data)
+    });
+
+    if (res.ok) {
+        alert("Configuración actualizada correctamente");
         location.reload();
-    }, 60000);
+    } else {
+        alert("Error al actualizar configuración");
+    }
+});
+</script>
+
+<script>
+setTimeout(() => {
+    location.reload();
+}, 60000);
 </script>
 
 {% endblock %}
