@@ -1,3 +1,4 @@
+# strategy/signal_engine.py
 import config as CFG
 from core.models import SignalEvent
 from strategy.ema_adx_breakout import compute_signals
@@ -5,7 +6,7 @@ from strategy.ema_adx_breakout import compute_signals
 
 class SignalEngine:
 
-    def __init__(self, market_cache, signal_bus, log):
+    def __init__(self, market_cache, signal_bus, log): 
         self.market = market_cache
         self.bus = signal_bus
         self.log = log

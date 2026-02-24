@@ -89,23 +89,54 @@ def compute_signals(df: pd.DataFrame) -> dict:
     # ============================
     # BREAKOUT
     # ============================
+    # filtro de cuerpo
+    body_size = abs(last["close"] - last["open"])
+    range_size = last["high"] - last["low"]
+
+    body_ratio = body_size / range_size if range_size > 0 else 0
+    min_body_ratio = getattr(CFG, "MIN_BODY_RATIO", 0.55)
+
+    strong_body = body_ratio >= min_body_ratio
+
+    # filtro de rango de expansion
+    prev_range = prev["high"] - prev["low"]
+    range_expansion = range_size > prev_range * 1.2
+
+    # filtro de compresion previa - todavia no
+    lookback = 8
+    recent_range = df["high"].iloc[-lookback:-1].max() - df["low"].iloc[-lookback:-1].min()
+    compression = prev_range < recent_range * 0.5
 
     breakout_long = False
     breakout_short = False
 
     if volatility_ok and volume_confirmed:
 
+        min_break_pct = getattr(CFG, "MIN_BREAK_DISTANCE_PCT", 0.15)
+
         if trend == "BULL" and last_ph is not None:
+            break_distance_pct = ((last["close"] - last_ph) / last_ph) * 100
+
             breakout_long = (
                 prev["close"] <= last_ph and
-                last["close"] > last_ph
-            )
+                last["close"] > last_ph and
+                break_distance_pct >= min_break_pct
+                and strong_body
+                and range_expansion
+                # and compression
+            ) 
 
         if trend == "BEAR" and last_pl is not None:
+            break_distance_pct = ((last_pl - last["close"]) / last_pl) * 100
+
             breakout_short = (
                 prev["close"] >= last_pl and
-                last["close"] < last_pl
-            )
+                last["close"] < last_pl and
+                break_distance_pct >= min_break_pct
+                and strong_body
+                and range_expansion
+                # and compression
+            ) 
 
     # ============================
     # ADX
