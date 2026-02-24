@@ -205,7 +205,7 @@ class OrderManager:
 
             if usage_ratio >= CFG.MAX_CAPITAL_USAGE:
                 self.logger.warning(
-                    f"[CAPITAL] usage {usage_ratio:.2%} >= {MAX_CAPITAL_USAGE:.0%}. Skip {symbol}"
+                    f"[CAPITAL] usage {usage_ratio:.2%} >= {CFG.MAX_CAPITAL_USAGE:.0%}. Skip {symbol}"
                 )
                 return False    
 
@@ -235,7 +235,7 @@ class OrderManager:
 
                     required_margin = (notional / max(lev, 1.0))
 
-                    if required_margin > available * SAFETY_BUFFER:
+                    if required_margin > available * CFG.SAFETY_BUFFER:
                         self.logger.warning(
                             f"[MARGIN] {symbol} still insufficient after scaling."
                         )
