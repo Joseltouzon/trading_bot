@@ -4,6 +4,7 @@ from fastapi.templating import Jinja2Templates
 from fastapi import Form
 from fastapi import Body
 from fastapi.responses import RedirectResponse
+from fastapi import HTTPException
 from db import Database
 
 app = FastAPI()
@@ -126,13 +127,13 @@ async def update_config(payload: dict = Body(...)):
         if key in payload:
             state[key] = payload[key]
 
-    if "risk_pct" in payload:
-        if payload["risk_pct"] <= 0 or payload["risk_pct"] > 5:
-            raise HTTPException(status_code=400, detail="risk_pct inválido")
+            if "risk_pct" in payload:
+                if payload["risk_pct"] <= 0 or payload["risk_pct"] > 5:
+                    raise HTTPException(status_code=400, detail="risk_pct inválido")
 
-    if "leverage" in payload:
-        if payload["leverage"] < 1 or payload["leverage"] > 50:
-            raise HTTPException(status_code=400, detail="leverage inválido")        
+            if "leverage" in payload:
+                if payload["leverage"] < 1 or payload["leverage"] > 50:
+                    raise HTTPException(status_code=400, detail="leverage inválido")        
 
     db.save_state(state)
 
