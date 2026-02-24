@@ -4,358 +4,521 @@
 
 <!-- NAV TABS -->
 <ul class="nav nav-pills mb-4">
-  <li class="nav-item">
-    <button class="nav-link active" data-bs-toggle="pill" data-bs-target="#overview">
-      <i class="bi bi-speedometer2"></i> Overview
-    </button>
-  </li>
-  <li class="nav-item">
-    <button class="nav-link" data-bs-toggle="pill" data-bs-target="#performance">
-      <i class="bi bi-graph-up"></i> Performance
-    </button>
-  </li>
-  <li class="nav-item">
-    <button class="nav-link" data-bs-toggle="pill" data-bs-target="#config">
-      <i class="bi bi-sliders"></i> Configuración
-    </button>
-  </li>
+    <li class="nav-item">
+        <button class="nav-link active" data-bs-toggle="pill" data-bs-target="#overview">
+            <i class="bi bi-speedometer2"></i> Overview
+        </button>
+    </li>
+    <li class="nav-item">
+        <button class="nav-link" data-bs-toggle="pill" data-bs-target="#performance">
+            <i class="bi bi-speedometer2"></i> Performance
+        </button>
+    </li>
+    <li class="nav-item">
+        <button class="nav-link" data-bs-toggle="pill" data-bs-target="#analytics">
+            <i class="bi bi-graph-up"></i> Analytics
+        </button>
+    </li>
+    <li class="nav-item">
+        <button class="nav-link" data-bs-toggle="pill" data-bs-target="#config">
+            <i class="bi bi-sliders"></i> Configuración
+        </button>
+    </li>
+    <li class="nav-item">
+        <button class="nav-link" data-bs-toggle="pill" data-bs-target="#logs">
+            <i class="bi bi-sliders"></i> Logs
+        </button>
+    </li>
 </ul>
 
 <div class="tab-content">
 
-<!-- ========================= OVERVIEW TAB ========================= -->
-<div class="tab-pane fade show active" id="overview">
+    <!-- ========================= OVERVIEW TAB ========================= -->
+    <div class="tab-pane fade show active" id="overview">
 
-<div class="alert {% if bot_status == 'RUNNING' %}alert-success{% else %}alert-danger{% endif %}">
-    Bot Status: <strong>{{ bot_status }}</strong>
-</div>
+        <div class="alert {% if bot_status == 'RUNNING' %}alert-success{% else %}alert-danger{% endif %}">
+            Bot Status: <strong id="bot-status">{{ bot_status }}</strong>
+        </div>
 
-<div class="row mt-4">
+        <div class="row mt-4">
 
-    <div class="col-md-3">
-        <div class="card bg-secondary">
-            <div class="card-body">
-                <h5>Equity Total</h5>
-                <h3>${{ "%.2f"|format(account.equity or 0) }}</h3>
+            <div class="col-md-3">
+                <div class="card bg-secondary">
+                    <div class="card-body">
+                        <h5>Equity Total</h5>
+                        <h3 id="equity">${{ "%.2f"|format(account.equity or 0) }}</h3>
+                    </div>
+                </div>
             </div>
+
+            <div class="col-md-3">
+                <div class="card bg-secondary">
+                    <div class="card-body">
+                        <h5>Capital en Uso</h5>
+                        <h3 class="text-warning">
+                            ${{ "%.2f"|format(account.used_margin or 0) }}
+                        </h3>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="card bg-secondary">
+                    <div class="card-body">
+                        <h5>Disponible</h5>
+                        <h3 class="custom-success">
+                            ${{ "%.2f"|format(account.available or 0) }}
+                        </h3>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="card bg-secondary">
+                    <div class="card-body">
+                        <h5>Open Positions</h5>
+                        <h3>{{ stats.open_positions }}</h3>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="mt-5">
+            <h4>Equity Curve</h4>
+            <canvas id="equityChart" height="80"></canvas>
+        </div>
+
+        <div class="mt-5">
+            <h4>Drawdown</h4>
+            <canvas id="drawdownChart" height="60"></canvas>
+        </div>
+
+    </div>
+
+
+    <!-- ========================= PERFORMANCE TAB ========================= -->
+    <div class="tab-pane fade" id="performance">
+
+        <div class="row mt-4">
+
+            <div class="col-md-3">
+                <div class="card bg-secondary">
+                    <div class="card-body">
+                        <h5>Max Drawdown</h5>
+                        <h3 class="text-danger">{{ max_drawdown }}%</h3>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="card bg-secondary">
+                    <div class="card-body">
+                        <h5>Daily PnL USDT</h5>
+                        <h3 id="daily-pnl"
+                            class="{% if stats.daily_pnl >= 1 %}custom-success{% else %}text-danger{% endif %}">
+                            {{ "%.2f"|format(stats.daily_pnl) }} USDT
+                        </h3>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="card bg-secondary">
+                    <div class="card-body">
+                        <h5>Win Rate</h5>
+                        <h3>{{ stats.win_rate }}%</h3>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="card bg-secondary">
+                    <div class="card-body">
+                        <h5>Profit Factor</h5>
+                        <h3
+                            class="{% if performance.profit_factor >= 1 %}custom-success{% else %}text-danger{% endif %}">
+                            {{ performance.profit_factor }}
+                        </h3>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <h4 class="mt-5">Open Positions</h4>
+        <table class="table table-dark table-striped">
+            <thead>
+                <tr>
+                    <th>Symbol</th>
+                    <th>Side</th>
+                    <th>Qty</th>
+                    <th>Entry</th>
+                    <th>Unrealized PnL</th>
+                    <th>Current Stop</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for pos in open_positions %}
+                <tr>
+                    <td>{{ pos.symbol }}</td>
+                    <td>{{ pos.side }}</td>
+                    <td>{{ pos.qty }}</td>
+                    <td>{{ pos.entry_price }}</td>
+
+                    <td class="{% if pos.unrealized_pnl >= 0 %}text-success{% else %}text-danger{% endif %}">
+                        {{ "%.2f"|format(pos.unrealized_pnl) }} USDT
+                    </td>
+
+                    <td>
+                        {% if pos.current_stop %}
+                        {{ pos.current_stop }}
+                        {% else %}
+                        -
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <h4 class="mt-5">Recent Closed Trades</h4>
+        <table class="table table-dark table-striped">
+            <thead>
+                <tr>
+                    <th>Symbol</th>
+                    <th>Side</th>
+                    <th>Entry</th>
+                    <th>Exit</th>
+                    <th>PnL</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for t in closed_positions %}
+                <tr>
+                    <td>{{ t.symbol }}</td>
+                    <td>{{ t.side }}</td>
+                    <td>{{ t.entry_price }}</td>
+                    <td>{{ t.exit_price }}</td>
+                    <td class="{% if t.realized_pnl > 0 %}text-success{% else %}text-danger{% endif %}">
+                        {{ t.realized_pnl }}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+
+    <!-- ========================= ANALYTICS TAB ========================= -->
+    <div class="tab-pane fade" id="analytics">
+
+        <div class="table-responsive mt-3">
+            <table class="table table-dark table-sm">
+                <thead>
+                    <tr>
+                        <th>Symbol</th>
+                        <th>Trades</th>
+                        <th>Total PnL</th>
+                        <th>Best</th>
+                        <th>Worst</th>
+                        <th>Avg Hold (h)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in analytics %}
+                    <tr>
+                        <td>{{ row.symbol }}</td>
+                        <td>{{ row.total_trades }}</td>
+                        <td class="{% if row.total_pnl >= 0 %}text-success{% else %}text-danger{% endif %}">
+                            {{ "%.2f"|format(row.total_pnl) }}
+                        </td>
+                        <td class="text-success">{{ "%.2f"|format(row.best_trade) }}</td>
+                        <td class="text-danger">{{ "%.2f"|format(row.worst_trade) }}</td>
+                        <td>{{ "%.2f"|format(row.avg_hold_hours) }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+    <!-- ========================= CONFIG TAB ========================= -->
+    <div class="tab-pane fade" id="config">
+
+        <div class="card p-4">
+
+            <h5 class="mb-4" style="color: #f3f7f3;">CONFIGURACION DEL BOT</h5>
+
+            <form id="configForm" class="row g-3 needs-validation" novalidate>
+
+                <div class="col-md-4">
+                    <label class="form-label" style="color: aquamarine;">Risk %</label>
+                    <input type="number" step="0.1" class="form-control" name="risk_pct" value="{{ state.risk_pct }}"
+                        required min="0.1" max="10">
+                    <div class="invalid-feedback">Ingrese un valor válido (0.1 - 10).</div>
+                </div>
+
+                <div class="col-md-4">
+                    <label class="form-label" style="color: aquamarine;">Leverage</label>
+                    <input type="number" class="form-control" name="leverage" value="{{ state.leverage }}" required
+                        min="1" max="50">
+                    <div class="invalid-feedback">Leverage inválido.</div>
+                </div>
+
+                <div class="col-md-4">
+                    <label class="form-label" style="color: aquamarine;">Max Positions</label>
+                    <input type="number" class="form-control" name="max_positions" value="{{ state.max_positions }}"
+                        required min="1" max="20">
+                    <div class="invalid-feedback">Debe ser entre 1 y 20.</div>
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label" style="color: aquamarine;">Daily Loss Limit %</label>
+                    <input type="number" step="0.1" class="form-control" name="daily_loss_limit_pct"
+                        value="{{ state.daily_loss_limit_pct }}" required min="0.1" max="20">
+                    <div class="invalid-feedback">Valor inválido.</div>
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label" style="color: aquamarine;">Trailing %</label>
+                    <input type="number" step="0.1" class="form-control" name="trailing_pct"
+                        value="{{ state.trailing_pct }}" required min="0.1" max="10">
+                    <div class="invalid-feedback">Valor inválido.</div>
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label" style="color: aquamarine;">ADX Min</label>
+                    <input type="number" class="form-control" name="adx_min" value="{{ state.adx_min }}" required
+                        min="5" max="50">
+                    <div class="invalid-feedback">ADX inválido.</div>
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label" style="color: aquamarine;">Cooldown Bars</label>
+                    <input type="number" class="form-control" name="cooldown_bars" value="{{ state.cooldown_bars }}"
+                        required min="1" max="50">
+                    <div class="invalid-feedback">Valor inválido.</div>
+                </div>
+
+                <div class="col-12">
+                    <label class="form-label" style="color: aquamarine;">Symbols (comma separated)</label>
+                    <input type="text" class="form-control" name="symbols" value="{{ state.symbols | join(',') }}"
+                        required>
+                    <div class="invalid-feedback">Ingrese al menos un símbolo.</div>
+                </div>
+
+                <div class="col-12 mt-3">
+                    <button type="button" class="btn btn-primary" id="openConfirm">
+                        Guardar Configuración
+                    </button>
+                </div>
+
+            </form>
         </div>
     </div>
 
-    <div class="col-md-3">
-        <div class="card bg-secondary">
-            <div class="card-body">
-                <h5>Capital en Uso</h5>
-                <h3 class="text-warning">
-                    ${{ "%.2f"|format(account.used_margin or 0) }}
-                </h3>
-            </div>
-        </div>
+    <!-- ========================= LOGS TAB ========================= -->
+    <div class="tab-pane fade show active" id="logs">
+        <table class="table table-dark table-sm font-monospace">
+            <thead>
+                <tr>
+                    <th>Hora</th>
+                    <th>Level</th>
+                    <th>Symbol</th>
+                    <th>Mensaje</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for log in logs %}
+                <tr
+                    class="{% if log.level == 'ERROR' %}table-danger{% elif log.level == 'WARNING' %}table-warning{% endif %}">
+                    <td>{{ log.created_at.strftime("%H:%M:%S") }}</td>
+                    <td>{{ log.level }}</td>
+                    <td>{{ log.symbol }}</td>
+                    <td>{{ log.message }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
-
-    <div class="col-md-3">
-        <div class="card bg-secondary">
-            <div class="card-body">
-                <h5>Disponible</h5>
-                <h3 class="custom-success">
-                    ${{ "%.2f"|format(account.available or 0) }}
-                </h3>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-md-3">
-        <div class="card bg-secondary">
-            <div class="card-body">
-                <h5>Open Positions</h5>
-                <h3>{{ stats.open_positions }}</h3>
-            </div>
-        </div>
-    </div>
-
 </div>
 
-<div class="mt-5">
-    <h4>Equity Curve</h4>
-    <canvas id="equityChart" height="80"></canvas>
-</div>
-
-<div class="mt-5">
-    <h4>Drawdown</h4>
-    <canvas id="drawdownChart" height="60"></canvas>
-</div>
-
-</div>
-
-
-<!-- ========================= PERFORMANCE TAB ========================= -->
-<div class="tab-pane fade" id="performance">
-
-<div class="row mt-4">
-
-    <div class="col-md-3">
-        <div class="card bg-secondary">
-            <div class="card-body">
-                <h5>Max Drawdown</h5>
-                <h3 class="text-danger">{{ max_drawdown }}%</h3>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-md-3">
-        <div class="card bg-secondary">
-            <div class="card-body">
-                <h5>Daily PnL</h5>
-                <h3 class="{% if stats.daily_pnl >= 1 %}custom-success{% else %}text-danger{% endif %}">
-                    {{ stats.daily_pnl }}%
-                </h3>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-md-3">
-        <div class="card bg-secondary">
-            <div class="card-body">
-                <h5>Win Rate</h5>
-                <h3>{{ stats.win_rate }}%</h3>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-md-3">
-        <div class="card bg-secondary">
-            <div class="card-body">
-                <h5>Profit Factor</h5>
-                <h3 class="{% if performance.profit_factor >= 1 %}custom-success{% else %}text-danger{% endif %}">
-                    {{ performance.profit_factor }}
-                </h3>
-            </div>
-        </div>
-    </div>
-
-</div>
-
-<h4 class="mt-5">Recent Closed Trades</h4>
-<table class="table table-dark table-striped">
-    <thead>
-        <tr>
-            <th>Symbol</th>
-            <th>Side</th>
-            <th>Entry</th>
-            <th>Exit</th>
-            <th>PnL</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for t in closed_positions %}
-        <tr>
-            <td>{{ t.symbol }}</td>
-            <td>{{ t.side }}</td>
-            <td>{{ t.entry_price }}</td>
-            <td>{{ t.exit_price }}</td>
-            <td class="{% if t.realized_pnl > 0 %}text-success{% else %}text-danger{% endif %}">
-                {{ t.realized_pnl }}
-            </td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
-
-</div>
-
-
-<!-- ========================= CONFIG TAB ========================= -->
-<div class="tab-pane fade" id="config">
-
-<div class="card p-4">
-
-<h5 class="mb-4" style="color: #f3f7f3;">CONFIGURACION DEL BOT</h5>
-
-<form id="configForm" class="row g-3 needs-validation" novalidate>
-
-<div class="col-md-4">
-<label class="form-label" style="color: aquamarine;">Risk %</label>
-<input type="number" step="0.1" class="form-control"
-       name="risk_pct" value="{{ state.risk_pct }}" required min="0.1" max="10">
-<div class="invalid-feedback">Ingrese un valor válido (0.1 - 10).</div>
-</div>
-
-<div class="col-md-4">
-<label class="form-label" style="color: aquamarine;">Leverage</label>
-<input type="number" class="form-control"
-       name="leverage" value="{{ state.leverage }}" required min="1" max="50">
-<div class="invalid-feedback">Leverage inválido.</div>
-</div>
-
-<div class="col-md-4">
-<label class="form-label" style="color: aquamarine;">Max Positions</label>
-<input type="number" class="form-control"
-       name="max_positions" value="{{ state.max_positions }}" required min="1" max="20">
-<div class="invalid-feedback">Debe ser entre 1 y 20.</div>
-</div>
-
-<div class="col-md-6">
-<label class="form-label" style="color: aquamarine;">Daily Loss Limit %</label>
-<input type="number" step="0.1" class="form-control"
-       name="daily_loss_limit_pct" value="{{ state.daily_loss_limit_pct }}"
-       required min="0.1" max="20">
-<div class="invalid-feedback">Valor inválido.</div>
-</div>
-
-<div class="col-md-6">
-<label class="form-label" style="color: aquamarine;">Trailing %</label>
-<input type="number" step="0.1" class="form-control"
-       name="trailing_pct" value="{{ state.trailing_pct }}"
-       required min="0.1" max="10">
-<div class="invalid-feedback">Valor inválido.</div>
-</div>
-
-<div class="col-md-6">
-<label class="form-label" style="color: aquamarine;">ADX Min</label>
-<input type="number" class="form-control"
-       name="adx_min" value="{{ state.adx_min }}"
-       required min="5" max="50">
-<div class="invalid-feedback">ADX inválido.</div>
-</div>
-
-<div class="col-md-6">
-<label class="form-label" style="color: aquamarine;">Cooldown Bars</label>
-<input type="number" class="form-control"
-       name="cooldown_bars" value="{{ state.cooldown_bars }}"
-       required min="1" max="50">
-<div class="invalid-feedback">Valor inválido.</div>
-</div>
-
-<div class="col-12">
-<label class="form-label" style="color: aquamarine;">Symbols (comma separated)</label>
-<input type="text" class="form-control"
-       name="symbols" value="{{ state.symbols | join(',') }}" required>
-<div class="invalid-feedback">Ingrese al menos un símbolo.</div>
-</div>
-
-<div class="col-12 mt-3">
-<button type="button" class="btn btn-primary" id="openConfirm">
-Guardar Configuración
-</button>
-</div>
-
-</form>
-</div>
-</div>
-</div>
 
 <!-- ================= CONFIRM MODAL ================= -->
 
 <div class="modal fade" id="confirmModal">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content bg-dark border-secondary">
-      <div class="modal-header border-secondary">
-        <h5 class="modal-title">Confirmar Cambios</h5>
-        <button type="button" class="btn-close btn-close-white"
-                data-bs-dismiss="modal"></button>
-      </div>
-      <div class="modal-body">
-        ¿Estás seguro que querés aplicar esta configuración?
-      </div>
-      <div class="modal-footer border-secondary">
-			<button class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-        <button class="btn btn-primary" id="confirmSave">Confirmar</button>
-      </div>
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content bg-dark border-secondary">
+            <div class="modal-header border-secondary">
+                <h5 class="modal-title">Confirmar Cambios</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                ¿Estás seguro que querés aplicar esta configuración?
+            </div>
+            <div class="modal-footer border-secondary">
+                <button class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button class="btn btn-primary" id="confirmSave">Confirmar</button>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
 
 <script>
-(() => {
-'use strict'
+    (() => {
+        'use strict'
 
-const form = document.getElementById('configForm')
-const openConfirm = document.getElementById('openConfirm')
-const confirmSave = document.getElementById('confirmSave')
-const modal = new bootstrap.Modal(document.getElementById('confirmModal'))
-const toastEl = document.getElementById('mainToast')
-const toastMsg = document.getElementById('toastMessage')
-const toast = new bootstrap.Toast(toastEl)
+        const form = document.getElementById('configForm')
+        const openConfirm = document.getElementById('openConfirm')
+        const confirmSave = document.getElementById('confirmSave')
+        const modal = new bootstrap.Modal(document.getElementById('confirmModal'))
+        const toastEl = document.getElementById('mainToast')
+        const toastMsg = document.getElementById('toastMessage')
+        const toast = new bootstrap.Toast(toastEl)
 
-openConfirm.addEventListener('click', () => {
-    if (!form.checkValidity()) {
-        form.classList.add('was-validated')
-        return
-    }
-    modal.show()
-})
+        openConfirm.addEventListener('click', () => {
+            if (!form.checkValidity()) {
+                form.classList.add('was-validated')
+                return
+            }
+            modal.show()
+        })
 
-confirmSave.addEventListener('click', async () => {
+        confirmSave.addEventListener('click', async () => {
 
-    const formData = new FormData(form)
-    const data = {}
+            const formData = new FormData(form)
+            const data = {}
 
-    formData.forEach((value, key) => {
-        if (key === "symbols") {
-            data[key] = value.split(",").map(s => s.trim())
-        } else {
-            data[key] = Number(value)
-        }
-    })
+            formData.forEach((value, key) => {
+                if (key === "symbols") {
+                    data[key] = value.split(",").map(s => s.trim())
+                } else {
+                    data[key] = Number(value)
+                }
+            })
 
-    const res = await fetch("/update-config", {
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify(data)
-    })
+            const res = await fetch("/update-config", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(data)
+            })
 
-    modal.hide()
+            modal.hide()
 
-    if (res.ok) {
-        toastEl.classList.remove("text-bg-danger")
-        toastEl.classList.add("text-bg-success")
-        toastMsg.innerText = "Configuración actualizada correctamente"
-        toast.show()
-        setTimeout(() => location.reload(), 1500)
-    } else {
-        toastEl.classList.remove("text-bg-success")
-        toastEl.classList.add("text-bg-danger")
-        toastMsg.innerText = "Error al actualizar configuración"
-        toast.show()
-    }
+            if (res.ok) {
+                toastEl.classList.remove("text-bg-danger")
+                toastEl.classList.add("text-bg-success")
+                toastMsg.innerText = "Configuración actualizada correctamente"
+                toast.show()
+                setTimeout(() => location.reload(), 1500)
+            } else {
+                toastEl.classList.remove("text-bg-success")
+                toastEl.classList.add("text-bg-danger")
+                toastMsg.innerText = "Error al actualizar configuración"
+                toast.show()
+            }
 
-})
+        })
 
-})()
+    })()
 </script>
 
 <!-- ========================= CHARTS SCRIPT ========================= -->
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script> 
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-<script> 
-const equityData = {{ equity_curve | tojson }}; 
-const drawdownData = {{ drawdown_curve | tojson }}; 
-const maxDrawdown = {{ max_drawdown }}; 
+<script>
+    const equityData = {{ equity_curve | tojson }};
+    const drawdownData = {{ drawdown_curve | tojson }};
+    const maxDrawdown = {{ max_drawdown }};
 
-const labels = equityData.map(e => e.created_at); 
-const equityValues = equityData.map(e => e.total_balance); 
-// Mostrar equity actual arriba // 
-const currentEquity = equityValues.length ? equityValues[equityValues.length - 1] : 0; 
+    const labels = equityData.map(e => e.created_at);
+    const equityValues = equityData.map(e => e.total_balance);
+    // Mostrar equity actual arriba // 
+    const currentEquity = equityValues.length ? equityValues[equityValues.length - 1] : 0;
 
-// ---------- EQUITY CHART ---------- //
-const equityCtx = document.getElementById("equityChart").getContext("2d"); 
-const equityGradient = equityCtx.createLinearGradient(0, 0, 0, 300); 
-equityGradient.addColorStop(0, "rgba(0,255,0,0.35)"); 
-equityGradient.addColorStop(1, "rgba(0,255,0,0)"); 
-new Chart(equityCtx, { type: "line", data: { labels: labels, datasets: [{ data: equityValues, borderColor: "lime", backgroundColor: equityGradient, fill: true, tension: 0.35, pointRadius: 0, borderWidth: 2 }] }, options: { animation: { duration: 1200, easing: 'easeOutQuart' }, plugins: { legend: { display: false }, tooltip: { backgroundColor: "#111", borderColor: "lime", borderWidth: 1, callbacks: { label: ctx => "$" + ctx.parsed.y.toFixed(2) } } }, scales: { x: { ticks: { color: "#888" }, grid: { display: false } }, y: { ticks: { color: "#888", callback: value => "$" + value }, grid: { color: "rgba(255,255,255,0.04)" } } } } });
+    // ---------- EQUITY CHART ---------- //
+    const equityCtx = document.getElementById("equityChart").getContext("2d");
+    const equityGradient = equityCtx.createLinearGradient(0, 0, 0, 300);
+    equityGradient.addColorStop(0, "rgba(0,255,0,0.35)");
+    equityGradient.addColorStop(1, "rgba(0,255,0,0)");
+    new Chart(equityCtx, { type: "line", data: { labels: labels, datasets: [{ data: equityValues, borderColor: "lime", backgroundColor: equityGradient, fill: true, tension: 0.35, pointRadius: 0, borderWidth: 2 }] }, options: { animation: { duration: 1200, easing: 'easeOutQuart' }, plugins: { legend: { display: false }, tooltip: { backgroundColor: "#111", borderColor: "lime", borderWidth: 1, callbacks: { label: ctx => "$" + ctx.parsed.y.toFixed(2) } } }, scales: { x: { ticks: { color: "#888" }, grid: { display: false } }, y: { ticks: { color: "#888", callback: value => "$" + value }, grid: { color: "rgba(255,255,255,0.04)" } } } } });
 
-// ---------- DRAWDOWN CHART ---------- //
-const drawdownCtx = document.getElementById("drawdownChart").getContext("2d"); 
-const drawdownGradient = drawdownCtx.createLinearGradient(0, 0, 0, 300); 
-drawdownGradient.addColorStop(0, "rgba(255,0,0,0.4)"); 
-drawdownGradient.addColorStop(1, "rgba(255,0,0,0)"); 
-new Chart(drawdownCtx, { type: "line", data: { labels: labels, datasets: [ { data: drawdownData, borderColor: "red", backgroundColor: drawdownGradient, fill: true, tension: 0.35, pointRadius: 0, borderWidth: 2 }, { label: "Max DD", data: Array(labels.length).fill(maxDrawdown), borderColor: "rgba(255,0,0,0.6)", borderDash: [6,6], pointRadius: 0, fill: false } ] }, options: { animation: { duration: 1200, easing: 'easeOutQuart' }, plugins: { legend: { display: false }, tooltip: { backgroundColor: "#111", borderColor: "red", borderWidth: 1, callbacks: { label: ctx => ctx.parsed.y.toFixed(2) + "%" } } }, scales: { x: { ticks: { color: "#888" }, grid: { display: false } }, y: { reverse: true, ticks: { color: "#888", callback: value => value + "%" }, grid: { color: "rgba(255,0,0,0.05)" } } } } }); 
+    // ---------- DRAWDOWN CHART ---------- //
+    const drawdownCtx = document.getElementById("drawdownChart").getContext("2d");
+    const drawdownGradient = drawdownCtx.createLinearGradient(0, 0, 0, 300);
+    drawdownGradient.addColorStop(0, "rgba(255,0,0,0.4)");
+    drawdownGradient.addColorStop(1, "rgba(255,0,0,0)");
+    new Chart(drawdownCtx, { type: "line", data: { labels: labels, datasets: [{ data: drawdownData, borderColor: "red", backgroundColor: drawdownGradient, fill: true, tension: 0.35, pointRadius: 0, borderWidth: 2 }, { label: "Max DD", data: Array(labels.length).fill(maxDrawdown), borderColor: "rgba(255,0,0,0.6)", borderDash: [6, 6], pointRadius: 0, fill: false }] }, options: { animation: { duration: 1200, easing: 'easeOutQuart' }, plugins: { legend: { display: false }, tooltip: { backgroundColor: "#111", borderColor: "red", borderWidth: 1, callbacks: { label: ctx => ctx.parsed.y.toFixed(2) + "%" } } }, scales: { x: { ticks: { color: "#888" }, grid: { display: false } }, y: { reverse: true, ticks: { color: "#888", callback: value => value + "%" }, grid: { color: "rgba(255,0,0,0.05)" } } } } }); 
 </script>
 
 <script>
-setTimeout(() => {
-    location.reload();
-}, 60000);
+    async function updateStats() {
+        try {
+            const res = await fetch("/api/stats");
+            if (!res.ok) return;
+
+            const data = await res.json();
+
+            // Daily PnL
+            const dailyPnlEl = document.getElementById("daily-pnl");
+            if (dailyPnlEl) {
+                dailyPnlEl.innerText = parseFloat(data.stats.daily_pnl).toFixed(2) + " USDT";
+                dailyPnlEl.className =
+                    data.stats.daily_pnl >= 0 ? "text-success" : "text-danger";
+            }
+
+            // Equity
+            const equityEl = document.getElementById("equity");
+            if (equityEl && data.account) {
+                equityEl.innerText = parseFloat(data.account.equity).toFixed(2);
+            }
+
+            // Bot status
+            const botEl = document.getElementById("bot-status");
+            if (botEl) {
+                botEl.innerText = data.bot_status;
+            }
+
+        } catch (e) {
+            console.error("Stats update failed", e);
+        }
+    }
+
+    setInterval(updateStats, 15000);
+</script>
+
+<script>
+    async function updateHealth() {
+        try {
+            const res = await fetch("/api/health");
+            if (!res.ok) return;
+
+            const data = await res.json();
+
+            const badge = document.getElementById("exchange-health");
+
+            if (!badge) return;
+
+            if (data.api_reachable) {
+                badge.className = "badge bg-success ms-3";
+                badge.innerText = "API OK - " + data.latency_ms + "ms";
+            } else {
+                badge.className = "badge bg-danger ms-3";
+                badge.innerText = "API DOWN";
+            }
+
+        } catch {
+            const badge = document.getElementById("exchange-health");
+            if (badge) {
+                badge.className = "badge bg-danger ms-3";
+                badge.innerText = "API ERROR";
+            }
+        }
+    }
+
+    setInterval(updateHealth, 20000);
+    updateHealth();
 </script>
 
 {% endblock %}

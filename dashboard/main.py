@@ -1,23 +1,57 @@
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
 from fastapi import FastAPI, Request
-from fastapi.responses import HTMLResponse
+from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
 from fastapi import Form
 from fastapi import Body
-from fastapi.responses import RedirectResponse
-from fastapi import HTTPException
+from fastapi.security import HTTPBasic, HTTPBasicCredentials
+from fastapi import Depends, HTTPException, status
+import secrets
+from core.logging_setup import setup_logging
 from db import Database
+from exchange.binance_futures import BinanceFutures
 
 app = FastAPI()
 templates = Jinja2Templates(directory="dashboard/templates")
 db = Database()
+log = setup_logging(db)
+
+API_KEY = os.getenv("BINANCE_API_KEY")
+API_SECRET = os.getenv("BINANCE_API_SECRET")
+exchange = BinanceFutures(
+    api_key=API_KEY,
+    api_secret=API_SECRET,
+    logger=log,
+    testnet=False
+)
+
+security = HTTPBasic()
+
+def verify(credentials: HTTPBasicCredentials = Depends(security)):
+    correct_password = os.getenv("DASHBOARD_PASSWORD")
+
+    if not correct_password:
+        return
+
+    is_correct = secrets.compare_digest(credentials.password, correct_password)
+
+    if not is_correct:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Incorrect password",
+            headers={"WWW-Authenticate": "Basic"},
+        )
 
 
 @app.get("/", response_class=HTMLResponse)
-def dashboard(request: Request):
+def dashboard(request: Request, auth: str = Depends(verify)):
 
     stats = db.get_dashboard_stats()
     equity_curve = db.get_equity_curve() or []
-    open_positions = db.get_open_positions()
     closed_positions = db.get_recent_closed_positions()
     logs = db.get_recent_logs()
     bot_status = db.get_bot_status()
@@ -25,6 +59,20 @@ def dashboard(request: Request):
     max_drawdown = db.calculate_drawdown(equity_curve)
     drawdown_curve = db.get_drawdown_curve(equity_curve)
     state = db.load_state() or {}
+    analytics = db.get_trade_analytics()
+    open_positions = db.get_open_positions_with_stops()
+    # Traer posiciones actuales desde exchange
+    exchange_positions = exchange.get_open_positions()
+    # Crear dict rápido por símbolo
+    exchange_map = {p["symbol"]: p for p in exchange_positions}
+    # Inyectar unrealized_pnl
+    for pos in open_positions:
+        symbol = pos["symbol"]
+
+        if symbol in exchange_map:
+            pos["unrealized_pnl"] = float(exchange_map[symbol]["unrealized_pnl"])
+        else:
+            pos["unrealized_pnl"] = 0.0
 
     # ================= ACCOUNT SNAPSHOT =================
     account = db.get_latest_account_snapshot()
@@ -66,13 +114,14 @@ def dashboard(request: Request):
             "drawdown_curve": drawdown_curve,
             "state": state,
             "account": account,
-            "usage_pct": usage_pct
+            "usage_pct": usage_pct,
+            "analytics": analytics
         }
     )
 
 
 @app.post("/bot/pause")
-def pause_bot():
+def pause_bot(auth: str = Depends(verify)):
     state = db.load_state()
     state["paused"] = True
     db.save_state(state)
@@ -80,7 +129,7 @@ def pause_bot():
 
 
 @app.post("/bot/resume")
-def resume_bot():
+def resume_bot(auth: str = Depends(verify)):
     state = db.load_state()
     state["paused"] = False
     db.save_state(state)
@@ -90,7 +139,8 @@ def resume_bot():
 @app.post("/bot/update-settings")
 def update_settings(
     risk_pct: float = Form(...),
-    max_positions: int = Form(...)
+    max_positions: int = Form(...),
+    auth: str = Depends(verify)
 ):
     state = db.load_state()
     state["risk_pct"] = risk_pct
@@ -100,12 +150,12 @@ def update_settings(
 
 
 @app.get("/account")
-def account_data():
+def account_data(auth: str = Depends(verify)):
     return db.get_latest_account_snapshot()
 
 
 @app.post("/update-config")
-async def update_config(payload: dict = Body(...)):
+async def update_config(payload: dict = Body(...), auth: str = Depends(verify)):
 
     db = Database()
     state = db.load_state()
@@ -138,3 +188,16 @@ async def update_config(payload: dict = Body(...)):
     db.save_state(state)
 
     return {"status": "ok"}
+
+@app.get("/api/stats")
+def api_stats(auth: str = Depends(verify)):
+    return {
+        "stats": db.get_dashboard_stats(),
+        "account": db.get_latest_account_snapshot(),
+        "bot_status": db.get_bot_status()
+    }  
+
+@app.get("/api/health")
+def api_health(auth: str = Depends(verify)):
+    return exchange.health_check()
+

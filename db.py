@@ -5,21 +5,24 @@ load_dotenv()
 
 import psycopg2
 import psycopg2.extras
+from psycopg2 import pool
 import json
+from psycopg2.extras import RealDictCursor
 from contextlib import contextmanager
 
 
 class Database:
 
     def __init__(self):
-        self.conn = psycopg2.connect(
+        self.pool = pool.ThreadedConnectionPool(
+            minconn=2,
+            maxconn=10,
             host=os.getenv("DB_HOST"),
-            port=os.getenv("DB_PORT"),
             database=os.getenv("DB_NAME"),
             user=os.getenv("DB_USER"),
-            password=os.getenv("DB_PASSWORD")
+            password=os.getenv("DB_PASSWORD"),
+            port=os.getenv("DB_PORT", 5432),
         )
-        self.conn.autocommit = False  # control total de transacciones
 
     # ==========================================================
     # CONTEXT MANAGER (manejo seguro de commit / rollback)
@@ -27,15 +30,13 @@ class Database:
 
     @contextmanager
     def cursor(self):
-        cur = self.conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
+        conn = self.pool.getconn()
         try:
-            yield cur
-            self.conn.commit()
-        except Exception:
-            self.conn.rollback()
-            raise
+            with conn.cursor(cursor_factory=RealDictCursor) as cur:
+                yield cur
+            conn.commit()
         finally:
-            cur.close()
+            self.pool.putconn(conn)
 
     # ==========================================================
     # POSITIONS
@@ -85,6 +86,19 @@ class Database:
                     "reason": close_reason
                 })
             ))
+
+    def get_open_positions_with_stops(self):
+        with self.cursor() as cur:
+            cur.execute("""
+                SELECT p.id, p.symbol, p.side, p.qty, p.entry_price, p.opened_at,
+                    ps.stop_price AS current_stop
+                FROM positions p
+                LEFT JOIN position_stops ps
+                    ON ps.position_id = p.id AND ps.is_active = TRUE
+                WHERE p.status = 'OPEN'
+                ORDER BY p.opened_at DESC
+            """)
+            return cur.fetchall()        
 
     # ==========================================================
     # STOPS (Trailing histórico)
@@ -279,6 +293,23 @@ class Database:
             "daily_pnl": round(daily_pnl, 2),
             "win_rate": win_rate,
         }
+    
+    def get_trade_analytics(self):
+        with self.cursor() as cur:
+            cur.execute("""
+                SELECT
+                    symbol,
+                    COUNT(*) AS total_trades,
+                    SUM(realized_pnl) AS total_pnl,
+                    MAX(realized_pnl) AS best_trade,
+                    MIN(realized_pnl) AS worst_trade,
+                    AVG(EXTRACT(EPOCH FROM (closed_at - opened_at))/3600) AS avg_hold_hours
+                FROM positions
+                WHERE status = 'CLOSED'
+                GROUP BY symbol
+                ORDER BY total_pnl DESC
+            """)
+            return cur.fetchall()
 
     def get_equity_curve(self):
         with self.cursor() as cur:
