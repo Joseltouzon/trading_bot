@@ -235,9 +235,9 @@ class OrderManager:
                     return False
 
             # 2️⃣ Margin sufficiency check
-            if required_margin > available * CFG.SAFETY_BUFFER: 
+            if required_margin > available: # * CFG.SAFETY_BUFFER: esto esta cagando todo
 
-                scale_factor = (available * CFG.SAFETY_BUFFER) / required_margin
+                scale_factor = available / required_margin # antes (available * CFG.SAFETY_BUFFER) / required_margin
 
                 if scale_factor <= 0:
                     self.logger.warning(f"[MARGIN] {symbol} no available margin.")
@@ -247,7 +247,7 @@ class OrderManager:
                 notional = mark_price * qty
                 required_margin = notional / max(lev, 1.0)
 
-                if required_margin > available * CFG.SAFETY_BUFFER:
+                if required_margin > available: # * CFG.SAFETY_BUFFER: por misma razon que arriba
                     self.logger.warning(
                         f"[MARGIN] {symbol} insufficient after scaling."
                     )
