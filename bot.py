@@ -154,13 +154,14 @@ def main():
 
     while True:
         try:
-            # RELOAD STATE DINÁMICO PARA CARGAR CONFIG DEL DASHBOARD
+            # 0) Actualiza las config
             state_dict = db.load_state() or {}
-            merged_data = {
-                **st.to_dict(),
-                **state_dict
-            }
-            st = BotState(**merged_data)
+            if state_dict:
+                st = BotState(**state_dict)
+            else:
+                # Solo si no hay nada en DB usar defaults
+                st = BotState()
+
             # 1) Actualizar velas/market (REST polling)
             market.update_all(st.symbols)
 
@@ -174,9 +175,8 @@ def main():
             # 4) Trailing
             trailing.loop_once(st)
 
-            # 5) Telegram polling (si existe)
-            if hasattr(telegram, "poll_once"):
-                telegram.poll_once(st, exchange, db)
+            # 5) Telegram polling 
+            telegram.poll_once(st, exchange, db)
 
             # 6) Control de Riesgo
             # risk_monitor.check()     va pero es media jedienta
