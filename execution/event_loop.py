@@ -160,22 +160,32 @@ class EventLoop:
                     last_trade = max(closing_trades, key=lambda x: x["time"])
                     close_time_ms = last_trade["time"]
 
-                    # 4️⃣ Calcular realized correctamente delimitado
-                    trade = self.exchange.get_position_history(
-                        symbol=symbol,
-                        open_time=open_time_ms,
-                        close_time=close_time_ms,
-                        position_side=pos["side"]
+                    # 4️⃣ Calcular EXIT PRICE ponderado
+                    total_qty = 0.0
+                    weighted_price = 0.0
+
+                    for t in closing_trades:
+                        qty = float(t["qty"])
+                        price = float(t["price"])
+
+                        total_qty += qty
+                        weighted_price += qty * price
+
+                    exit_price = (
+                        weighted_price / total_qty if total_qty > 0 else None
                     )
 
-                    exit_price = None
-                    realized = None
+                    # 5️⃣ Calcular REALIZED REAL desde income history
+                    incomes = self.exchange.client.futures_income_history(
+                        symbol=symbol,
+                        incomeType="REALIZED_PNL",
+                        startTime=open_time_ms,
+                        endTime=close_time_ms
+                    )
 
-                    if trade:
-                        exit_price = trade.get("exit_price")
-                        realized = trade.get("realizedPnl")
+                    realized = sum(float(i["income"]) for i in incomes) if incomes else 0.0
 
-                    # 5️⃣ Cerrar en DB
+                    # 6️⃣ Cerrar en DB
                     self.om.db.close_position(
                         position_id=pos["id"],
                         exit_price=exit_price,
@@ -183,10 +193,10 @@ class EventLoop:
                         close_reason="STOP_OR_MANUAL"
                     )
 
-                    # 6️⃣ Desactivar stops
+                    # 7️⃣ Desactivar stops
                     self.om.db.deactivate_stops(pos["id"])
 
-                    # 7️⃣ Limpiar estado memoria (lo que hacía trailing)
+                    # 8️⃣ Limpiar estado memoria
                     if hasattr(st, "position_ids"):
                         st.position_ids.pop(symbol, None)
 
@@ -196,10 +206,10 @@ class EventLoop:
                     if hasattr(st, "stop_orders"):
                         st.stop_orders.pop(symbol, None)
 
-                    # 8️⃣ Persistir estado
+                    # 9️⃣ Persistir estado
                     self.om.db.save_state(st.__dict__)
 
-                    # 9️⃣ Telegram notification
+                    # 🔟 Telegram notification
                     try:
                         r = float(realized or 0)
                         ep = float(exit_price or 0)
@@ -217,7 +227,6 @@ class EventLoop:
                         self.log.warning(f"[TG CLOSE NOTIFY] {e}")
 
                     continue
-
                 # ==================================================
                 # 🟡 REDUCCIÓN PARCIAL
                 # ==================================================

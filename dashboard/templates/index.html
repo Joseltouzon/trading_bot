@@ -165,7 +165,8 @@
                     <td>{{ pos.qty }}</td>
                     <td>{{ pos.entry_price }}</td>
 
-                    <td class="{% if pos.unrealized_pnl >= 0 %}text-success{% else %}text-danger{% endif %}">
+                    <td id="pnl-{{ pos.symbol }}"
+                        class="{% if pos.unrealized_pnl >= 0 %}text-success{% else %}text-danger{% endif %}">
                         {{ "%.2f"|format(pos.unrealized_pnl) }} USDT
                     </td>
 
@@ -525,7 +526,31 @@
         }
     }
 
-    setInterval(updateStats, 15000);
+    async function updateUnrealizedPnL() {
+        try {
+            const res = await fetch("/api/open-positions/pnl");
+            if (!res.ok) return;
+
+            const data = await res.json();
+
+            Object.entries(data).forEach(([symbol, pnl]) => {
+                const el = document.getElementById(`pnl-${symbol}`);
+                if (!el) return;
+
+                const value = parseFloat(pnl);
+                el.innerText = value.toFixed(2) + " USDT";
+                el.className = value >= 0 ? "text-success" : "text-danger";
+            });
+
+        } catch (e) {
+            console.error("Unrealized update failed", e);
+        }
+    }
+
+    setInterval(() => {
+        updateStats();
+        updateUnrealizedPnL();
+    }, 15000);
 </script>
 
 <script>
