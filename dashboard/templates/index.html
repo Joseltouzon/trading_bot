@@ -252,6 +252,13 @@
             <h5 class="mb-4" style="color: #f3f7f3;">CONFIGURACION DEL BOT</h5>
 
             <form id="configForm" class="row g-3 needs-validation" novalidate>
+                <div class="form-check form-switch mb-3">
+                    <input class="form-check-input" type="checkbox" id="paused" name="paused" {% if state.paused
+                        %}checked{% endif %}>
+                    <label class="form-check-label fw-bold" style="color: aquamarine;" for="paused">
+                        Bot pausado
+                    </label>
+                </div>
 
                 <div class="col-md-4">
                     <label class="form-label" style="color: aquamarine;">Risk %</label>
@@ -409,6 +416,10 @@
                 formData.forEach((value, key) => {
                     if (key === "symbols") {
                         data[key] = value.split(",").map(s => s.trim())
+
+                    } else if (key === "paused") {
+                        data[key] = document.getElementById("paused").checked
+
                     } else {
                         data[key] = Number(value)
                     }

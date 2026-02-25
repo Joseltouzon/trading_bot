@@ -242,12 +242,8 @@ class BinanceFutures:
 
         return positions
 
-    def get_position_history(self, symbol: str, open_time: int):
-        """
-        Devuelve información real del cierre de una posición.
-        open_time debe estar en ms (timestamp Binance).
-        """
-
+    def get_position_history(self, symbol: str, open_time: int, position_side: str):
+        
         try:
             trades = self.client.futures_account_trades(
                 symbol=symbol,
@@ -266,9 +262,18 @@ class BinanceFutures:
                 realized = float(t.get("realizedPnl", 0))
                 qty = abs(float(t.get("qty", 0)))
                 price = float(t.get("price", 0))
+                buyer = t.get("buyer")
 
-                # Solo contamos trades que realmente cierran/reducen
-                if realized != 0:
+                # Determinar si es trade de cierre real
+                is_closing = False
+
+                if position_side == "LONG":
+                    is_closing = buyer is False  # vendiste → cerrás
+
+                elif position_side == "SHORT":
+                    is_closing = buyer is True   # compraste → cerrás
+
+                if is_closing and realized != 0:
 
                     total_realized += realized
                     total_qty += qty
@@ -289,7 +294,6 @@ class BinanceFutures:
         except Exception as e:
             self.logger.warning(f"{symbol} get_position_history failed: {e}")
             return None
-            
     # ============================================================
     # ORDERS
     # ============================================================
