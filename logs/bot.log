@@ -1485,3 +1485,488 @@
 2026-02-25 16:00:29 | INFO | MainThread | BNBUSDT | trend=BULL | breakL=False | breakS=False | adx=52.91 | adx_ok=True | rising_ok=True | vol_ratio=0.24 | vol_up=False
 2026-02-25 16:00:29 | INFO | MainThread | LINKUSDT | trend=BULL | breakL=False | breakS=False | adx=38.24 | adx_ok=True | rising_ok=False | vol_ratio=0.49 | vol_up=False
 2026-02-25 16:00:29 | INFO | MainThread | BTCUSDT | trend=BULL | breakL=False | breakS=False | adx=54.14 | adx_ok=True | rising_ok=False | vol_ratio=0.25 | vol_up=False
+2026-02-25 16:05:02 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1772046299999
+2026-02-25 16:05:04 | INFO | MainThread | ADAUSDT | trend=BULL | breakL=False | breakS=False | adx=51.05 | adx_ok=True | rising_ok=False | vol_ratio=1.13 | vol_up=False
+2026-02-25 16:05:18 | INFO | MainThread | [CACHE] New closed candle POLUSDT close_time=1772046299999
+2026-02-25 16:05:20 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1772046299999
+2026-02-25 16:05:21 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1772046299999
+2026-02-25 16:05:22 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1772046299999
+2026-02-25 16:05:23 | INFO | MainThread | [CACHE] New closed candle LINKUSDT close_time=1772046299999
+2026-02-25 16:05:24 | INFO | MainThread | [CACHE] New closed candle DOGEUSDT close_time=1772046299999
+2026-02-25 16:05:26 | INFO | MainThread | [CACHE] New closed candle DOTUSDT close_time=1772046299999
+2026-02-25 16:05:27 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1772046299999
+2026-02-25 16:05:28 | INFO | MainThread | POLUSDT | trend=BULL | breakL=False | breakS=False | adx=27.00 | adx_ok=True | rising_ok=True | vol_ratio=1.77 | vol_up=True
+2026-02-25 16:05:28 | INFO | MainThread | SOLUSDT | trend=BULL | breakL=False | breakS=False | adx=52.15 | adx_ok=True | rising_ok=False | vol_ratio=0.98 | vol_up=True
+2026-02-25 16:05:28 | INFO | MainThread | XRPUSDT | trend=BULL | breakL=False | breakS=False | adx=45.03 | adx_ok=True | rising_ok=False | vol_ratio=1.19 | vol_up=True
+2026-02-25 16:05:28 | INFO | MainThread | BNBUSDT | trend=BULL | breakL=False | breakS=False | adx=51.24 | adx_ok=True | rising_ok=False | vol_ratio=1.13 | vol_up=True
+2026-02-25 16:05:28 | INFO | MainThread | LINKUSDT | trend=BULL | breakL=False | breakS=False | adx=35.88 | adx_ok=True | rising_ok=False | vol_ratio=1.10 | vol_up=True
+2026-02-25 16:05:28 | INFO | MainThread | DOGEUSDT | trend=BULL | breakL=False | breakS=False | adx=48.88 | adx_ok=True | rising_ok=False | vol_ratio=1.22 | vol_up=True
+2026-02-25 16:05:28 | INFO | MainThread | DOTUSDT | trend=NONE | breakL=False | breakS=False | adx=37.52 | adx_ok=True | rising_ok=False | vol_ratio=0.83 | vol_up=True
+2026-02-25 16:05:28 | INFO | MainThread | BTCUSDT | trend=BULL | breakL=False | breakS=False | adx=52.11 | adx_ok=True | rising_ok=False | vol_ratio=1.20 | vol_up=True
+2026-02-25 16:10:05 | INFO | MainThread | [CACHE] New closed candle DOGEUSDT close_time=1772046599999
+2026-02-25 16:10:06 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1772046599999
+2026-02-25 16:10:07 | INFO | MainThread | [CACHE] New closed candle DOTUSDT close_time=1772046599999
+2026-02-25 16:10:08 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1772046599999
+2026-02-25 16:10:09 | INFO | MainThread | DOTUSDT | trend=BULL | breakL=False | breakS=False | adx=36.25 | adx_ok=True | rising_ok=False | vol_ratio=0.53 | vol_up=False
+2026-02-25 16:10:09 | INFO | MainThread | BTCUSDT | trend=NONE | breakL=False | breakS=False | adx=49.71 | adx_ok=True | rising_ok=False | vol_ratio=1.10 | vol_up=False
+2026-02-25 16:10:20 | INFO | MainThread | [CACHE] New closed candle POLUSDT close_time=1772046599999
+2026-02-25 16:10:21 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1772046599999
+2026-02-25 16:10:22 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1772046599999
+2026-02-25 16:10:23 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1772046599999
+2026-02-25 16:10:24 | INFO | MainThread | [CACHE] New closed candle LINKUSDT close_time=1772046599999
+2026-02-25 16:10:27 | INFO | MainThread | POLUSDT | trend=BULL | breakL=False | breakS=False | adx=27.85 | adx_ok=True | rising_ok=True | vol_ratio=1.29 | vol_up=False
+2026-02-25 16:10:27 | INFO | MainThread | SOLUSDT | trend=NONE | breakL=False | breakS=False | adx=50.46 | adx_ok=True | rising_ok=False | vol_ratio=0.82 | vol_up=False
+2026-02-25 16:10:28 | INFO | MainThread | XRPUSDT | trend=NONE | breakL=False | breakS=False | adx=42.95 | adx_ok=True | rising_ok=False | vol_ratio=1.15 | vol_up=False
+2026-02-25 16:10:28 | INFO | MainThread | BNBUSDT | trend=BULL | breakL=False | breakS=False | adx=48.43 | adx_ok=True | rising_ok=False | vol_ratio=1.37 | vol_up=True
+2026-02-25 16:10:28 | INFO | MainThread | LINKUSDT | trend=BULL | breakL=False | breakS=False | adx=34.02 | adx_ok=True | rising_ok=False | vol_ratio=1.07 | vol_up=False
+2026-02-25 16:15:25 | INFO | MainThread | [CACHE] New closed candle POLUSDT close_time=1772046899999
+2026-02-25 16:15:26 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1772046899999
+2026-02-25 16:15:27 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1772046899999
+2026-02-25 16:15:29 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1772046899999
+2026-02-25 16:15:30 | INFO | MainThread | [CACHE] New closed candle LINKUSDT close_time=1772046899999
+2026-02-25 16:15:31 | INFO | MainThread | [CACHE] New closed candle DOGEUSDT close_time=1772046899999
+2026-02-25 16:15:32 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1772046899999
+2026-02-25 16:15:33 | INFO | MainThread | [CACHE] New closed candle DOTUSDT close_time=1772046899999
+2026-02-25 16:15:34 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1772046899999
+2026-02-25 16:15:35 | INFO | MainThread | POLUSDT | trend=BULL | breakL=False | breakS=False | adx=28.65 | adx_ok=True | rising_ok=True | vol_ratio=1.67 | vol_up=True
+2026-02-25 16:15:35 | INFO | MainThread | SOLUSDT | trend=NONE | breakL=False | breakS=False | adx=47.97 | adx_ok=True | rising_ok=False | vol_ratio=1.31 | vol_up=True
+2026-02-25 16:15:35 | INFO | MainThread | XRPUSDT | trend=BULL | breakL=False | breakS=False | adx=40.05 | adx_ok=True | rising_ok=False | vol_ratio=1.78 | vol_up=True
+2026-02-25 16:15:35 | INFO | MainThread | BNBUSDT | trend=BULL | breakL=False | breakS=False | adx=45.07 | adx_ok=True | rising_ok=False | vol_ratio=1.35 | vol_up=True
+2026-02-25 16:15:35 | INFO | MainThread | LINKUSDT | trend=BULL | breakL=False | breakS=False | adx=33.00 | adx_ok=True | rising_ok=False | vol_ratio=1.16 | vol_up=True
+2026-02-25 16:15:35 | INFO | MainThread | DOGEUSDT | trend=BULL | breakL=False | breakS=False | adx=45.92 | adx_ok=True | rising_ok=False | vol_ratio=1.02 | vol_up=True
+2026-02-25 16:15:35 | INFO | MainThread | ADAUSDT | trend=BULL | breakL=False | breakS=False | adx=46.54 | adx_ok=True | rising_ok=False | vol_ratio=0.95 | vol_up=True
+2026-02-25 16:15:35 | INFO | MainThread | DOTUSDT | trend=NONE | breakL=False | breakS=False | adx=35.49 | adx_ok=True | rising_ok=False | vol_ratio=0.76 | vol_up=True
+2026-02-25 16:15:35 | INFO | MainThread | BTCUSDT | trend=BULL | breakL=False | breakS=False | adx=46.32 | adx_ok=True | rising_ok=False | vol_ratio=1.10 | vol_up=True
+2026-02-25 16:20:08 | INFO | MainThread | [CACHE] New closed candle POLUSDT close_time=1772047199999
+2026-02-25 16:20:09 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1772047199999
+2026-02-25 16:20:11 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1772047199999
+2026-02-25 16:20:12 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1772047199999
+2026-02-25 16:20:13 | INFO | MainThread | [CACHE] New closed candle LINKUSDT close_time=1772047199999
+2026-02-25 16:20:15 | INFO | MainThread | [CACHE] New closed candle DOGEUSDT close_time=1772047199999
+2026-02-25 16:20:16 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1772047199999
+2026-02-25 16:20:18 | INFO | MainThread | [CACHE] New closed candle DOTUSDT close_time=1772047199999
+2026-02-25 16:20:19 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1772047199999
+2026-02-25 16:20:20 | INFO | MainThread | POLUSDT | trend=BULL | breakL=False | breakS=False | adx=29.39 | adx_ok=True | rising_ok=True | vol_ratio=0.67 | vol_up=False
+2026-02-25 16:20:20 | INFO | MainThread | SOLUSDT | trend=BULL | breakL=False | breakS=False | adx=46.41 | adx_ok=True | rising_ok=False | vol_ratio=1.02 | vol_up=False
+2026-02-25 16:20:20 | INFO | MainThread | XRPUSDT | trend=BULL | breakL=False | breakS=False | adx=37.36 | adx_ok=True | rising_ok=False | vol_ratio=0.91 | vol_up=False
+2026-02-25 16:20:20 | INFO | MainThread | BNBUSDT | trend=NONE | breakL=False | breakS=False | adx=42.31 | adx_ok=True | rising_ok=False | vol_ratio=0.55 | vol_up=False
+2026-02-25 16:20:20 | INFO | MainThread | LINKUSDT | trend=BULL | breakL=False | breakS=False | adx=31.91 | adx_ok=True | rising_ok=False | vol_ratio=0.90 | vol_up=False
+2026-02-25 16:20:20 | INFO | MainThread | DOGEUSDT | trend=BULL | breakL=False | breakS=False | adx=44.73 | adx_ok=True | rising_ok=False | vol_ratio=1.04 | vol_up=False
+2026-02-25 16:20:20 | INFO | MainThread | ADAUSDT | trend=BULL | breakL=False | breakS=False | adx=43.82 | adx_ok=True | rising_ok=False | vol_ratio=0.41 | vol_up=False
+2026-02-25 16:20:20 | INFO | MainThread | DOTUSDT | trend=BULL | breakL=False | breakS=False | adx=35.42 | adx_ok=True | rising_ok=False | vol_ratio=0.68 | vol_up=False
+2026-02-25 16:20:21 | INFO | MainThread | BTCUSDT | trend=BULL | breakL=False | breakS=False | adx=43.18 | adx_ok=True | rising_ok=False | vol_ratio=0.56 | vol_up=False
+2026-02-25 16:24:06 | WARNING | MainThread | [TG poll] error: HTTPSConnectionPool(host='api.telegram.org', port=443): Max retries exceeded with url: /bot8595800756:AAFOl0BFwrOQcy3tsjHD7uHYdCnuHPdftfE/getUpdates?timeout=0&offset=164713430 (Caused by ConnectTimeoutError(<urllib3.connection.HTTPSConnection object at 0x1110d9c40>, 'Connection to api.telegram.org timed out. (connect timeout=10)'))
+2026-02-25 16:25:10 | INFO | MainThread | [CACHE] New closed candle POLUSDT close_time=1772047499999
+2026-02-25 16:25:12 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1772047499999
+2026-02-25 16:25:13 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1772047499999
+2026-02-25 16:25:14 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1772047499999
+2026-02-25 16:25:16 | INFO | MainThread | [CACHE] New closed candle LINKUSDT close_time=1772047499999
+2026-02-25 16:25:17 | INFO | MainThread | [CACHE] New closed candle DOGEUSDT close_time=1772047499999
+2026-02-25 16:25:18 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1772047499999
+2026-02-25 16:25:19 | INFO | MainThread | [CACHE] New closed candle DOTUSDT close_time=1772047499999
+2026-02-25 16:25:20 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1772047499999
+2026-02-25 16:25:21 | INFO | MainThread | POLUSDT | trend=BULL | breakL=False | breakS=False | adx=30.79 | adx_ok=True | rising_ok=True | vol_ratio=0.64 | vol_up=False
+2026-02-25 16:25:21 | INFO | MainThread | SOLUSDT | trend=BULL | breakL=False | breakS=False | adx=45.71 | adx_ok=True | rising_ok=False | vol_ratio=1.34 | vol_up=True
+2026-02-25 16:25:21 | INFO | MainThread | XRPUSDT | trend=BULL | breakL=False | breakS=False | adx=35.50 | adx_ok=True | rising_ok=False | vol_ratio=1.42 | vol_up=True
+2026-02-25 16:25:21 | INFO | MainThread | BNBUSDT | trend=BULL | breakL=False | breakS=False | adx=40.53 | adx_ok=True | rising_ok=False | vol_ratio=0.58 | vol_up=True
+2026-02-25 16:25:21 | INFO | MainThread | LINKUSDT | trend=BULL | breakL=False | breakS=False | adx=29.73 | adx_ok=True | rising_ok=False | vol_ratio=0.95 | vol_up=True
+2026-02-25 16:25:21 | INFO | MainThread | DOGEUSDT | trend=BULL | breakL=True | breakS=False | adx=44.47 | adx_ok=True | rising_ok=False | vol_ratio=1.32 | vol_up=True
+2026-02-25 16:25:21 | INFO | MainThread | ADAUSDT | trend=BULL | breakL=False | breakS=False | adx=42.25 | adx_ok=True | rising_ok=False | vol_ratio=0.45 | vol_up=True
+2026-02-25 16:25:21 | INFO | MainThread | DOTUSDT | trend=BULL | breakL=False | breakS=False | adx=35.84 | adx_ok=True | rising_ok=True | vol_ratio=0.77 | vol_up=True
+2026-02-25 16:25:21 | INFO | MainThread | BTCUSDT | trend=NONE | breakL=False | breakS=False | adx=40.95 | adx_ok=True | rising_ok=False | vol_ratio=0.69 | vol_up=True
+2026-02-25 16:30:12 | INFO | MainThread | [CACHE] New closed candle POLUSDT close_time=1772047799999
+2026-02-25 16:30:13 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1772047799999
+2026-02-25 16:30:14 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1772047799999
+2026-02-25 16:30:15 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1772047799999
+2026-02-25 16:30:17 | INFO | MainThread | [CACHE] New closed candle LINKUSDT close_time=1772047799999
+2026-02-25 16:30:18 | INFO | MainThread | [CACHE] New closed candle DOGEUSDT close_time=1772047799999
+2026-02-25 16:30:19 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1772047799999
+2026-02-25 16:30:20 | INFO | MainThread | [CACHE] New closed candle DOTUSDT close_time=1772047799999
+2026-02-25 16:30:21 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1772047799999
+2026-02-25 16:30:21 | INFO | MainThread | POLUSDT | trend=BULL | breakL=False | breakS=False | adx=32.10 | adx_ok=True | rising_ok=True | vol_ratio=0.33 | vol_up=False
+2026-02-25 16:30:21 | INFO | MainThread | SOLUSDT | trend=BULL | breakL=False | breakS=False | adx=45.05 | adx_ok=True | rising_ok=False | vol_ratio=0.52 | vol_up=False
+2026-02-25 16:30:21 | INFO | MainThread | XRPUSDT | trend=BULL | breakL=False | breakS=False | adx=33.76 | adx_ok=True | rising_ok=False | vol_ratio=0.72 | vol_up=False
+2026-02-25 16:30:21 | INFO | MainThread | BNBUSDT | trend=NONE | breakL=False | breakS=False | adx=38.37 | adx_ok=True | rising_ok=False | vol_ratio=1.07 | vol_up=True
+2026-02-25 16:30:22 | INFO | MainThread | LINKUSDT | trend=NONE | breakL=False | breakS=False | adx=27.71 | adx_ok=True | rising_ok=False | vol_ratio=0.44 | vol_up=False
+2026-02-25 16:30:22 | INFO | MainThread | DOGEUSDT | trend=BULL | breakL=False | breakS=False | adx=44.23 | adx_ok=True | rising_ok=False | vol_ratio=0.80 | vol_up=False
+2026-02-25 16:30:22 | INFO | MainThread | ADAUSDT | trend=BULL | breakL=False | breakS=False | adx=40.80 | adx_ok=True | rising_ok=False | vol_ratio=0.34 | vol_up=False
+2026-02-25 16:30:22 | INFO | MainThread | DOTUSDT | trend=BULL | breakL=False | breakS=False | adx=36.23 | adx_ok=True | rising_ok=True | vol_ratio=0.75 | vol_up=False
+2026-02-25 16:30:22 | INFO | MainThread | BTCUSDT | trend=NONE | breakL=False | breakS=False | adx=38.89 | adx_ok=True | rising_ok=False | vol_ratio=0.36 | vol_up=False
+2026-02-25 16:35:08 | INFO | MainThread | [CACHE] New closed candle POLUSDT close_time=1772048099999
+2026-02-25 16:35:09 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1772048099999
+2026-02-25 16:35:10 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1772048099999
+2026-02-25 16:35:11 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1772048099999
+2026-02-25 16:35:12 | INFO | MainThread | [CACHE] New closed candle LINKUSDT close_time=1772048099999
+2026-02-25 16:35:14 | INFO | MainThread | [CACHE] New closed candle DOGEUSDT close_time=1772048099999
+2026-02-25 16:35:15 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1772048099999
+2026-02-25 16:35:16 | INFO | MainThread | [CACHE] New closed candle DOTUSDT close_time=1772048099999
+2026-02-25 16:35:18 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1772048099999
+2026-02-25 16:35:18 | INFO | MainThread | POLUSDT | trend=BULL | breakL=False | breakS=False | adx=31.88 | adx_ok=True | rising_ok=False | vol_ratio=0.55 | vol_up=True
+2026-02-25 16:35:18 | INFO | MainThread | SOLUSDT | trend=BULL | breakL=False | breakS=False | adx=43.76 | adx_ok=True | rising_ok=False | vol_ratio=0.60 | vol_up=True
+2026-02-25 16:35:18 | INFO | MainThread | XRPUSDT | trend=BULL | breakL=False | breakS=False | adx=32.15 | adx_ok=True | rising_ok=False | vol_ratio=2.00 | vol_up=True
+2026-02-25 16:35:18 | INFO | MainThread | BNBUSDT | trend=NONE | breakL=False | breakS=False | adx=36.01 | adx_ok=True | rising_ok=False | vol_ratio=0.76 | vol_up=False
+2026-02-25 16:35:18 | INFO | MainThread | LINKUSDT | trend=BULL | breakL=False | breakS=False | adx=26.33 | adx_ok=True | rising_ok=False | vol_ratio=0.55 | vol_up=True
+2026-02-25 16:35:18 | INFO | MainThread | DOGEUSDT | trend=BULL | breakL=False | breakS=False | adx=42.59 | adx_ok=True | rising_ok=False | vol_ratio=0.85 | vol_up=True
+2026-02-25 16:35:19 | INFO | MainThread | ADAUSDT | trend=BULL | breakL=False | breakS=False | adx=38.59 | adx_ok=True | rising_ok=False | vol_ratio=0.66 | vol_up=True
+2026-02-25 16:35:19 | INFO | MainThread | DOTUSDT | trend=BULL | breakL=False | breakS=False | adx=36.86 | adx_ok=True | rising_ok=True | vol_ratio=0.94 | vol_up=True
+2026-02-25 16:35:19 | INFO | MainThread | BTCUSDT | trend=BULL | breakL=False | breakS=False | adx=36.30 | adx_ok=True | rising_ok=False | vol_ratio=0.46 | vol_up=True
+2026-02-25 16:35:42 | WARNING | MainThread | [CACHE] mark price error BNBUSDT: HTTPSConnectionPool(host='fapi.binance.com', port=443): Read timed out. (read timeout=10)
+2026-02-25 16:36:54 | WARNING | MainThread | [CACHE] mark price error SOLUSDT: HTTPSConnectionPool(host='fapi.binance.com', port=443): Read timed out. (read timeout=10)
+2026-02-25 16:40:12 | INFO | MainThread | [CACHE] New closed candle POLUSDT close_time=1772048399999
+2026-02-25 16:40:13 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1772048399999
+2026-02-25 16:40:14 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1772048399999
+2026-02-25 16:40:15 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1772048399999
+2026-02-25 16:40:17 | INFO | MainThread | [CACHE] New closed candle LINKUSDT close_time=1772048399999
+2026-02-25 16:40:18 | INFO | MainThread | [CACHE] New closed candle DOGEUSDT close_time=1772048399999
+2026-02-25 16:40:19 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1772048399999
+2026-02-25 16:40:20 | INFO | MainThread | [CACHE] New closed candle DOTUSDT close_time=1772048399999
+2026-02-25 16:40:21 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1772048399999
+2026-02-25 16:40:22 | INFO | MainThread | POLUSDT | trend=BULL | breakL=False | breakS=False | adx=31.88 | adx_ok=True | rising_ok=False | vol_ratio=0.48 | vol_up=False
+2026-02-25 16:40:22 | INFO | MainThread | SOLUSDT | trend=BULL | breakL=False | breakS=False | adx=42.97 | adx_ok=True | rising_ok=False | vol_ratio=0.63 | vol_up=True
+2026-02-25 16:40:22 | INFO | MainThread | XRPUSDT | trend=BULL | breakL=False | breakS=False | adx=30.65 | adx_ok=True | rising_ok=False | vol_ratio=0.85 | vol_up=False
+2026-02-25 16:40:22 | INFO | MainThread | BNBUSDT | trend=NONE | breakL=False | breakS=False | adx=34.16 | adx_ok=True | rising_ok=False | vol_ratio=0.39 | vol_up=False
+2026-02-25 16:40:22 | INFO | MainThread | LINKUSDT | trend=BULL | breakL=False | breakS=False | adx=24.84 | adx_ok=True | rising_ok=False | vol_ratio=0.23 | vol_up=False
+2026-02-25 16:40:22 | INFO | MainThread | DOGEUSDT | trend=NONE | breakL=False | breakS=False | adx=41.22 | adx_ok=True | rising_ok=False | vol_ratio=0.39 | vol_up=False
+2026-02-25 16:40:22 | INFO | MainThread | ADAUSDT | trend=BULL | breakL=False | breakS=False | adx=36.69 | adx_ok=True | rising_ok=False | vol_ratio=0.31 | vol_up=False
+2026-02-25 16:40:22 | INFO | MainThread | DOTUSDT | trend=BULL | breakL=False | breakS=False | adx=37.86 | adx_ok=True | rising_ok=True | vol_ratio=1.73 | vol_up=True
+2026-02-25 16:40:22 | INFO | MainThread | BTCUSDT | trend=BULL | breakL=False | breakS=False | adx=33.90 | adx_ok=True | rising_ok=False | vol_ratio=0.37 | vol_up=False
+2026-02-25 16:45:04 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1772048699999
+2026-02-25 16:45:05 | INFO | MainThread | [CACHE] New closed candle LINKUSDT close_time=1772048699999
+2026-02-25 16:45:07 | INFO | MainThread | [CACHE] New closed candle DOGEUSDT close_time=1772048699999
+2026-02-25 16:45:08 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1772048699999
+2026-02-25 16:45:09 | INFO | MainThread | [CACHE] New closed candle DOTUSDT close_time=1772048699999
+2026-02-25 16:45:10 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1772048699999
+2026-02-25 16:45:11 | INFO | MainThread | DOGEUSDT | trend=NONE | breakL=False | breakS=False | adx=39.66 | adx_ok=True | rising_ok=False | vol_ratio=0.42 | vol_up=False
+2026-02-25 16:45:11 | INFO | MainThread | DOTUSDT | trend=BULL | breakL=False | breakS=False | adx=38.52 | adx_ok=True | rising_ok=True | vol_ratio=0.88 | vol_up=False
+2026-02-25 16:45:11 | INFO | MainThread | BTCUSDT | trend=BULL | breakL=False | breakS=False | adx=31.67 | adx_ok=True | rising_ok=False | vol_ratio=0.19 | vol_up=False
+2026-02-25 16:45:31 | INFO | MainThread | [CACHE] New closed candle POLUSDT close_time=1772048699999
+2026-02-25 16:45:32 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1772048699999
+2026-02-25 16:45:33 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1772048699999
+2026-02-25 16:45:38 | INFO | MainThread | POLUSDT | trend=BULL | breakL=False | breakS=False | adx=31.88 | adx_ok=True | rising_ok=False | vol_ratio=0.19 | vol_up=False
+2026-02-25 16:45:38 | INFO | MainThread | SOLUSDT | trend=BULL | breakL=False | breakS=False | adx=42.24 | adx_ok=True | rising_ok=False | vol_ratio=0.56 | vol_up=False
+2026-02-25 16:45:38 | INFO | MainThread | XRPUSDT | trend=BULL | breakL=False | breakS=False | adx=29.27 | adx_ok=True | rising_ok=False | vol_ratio=0.53 | vol_up=False
+2026-02-25 16:50:08 | INFO | MainThread | [CACHE] New closed candle POLUSDT close_time=1772048999999
+2026-02-25 16:50:09 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1772048999999
+2026-02-25 16:50:11 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1772048999999
+2026-02-25 16:50:12 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1772048999999
+2026-02-25 16:50:13 | INFO | MainThread | [CACHE] New closed candle LINKUSDT close_time=1772048999999
+2026-02-25 16:50:14 | INFO | MainThread | [CACHE] New closed candle DOGEUSDT close_time=1772048999999
+2026-02-25 16:50:15 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1772048999999
+2026-02-25 16:50:17 | INFO | MainThread | [CACHE] New closed candle DOTUSDT close_time=1772048999999
+2026-02-25 16:50:18 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1772048999999
+2026-02-25 16:50:18 | INFO | MainThread | POLUSDT | trend=BULL | breakL=True | breakS=False | adx=33.46 | adx_ok=True | rising_ok=True | vol_ratio=2.28 | vol_up=True
+2026-02-25 16:50:18 | INFO | MainThread | POLUSDT → LONG signal published
+2026-02-25 16:50:18 | INFO | MainThread | SOLUSDT | trend=BULL | breakL=False | breakS=False | adx=42.39 | adx_ok=True | rising_ok=True | vol_ratio=1.16 | vol_up=True
+2026-02-25 16:50:19 | INFO | MainThread | XRPUSDT | trend=BULL | breakL=False | breakS=False | adx=27.41 | adx_ok=True | rising_ok=False | vol_ratio=0.94 | vol_up=True
+2026-02-25 16:50:19 | INFO | MainThread | BNBUSDT | trend=BULL | breakL=False | breakS=False | adx=31.77 | adx_ok=True | rising_ok=False | vol_ratio=0.46 | vol_up=True
+2026-02-25 16:50:19 | INFO | MainThread | LINKUSDT | trend=BULL | breakL=False | breakS=False | adx=22.60 | adx_ok=False | rising_ok=False | vol_ratio=0.45 | vol_up=True
+2026-02-25 16:50:19 | INFO | MainThread | DOGEUSDT | trend=NONE | breakL=False | breakS=False | adx=37.96 | adx_ok=True | rising_ok=False | vol_ratio=0.54 | vol_up=True
+2026-02-25 16:50:19 | INFO | MainThread | ADAUSDT | trend=BULL | breakL=False | breakS=False | adx=33.51 | adx_ok=True | rising_ok=False | vol_ratio=0.50 | vol_up=True
+2026-02-25 16:50:19 | INFO | MainThread | DOTUSDT | trend=BULL | breakL=True | breakS=False | adx=40.12 | adx_ok=True | rising_ok=True | vol_ratio=2.54 | vol_up=True
+2026-02-25 16:50:19 | INFO | MainThread | DOTUSDT → LONG signal published
+2026-02-25 16:50:19 | INFO | MainThread | BTCUSDT | trend=NONE | breakL=False | breakS=False | adx=30.50 | adx_ok=True | rising_ok=False | vol_ratio=0.39 | vol_up=True
+2026-02-25 16:50:22 | WARNING | MainThread | [MARGIN] POLUSDT auto-scaled | scale=0.045 | new_qty=182.737697
+2026-02-25 16:50:23 | INFO | MainThread | [ORDER] MARKET POLUSDT LONG qty=182.0
+2026-02-25 16:50:23 | INFO | MainThread | [ENTRY] POLUSDT LONG qty=182.737697
+2026-02-25 16:50:24 | WARNING | MainThread | [CANCEL] ALGO already closed POLUSDT algoId=1000000898053657
+2026-02-25 16:50:24 | INFO | MainThread | [ORDER] STOP_MARKET POLUSDT side=SELL qty=182.0 stop=0.1167
+2026-02-25 16:50:24 | INFO | MainThread | POLUSDT SL updated -> 0.1167 (algoId=1000000909174048)
+2026-02-25 16:50:24 | INFO | MainThread | [SL] initial stop placed POLUSDT LONG sl=0.11670537646835581
+2026-02-25 16:50:50 | INFO | MainThread | [RECONCILE] POLUSDT partial close detected reduced=0.737697 remaining=182.000000
+2026-02-25 16:50:51 | INFO | MainThread | DOTUSDT BLOCKED: max positions
+2026-02-25 16:55:15 | INFO | MainThread | [CACHE] New closed candle POLUSDT close_time=1772049299999
+2026-02-25 16:55:16 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1772049299999
+2026-02-25 16:55:17 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1772049299999
+2026-02-25 16:55:18 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1772049299999
+2026-02-25 16:55:20 | INFO | MainThread | [CACHE] New closed candle LINKUSDT close_time=1772049299999
+2026-02-25 16:55:21 | INFO | MainThread | [CACHE] New closed candle DOGEUSDT close_time=1772049299999
+2026-02-25 16:55:22 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1772049299999
+2026-02-25 16:55:23 | INFO | MainThread | [CACHE] New closed candle DOTUSDT close_time=1772049299999
+2026-02-25 16:55:24 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1772049299999
+2026-02-25 16:55:25 | INFO | MainThread | POLUSDT | trend=BULL | breakL=False | breakS=False | adx=34.95 | adx_ok=True | rising_ok=True | vol_ratio=0.66 | vol_up=False
+2026-02-25 16:55:25 | INFO | MainThread | SOLUSDT | trend=BULL | breakL=False | breakS=False | adx=42.53 | adx_ok=True | rising_ok=True | vol_ratio=0.94 | vol_up=False
+2026-02-25 16:55:25 | INFO | MainThread | XRPUSDT | trend=NONE | breakL=False | breakS=False | adx=25.78 | adx_ok=True | rising_ok=False | vol_ratio=1.01 | vol_up=True
+2026-02-25 16:55:25 | INFO | MainThread | BNBUSDT | trend=BULL | breakL=False | breakS=False | adx=31.22 | adx_ok=True | rising_ok=False | vol_ratio=1.21 | vol_up=True
+2026-02-25 16:55:25 | INFO | MainThread | LINKUSDT | trend=BULL | breakL=False | breakS=False | adx=21.97 | adx_ok=False | rising_ok=False | vol_ratio=0.66 | vol_up=True
+2026-02-25 16:55:25 | INFO | MainThread | DOGEUSDT | trend=BULL | breakL=False | breakS=False | adx=36.84 | adx_ok=True | rising_ok=False | vol_ratio=0.72 | vol_up=True
+2026-02-25 16:55:25 | INFO | MainThread | ADAUSDT | trend=BULL | breakL=False | breakS=False | adx=33.39 | adx_ok=True | rising_ok=False | vol_ratio=1.80 | vol_up=True
+2026-02-25 16:55:25 | INFO | MainThread | DOTUSDT | trend=BULL | breakL=False | breakS=False | adx=41.95 | adx_ok=True | rising_ok=True | vol_ratio=2.58 | vol_up=True
+2026-02-25 16:55:25 | INFO | MainThread | BTCUSDT | trend=BULL | breakL=False | breakS=False | adx=29.47 | adx_ok=True | rising_ok=False | vol_ratio=0.27 | vol_up=False
+2026-02-25 16:59:58 | WARNING | MainThread | [TG poll] error: HTTPSConnectionPool(host='api.telegram.org', port=443): Max retries exceeded with url: /bot8595800756:AAFOl0BFwrOQcy3tsjHD7uHYdCnuHPdftfE/getUpdates?timeout=0&offset=164713430 (Caused by ConnectTimeoutError(<urllib3.connection.HTTPSConnection object at 0x1111e77c0>, 'Connection to api.telegram.org timed out. (connect timeout=10)'))
+2026-02-25 17:00:09 | WARNING | MainThread | Account snapshot error: HTTPSConnectionPool(host='fapi.binance.com', port=443): Read timed out. (read timeout=10)
+2026-02-25 17:00:10 | WARNING | MainThread | [CACHE] update error POLUSDT: HTTPSConnectionPool(host='fapi.binance.com', port=443): Max retries exceeded with url: /fapi/v1/klines?interval=5m&limit=2&symbol=POLUSDT (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x10eeda820>: Failed to establish a new connection: [Errno 51] Network is unreachable'))
+2026-02-25 17:00:10 | WARNING | MainThread | [CACHE] update error SOLUSDT: HTTPSConnectionPool(host='fapi.binance.com', port=443): Max retries exceeded with url: /fapi/v1/klines?interval=5m&limit=2&symbol=SOLUSDT (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x1111f0040>: Failed to resolve 'fapi.binance.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-02-25 17:00:10 | WARNING | MainThread | [CACHE] update error XRPUSDT: HTTPSConnectionPool(host='fapi.binance.com', port=443): Max retries exceeded with url: /fapi/v1/klines?interval=5m&limit=2&symbol=XRPUSDT (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x1111f08b0>: Failed to resolve 'fapi.binance.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-02-25 17:00:10 | WARNING | MainThread | [CACHE] update error BNBUSDT: HTTPSConnectionPool(host='fapi.binance.com', port=443): Max retries exceeded with url: /fapi/v1/klines?interval=5m&limit=2&symbol=BNBUSDT (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x1111f01f0>: Failed to resolve 'fapi.binance.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-02-25 17:00:10 | WARNING | MainThread | [CACHE] update error LINKUSDT: HTTPSConnectionPool(host='fapi.binance.com', port=443): Max retries exceeded with url: /fapi/v1/klines?interval=5m&limit=2&symbol=LINKUSDT (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x1111f0d30>: Failed to resolve 'fapi.binance.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-02-25 17:00:10 | WARNING | MainThread | [CACHE] update error DOGEUSDT: HTTPSConnectionPool(host='fapi.binance.com', port=443): Max retries exceeded with url: /fapi/v1/klines?interval=5m&limit=2&symbol=DOGEUSDT (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x111a440d0>: Failed to resolve 'fapi.binance.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-02-25 17:00:10 | WARNING | MainThread | [CACHE] update error ADAUSDT: HTTPSConnectionPool(host='fapi.binance.com', port=443): Max retries exceeded with url: /fapi/v1/klines?interval=5m&limit=2&symbol=ADAUSDT (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x111a44430>: Failed to resolve 'fapi.binance.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-02-25 17:00:10 | WARNING | MainThread | [CACHE] update error DOTUSDT: HTTPSConnectionPool(host='fapi.binance.com', port=443): Max retries exceeded with url: /fapi/v1/klines?interval=5m&limit=2&symbol=DOTUSDT (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x1111f0e20>: Failed to resolve 'fapi.binance.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-02-25 17:00:10 | WARNING | MainThread | [CACHE] update error BTCUSDT: HTTPSConnectionPool(host='fapi.binance.com', port=443): Max retries exceeded with url: /fapi/v1/klines?interval=5m&limit=2&symbol=BTCUSDT (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x1111f0610>: Failed to resolve 'fapi.binance.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-02-25 17:00:10 | WARNING | MainThread | [RECONCILE] HTTPSConnectionPool(host='fapi.binance.com', port=443): Max retries exceeded with url: /fapi/v3/positionRisk?recvWindow=10000&timestamp=1772049610905&signature=f29fdb632e97b241bfeffdfc9d82f9644df5303bb384dd2e099377b1a91ee66a (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x1111f04c0>: Failed to resolve 'fapi.binance.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-02-25 17:00:10 | WARNING | MainThread | [DAILY LOSS] could not compute dd: HTTPSConnectionPool(host='fapi.binance.com', port=443): Max retries exceeded with url: /fapi/v2/account?recvWindow=10000&timestamp=1772049610938&signature=a609eef1188e985c487dce40786156b02aaf25cae97e5187e826ed3b8d45a0c5 (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x1111f0a60>: Failed to resolve 'fapi.binance.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-02-25 17:00:10 | WARNING | MainThread | [TG] error: HTTPSConnectionPool(host='api.telegram.org', port=443): Max retries exceeded with url: /bot8595800756:AAFOl0BFwrOQcy3tsjHD7uHYdCnuHPdftfE/sendMessage (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x1111e7190>: Failed to resolve 'api.telegram.org' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-02-25 17:00:10 | WARNING | MainThread | [TG poll] error: HTTPSConnectionPool(host='api.telegram.org', port=443): Max retries exceeded with url: /bot8595800756:AAFOl0BFwrOQcy3tsjHD7uHYdCnuHPdftfE/getUpdates?timeout=0&offset=164713430 (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x111a44700>: Failed to resolve 'api.telegram.org' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-02-25 17:00:11 | WARNING | MainThread | Account snapshot error: HTTPSConnectionPool(host='fapi.binance.com', port=443): Max retries exceeded with url: /fapi/v2/account?recvWindow=10000&timestamp=1772049611000&signature=947368cba32fe7a025b600f046f45d75b8344b91d4246790a2bb9547afa51afa (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x111a44a60>: Failed to resolve 'fapi.binance.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-02-25 17:00:11 | WARNING | MainThread | [CACHE] mark price error POLUSDT: HTTPSConnectionPool(host='fapi.binance.com', port=443): Max retries exceeded with url: /fapi/v1/premiumIndex?symbol=POLUSDT (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x111a44f40>: Failed to resolve 'fapi.binance.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-02-25 17:00:11 | WARNING | MainThread | [CACHE] mark price error SOLUSDT: HTTPSConnectionPool(host='fapi.binance.com', port=443): Max retries exceeded with url: /fapi/v1/premiumIndex?symbol=SOLUSDT (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x11171a220>: Failed to resolve 'fapi.binance.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-02-25 17:00:11 | WARNING | MainThread | [CACHE] mark price error XRPUSDT: HTTPSConnectionPool(host='fapi.binance.com', port=443): Max retries exceeded with url: /fapi/v1/premiumIndex?symbol=XRPUSDT (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x111a44d90>: Failed to resolve 'fapi.binance.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-02-25 17:00:11 | WARNING | MainThread | [CACHE] mark price error BNBUSDT: HTTPSConnectionPool(host='fapi.binance.com', port=443): Max retries exceeded with url: /fapi/v1/premiumIndex?symbol=BNBUSDT (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x111a44970>: Failed to resolve 'fapi.binance.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-02-25 17:00:11 | WARNING | MainThread | [CACHE] mark price error LINKUSDT: HTTPSConnectionPool(host='fapi.binance.com', port=443): Max retries exceeded with url: /fapi/v1/premiumIndex?symbol=LINKUSDT (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x111a44190>: Failed to resolve 'fapi.binance.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-02-25 17:00:11 | WARNING | MainThread | [CACHE] mark price error DOGEUSDT: HTTPSConnectionPool(host='fapi.binance.com', port=443): Max retries exceeded with url: /fapi/v1/premiumIndex?symbol=DOGEUSDT (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x1111e72e0>: Failed to resolve 'fapi.binance.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-02-25 17:00:11 | WARNING | MainThread | [CACHE] mark price error ADAUSDT: HTTPSConnectionPool(host='fapi.binance.com', port=443): Max retries exceeded with url: /fapi/v1/premiumIndex?symbol=ADAUSDT (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x1111e7b80>: Failed to resolve 'fapi.binance.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-02-25 17:00:11 | WARNING | MainThread | [CACHE] mark price error DOTUSDT: HTTPSConnectionPool(host='fapi.binance.com', port=443): Max retries exceeded with url: /fapi/v1/premiumIndex?symbol=DOTUSDT (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x1111e7f40>: Failed to resolve 'fapi.binance.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-02-25 17:00:11 | WARNING | MainThread | [CACHE] mark price error BTCUSDT: HTTPSConnectionPool(host='fapi.binance.com', port=443): Max retries exceeded with url: /fapi/v1/premiumIndex?symbol=BTCUSDT (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x1110d9580>: Failed to resolve 'fapi.binance.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-02-25 17:00:11 | WARNING | MainThread | [RECONCILE] HTTPSConnectionPool(host='fapi.binance.com', port=443): Max retries exceeded with url: /fapi/v3/positionRisk?recvWindow=10000&timestamp=1772049611914&signature=27829f4c5dc1e1b61d9c6f061117f1f986da1483598eadd2a1df1d02b2a2f391 (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x10eeda520>: Failed to resolve 'fapi.binance.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-02-25 17:00:11 | WARNING | MainThread | [DAILY LOSS] could not compute dd: HTTPSConnectionPool(host='fapi.binance.com', port=443): Max retries exceeded with url: /fapi/v2/account?recvWindow=10000&timestamp=1772049611942&signature=b17e81c8c32f5f56205eef36ff32be6bcd74ab89caea13e05ecc0c85ee1bc98e (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x1111f09d0>: Failed to resolve 'fapi.binance.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-02-25 17:00:12 | WARNING | MainThread | [TG] error: HTTPSConnectionPool(host='api.telegram.org', port=443): Max retries exceeded with url: /bot8595800756:AAFOl0BFwrOQcy3tsjHD7uHYdCnuHPdftfE/sendMessage (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x1111f0c10>: Failed to resolve 'api.telegram.org' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-02-25 17:00:12 | WARNING | MainThread | [TG poll] error: HTTPSConnectionPool(host='api.telegram.org', port=443): Max retries exceeded with url: /bot8595800756:AAFOl0BFwrOQcy3tsjHD7uHYdCnuHPdftfE/getUpdates?timeout=0&offset=164713430 (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x1111e7220>: Failed to resolve 'api.telegram.org' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-02-25 17:00:12 | WARNING | MainThread | Account snapshot error: HTTPSConnectionPool(host='fapi.binance.com', port=443): Max retries exceeded with url: /fapi/v2/account?recvWindow=10000&timestamp=1772049612049&signature=71af1fa11f169e28348dccfbe3af5882102998a1fd9809b9952464142f55df95 (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x1111e7340>: Failed to resolve 'fapi.binance.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-02-25 17:00:12 | WARNING | MainThread | [RECONCILE] HTTPSConnectionPool(host='fapi.binance.com', port=443): Max retries exceeded with url: /fapi/v3/positionRisk?recvWindow=10000&timestamp=1772049612607&signature=de62b7f426ba3ef09db1f19b4768c8552dae75f6fb4e15feb606a449dc127a89 (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x1111e74f0>: Failed to resolve 'fapi.binance.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-02-25 17:00:12 | WARNING | MainThread | [DAILY LOSS] could not compute dd: HTTPSConnectionPool(host='fapi.binance.com', port=443): Max retries exceeded with url: /fapi/v2/account?recvWindow=10000&timestamp=1772049612639&signature=2afded5457a7ef61808ba6fcb4636ea576ec4c9e772700878a6adadd93bb93c8 (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x1111f03a0>: Failed to resolve 'fapi.binance.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-02-25 17:00:12 | WARNING | MainThread | [TG] error: HTTPSConnectionPool(host='api.telegram.org', port=443): Max retries exceeded with url: /bot8595800756:AAFOl0BFwrOQcy3tsjHD7uHYdCnuHPdftfE/sendMessage (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x111a44460>: Failed to resolve 'api.telegram.org' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-02-25 17:00:12 | WARNING | MainThread | [TG poll] error: HTTPSConnectionPool(host='api.telegram.org', port=443): Max retries exceeded with url: /bot8595800756:AAFOl0BFwrOQcy3tsjHD7uHYdCnuHPdftfE/getUpdates?timeout=0&offset=164713430 (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x11171a7f0>: Failed to resolve 'api.telegram.org' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-02-25 17:00:12 | WARNING | MainThread | Account snapshot error: HTTPSConnectionPool(host='fapi.binance.com', port=443): Max retries exceeded with url: /fapi/v2/account?recvWindow=10000&timestamp=1772049612788&signature=88e2a53c0a47b4531dda853623c521c8b925475f23be434ae678d3e4d25e2bcd (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x11171abb0>: Failed to resolve 'fapi.binance.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-02-25 17:00:13 | WARNING | MainThread | [RECONCILE] HTTPSConnectionPool(host='fapi.binance.com', port=443): Max retries exceeded with url: /fapi/v3/positionRisk?recvWindow=10000&timestamp=1772049613350&signature=a1a579cd3ff5e57f775fcb820ef5f9e3c51f2e7c1bf8610f41657badfb7b1aba (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x111a44550>: Failed to resolve 'fapi.binance.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-02-25 17:00:13 | WARNING | MainThread | [DAILY LOSS] could not compute dd: HTTPSConnectionPool(host='fapi.binance.com', port=443): Max retries exceeded with url: /fapi/v2/account?recvWindow=10000&timestamp=1772049613388&signature=84519ee807038f3a84d6800c644a4a095671cf6fe840e09174ad1c6f72b22b1c (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x111a447f0>: Failed to resolve 'fapi.binance.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-02-25 17:00:13 | WARNING | MainThread | [TG] error: HTTPSConnectionPool(host='api.telegram.org', port=443): Max retries exceeded with url: /bot8595800756:AAFOl0BFwrOQcy3tsjHD7uHYdCnuHPdftfE/sendMessage (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x1111e72e0>: Failed to resolve 'api.telegram.org' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-02-25 17:00:13 | WARNING | MainThread | [TG poll] error: HTTPSConnectionPool(host='api.telegram.org', port=443): Max retries exceeded with url: /bot8595800756:AAFOl0BFwrOQcy3tsjHD7uHYdCnuHPdftfE/getUpdates?timeout=0&offset=164713430 (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x1110414f0>: Failed to resolve 'api.telegram.org' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-02-25 17:00:13 | WARNING | MainThread | Account snapshot error: HTTPSConnectionPool(host='fapi.binance.com', port=443): Max retries exceeded with url: /fapi/v2/account?recvWindow=10000&timestamp=1772049613487&signature=0753193b65b78946a7d10753d6e3b019bce7e66f849834844e43306892a48fc1 (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x10eeda5e0>: Failed to resolve 'fapi.binance.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-02-25 17:00:24 | WARNING | MainThread | [RECONCILE] HTTPSConnectionPool(host='fapi.binance.com', port=443): Max retries exceeded with url: /fapi/v3/positionRisk?recvWindow=10000&timestamp=1772049614101&signature=770b6c2c8df9b4089c9b4a94d6596b37a65bc3906baf88c33ab2f6875c19face (Caused by ConnectTimeoutError(<urllib3.connection.HTTPSConnection object at 0x11171aca0>, 'Connection to fapi.binance.com timed out. (connect timeout=10)'))
+2026-02-25 17:00:34 | WARNING | MainThread | [DAILY LOSS] could not compute dd: HTTPSConnectionPool(host='fapi.binance.com', port=443): Max retries exceeded with url: /fapi/v2/account?recvWindow=10000&timestamp=1772049624146&signature=8e76fe1e4a663714f692eb55304df67580811c20d3e480f67f550256e17d22f3 (Caused by ConnectTimeoutError(<urllib3.connection.HTTPSConnection object at 0x11171a4c0>, 'Connection to fapi.binance.com timed out. (connect timeout=10)'))
+2026-02-25 17:00:42 | WARNING | AnyIO worker thread | [HEALTH] API error: HTTPSConnectionPool(host='fapi.binance.com', port=443): Max retries exceeded with url: /fapi/v1/time (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x1052a6e80>: Failed to resolve 'fapi.binance.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-02-25 17:00:42 | WARNING | MainThread | [TG] error: HTTPSConnectionPool(host='api.telegram.org', port=443): Max retries exceeded with url: /bot8595800756:AAFOl0BFwrOQcy3tsjHD7uHYdCnuHPdftfE/sendMessage (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x111041130>: Failed to resolve 'api.telegram.org' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-02-25 17:00:42 | WARNING | MainThread | [TG poll] error: HTTPSConnectionPool(host='api.telegram.org', port=443): Max retries exceeded with url: /bot8595800756:AAFOl0BFwrOQcy3tsjHD7uHYdCnuHPdftfE/getUpdates?timeout=0&offset=164713430 (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x1111e7dc0>: Failed to resolve 'api.telegram.org' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-02-25 17:00:42 | WARNING | MainThread | Account snapshot error: HTTPSConnectionPool(host='fapi.binance.com', port=443): Max retries exceeded with url: /fapi/v2/account?recvWindow=10000&timestamp=1772049642855&signature=2e91acb88de8d8b72c99c63652821a1b4b19edf5994ac163134dbaa2339b8c5c (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x1111f0520>: Failed to resolve 'fapi.binance.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-02-25 17:00:45 | WARNING | MainThread | [CACHE] update error POLUSDT: HTTPSConnectionPool(host='fapi.binance.com', port=443): Max retries exceeded with url: /fapi/v1/klines?interval=5m&limit=2&symbol=POLUSDT (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x111a44040>: Failed to resolve 'fapi.binance.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-02-25 17:00:45 | WARNING | MainThread | [CACHE] update error SOLUSDT: HTTPSConnectionPool(host='fapi.binance.com', port=443): Max retries exceeded with url: /fapi/v1/klines?interval=5m&limit=2&symbol=SOLUSDT (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x111a44880>: Failed to resolve 'fapi.binance.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-02-25 17:00:45 | WARNING | MainThread | [CACHE] update error XRPUSDT: HTTPSConnectionPool(host='fapi.binance.com', port=443): Max retries exceeded with url: /fapi/v1/klines?interval=5m&limit=2&symbol=XRPUSDT (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x111a44f10>: Failed to resolve 'fapi.binance.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-02-25 17:00:45 | WARNING | MainThread | [CACHE] update error BNBUSDT: HTTPSConnectionPool(host='fapi.binance.com', port=443): Max retries exceeded with url: /fapi/v1/klines?interval=5m&limit=2&symbol=BNBUSDT (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x111a44280>: Failed to resolve 'fapi.binance.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-02-25 17:00:45 | WARNING | MainThread | [CACHE] update error LINKUSDT: HTTPSConnectionPool(host='fapi.binance.com', port=443): Max retries exceeded with url: /fapi/v1/klines?interval=5m&limit=2&symbol=LINKUSDT (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x11171ac70>: Failed to resolve 'fapi.binance.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-02-25 17:00:45 | WARNING | MainThread | [CACHE] update error DOGEUSDT: HTTPSConnectionPool(host='fapi.binance.com', port=443): Max retries exceeded with url: /fapi/v1/klines?interval=5m&limit=2&symbol=DOGEUSDT (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x11171ae20>: Failed to resolve 'fapi.binance.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-02-25 17:00:45 | WARNING | MainThread | [CACHE] update error ADAUSDT: HTTPSConnectionPool(host='fapi.binance.com', port=443): Max retries exceeded with url: /fapi/v1/klines?interval=5m&limit=2&symbol=ADAUSDT (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x111539130>: Failed to resolve 'fapi.binance.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-02-25 17:00:45 | WARNING | MainThread | [CACHE] update error DOTUSDT: HTTPSConnectionPool(host='fapi.binance.com', port=443): Max retries exceeded with url: /fapi/v1/klines?interval=5m&limit=2&symbol=DOTUSDT (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x1115394c0>: Failed to resolve 'fapi.binance.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-02-25 17:00:45 | WARNING | MainThread | [CACHE] update error BTCUSDT: HTTPSConnectionPool(host='fapi.binance.com', port=443): Max retries exceeded with url: /fapi/v1/klines?interval=5m&limit=2&symbol=BTCUSDT (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x111a44a30>: Failed to resolve 'fapi.binance.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-02-25 17:00:45 | WARNING | MainThread | [RECONCILE] HTTPSConnectionPool(host='fapi.binance.com', port=443): Max retries exceeded with url: /fapi/v3/positionRisk?recvWindow=10000&timestamp=1772049645673&signature=31aca0cc64e6a9f247a2d12ef781dc43eac072b4180b5bc7a6b4729cfe7ad874 (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x111a44fa0>: Failed to resolve 'fapi.binance.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-02-25 17:00:45 | WARNING | MainThread | [DAILY LOSS] could not compute dd: HTTPSConnectionPool(host='fapi.binance.com', port=443): Max retries exceeded with url: /fapi/v2/account?recvWindow=10000&timestamp=1772049645695&signature=07bba794d7058ba3f6bbbefc481fa6bde2db0cde0dfcd20f0b27a9825aa903ae (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x111a44850>: Failed to resolve 'fapi.binance.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-02-25 17:00:45 | WARNING | MainThread | [TG] error: HTTPSConnectionPool(host='api.telegram.org', port=443): Max retries exceeded with url: /bot8595800756:AAFOl0BFwrOQcy3tsjHD7uHYdCnuHPdftfE/sendMessage (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x11171a160>: Failed to resolve 'api.telegram.org' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-02-25 17:00:46 | WARNING | MainThread | [TG poll] error: HTTPSConnectionPool(host='api.telegram.org', port=443): Max retries exceeded with url: /bot8595800756:AAFOl0BFwrOQcy3tsjHD7uHYdCnuHPdftfE/getUpdates?timeout=0&offset=164713430 (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x10eeda520>: Failed to resolve 'api.telegram.org' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-02-25 17:00:46 | WARNING | MainThread | Account snapshot error: HTTPSConnectionPool(host='fapi.binance.com', port=443): Max retries exceeded with url: /fapi/v2/account?recvWindow=10000&timestamp=1772049646046&signature=78a30a200b09f5c8c44d63a9a6132c2e106b1b3e27d948d85c4579c1c10e74c9 (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x1111e76d0>: Failed to resolve 'fapi.binance.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-02-25 17:01:03 | INFO | MainThread | [CACHE] New closed candle POLUSDT close_time=1772049599999
+2026-02-25 17:01:05 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1772049599999
+2026-02-25 17:01:06 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1772049599999
+2026-02-25 17:01:07 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1772049599999
+2026-02-25 17:01:09 | INFO | MainThread | [CACHE] New closed candle LINKUSDT close_time=1772049599999
+2026-02-25 17:01:11 | INFO | MainThread | [CACHE] New closed candle DOGEUSDT close_time=1772049599999
+2026-02-25 17:01:12 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1772049599999
+2026-02-25 17:01:12 | INFO | MainThread | [CACHE] New closed candle DOTUSDT close_time=1772049599999
+2026-02-25 17:01:14 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1772049599999
+2026-02-25 17:01:14 | INFO | MainThread | POLUSDT | trend=BULL | breakL=False | breakS=False | adx=36.33 | adx_ok=True | rising_ok=True | vol_ratio=0.89 | vol_up=True
+2026-02-25 17:01:14 | INFO | MainThread | SOLUSDT | trend=BULL | breakL=False | breakS=False | adx=42.37 | adx_ok=True | rising_ok=False | vol_ratio=0.51 | vol_up=False
+2026-02-25 17:01:14 | INFO | MainThread | XRPUSDT | trend=BULL | breakL=False | breakS=False | adx=25.03 | adx_ok=True | rising_ok=False | vol_ratio=0.75 | vol_up=False
+2026-02-25 17:01:14 | INFO | MainThread | BNBUSDT | trend=BULL | breakL=False | breakS=False | adx=30.70 | adx_ok=True | rising_ok=False | vol_ratio=0.49 | vol_up=False
+2026-02-25 17:01:14 | INFO | MainThread | LINKUSDT | trend=BULL | breakL=False | breakS=False | adx=22.17 | adx_ok=False | rising_ok=True | vol_ratio=1.36 | vol_up=True
+2026-02-25 17:01:14 | INFO | MainThread | DOGEUSDT | trend=BULL | breakL=False | breakS=False | adx=36.70 | adx_ok=True | rising_ok=False | vol_ratio=0.86 | vol_up=True
+2026-02-25 17:01:14 | INFO | MainThread | ADAUSDT | trend=BULL | breakL=False | breakS=False | adx=34.55 | adx_ok=True | rising_ok=True | vol_ratio=4.46 | vol_up=True
+2026-02-25 17:01:14 | INFO | MainThread | DOTUSDT | trend=BULL | breakL=False | breakS=False | adx=43.70 | adx_ok=True | rising_ok=True | vol_ratio=1.23 | vol_up=False
+2026-02-25 17:01:14 | INFO | MainThread | BTCUSDT | trend=NONE | breakL=False | breakS=False | adx=28.51 | adx_ok=True | rising_ok=False | vol_ratio=0.20 | vol_up=False
+2026-02-25 17:05:18 | INFO | MainThread | [CACHE] New closed candle POLUSDT close_time=1772049899999
+2026-02-25 17:05:19 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1772049899999
+2026-02-25 17:05:20 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1772049899999
+2026-02-25 17:05:21 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1772049899999
+2026-02-25 17:05:22 | INFO | MainThread | [CACHE] New closed candle LINKUSDT close_time=1772049899999
+2026-02-25 17:05:24 | INFO | MainThread | [CACHE] New closed candle DOGEUSDT close_time=1772049899999
+2026-02-25 17:05:25 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1772049899999
+2026-02-25 17:05:26 | INFO | MainThread | [CACHE] New closed candle DOTUSDT close_time=1772049899999
+2026-02-25 17:05:27 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1772049899999
+2026-02-25 17:05:27 | INFO | MainThread | POLUSDT | trend=BULL | breakL=False | breakS=False | adx=35.64 | adx_ok=True | rising_ok=False | vol_ratio=1.43 | vol_up=True
+2026-02-25 17:05:27 | INFO | MainThread | SOLUSDT | trend=BULL | breakL=False | breakS=False | adx=41.66 | adx_ok=True | rising_ok=False | vol_ratio=0.82 | vol_up=True
+2026-02-25 17:05:27 | INFO | MainThread | XRPUSDT | trend=BULL | breakL=False | breakS=False | adx=24.67 | adx_ok=True | rising_ok=False | vol_ratio=0.81 | vol_up=True
+2026-02-25 17:05:28 | INFO | MainThread | BNBUSDT | trend=BULL | breakL=False | breakS=False | adx=30.71 | adx_ok=True | rising_ok=True | vol_ratio=0.83 | vol_up=True
+2026-02-25 17:05:28 | INFO | MainThread | LINKUSDT | trend=BULL | breakL=False | breakS=False | adx=21.60 | adx_ok=False | rising_ok=False | vol_ratio=2.37 | vol_up=True
+2026-02-25 17:05:28 | INFO | MainThread | DOGEUSDT | trend=BULL | breakL=False | breakS=False | adx=36.99 | adx_ok=True | rising_ok=True | vol_ratio=1.70 | vol_up=True
+2026-02-25 17:05:28 | INFO | MainThread | ADAUSDT | trend=BULL | breakL=False | breakS=False | adx=36.87 | adx_ok=True | rising_ok=True | vol_ratio=4.86 | vol_up=True
+2026-02-25 17:05:28 | INFO | MainThread | DOTUSDT | trend=BULL | breakL=False | breakS=False | adx=45.59 | adx_ok=True | rising_ok=True | vol_ratio=4.76 | vol_up=True
+2026-02-25 17:05:28 | INFO | MainThread | BTCUSDT | trend=NONE | breakL=False | breakS=False | adx=26.87 | adx_ok=True | rising_ok=False | vol_ratio=0.44 | vol_up=True
+2026-02-25 17:10:15 | INFO | MainThread | [CACHE] New closed candle POLUSDT close_time=1772050199999
+2026-02-25 17:10:16 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1772050199999
+2026-02-25 17:10:17 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1772050199999
+2026-02-25 17:10:19 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1772050199999
+2026-02-25 17:10:20 | INFO | MainThread | [CACHE] New closed candle LINKUSDT close_time=1772050199999
+2026-02-25 17:10:21 | INFO | MainThread | [CACHE] New closed candle DOGEUSDT close_time=1772050199999
+2026-02-25 17:10:22 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1772050199999
+2026-02-25 17:10:23 | INFO | MainThread | [CACHE] New closed candle DOTUSDT close_time=1772050199999
+2026-02-25 17:10:24 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1772050199999
+2026-02-25 17:10:24 | INFO | MainThread | POLUSDT | trend=NONE | breakL=False | breakS=False | adx=34.87 | adx_ok=True | rising_ok=False | vol_ratio=0.77 | vol_up=False
+2026-02-25 17:10:25 | INFO | MainThread | SOLUSDT | trend=BULL | breakL=False | breakS=False | adx=41.00 | adx_ok=True | rising_ok=False | vol_ratio=0.36 | vol_up=False
+2026-02-25 17:10:25 | INFO | MainThread | XRPUSDT | trend=BULL | breakL=False | breakS=False | adx=24.70 | adx_ok=True | rising_ok=True | vol_ratio=0.61 | vol_up=False
+2026-02-25 17:10:25 | INFO | MainThread | BNBUSDT | trend=BULL | breakL=False | breakS=False | adx=30.73 | adx_ok=True | rising_ok=True | vol_ratio=0.65 | vol_up=False
+2026-02-25 17:10:25 | INFO | MainThread | LINKUSDT | trend=BULL | breakL=False | breakS=False | adx=21.07 | adx_ok=False | rising_ok=False | vol_ratio=0.63 | vol_up=False
+2026-02-25 17:10:25 | INFO | MainThread | DOGEUSDT | trend=BULL | breakL=False | breakS=False | adx=37.44 | adx_ok=True | rising_ok=True | vol_ratio=1.16 | vol_up=False
+2026-02-25 17:10:25 | INFO | MainThread | ADAUSDT | trend=BULL | breakL=False | breakS=False | adx=39.40 | adx_ok=True | rising_ok=True | vol_ratio=4.74 | vol_up=True
+2026-02-25 17:10:25 | INFO | MainThread | DOTUSDT | trend=BULL | breakL=False | breakS=False | adx=47.35 | adx_ok=True | rising_ok=True | vol_ratio=1.31 | vol_up=False
+2026-02-25 17:10:25 | INFO | MainThread | BTCUSDT | trend=BULL | breakL=False | breakS=False | adx=25.31 | adx_ok=True | rising_ok=False | vol_ratio=0.32 | vol_up=False
+2026-02-25 17:15:16 | INFO | MainThread | [CACHE] New closed candle POLUSDT close_time=1772050499999
+2026-02-25 17:15:17 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1772050499999
+2026-02-25 17:15:18 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1772050499999
+2026-02-25 17:15:19 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1772050499999
+2026-02-25 17:15:20 | INFO | MainThread | [CACHE] New closed candle LINKUSDT close_time=1772050499999
+2026-02-25 17:15:22 | INFO | MainThread | [CACHE] New closed candle DOGEUSDT close_time=1772050499999
+2026-02-25 17:15:23 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1772050499999
+2026-02-25 17:15:24 | INFO | MainThread | [CACHE] New closed candle DOTUSDT close_time=1772050499999
+2026-02-25 17:15:25 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1772050499999
+2026-02-25 17:15:26 | INFO | MainThread | POLUSDT | trend=NONE | breakL=False | breakS=False | adx=34.16 | adx_ok=True | rising_ok=False | vol_ratio=1.27 | vol_up=True
+2026-02-25 17:15:26 | INFO | MainThread | SOLUSDT | trend=BULL | breakL=False | breakS=False | adx=38.94 | adx_ok=True | rising_ok=False | vol_ratio=1.43 | vol_up=True
+2026-02-25 17:15:26 | INFO | MainThread | XRPUSDT | trend=BULL | breakL=False | breakS=False | adx=23.87 | adx_ok=True | rising_ok=False | vol_ratio=0.91 | vol_up=True
+2026-02-25 17:15:26 | INFO | MainThread | BNBUSDT | trend=NONE | breakL=False | breakS=False | adx=29.14 | adx_ok=True | rising_ok=False | vol_ratio=0.96 | vol_up=True
+2026-02-25 17:15:27 | INFO | MainThread | LINKUSDT | trend=BULL | breakL=False | breakS=False | adx=20.10 | adx_ok=False | rising_ok=False | vol_ratio=1.63 | vol_up=True
+2026-02-25 17:15:27 | INFO | MainThread | DOGEUSDT | trend=BULL | breakL=False | breakS=False | adx=36.52 | adx_ok=True | rising_ok=False | vol_ratio=1.11 | vol_up=False
+2026-02-25 17:15:27 | INFO | MainThread | ADAUSDT | trend=BULL | breakL=False | breakS=False | adx=41.75 | adx_ok=True | rising_ok=True | vol_ratio=2.26 | vol_up=False
+2026-02-25 17:15:27 | INFO | MainThread | DOTUSDT | trend=BULL | breakL=False | breakS=False | adx=48.23 | adx_ok=True | rising_ok=True | vol_ratio=0.94 | vol_up=False
+2026-02-25 17:15:27 | INFO | MainThread | BTCUSDT | trend=BULL | breakL=False | breakS=False | adx=24.82 | adx_ok=True | rising_ok=False | vol_ratio=2.38 | vol_up=True
+2026-02-25 17:20:03 | INFO | MainThread | [CACHE] New closed candle DOGEUSDT close_time=1772050799999
+2026-02-25 17:20:04 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1772050799999
+2026-02-25 17:20:06 | INFO | MainThread | ADAUSDT | trend=BULL | breakL=False | breakS=False | adx=43.28 | adx_ok=True | rising_ok=True | vol_ratio=1.65 | vol_up=False
+2026-02-25 17:20:20 | INFO | MainThread | [CACHE] New closed candle POLUSDT close_time=1772050799999
+2026-02-25 17:20:21 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1772050799999
+2026-02-25 17:20:22 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1772050799999
+2026-02-25 17:20:23 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1772050799999
+2026-02-25 17:20:25 | INFO | MainThread | [CACHE] New closed candle LINKUSDT close_time=1772050799999
+2026-02-25 17:20:27 | INFO | MainThread | [CACHE] New closed candle DOTUSDT close_time=1772050799999
+2026-02-25 17:20:29 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1772050799999
+2026-02-25 17:20:29 | INFO | MainThread | POLUSDT | trend=NONE | breakL=False | breakS=False | adx=33.46 | adx_ok=True | rising_ok=False | vol_ratio=0.40 | vol_up=False
+2026-02-25 17:20:29 | INFO | MainThread | SOLUSDT | trend=NONE | breakL=False | breakS=False | adx=36.83 | adx_ok=True | rising_ok=False | vol_ratio=0.89 | vol_up=False
+2026-02-25 17:20:29 | INFO | MainThread | XRPUSDT | trend=BULL | breakL=False | breakS=False | adx=22.28 | adx_ok=False | rising_ok=False | vol_ratio=0.87 | vol_up=False
+2026-02-25 17:20:29 | INFO | MainThread | BNBUSDT | trend=BULL | breakL=False | breakS=False | adx=27.67 | adx_ok=True | rising_ok=False | vol_ratio=0.50 | vol_up=False
+2026-02-25 17:20:29 | INFO | MainThread | LINKUSDT | trend=BULL | breakL=False | breakS=False | adx=19.29 | adx_ok=False | rising_ok=False | vol_ratio=1.08 | vol_up=False
+2026-02-25 17:20:29 | INFO | MainThread | DOTUSDT | trend=BULL | breakL=False | breakS=False | adx=46.88 | adx_ok=True | rising_ok=False | vol_ratio=0.81 | vol_up=False
+2026-02-25 17:20:30 | INFO | MainThread | BTCUSDT | trend=BULL | breakL=False | breakS=False | adx=24.36 | adx_ok=True | rising_ok=False | vol_ratio=0.73 | vol_up=False
+2026-02-25 17:25:09 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1772051099999
+2026-02-25 17:25:11 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1772051099999
+2026-02-25 17:25:12 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1772051099999
+2026-02-25 17:25:13 | INFO | MainThread | [CACHE] New closed candle LINKUSDT close_time=1772051099999
+2026-02-25 17:25:15 | INFO | MainThread | [CACHE] New closed candle DOGEUSDT close_time=1772051099999
+2026-02-25 17:25:16 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1772051099999
+2026-02-25 17:25:17 | INFO | MainThread | [CACHE] New closed candle DOTUSDT close_time=1772051099999
+2026-02-25 17:25:19 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1772051099999
+2026-02-25 17:25:19 | INFO | MainThread | SOLUSDT | trend=NONE | breakL=False | breakS=False | adx=34.97 | adx_ok=True | rising_ok=False | vol_ratio=0.78 | vol_up=False
+2026-02-25 17:25:19 | INFO | MainThread | XRPUSDT | trend=BULL | breakL=False | breakS=False | adx=20.81 | adx_ok=False | rising_ok=False | vol_ratio=0.59 | vol_up=False
+2026-02-25 17:25:19 | INFO | MainThread | BNBUSDT | trend=BULL | breakL=False | breakS=False | adx=25.70 | adx_ok=True | rising_ok=False | vol_ratio=0.43 | vol_up=False
+2026-02-25 17:25:19 | INFO | MainThread | LINKUSDT | trend=BULL | breakL=False | breakS=False | adx=18.15 | adx_ok=False | rising_ok=False | vol_ratio=0.71 | vol_up=False
+2026-02-25 17:25:19 | INFO | MainThread | DOGEUSDT | trend=NONE | breakL=False | breakS=False | adx=34.12 | adx_ok=True | rising_ok=False | vol_ratio=1.02 | vol_up=True
+2026-02-25 17:25:19 | INFO | MainThread | ADAUSDT | trend=BULL | breakL=False | breakS=False | adx=44.83 | adx_ok=True | rising_ok=True | vol_ratio=1.27 | vol_up=False
+2026-02-25 17:25:19 | INFO | MainThread | DOTUSDT | trend=BULL | breakL=False | breakS=False | adx=45.45 | adx_ok=True | rising_ok=False | vol_ratio=0.79 | vol_up=False
+2026-02-25 17:25:20 | INFO | MainThread | BTCUSDT | trend=BULL | breakL=False | breakS=False | adx=23.57 | adx_ok=True | rising_ok=False | vol_ratio=0.55 | vol_up=False
+2026-02-25 17:25:34 | INFO | MainThread | [CACHE] New closed candle POLUSDT close_time=1772051099999
+2026-02-25 17:25:40 | INFO | MainThread | POLUSDT | trend=BULL | breakL=False | breakS=False | adx=33.31 | adx_ok=True | rising_ok=False | vol_ratio=0.73 | vol_up=True
+2026-02-25 17:30:03 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1772051399999
+2026-02-25 17:30:04 | INFO | MainThread | [CACHE] New closed candle DOTUSDT close_time=1772051399999
+2026-02-25 17:30:20 | INFO | MainThread | [CACHE] New closed candle POLUSDT close_time=1772051399999
+2026-02-25 17:30:21 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1772051399999
+2026-02-25 17:30:22 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1772051399999
+2026-02-25 17:30:23 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1772051399999
+2026-02-25 17:30:25 | INFO | MainThread | [CACHE] New closed candle LINKUSDT close_time=1772051399999
+2026-02-25 17:30:26 | INFO | MainThread | [CACHE] New closed candle DOGEUSDT close_time=1772051399999
+2026-02-25 17:30:29 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1772051399999
+2026-02-25 17:30:29 | INFO | MainThread | POLUSDT | trend=BULL | breakL=False | breakS=False | adx=33.36 | adx_ok=True | rising_ok=True | vol_ratio=0.50 | vol_up=False
+2026-02-25 17:30:29 | INFO | MainThread | SOLUSDT | trend=BULL | breakL=False | breakS=False | adx=33.24 | adx_ok=True | rising_ok=False | vol_ratio=0.71 | vol_up=False
+2026-02-25 17:30:29 | INFO | MainThread | XRPUSDT | trend=BULL | breakL=False | breakS=False | adx=19.82 | adx_ok=False | rising_ok=False | vol_ratio=0.65 | vol_up=True
+2026-02-25 17:30:29 | INFO | MainThread | BNBUSDT | trend=BULL | breakL=False | breakS=False | adx=23.88 | adx_ok=True | rising_ok=False | vol_ratio=0.36 | vol_up=False
+2026-02-25 17:30:30 | INFO | MainThread | LINKUSDT | trend=BULL | breakL=False | breakS=False | adx=17.09 | adx_ok=False | rising_ok=False | vol_ratio=0.56 | vol_up=False
+2026-02-25 17:30:30 | INFO | MainThread | DOGEUSDT | trend=BULL | breakL=False | breakS=False | adx=32.31 | adx_ok=True | rising_ok=False | vol_ratio=0.65 | vol_up=False
+2026-02-25 17:30:30 | INFO | MainThread | BTCUSDT | trend=BULL | breakL=False | breakS=False | adx=22.45 | adx_ok=False | rising_ok=False | vol_ratio=0.58 | vol_up=True
+2026-02-25 17:35:04 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1772051699999
+2026-02-25 17:35:04 | INFO | MainThread | BTCUSDT | trend=BULL | breakL=False | breakS=False | adx=22.17 | adx_ok=False | rising_ok=False | vol_ratio=1.93 | vol_up=True
+2026-02-25 17:35:18 | INFO | MainThread | [CACHE] New closed candle POLUSDT close_time=1772051699999
+2026-02-25 17:35:20 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1772051699999
+2026-02-25 17:35:21 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1772051699999
+2026-02-25 17:35:22 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1772051699999
+2026-02-25 17:35:23 | INFO | MainThread | [CACHE] New closed candle LINKUSDT close_time=1772051699999
+2026-02-25 17:35:24 | INFO | MainThread | [CACHE] New closed candle DOGEUSDT close_time=1772051699999
+2026-02-25 17:35:25 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1772051699999
+2026-02-25 17:35:27 | INFO | MainThread | [CACHE] New closed candle DOTUSDT close_time=1772051699999
+2026-02-25 17:35:28 | INFO | MainThread | POLUSDT | trend=BULL | breakL=False | breakS=False | adx=33.95 | adx_ok=True | rising_ok=True | vol_ratio=0.47 | vol_up=False
+2026-02-25 17:35:28 | INFO | MainThread | SOLUSDT | trend=BULL | breakL=False | breakS=False | adx=32.77 | adx_ok=True | rising_ok=False | vol_ratio=1.39 | vol_up=True
+2026-02-25 17:35:28 | INFO | MainThread | XRPUSDT | trend=NONE | breakL=False | breakS=False | adx=19.00 | adx_ok=False | rising_ok=False | vol_ratio=1.59 | vol_up=True
+2026-02-25 17:35:28 | INFO | MainThread | BNBUSDT | trend=NONE | breakL=False | breakS=False | adx=23.38 | adx_ok=True | rising_ok=False | vol_ratio=0.76 | vol_up=True
+2026-02-25 17:35:28 | INFO | MainThread | LINKUSDT | trend=BULL | breakL=False | breakS=False | adx=16.19 | adx_ok=False | rising_ok=False | vol_ratio=1.15 | vol_up=True
+2026-02-25 17:35:28 | INFO | MainThread | DOGEUSDT | trend=NONE | breakL=False | breakS=False | adx=31.44 | adx_ok=True | rising_ok=False | vol_ratio=1.35 | vol_up=True
+2026-02-25 17:35:28 | INFO | MainThread | ADAUSDT | trend=BULL | breakL=False | breakS=False | adx=44.04 | adx_ok=True | rising_ok=False | vol_ratio=0.61 | vol_up=False
+2026-02-25 17:35:28 | INFO | MainThread | DOTUSDT | trend=BULL | breakL=False | breakS=False | adx=43.77 | adx_ok=True | rising_ok=False | vol_ratio=0.78 | vol_up=True
+2026-02-25 17:40:04 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1772051999999
+2026-02-25 17:40:05 | INFO | MainThread | BTCUSDT | trend=BULL | breakL=False | breakS=False | adx=21.92 | adx_ok=False | rising_ok=False | vol_ratio=0.69 | vol_up=False
+2026-02-25 17:40:25 | INFO | MainThread | [CACHE] New closed candle POLUSDT close_time=1772051999999
+2026-02-25 17:40:27 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1772051999999
+2026-02-25 17:40:28 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1772051999999
+2026-02-25 17:40:29 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1772051999999
+2026-02-25 17:40:30 | INFO | MainThread | [CACHE] New closed candle LINKUSDT close_time=1772051999999
+2026-02-25 17:40:32 | INFO | MainThread | [CACHE] New closed candle DOGEUSDT close_time=1772051999999
+2026-02-25 17:40:33 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1772051999999
+2026-02-25 17:40:35 | INFO | MainThread | [CACHE] New closed candle DOTUSDT close_time=1772051999999
+2026-02-25 17:40:36 | INFO | MainThread | POLUSDT | trend=BULL | breakL=False | breakS=False | adx=34.49 | adx_ok=True | rising_ok=True | vol_ratio=0.42 | vol_up=False
+2026-02-25 17:40:36 | INFO | MainThread | SOLUSDT | trend=BULL | breakL=False | breakS=False | adx=33.01 | adx_ok=True | rising_ok=True | vol_ratio=2.04 | vol_up=True
+2026-02-25 17:40:36 | INFO | MainThread | XRPUSDT | trend=BULL | breakL=False | breakS=False | adx=18.23 | adx_ok=False | rising_ok=False | vol_ratio=0.72 | vol_up=False
+2026-02-25 17:40:36 | INFO | MainThread | BNBUSDT | trend=BULL | breakL=False | breakS=False | adx=22.91 | adx_ok=False | rising_ok=False | vol_ratio=0.44 | vol_up=False
+2026-02-25 17:40:36 | INFO | MainThread | LINKUSDT | trend=NONE | breakL=False | breakS=False | adx=15.35 | adx_ok=False | rising_ok=False | vol_ratio=0.33 | vol_up=False
+2026-02-25 17:40:36 | INFO | MainThread | DOGEUSDT | trend=BULL | breakL=False | breakS=False | adx=31.11 | adx_ok=True | rising_ok=False | vol_ratio=0.99 | vol_up=False
+2026-02-25 17:40:36 | INFO | MainThread | ADAUSDT | trend=BULL | breakL=False | breakS=False | adx=43.89 | adx_ok=True | rising_ok=False | vol_ratio=1.29 | vol_up=True
+2026-02-25 17:40:36 | INFO | MainThread | DOTUSDT | trend=BULL | breakL=False | breakS=False | adx=43.96 | adx_ok=True | rising_ok=True | vol_ratio=0.84 | vol_up=True
+2026-02-25 17:45:03 | INFO | MainThread | [CACHE] New closed candle LINKUSDT close_time=1772052299999
+2026-02-25 17:45:05 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1772052299999
+2026-02-25 17:45:06 | INFO | MainThread | [CACHE] New closed candle DOTUSDT close_time=1772052299999
+2026-02-25 17:45:07 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1772052299999
+2026-02-25 17:45:07 | INFO | MainThread | ADAUSDT | trend=BULL | breakL=False | breakS=False | adx=43.76 | adx_ok=True | rising_ok=False | vol_ratio=0.67 | vol_up=False
+2026-02-25 17:45:07 | INFO | MainThread | DOTUSDT | trend=BULL | breakL=False | breakS=False | adx=44.64 | adx_ok=True | rising_ok=True | vol_ratio=1.40 | vol_up=True
+2026-02-25 17:45:07 | INFO | MainThread | BTCUSDT | trend=BULL | breakL=False | breakS=False | adx=21.71 | adx_ok=False | rising_ok=False | vol_ratio=0.41 | vol_up=False
+2026-02-25 17:45:21 | INFO | MainThread | [CACHE] New closed candle POLUSDT close_time=1772052299999
+2026-02-25 17:45:23 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1772052299999
+2026-02-25 17:45:24 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1772052299999
+2026-02-25 17:45:25 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1772052299999
+2026-02-25 17:45:27 | INFO | MainThread | [CACHE] New closed candle DOGEUSDT close_time=1772052299999
+2026-02-25 17:45:29 | INFO | MainThread | POLUSDT | trend=BULL | breakL=False | breakS=False | adx=35.04 | adx_ok=True | rising_ok=True | vol_ratio=0.42 | vol_up=False
+2026-02-25 17:45:29 | INFO | MainThread | SOLUSDT | trend=BULL | breakL=False | breakS=False | adx=33.23 | adx_ok=True | rising_ok=True | vol_ratio=0.76 | vol_up=False
+2026-02-25 17:45:29 | INFO | MainThread | XRPUSDT | trend=BULL | breakL=False | breakS=False | adx=17.39 | adx_ok=False | rising_ok=False | vol_ratio=0.59 | vol_up=False
+2026-02-25 17:45:29 | INFO | MainThread | BNBUSDT | trend=BULL | breakL=False | breakS=False | adx=22.58 | adx_ok=False | rising_ok=False | vol_ratio=0.32 | vol_up=False
+2026-02-25 17:45:29 | INFO | MainThread | DOGEUSDT | trend=BULL | breakL=False | breakS=False | adx=30.80 | adx_ok=True | rising_ok=False | vol_ratio=0.45 | vol_up=False
+2026-02-25 17:49:55 | WARNING | MainThread | [MARGIN] warning POLUSDT: APIError(code=-4067): Position side cannot be changed if there exists open orders.
+2026-02-25 17:49:57 | WARNING | MainThread | [MARGIN] warning BNBUSDT: APIError(code=-4067): Position side cannot be changed if there exists open orders.
+2026-02-25 17:50:04 | INFO | MainThread | [CACHE INIT] POLUSDT loaded 500 candles
+2026-02-25 17:50:05 | INFO | MainThread | [CACHE INIT] SOLUSDT loaded 500 candles
+2026-02-25 17:50:06 | INFO | MainThread | [CACHE INIT] XRPUSDT loaded 500 candles
+2026-02-25 17:50:06 | INFO | MainThread | [CACHE INIT] BNBUSDT loaded 500 candles
+2026-02-25 17:50:07 | INFO | MainThread | [CACHE INIT] LINKUSDT loaded 500 candles
+2026-02-25 17:50:08 | INFO | MainThread | [CACHE INIT] DOGEUSDT loaded 500 candles
+2026-02-25 17:50:09 | INFO | MainThread | [CACHE INIT] ADAUSDT loaded 500 candles
+2026-02-25 17:50:10 | INFO | MainThread | [CACHE INIT] DOTUSDT loaded 500 candles
+2026-02-25 17:50:10 | INFO | MainThread | [CACHE INIT] BTCUSDT loaded 500 candles
+2026-02-25 17:53:59 | WARNING | MainThread | [MARGIN] warning POLUSDT: APIError(code=-4067): Position side cannot be changed if there exists open orders.
+2026-02-25 17:54:02 | WARNING | MainThread | [MARGIN] warning BNBUSDT: APIError(code=-4067): Position side cannot be changed if there exists open orders.
+2026-02-25 17:54:07 | INFO | MainThread | [CACHE INIT] POLUSDT loaded 500 candles
+2026-02-25 17:54:08 | INFO | MainThread | [CACHE INIT] SOLUSDT loaded 500 candles
+2026-02-25 17:54:08 | INFO | MainThread | [CACHE INIT] XRPUSDT loaded 500 candles
+2026-02-25 17:54:09 | INFO | MainThread | [CACHE INIT] BNBUSDT loaded 500 candles
+2026-02-25 17:54:10 | INFO | MainThread | [CACHE INIT] LINKUSDT loaded 500 candles
+2026-02-25 17:54:11 | INFO | MainThread | [CACHE INIT] DOGEUSDT loaded 500 candles
+2026-02-25 17:54:12 | INFO | MainThread | [CACHE INIT] ADAUSDT loaded 500 candles
+2026-02-25 17:54:13 | INFO | MainThread | [CACHE INIT] DOTUSDT loaded 500 candles
+2026-02-25 17:54:14 | INFO | MainThread | [CACHE INIT] BTCUSDT loaded 500 candles
+2026-02-25 18:01:43 | WARNING | MainThread | [MARGIN] warning POLUSDT: APIError(code=-4067): Position side cannot be changed if there exists open orders.
+2026-02-25 18:01:45 | WARNING | MainThread | [MARGIN] warning BNBUSDT: APIError(code=-4067): Position side cannot be changed if there exists open orders.
+2026-02-25 18:01:51 | INFO | MainThread | [CACHE INIT] POLUSDT loaded 500 candles
+2026-02-25 18:01:51 | INFO | MainThread | [CACHE INIT] SOLUSDT loaded 500 candles
+2026-02-25 18:01:52 | INFO | MainThread | [CACHE INIT] XRPUSDT loaded 500 candles
+2026-02-25 18:01:53 | INFO | MainThread | [CACHE INIT] BNBUSDT loaded 500 candles
+2026-02-25 18:01:54 | INFO | MainThread | [CACHE INIT] LINKUSDT loaded 500 candles
+2026-02-25 18:01:55 | INFO | MainThread | [CACHE INIT] DOGEUSDT loaded 500 candles
+2026-02-25 18:01:55 | INFO | MainThread | [CACHE INIT] ADAUSDT loaded 500 candles
+2026-02-25 18:01:56 | INFO | MainThread | [CACHE INIT] DOTUSDT loaded 500 candles
+2026-02-25 18:01:57 | INFO | MainThread | [CACHE INIT] BTCUSDT loaded 500 candles
+2026-02-25 18:02:20 | INFO | MainThread | POLUSDT | trend=BULL | breakL=False | breakS=False | adx=38.00 | adx_ok=True | rising_ok=True | vol_ratio=0.48 | vol_up=False
+2026-02-25 18:02:20 | INFO | MainThread | SOLUSDT | trend=BULL | breakL=False | breakS=False | adx=33.63 | adx_ok=True | rising_ok=False | vol_ratio=1.66 | vol_up=True
+2026-02-25 18:02:20 | INFO | MainThread | XRPUSDT | trend=BULL | breakL=False | breakS=False | adx=14.98 | adx_ok=False | rising_ok=False | vol_ratio=2.81 | vol_up=True
+2026-02-25 18:02:20 | INFO | MainThread | BNBUSDT | trend=NONE | breakL=False | breakS=False | adx=23.29 | adx_ok=True | rising_ok=True | vol_ratio=0.94 | vol_up=False
+2026-02-25 18:02:21 | INFO | MainThread | LINKUSDT | trend=BULL | breakL=False | breakS=False | adx=15.32 | adx_ok=False | rising_ok=True | vol_ratio=0.81 | vol_up=False
+2026-02-25 18:02:21 | INFO | MainThread | DOGEUSDT | trend=BULL | breakL=False | breakS=False | adx=28.57 | adx_ok=True | rising_ok=False | vol_ratio=0.83 | vol_up=True
+2026-02-25 18:02:21 | INFO | MainThread | ADAUSDT | trend=BULL | breakL=False | breakS=False | adx=42.04 | adx_ok=True | rising_ok=False | vol_ratio=0.55 | vol_up=True
+2026-02-25 18:02:21 | INFO | MainThread | DOTUSDT | trend=BULL | breakL=False | breakS=False | adx=47.30 | adx_ok=True | rising_ok=True | vol_ratio=1.27 | vol_up=False
+2026-02-25 18:02:21 | INFO | MainThread | BTCUSDT | trend=BULL | breakL=False | breakS=False | adx=23.60 | adx_ok=True | rising_ok=True | vol_ratio=1.37 | vol_up=True

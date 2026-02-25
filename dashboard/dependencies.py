@@ -7,6 +7,7 @@ from fastapi import Depends, HTTPException, status
 from fastapi.security import HTTPBasic, HTTPBasicCredentials
 
 from db import Database
+from dashboard.services.exchange_cache import ExchangeCache
 from exchange.binance_futures import BinanceFutures
 from core.logging_setup import setup_logging
 
@@ -24,9 +25,15 @@ exchange_instance = BinanceFutures(
     testnet=False
 )
 
+exchange_cache = ExchangeCache(exchange_instance, refresh_interval=10)
+exchange_cache.start()
+
 # =======================
 # DEPENDENCIES
 # =======================
+
+def get_exchange_cache():
+    return exchange_cache
 
 def get_db():
     return db_instance

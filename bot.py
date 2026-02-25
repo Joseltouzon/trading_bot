@@ -127,7 +127,7 @@ def main():
     bus = SignalBus()
     om = OrderManager(exchange, log, db, telegram.send)
     trailing = TrailingManager(exchange, market, om, db, telegram.send, log)
-    event_loop = EventLoop(bus, market, exchange, om, log)
+    event_loop = EventLoop(bus, market, exchange, om, telegram.send, log)
     risk_monitor = RiskMonitor(st, exchange, telegram, log)
 
     # Motor de señales 

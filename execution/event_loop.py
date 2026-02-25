@@ -12,11 +12,12 @@ class EventLoop:
     construye el dict final y llama a OrderManager.execute().
     """
 
-    def __init__(self, bus, market, exchange, order_manager, logger):
+    def __init__(self, bus, market, exchange, order_manager, tg_send, logger):
         self.bus = bus
         self.market = market
         self.exchange = exchange
         self.om = order_manager
+        self.tg_send = tg_send
         self.log = logger
 
     # ============================================================
@@ -103,6 +104,7 @@ class EventLoop:
         }
 
     def reconcile_filled_orders(self, st):
+
         try:
             exchange_positions = self.exchange.get_open_positions()
             exchange_map = {}
@@ -119,28 +121,61 @@ class EventLoop:
 
                 symbol = pos["symbol"]
                 db_qty = float(pos["qty"])
-
                 ex_qty = abs(exchange_map.get(symbol, 0.0))
 
-                # ===============================
-                # POSICIÓN TOTALMENTE CERRADA
-                # ===============================
+                # ==================================================
+                # 🔴 POSICIÓN TOTALMENTE CERRADA
+                # ==================================================
                 if ex_qty == 0.0:
 
                     open_time_ms = int(pos["opened_at"].timestamp() * 1000)
 
+                    # 1️⃣ Traer todos los trades desde apertura
+                    trades = self.exchange.client.futures_account_trades(
+                        symbol=symbol,
+                        startTime=open_time_ms
+                    )
+
+                    if not trades:
+                        continue
+
+                    # 2️⃣ Filtrar trades de cierre
+                    closing_trades = []
+
+                    for t in trades:
+                        buyer = t.get("buyer")
+
+                        if pos["side"] == "LONG":
+                            is_closing = buyer is False
+                        else:
+                            is_closing = buyer is True
+
+                        if is_closing:
+                            closing_trades.append(t)
+
+                    if not closing_trades:
+                        continue
+
+                    # 3️⃣ Obtener close_time real
+                    last_trade = max(closing_trades, key=lambda x: x["time"])
+                    close_time_ms = last_trade["time"]
+
+                    # 4️⃣ Calcular realized correctamente delimitado
                     trade = self.exchange.get_position_history(
                         symbol=symbol,
-                        open_time=open_time_ms
+                        open_time=open_time_ms,
+                        close_time=close_time_ms,
+                        position_side=pos["side"]
                     )
 
                     exit_price = None
                     realized = None
 
                     if trade:
-                        exit_price = float(trade.get("avgPrice") or trade.get("exit_price") or 0)
+                        exit_price = trade.get("exit_price")
                         realized = trade.get("realizedPnl")
 
+                    # 5️⃣ Cerrar en DB
                     self.om.db.close_position(
                         position_id=pos["id"],
                         exit_price=exit_price,
@@ -148,11 +183,44 @@ class EventLoop:
                         close_reason="STOP_OR_MANUAL"
                     )
 
+                    # 6️⃣ Desactivar stops
+                    self.om.db.deactivate_stops(pos["id"])
+
+                    # 7️⃣ Limpiar estado memoria (lo que hacía trailing)
+                    if hasattr(st, "position_ids"):
+                        st.position_ids.pop(symbol, None)
+
+                    if hasattr(st, "trail"):
+                        st.trail.pop(symbol, None)
+
+                    if hasattr(st, "stop_orders"):
+                        st.stop_orders.pop(symbol, None)
+
+                    # 8️⃣ Persistir estado
+                    self.om.db.save_state(st.__dict__)
+
+                    # 9️⃣ Telegram notification
+                    try:
+                        r = float(realized or 0)
+                        ep = float(exit_price or 0)
+
+                        emoji = "🟢" if r >= 0 else "🔴"
+
+                        self.tg_send(
+                            f"{emoji} <b>Posición cerrada</b>\n"
+                            f"Symbol: {symbol}\n"
+                            f"Side: {pos['side']}\n"
+                            f"Exit: {ep:.4f}\n"
+                            f"Realized: {r:.4f} USDT"
+                        )
+                    except Exception as e:
+                        self.log.warning(f"[TG CLOSE NOTIFY] {e}")
+
                     continue
 
-                # ===============================
-                # REDUCCIÓN PARCIAL
-                # ===============================
+                # ==================================================
+                # 🟡 REDUCCIÓN PARCIAL
+                # ==================================================
                 if ex_qty < db_qty:
 
                     reduced = db_qty - ex_qty
@@ -172,7 +240,7 @@ class EventLoop:
                     )
 
                     self.log.info(
-                        f"[RECONCILE] {symbol} partial close detected "
+                        f"[RECONCILE] {symbol} partial close "
                         f"reduced={reduced:.6f} remaining={ex_qty:.6f}"
                     )
 

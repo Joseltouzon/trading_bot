@@ -44,57 +44,6 @@ class TrailingManager:
         qty = float(position.get("size", 0.0))
         entry = float(position.get("entry_price", 0.0))
         side = str(position.get("side", "NONE"))
-
-        if qty <= 0 or entry <= 0:
-            # ================= DB CLOSE POSITION =================
-
-            position_id = getattr(st, "position_ids", {}).get(symbol)
-
-            if position_id:
-                try:
-
-                    # Necesitamos open_time desde DB
-                    pos = self.db.get_position_by_id(position_id)
-
-                    if not pos:
-                        return
-
-                    open_time_ms = int(pos["opened_at"].timestamp() * 1000)
-
-                    trade = self.exchange.get_position_history(
-                        symbol=symbol,
-                        open_time=open_time_ms
-                    )
-
-                    exit_price = None
-                    realized = None
-
-                    if trade:
-                        exit_price = float(trade.get("avgPrice") or trade.get("exit_price") or 0)
-                        realized = trade.get("realizedPnl")
-
-                    self.db.close_position(
-                        position_id=position_id,
-                        exit_price=exit_price,
-                        realized_pnl=realized,
-                        close_reason="EXCHANGE_CLOSED"
-                    )
-
-                    self.db.deactivate_stops(position_id)
-
-                    st.position_ids.pop(symbol, None)
-
-                except Exception as e:
-                    self.log.warning(f"{symbol} DB close failed: {e}")
-
-            # limpiar estado memoria
-            st.trail.pop(symbol, None)
-            st.stop_orders.pop(symbol, None)
-
-            self.db.save_state(st.__dict__)
-
-            return
-
         direction = side  # "LONG" | "SHORT"
 
         mp = float(self.market.get_mark_price_cached(symbol) or 0.0)

@@ -1,12 +1,25 @@
-class DashboardService:
+import time
 
-    def __init__(self, db, exchange):
+class DashboardService:
+    _stats_cache = None
+    _stats_cache_time = 0
+    _cache_ttl = 10  # segundos
+
+    def __init__(self, db, exchange_cache):
         self.db = db
-        self.exchange = exchange
+        self.exchange_cache = exchange_cache
 
     def build_dashboard_context(self):
 
-        stats = self.db.get_dashboard_stats()
+        now = time.time()
+        if (
+            not DashboardService._stats_cache or
+            now - DashboardService._stats_cache_time > DashboardService._cache_ttl
+        ):
+            DashboardService._stats_cache = self.db.get_dashboard_stats()
+            DashboardService._stats_cache_time = now
+        stats = DashboardService._stats_cache
+        
         equity_curve = self.db.get_equity_curve() or []
         closed_positions = self.db.get_recent_closed_positions()
         logs = self.db.get_recent_logs()
@@ -17,7 +30,7 @@ class DashboardService:
         open_positions = self.db.get_open_positions_with_stops() or []
 
         # Unrealized desde exchange
-        exchange_positions = self.exchange.get_open_positions() or []
+        exchange_positions = self.exchange_cache.get_open_positions()
         exchange_map = {p["symbol"]: p for p in exchange_positions}
 
         for pos in open_positions:
