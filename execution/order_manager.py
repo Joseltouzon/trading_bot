@@ -215,56 +215,95 @@ class OrderManager:
         # ============================================================
 
         try:
-            account = self.exchange.get_account_info()
+            if hasattr(self.exchange, "get_available_balance"):
 
-            total_wallet = float(account.get("totalWalletBalance", 0))
-            total_initial_margin = float(account.get("totalInitialMargin", 0))
-            available = float(account.get("availableBalance", 0))
+                available = float(self.exchange.get_available_balance())
+                lev = float(getattr(st, "leverage", 1) or 1)
 
-            lev = float(getattr(st, "leverage", 1) or 1)
-            notional = mark_price * qty
-            required_margin = notional / max(lev, 1.0)
-
-            # 1️⃣ Hard capital usage guard
-            if total_wallet > 0:
-                usage_ratio = total_initial_margin / total_wallet
-                if usage_ratio >= CFG.MAX_CAPITAL_USAGE:
-                    self.logger.warning(
-                        f"[CAPITAL] usage {usage_ratio:.2%} >= {CFG.MAX_CAPITAL_USAGE:.0%}. Skip {symbol}"
-                    )
-                    return False
-
-            # 2️⃣ Margin sufficiency check
-            if required_margin > available: # * CFG.SAFETY_BUFFER: esto esta cagando todo
-
-                scale_factor = available / required_margin # antes (available * CFG.SAFETY_BUFFER) / required_margin
-
-                if scale_factor <= 0:
-                    self.logger.warning(f"[MARGIN] {symbol} no available margin.")
-                    return False
-
-                qty *= scale_factor
                 notional = mark_price * qty
                 required_margin = notional / max(lev, 1.0)
 
-                if required_margin > available: # * CFG.SAFETY_BUFFER: por misma razon que arriba
+                if required_margin > available:
+
+                    scale_factor = (available * CFG.SAFETY_BUFFER) / required_margin
+
+                    if scale_factor <= 0:
+                        self.logger.warning(f"[MARGIN] {symbol} no available margin.")
+                        return False
+
+                    qty *= scale_factor
+                    notional = mark_price * qty
+
+                    required_margin = (notional / max(lev, 1.0))
+
+                    if required_margin > available * CFG.SAFETY_BUFFER:
+                        self.logger.warning(
+                            f"[MARGIN] {symbol} still insufficient after scaling."
+                        )
+                        return False
+
                     self.logger.warning(
-                        f"[MARGIN] {symbol} insufficient after scaling."
+                        f"[MARGIN] {symbol} auto-scaled | "
+                        f"scale={scale_factor:.3f} | new_qty={qty:.6f}"
+                    )
+
+                min_notional = float(getattr(CFG, "MIN_NOTIONAL_USDT", 5.0))
+                if notional < min_notional:
+                    self.logger.warning(
+                        f"[MARGIN] {symbol} too small after scaling. notional={notional:.2f}"
                     )
                     return False
+            # SE COMENTA PORQUE NO ME DEJA ENTRAR NINGUNA OPERACION
+            # account = self.exchange.get_account_info()
 
-                self.logger.warning(
-                    f"[MARGIN] {symbol} auto-scaled | "
-                    f"scale={scale_factor:.3f} | new_qty={qty:.6f}"
-                )
+            # total_wallet = float(account.get("totalWalletBalance", 0))
+            # total_initial_margin = float(account.get("totalInitialMargin", 0))
+            # available = float(account.get("availableBalance", 0))
 
-            # 3️⃣ Minimum notional
-            min_notional = float(getattr(CFG, "MIN_NOTIONAL_USDT", 10.0))
-            if notional < min_notional:
-                self.logger.warning(
-                    f"[MARGIN] {symbol} too small after scaling. notional={notional:.2f}"
-                )
-                return False
+            # lev = float(getattr(st, "leverage", 1) or 1)
+            # notional = mark_price * qty
+            # required_margin = notional / max(lev, 1.0)
+
+            # # 1️⃣ Hard capital usage guard
+            # if total_wallet > 0:
+            #     usage_ratio = total_initial_margin / total_wallet
+            #     if usage_ratio >= CFG.MAX_CAPITAL_USAGE:
+            #         self.logger.warning(
+            #             f"[CAPITAL] usage {usage_ratio:.2%} >= {CFG.MAX_CAPITAL_USAGE:.0%}. Skip {symbol}"
+            #         )
+            #         return False
+
+            # # 2️⃣ Margin sufficiency check
+            # if required_margin > available: # * CFG.SAFETY_BUFFER: esto esta cagando todo
+
+            #     scale_factor = available / required_margin # antes (available * CFG.SAFETY_BUFFER) / required_margin
+
+            #     if scale_factor <= 0:
+            #         self.logger.warning(f"[MARGIN] {symbol} no available margin.")
+            #         return False
+
+            #     qty *= scale_factor
+            #     notional = mark_price * qty
+            #     required_margin = notional / max(lev, 1.0)
+
+            #     if required_margin > available: # * CFG.SAFETY_BUFFER: por misma razon que arriba
+            #         self.logger.warning(
+            #             f"[MARGIN] {symbol} insufficient after scaling."
+            #         )
+            #         return False
+
+            #     self.logger.warning(
+            #         f"[MARGIN] {symbol} auto-scaled | "
+            #         f"scale={scale_factor:.3f} | new_qty={qty:.6f}"
+            #     )
+
+            # # 3️⃣ Minimum notional
+            # min_notional = float(getattr(CFG, "MIN_NOTIONAL_USDT", 10.0))
+            # if notional < min_notional:
+            #     self.logger.warning(
+            #         f"[MARGIN] {symbol} too small after scaling. notional={notional:.2f}"
+            #     )
+            #     return False
 
         except Exception as e:
             self.logger.warning(f"[MARGIN] validation error {symbol}: {e}")
