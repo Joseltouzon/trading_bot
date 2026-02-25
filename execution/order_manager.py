@@ -193,21 +193,22 @@ class OrderManager:
         except Exception as e:
             self.logger.warning(f"[SAFETY] Equity fetch error: {e}")
             return False
-
+        # SE COMENTA PORQUE AL SER CUENTA CHICA NO DEJA ENTRAR NADA 
         # =====  control de capital simultáneo antes de auto-scale de margin =====
-        account = self.exchange.get_account_info()
+        #account = self.exchange.get_account_info()
 
-        total_wallet = float(account.get("totalWalletBalance", 0))
-        total_initial_margin = float(account.get("totalInitialMargin", 0))
+        
+        #total_wallet = float(account.get("totalWalletBalance", 0))
+        #total_initial_margin = float(account.get("totalInitialMargin", 0))
 
-        if total_wallet > 0:
-            usage_ratio = total_initial_margin / total_wallet
+        #if total_wallet > 0:
+        #    usage_ratio = total_initial_margin / total_wallet
 
-            if usage_ratio >= CFG.MAX_CAPITAL_USAGE:
-                self.logger.warning(
-                    f"[CAPITAL] usage {usage_ratio:.2%} >= {CFG.MAX_CAPITAL_USAGE:.0%}. Skip {symbol}"
-                )
-                return False    
+        #    if usage_ratio >= CFG.MAX_CAPITAL_USAGE:
+        #        self.logger.warning(
+        #            f"[CAPITAL] usage {usage_ratio:.2%} >= {CFG.MAX_CAPITAL_USAGE:.0%}. Skip {symbol}"
+        #       )
+        #       return False    
 
         # ============================================================
         # AUTO-SCALE MARGIN MANAGEMENT (Institutional version)
@@ -234,7 +235,7 @@ class OrderManager:
                     return False
 
             # 2️⃣ Margin sufficiency check
-            if required_margin > available * CFG.SAFETY_BUFFER:
+            if required_margin > available * CFG.SAFETY_BUFFER: 
 
                 scale_factor = (available * CFG.SAFETY_BUFFER) / required_margin
 
@@ -258,7 +259,7 @@ class OrderManager:
                 )
 
             # 3️⃣ Minimum notional
-            min_notional = float(getattr(CFG, "MIN_NOTIONAL_USDT", 20.0))
+            min_notional = float(getattr(CFG, "MIN_NOTIONAL_USDT", 10.0))
             if notional < min_notional:
                 self.logger.warning(
                     f"[MARGIN] {symbol} too small after scaling. notional={notional:.2f}"

@@ -231,8 +231,8 @@
                         <td class="{% if row.total_pnl >= 0 %}text-success{% else %}text-danger{% endif %}">
                             {{ "%.2f"|format(row.total_pnl) }}
                         </td>
-                        <td class="text-success">{{ "%.2f"|format(row.best_trade) }}</td>
-                        <td class="text-danger">{{ "%.2f"|format(row.worst_trade) }}</td>
+                        <td class="{% if row.best_trade >= 0 %}text-success{% else %}text-danger{% endif %}">{{ "%.2f"|format(row.best_trade) }}</td>
+                        <td class="{% if row.worst_trade >= 0 %}text-success{% else %}text-danger{% endif %}">{{ "%.2f"|format(row.worst_trade) }}</td>
                         <td>{{ "%.2f"|format(row.avg_hold_hours) }}</td>
                     </tr>
                     {% endfor %}
