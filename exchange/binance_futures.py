@@ -242,23 +242,16 @@ class BinanceFutures:
 
         return positions
 
-    def get_position_history(
-        self,
-        symbol: str,
-        open_time: int,
-        close_time: int,
-        position_side: str
-    ):
+    def get_position_history(self, symbol: str, open_time: int):
         """
-        Calcula realized PnL real delimitando estrictamente
-        desde open_time hasta close_time.
+        Devuelve información real del cierre de una posición.
+        open_time debe estar en ms (timestamp Binance).
         """
 
         try:
             trades = self.client.futures_account_trades(
                 symbol=symbol,
-                startTime=open_time,
-                endTime=close_time
+                startTime=open_time
             )
 
             if not trades:
@@ -270,37 +263,33 @@ class BinanceFutures:
 
             for t in trades:
 
-                realized = float(t.get("realizedPnl", 0.0))
-                qty = float(t.get("qty", 0.0))
-                price = float(t.get("price", 0.0))
-                buyer = t.get("buyer")
+                realized = float(t.get("realizedPnl", 0))
+                qty = abs(float(t.get("qty", 0)))
+                price = float(t.get("price", 0))
 
-                # Determinar si es trade de cierre
-                if position_side == "LONG":
-                    is_closing = buyer is False
-                else:
-                    is_closing = buyer is True
+                # Solo contamos trades que realmente cierran/reducen
+                if realized != 0:
 
-                if not is_closing:
-                    continue
+                    total_realized += realized
+                    total_qty += qty
+                    weighted_price += price * qty
 
-                total_realized += realized
-                total_qty += qty
-                weighted_price += price * qty
+            if total_qty == 0:
+                return None
 
-            if total_qty > 0:
-                avg_exit = weighted_price / total_qty
-            else:
-                avg_exit = None
+            avg_exit_price = weighted_price / total_qty
 
             return {
-                "exit_price": avg_exit,
-                "realizedPnl": round(total_realized, 8)
+                "symbol": symbol,
+                "exit_price": avg_exit_price,
+                "closed_qty": total_qty,
+                "realizedPnl": total_realized
             }
 
         except Exception as e:
-            self.log.warning(f"[REALIZED_CALC] {symbol} {e}")
+            self.logger.warning(f"{symbol} get_position_history failed: {e}")
             return None
+            
     # ============================================================
     # ORDERS
     # ============================================================

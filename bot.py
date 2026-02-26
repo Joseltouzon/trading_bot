@@ -1,18 +1,14 @@
 # -*- coding: utf-8 -*-
 # bot.py
-
 import os
 import time
 from dotenv import load_dotenv
-
 load_dotenv()
-
 import config as CFG
 from db import Database
 from core.logging_setup import setup_logging
 from core.models import BotState
 from core.utils import utc_day_key
-
 from notifications.telegram import Telegram
 from exchange.binance_futures import BinanceFutures
 from datafeed.market_cache import MarketCache
@@ -21,8 +17,7 @@ from execution.order_manager import OrderManager
 from execution.trailing import TrailingManager
 from execution.event_loop import EventLoop
 from strategy.signal_engine import SignalEngine
-from core.risk_monitor import RiskMonitor  
-
+from core.risk_monitor import RiskMonitor
 
 def validate_config():
     if CFG.EMA_FAST >= CFG.EMA_SLOW:
@@ -32,10 +27,8 @@ def validate_config():
     if CFG.MAX_OPEN_POSITIONS < 1:
         raise RuntimeError("MAX_OPEN_POSITIONS inválido")
 
-
 def main():
     validate_config()
-
     API_KEY = os.getenv("BINANCE_API_KEY")
     API_SECRET = os.getenv("BINANCE_API_SECRET")
     TG_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
@@ -48,7 +41,7 @@ def main():
     # ================= LOGGING =================
     log = setup_logging(db)
 
-    # ================= TELEGRAM =================    
+    # ================= TELEGRAM =================
     telegram = Telegram(TG_TOKEN, TG_CHAT_ID, log, db)
 
     # ================= BINANCE =================
@@ -59,7 +52,7 @@ def main():
         testnet=getattr(CFG, "TESTNET", False)
     )
 
-   # ================= STATE =================
+    # ================= STATE =================
     defaults = BotState(
         paused=False,
         risk_pct=CFG.DEFAULT_RISK_PCT,
@@ -72,19 +65,15 @@ def main():
         daily_loss_limit_pct=CFG.DEFAULT_DAILY_LOSS_LIMIT_PCT,
         paper_trading=PAPER_TRADING,
     )
-
     state_dict = db.load_state() or {}
-
     # merge base
     merged_data = {
         **defaults.to_dict(),
         **state_dict
     }
-
     st = BotState(**merged_data)
 
     # ================= CONFIG SYNC =================
-
     config_fields = {
         "risk_pct": CFG.DEFAULT_RISK_PCT,
         "leverage": CFG.DEFAULT_LEVERAGE,
@@ -96,22 +85,17 @@ def main():
         "daily_loss_limit_pct": CFG.DEFAULT_DAILY_LOSS_LIMIT_PCT,
         "paper_trading": PAPER_TRADING,
     }
-
     updated = False
-
     for field, config_value in config_fields.items():
         if getattr(st, field) != config_value:
             setattr(st, field, config_value)
             updated = True
 
     # ================= DAY INIT =================
-
     if not st.day_key:
         st.day_key = utc_day_key()
-
     if st.day_start_equity <= 0:
         st.day_start_equity = max(exchange.get_equity(), 0.0)
-
     # Guardar si hubo sync o si era vacío
     if updated or not state_dict:
         db.save_state(st.to_dict())
@@ -123,14 +107,12 @@ def main():
     # ================= COMPONENTES =================
     market = MarketCache(exchange, log)
     market.init_cache(st.symbols)
-
     bus = SignalBus()
     om = OrderManager(exchange, log, db, telegram.send)
     trailing = TrailingManager(exchange, market, om, db, telegram.send, log)
-    event_loop = EventLoop(bus, market, exchange, om, telegram.send, log)
+    event_loop = EventLoop(bus, market, exchange, om, telegram.send, db, log)
     risk_monitor = RiskMonitor(st, exchange, telegram, log)
-
-    # Motor de señales 
+    # Motor de señales
     signal_engine = SignalEngine(market, bus, log)
 
     mode = "PAPER" if st.paper_trading else "PRODUCCIÓN"
@@ -146,21 +128,50 @@ def main():
     # para no guardar a cada rato en la base el snapshot
     last_account_snapshot = 0
     ACCOUNT_SNAPSHOT_INTERVAL = 15  # segundos
-
     last_equity_snapshot = 0
     EQUITY_SNAPSHOT_INTERVAL = 60  # segundos
 
-    # ================= MASTER LOOP (REST) =================
+    # ================= MEJORA 1: CACHE DE ESTADO DB =================
+    last_state_reload = 0
+    STATE_RELOAD_INTERVAL = 30  # Segundos - Solo recargar config cada 30s
 
+    # ================= MEJORA 2: SYNC HORA BINANCE =================
+    last_server_time_check = 0
+    SERVER_TIME_CHECK_INTERVAL = 60  # Segundos
+
+    # ================= MASTER LOOP (REST) =================
     while True:
         try:
-            # 0) Actualiza las config
-            state_dict = db.load_state() or {}
-            if state_dict:
-                st = BotState(**state_dict)
-            else:
-                # Solo si no hay nada en DB usar defaults
-                st = BotState()
+            # ========== MEJORA 1: Carga de estado optimizada ==========
+            now = time.time()
+            # Solo recargar configuración desde DB cada 30 segundos
+            if now - last_state_reload > STATE_RELOAD_INTERVAL:
+                state_dict = db.load_state() or {}
+                merged_data = { **st.to_dict(), **state_dict }
+                st = BotState(**merged_data)
+                last_state_reload = now
+
+            # ========== MEJORA 2: Sync hora Binance para daily loss ==========
+            if now - last_server_time_check > SERVER_TIME_CHECK_INTERVAL:
+                try:
+                    server_time_ms = exchange.client.futures_time()['serverTime']
+                    server_day_key = time.strftime("%Y-%m-%d", time.gmtime(server_time_ms / 1000))
+                    
+                    # Verificar cambio de día en Binance
+                    if st.day_key != server_day_key:
+                        log.info(f"[DAY ROLL] Cambio de día detectado (Binance): {server_day_key}")
+                        st.day_key = server_day_key
+                        st.day_start_equity = max(exchange.get_equity(), 0.0)
+                        db.save_state(st.__dict__)
+                    
+                    last_server_time_check = now
+                except Exception as e:
+                    log.warning(f"[TIME SYNC] Error obteniendo hora Binance: {e}")
+                    # Fallback a hora local si falla API
+                    local_day = utc_day_key()
+                    if st.day_key != local_day:
+                        st.day_key = local_day
+                        st.day_start_equity = max(exchange.get_equity(), 0.0)
 
             # 1) Actualizar velas/market (REST polling)
             market.update_all(st.symbols)
@@ -175,7 +186,7 @@ def main():
             # 4) Trailing
             trailing.loop_once(st)
 
-            # 5) Telegram polling 
+            # 5) Telegram polling
             telegram.poll_once(st, exchange, db)
 
             # 6) Control de Riesgo
@@ -185,35 +196,28 @@ def main():
             try:
                 acc = exchange.get_account_info()
                 now = time.time()
-
                 # ================= ACCOUNT SNAPSHOT (optimizado) =================
                 if now - last_account_snapshot > ACCOUNT_SNAPSHOT_INTERVAL:
-
                     db.save_account_snapshot(
                         equity=acc["equity"],
                         used_margin=acc["used_margin"],
                         available=acc["available"]
                     )
-
                     last_account_snapshot = now
 
                 # ================= EQUITY SNAPSHOT (histórico) =================
                 if now - last_equity_snapshot > EQUITY_SNAPSHOT_INTERVAL:
-
                     unrealized_pnl = (
                         acc["equity"]
                         - acc["available"]
                         - acc["used_margin"]
                     )
-
                     db.save_equity_snapshot(
                         total_balance=acc["equity"],
                         available_balance=acc["available"],
                         unrealized_pnl=unrealized_pnl
                     )
-
                     last_equity_snapshot = now
-
             except Exception as e:
                 log.warning(f"Account snapshot error: {e}")
 
@@ -222,7 +226,6 @@ def main():
         except Exception as e:
             telegram.send(f"⚠️ Bot error: {type(e).__name__}: {str(e)[:120]}")
             time.sleep(5)
-
 
 if __name__ == "__main__":
     main()

@@ -1,105 +1,64 @@
 # config.py
-
-# =========================
-# STATE
-# =========================
-STATE_FILE = "state.json"
-
 # =========================
 # SYMBOLS / TF
 # =========================
 SYMBOLS = ["POLUSDT","SOLUSDT","XRPUSDT","BNBUSDT","LINKUSDT","DOGEUSDT","ADAUSDT","DOTUSDT","BTCUSDT"]
-INTERVAL = "5m"
+INTERVAL = "15m"
 KLINES_LIMIT = 500
 
 # =========================
 # STRATEGY
 # =========================
-EMA_FAST = 15  # 20
-EMA_SLOW = 35  # 50
-
+EMA_FAST = 15
+EMA_SLOW = 35
 ADX_PERIOD = 14
 ATR_PERIOD = 14
-PIVOT_LEN = 4 # 5
-
-DEFAULT_ADX_MIN = 23.0  # 18.0
-REQUIRE_ADX_RISING = True
-
-VOLUME_MIN_RATIO = 1.20  # 1.2
+PIVOT_LEN = 8
+DEFAULT_ADX_MIN = 23.0
+REQUIRE_ADX_RISING = False
+VOLUME_MIN_RATIO = 1.20
+MIN_BREAK_DISTANCE_PCT = 0.15
+MIN_BODY_RATIO = 0.55
 
 # =========================
 # EXECUTION / RISK
 # =========================
-DEFAULT_RISK_PCT = 1.5  # 1.0 es conservador cuando llegemos a 1000 vemos de cambiar
+DEFAULT_RISK_PCT = 1.5
 MAX_RISK_PCT_ALLOWED = 10.0
-MIN_NOTIONAL_USDT = 20
-
-DEFAULT_LEVERAGE = 5   # x5
-MAX_OPEN_POSITIONS = 2
-
+MIN_NOTIONAL_USDT = 20          # CRÍTICO: No borrar, Binance exige min ~20USDT
+DEFAULT_LEVERAGE = 5
+MAX_OPEN_POSITIONS = 1
 MARGIN_TYPE = "ISOLATED"
 
-# Breakouts
-MIN_BREAK_DISTANCE_PCT = 0.15
-MIN_BODY_RATIO = 0.55
-
 # Stop / trailing
-TRAILING_PCT = 0.7
+TRAILING_PCT = 0.7              # Solo usa si TRAILING_USE_ATR = False
 TRAILING_ACTIVATION_PCT = 0.8
-TRAILING_POLL_SECONDS = 3
-
-TRAILING_USE_ATR = True
+TRAILING_USE_ATR = True         # ✅ Activo: Usa volatilidad
 TRAILING_ATR_MULT = 1.5
-
-MIN_SL_DISTANCE_PCT = 0.10
-INITIAL_SL_ATR_MULT = 2.2  # usado por EventLoop para initial_sl
-MIN_INITIAL_SL_PCT = 0.35  # mínimo 0.35% aunque ATR sea muy bajo
+MIN_INITIAL_SL_PCT = 0.35       # Mínimo SL inicial
+INITIAL_SL_ATR_MULT = 2.2
 
 # Cooldown / daily loss
-DEFAULT_COOLDOWN_BARS = 4   # 12
-DEFAULT_DAILY_LOSS_LIMIT_PCT = 6.0
-
-# Trade lock (anti-duplicado)
+DEFAULT_COOLDOWN_BARS = 4
+DEFAULT_DAILY_LOSS_LIMIT_PCT = 10.0
 MIN_SECONDS_BETWEEN_ENTRIES = 45
 
-# Spread filter
+# Filters
 MAX_SPREAD_PCT = 0.10
 SPREAD_CACHE_SECONDS = 3
-
-# Slippage guard (RATIO: 0.003 = 0.3%)
 MAX_SLIPPAGE_RATIO = 0.003
-
-# Funding filter (0.0005 = 0.05%)
 FUNDING_THRESHOLD = 0.0005
 
-# controla capital antes del auto-scale de margin
-MAX_CAPITAL_USAGE = 0.85  # configurable
-
-# scale margin
-SAFETY_BUFFER = 0.90
-
-
 # =========================
-# REST POLLING (performance)
+# REST POLLING
 # =========================
 LOOP_SLEEP_SECONDS = 0.5
 KLINE_POLL_SECONDS = 15
 MARK_POLL_SECONDS = 3
 
 # =========================
-# Major lock (si lo estás usando en algún guard; si no, puedes quitarlo)
-# =========================
-MAJOR_LOCK_ENABLED = True
-MAJOR_SYMBOLS = ["BTCUSDT", "ETHUSDT"]
-MAX_OPEN_MAJORS = 2  # 1
-
-# =========================
 # BINANCE CLIENT
 # =========================
 TESTNET = False
-
-# =========================
-# API CACHE (para APICache en BinanceFutures)
-# =========================
 API_CACHE_TTL_SECONDS = 2
 EXCHANGE_INFO_TTL_SECONDS = 60

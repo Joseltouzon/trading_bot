@@ -12,12 +12,13 @@ class EventLoop:
     construye el dict final y llama a OrderManager.execute().
     """
 
-    def __init__(self, bus, market, exchange, order_manager, tg_send, logger):
+    def __init__(self, bus, market, exchange, order_manager, tg_send, db, logger):
         self.bus = bus
         self.market = market
         self.exchange = exchange
         self.om = order_manager
         self.tg_send = tg_send
+        self.db = db
         self.log = logger
 
     # ============================================================
@@ -115,7 +116,7 @@ class EventLoop:
                     continue
                 exchange_map[symbol] = float(p.get("size") or 0)
 
-            db_open = self.om.db.get_open_positions()
+            db_open = self.db.get_open_positions()
 
             for pos in db_open:
 
@@ -124,77 +125,76 @@ class EventLoop:
                 ex_qty = abs(exchange_map.get(symbol, 0.0))
 
                 # ==================================================
-                # 🔴 POSICIÓN TOTALMENTE CERRADA
+                # 🔴 POSICIÓN TOTALMENTE CERRADA (Cálculo Manual PnL)
                 # ==================================================
                 if ex_qty == 0.0:
-
                     open_time_ms = int(pos["opened_at"].timestamp() * 1000)
-
+                    
                     # 1️⃣ Traer todos los trades desde apertura
                     trades = self.exchange.client.futures_account_trades(
                         symbol=symbol,
                         startTime=open_time_ms
                     )
-
                     if not trades:
                         continue
 
-                    # 2️⃣ Filtrar trades de cierre
+                    # 2️⃣ Filtrar trades de cierre (los que reducen la posición)
                     closing_trades = []
-
                     for t in trades:
                         buyer = t.get("buyer")
-
+                        # Si es LONG, el cierre es SELL (buyer=False)
+                        # Si es SHORT, el cierre es BUY (buyer=True)
                         if pos["side"] == "LONG":
                             is_closing = buyer is False
                         else:
                             is_closing = buyer is True
-
+                        
                         if is_closing:
                             closing_trades.append(t)
 
                     if not closing_trades:
                         continue
 
-                    # 3️⃣ Obtener close_time real
-                    last_trade = max(closing_trades, key=lambda x: x["time"])
-                    close_time_ms = last_trade["time"]
-
-                    # 4️⃣ Calcular EXIT PRICE ponderado
+                    # 3️⃣ Calcular EXIT PRICE ponderado
                     total_qty = 0.0
                     weighted_price = 0.0
-
                     for t in closing_trades:
                         qty = float(t["qty"])
                         price = float(t["price"])
-
                         total_qty += qty
                         weighted_price += qty * price
+                    
+                    exit_price = (weighted_price / total_qty) if total_qty > 0 else 0.0
 
-                    exit_price = (
-                        weighted_price / total_qty if total_qty > 0 else None
-                    )
+                    # 4️⃣ 🆕 CALCULAR PNl MANUALMENTE (Más preciso que income_history)
+                    entry_price = float(pos["entry_price"])
+                    qty_closed = float(pos["qty"]) # Usamos la qty registrada en DB
+                    
+                    if pos["side"] == "LONG":
+                        realized_pnl = (exit_price - entry_price) * qty_closed
+                    else: # SHORT
+                        realized_pnl = (entry_price - exit_price) * qty_closed
 
-                    # 5️⃣ Calcular REALIZED REAL desde income history
-                    incomes = self.exchange.client.futures_income_history(
-                        symbol=symbol,
-                        incomeType="REALIZED_PNL",
-                        startTime=open_time_ms,
-                        endTime=close_time_ms
-                    )
+                    # 5️⃣ Restar comisiones estimadas (Opcional pero recomendado para precisión)
+                    # Binance Futures es ~0.02% maker/taker. Estimamos 0.04% round trip.
+                    notional = entry_price * qty_closed
+                    estimated_fees = notional * 0.0004 
+                    realized_pnl -= estimated_fees
 
-                    realized = sum(float(i["income"]) for i in incomes) if incomes else 0.0
+                    # 6️⃣ Obtener close_time real para la DB
+                    last_trade = max(closing_trades, key=lambda x: x["time"])
+                    close_time_ms = last_trade["time"]
 
-                    # 6️⃣ Cerrar en DB
-                    self.om.db.close_position(
+                    # 7️⃣ Cerrar en DB
+                    self.db.close_position(
                         position_id=pos["id"],
                         exit_price=exit_price,
-                        realized_pnl=realized,
+                        realized_pnl=realized_pnl, # <--- Ahora es correcto
                         close_reason="STOP_OR_MANUAL"
                     )
 
                     # 7️⃣ Desactivar stops
-                    self.om.db.deactivate_stops(pos["id"])
+                    self.db.deactivate_stops(pos["id"])
 
                     # 8️⃣ Limpiar estado memoria
                     if hasattr(st, "position_ids"):
@@ -207,11 +207,11 @@ class EventLoop:
                         st.stop_orders.pop(symbol, None)
 
                     # 9️⃣ Persistir estado
-                    self.om.db.save_state(st.__dict__)
+                    self.db.save_state(st.__dict__)
 
                     # 🔟 Telegram notification
                     try:
-                        r = float(realized or 0)
+                        r = float(realized_pnl or 0)
                         ep = float(exit_price or 0)
 
                         emoji = "🟢" if r >= 0 else "🔴"
@@ -234,12 +234,12 @@ class EventLoop:
 
                     reduced = db_qty - ex_qty
 
-                    self.om.db.update_position_qty(
+                    self.db.update_position_qty(
                         position_id=pos["id"],
                         new_qty=ex_qty
                     )
 
-                    self.om.db.create_position_event(
+                    self.db.create_position_event(
                         position_id=pos["id"],
                         event_type="PARTIAL_CLOSE",
                         payload={

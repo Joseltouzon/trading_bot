@@ -1,91 +1,87 @@
-# Binance Futures Bot (USDT-M) — EMA20/EMA50 + WS + Trailing (Mark Price)
+# 🤖 Binance Futures Trading Bot (EMA/ADX Breakout)
 
-## Qué hace
+Bot de trading algorítmico para Binance Futures (USDT-M) enfocado en rupturas de tendencia con confirmación de volumen y momentum.
 
-Bot para Binance Futures USDT-M (One-way mode) que opera:
+## ⚠️ Disclaimer
+Este software es solo para fines educativos. El trading de futuros conlleva un alto riesgo de pérdida de capital. Úsalo bajo tu propia responsabilidad.
 
-* LONG y SHORT
-* 5m
-* EMA20/EMA50 trend
-* Breakout de pivots (pivot len 5)
-* Filtro ADX + volumen
-* SL por pivots con buffer ATR
-* Trailing manual 0.5% sobre MARK PRICE (activación +0.5%)
+## 🚀 Características
+- **Estrategia:** Breakout de Pivots con confirmación EMA + ADX + Volumen.
+- **Gestión de Riesgo:** Stop Loss dinámico (ATR), Trailing Stop, Límite de pérdida diaria.
+- **Ejecución:** Órdenes Reduce-Only, protección contra slippage y spread.
+- **Base de Datos:** PostgreSQL para historial de trades, estado del bot y logs.
+- **Notificaciones:** Telegram para entradas, salidas, stops y comandos de control.
+- **Dashboard:** Comandos vía Telegram para monitoreo en tiempo real.
 
-Incluye:
+## 📋 Requisitos
+- Python 3.9+
+- PostgreSQL Database
+- Cuenta Binance Futures (API Keys)
+- Bot de Telegram (Token & Chat ID)
 
-* WebSocket klines + mark price
-* Reconexión robusta + supervisor
-* Watchdog (si no llegan velas cerradas reinicia WS)
-* State.json atómico
-* Logs rotativos
-* Daily loss limit
-* Cooldown
-* Telegram control
+## 🛠️ Instalación
 
-## Requisitos
+1. **Clonar repositorio:**
+   ```bash
+   git clone <tu-repo>
+   cd bot
+   ```
 
-* Python 3.10+ recomendado
-* API Key Binance con Futures habilitado
-* Telegram bot token + chat id
+2. **Entorno virtual:**
+    ```bash
+    python -m venv venv
+    source venv/bin/activate  # Windows: venv\Scripts\activate
+    ```
 
-## Instalación
+3. **Instalar dependencias:**
+    ```bash
+    pip install -r requirements.txt     
+    ```
 
-```bash
-python3 -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
-```
+4. **Configurar Variables de Entorno:**
+    Crea un archivo .env en la raíz:
 
-Crear `.env`:
+    .env:
+    BINANCE_API_KEY=tu_api_key
+    BINANCE_API_SECRET=tu_api_secret
+    TELEGRAM_BOT_TOKEN=tu_token
+    TELEGRAM_CHAT_ID=tu_chat_id
+    DB_HOST=localhost
+    DB_NAME=bot_db
+    DB_USER=postgres
+    DB_PASSWORD=tu_password
+    DB_PORT=5432    
+    # dashboard: el usuario esta seteado por ahora. Usuario: tuvieja
+    DASHBOARD_PASSWORD=loquevosquieras –> aca pone lo que quieras, por si no quedo claro jajaj
 
-```bash
-cp .env.example .env
-nano .env
-```
+5. **Configurar Estrategia:**
+    Edita config.py para ajustar símbolos, riesgo y parámetros técnicos.
 
-## Modo
+6. **Ejecutar:**   
+    ```bash
+    python bot.py
+    ```
 
-Por defecto corre en PAPER:
+## 📱 Comandos Telegram
 
-```
-PAPER_TRADING=true
-```
+/dashboard: Resumen de cuenta y posiciones.
+/pause / /resume: Control del bot.
+/set_risk N: Cambiar riesgo % por trade.
+/set_leverage N: Cambiar apalancamiento.
+/close SYMBOL: Cerrar posición manual.
+/help: Lista completa.
 
-Cuando estés seguro:
+## 📂 Estructura
 
-```
-PAPER_TRADING=false
-```
+bot.py: Punto de entrada principal.
+strategy/: Lógica de señales (EMA, ADX, Pivots).
+execution/: Gestión de órdenes, trailing y eventos.
+exchange/: Wrapper de Binance API.
+db.py: Conexión y queries PostgreSQL.
+core/: Modelos, logging y utilidades.
 
-## Correr
+## 🛡️ Seguridad
 
-```bash
-python bot.py
-```
-
-Logs:
-
-* `logs/bot.log`
-
-## Telegram
-
-Comandos principales:
-
-* `/help`
-* `/status`
-* `/pause` / `/resume`
-* `/set_risk 1`  (máximo 10)
-* `/set_leverage 5`
-* `/positions`
-* `/paper_mode`
-
-## Notas críticas
-
-* Debe estar en One-way mode (NO hedge)
-* Margin: ISOLATED
-* Leverage: 5x
-
-## Advertencia
-
-Este bot puede perder dinero. Futures es alto riesgo. Usar primero en PAPER.
+Nunca compartas tus API Keys.
+Habilita "Restrict to trusted IPs" en Binance si es posible.
+No des permisos de Retiro (Withdrawal) a la API Key.    

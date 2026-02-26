@@ -34,22 +34,24 @@ class OrderManager:
             return False
 
         try:
-            existing = st.stop_orders.get(symbol) 
-
+            existing = st.stop_orders.get(symbol)
             # 1️⃣ Cancelar stop anterior si existe
             if existing:
                 old_id = existing.get("order_id")
                 is_algo = existing.get("is_algo", False)
-
                 if old_id:
                     try:
                         if is_algo:
                             self.exchange.cancel_algo_order(symbol, old_id)
                         else:
                             self.exchange.cancel_order(symbol, old_id)
-
                     except Exception as e:
-                        self.logger.warning(f"{symbol} stop cancel warning: {e}")
+                        msg = str(e)
+                        # FIX: Si la orden ya no existe (se ejecutó o canceló), no fallar
+                        if "-2011" in msg or "Unknown order" in msg:
+                            self.logger.warning(f"{symbol} Stop anterior ya no existe (ok), continuando...")
+                        else:
+                            self.logger.warning(f"{symbol} stop cancel warning: {e}")
 
             # 2️⃣ Crear nuevo STOP_MARKET (closePosition=False)
             stop_order = self.exchange.place_reduce_only_stop(
@@ -58,14 +60,12 @@ class OrderManager:
                 quantity=qty,
                 stop_price=new_sl
             )
-
             if not stop_order:
                 self.logger.warning(f"{symbol} new stop not created")
                 return False
 
             # Extraer algoId (NO orderId)
             algo_id = stop_order.get("algoId")
-
             if not algo_id:
                 self.logger.error(f"{symbol} stop algoId missing. response={stop_order}")
                 return False
@@ -76,21 +76,17 @@ class OrderManager:
                 "is_algo": True,
                 "stop_price": float(new_sl)
             }
-
             self.db.save_state(st.__dict__)
 
             # 4️⃣ DB integración
             position_id = st.position_ids.get(symbol)
-
             if position_id:
                 self.db.deactivate_stops(position_id)
-
                 self.db.create_stop(
                     position_id=position_id,
                     stop_price=new_sl,
                     exchange_algo_id=algo_id
                 )
-
                 self.db.create_order(
                     position_id=position_id,
                     symbol=symbol,
@@ -107,8 +103,26 @@ class OrderManager:
                     raw_response=stop_order
                 )
 
-
             self.logger.info(f"{symbol} SL updated -> {new_sl:.4f} (algoId={algo_id})")
+
+            # 🆕 ========== NOTIFICACIÓN TELEGRAM (NUEVO) ==========
+            if self.tg_send:
+                try:
+                    # Obtener precio actual para mostrar distancia al SL
+                    mark_price = float(self.exchange.get_mark_price(symbol))
+                    distance_pct = abs(mark_price - new_sl) / mark_price * 100
+                    
+                    emoji = "📈" if position_side == "LONG" else "📉"
+                    self.tg_send(
+                        f"{emoji} <b>Stop Loss Actualizado</b>\n"
+                        f"{symbol} {position_side}\n"
+                        f"Nuevo SL: {new_sl:.4f}\n"
+                        f"Mark: {mark_price:.4f}\n"
+                        f"Distancia: {distance_pct:.2f}%"
+                    )
+                except Exception as e:
+                    self.logger.warning(f"[TG SL NOTIFY] {e}")
+            # 🆕 ========== FIN NOTIFICACIÓN ==========
 
             return stop_order
 
@@ -121,7 +135,6 @@ class OrderManager:
     # ============================================================
 
     def execute(self, st, signal: dict):
-
         symbol = signal["symbol"]
         side = signal["side"]
         signal_price = float(signal["price"])
@@ -151,19 +164,25 @@ class OrderManager:
             self.logger.warning(f"[MARK] {symbol} mark price error: {e}")
             return False
 
-        # ===== Spread Filter =====
+        # ===== Spread Filter Dinámico =====
         try:
-            max_spread = float(getattr(CFG, "MAX_SPREAD_PCT", 0.10))
+            base_spread = float(getattr(CFG, "MAX_SPREAD_PCT", 0.10))
+            # Obtener volatilidad actual (ATR %)
+            atr_pct = self.exchange.get_atr_pct(symbol) # Usa la función que ya tienes en binance_futures.py
+            
+            # Si la volatilidad es alta, permitimos más spread (ej. 0.10% + 50% del ATR)
+            dynamic_max_spread = base_spread + (atr_pct * 0.5) 
+            
             cache_s = int(getattr(CFG, "SPREAD_CACHE_SECONDS", 3))
-
             if hasattr(self.exchange, "get_spread_pct"):
                 sp = float(self.exchange.get_spread_pct(symbol, cache_seconds=cache_s))
-                if sp > max_spread:
-                    self.logger.warning(f"[SPREAD] {symbol} blocked: {sp:.3f}% > {max_spread}%")
+                if sp > dynamic_max_spread:
+                    self.logger.warning(f"[SPREAD] {symbol} blocked: {sp:.3f}% > dynamic_limit {dynamic_max_spread:.3f}%")
                     return False
         except Exception as e:
             self.logger.warning(f"[SPREAD] could not validate spread {symbol}: {e}")
-            return False
+            # No bloquear si falla el cálculo, ser permisivo
+            # return False 
 
         # ===== Funding Filter =====
         try:
@@ -193,158 +212,78 @@ class OrderManager:
         except Exception as e:
             self.logger.warning(f"[SAFETY] Equity fetch error: {e}")
             return False
-        # SE COMENTA PORQUE AL SER CUENTA CHICA NO DEJA ENTRAR NADA 
-        # =====  control de capital simultáneo antes de auto-scale de margin =====
-        #account = self.exchange.get_account_info()
-
         
-        #total_wallet = float(account.get("totalWalletBalance", 0))
-        #total_initial_margin = float(account.get("totalInitialMargin", 0))
-
-        #if total_wallet > 0:
-        #    usage_ratio = total_initial_margin / total_wallet
-
-        #    if usage_ratio >= CFG.MAX_CAPITAL_USAGE:
-        #        self.logger.warning(
-        #            f"[CAPITAL] usage {usage_ratio:.2%} >= {CFG.MAX_CAPITAL_USAGE:.0%}. Skip {symbol}"
-        #       )
-        #       return False    
-
         # ============================================================
-        # AUTO-SCALE MARGIN MANAGEMENT (Institutional version)
+        # LOGICA ACTIVA (MIN NOTIONAL + MARGIN SCALE)
         # ============================================================
-
         try:
             if hasattr(self.exchange, "get_available_balance"):
-
                 available = float(self.exchange.get_available_balance())
                 lev = float(getattr(st, "leverage", 1) or 1)
-
+                
+                # 1. Asegurar Mínimo Notional de Binance (CRÍTICO PARA CUENTAS < $200)
+                min_notional = float(getattr(CFG, "MIN_NOTIONAL_USDT", 20.0))
+                current_notional = mark_price * qty
+                
+                if current_notional < min_notional:
+                    # Ajustar qty para cumplir el mínimo obligatorio de Binance
+                    qty = min_notional / mark_price
+                    self.logger.warning(f"[MIN NOTIONAL] {symbol} ajustado a {qty:.4f} para cumplir min {min_notional}")
+                
+                # 2. Recalcular margen requerido con qty ajustada
                 notional = mark_price * qty
                 required_margin = notional / max(lev, 1.0)
-
+                
+                # 3. Verificar Margen (Sin bloqueo estricto de SAFETY_BUFFER para cuentas pequeñas)
                 if required_margin > available:
-
-                    scale_factor = (available * CFG.SAFETY_BUFFER) / required_margin
-
-                    if scale_factor <= 0:
-                        self.logger.warning(f"[MARGIN] {symbol} no available margin.")
+                    # Intentar escalar hacia abajo si no hay margen suficiente
+                    scale_factor = available / required_margin
+                    if scale_factor <= 0.1: # Si hay menos del 10% del margen necesario, abortar
+                        self.logger.warning(f"[MARGIN] {symbol} insuficiente incluso escalando.")
                         return False
-
+                    
                     qty *= scale_factor
                     notional = mark_price * qty
-
-                    required_margin = (notional / max(lev, 1.0))
-
-                    if required_margin > available * CFG.SAFETY_BUFFER:
-                        self.logger.warning(
-                            f"[MARGIN] {symbol} still insufficient after scaling."
-                        )
+                    required_margin = notional / max(lev, 1.0)
+                    self.logger.warning(f"[MARGIN] {symbol} auto-scaled | scale={scale_factor:.3f} | new_qty={qty:.6f}")
+                    
+                    # Verificar nuevamente que tras escalar no violamos el mínimo notional
+                    if notional < min_notional:
+                        self.logger.warning(f"[MARGIN] {symbol} demasiado pequeño tras escalar. Abort.")
                         return False
-
-                    self.logger.warning(
-                        f"[MARGIN] {symbol} auto-scaled | "
-                        f"scale={scale_factor:.3f} | new_qty={qty:.6f}"
-                    )
-
-                min_notional = float(getattr(CFG, "MIN_NOTIONAL_USDT", 5.0))
-                if notional < min_notional:
-                    self.logger.warning(
-                        f"[MARGIN] {symbol} too small after scaling. notional={notional:.2f}"
-                    )
-                    return False
-            # SE COMENTA PORQUE NO ME DEJA ENTRAR NINGUNA OPERACION
-            # account = self.exchange.get_account_info()
-
-            # total_wallet = float(account.get("totalWalletBalance", 0))
-            # total_initial_margin = float(account.get("totalInitialMargin", 0))
-            # available = float(account.get("availableBalance", 0))
-
-            # lev = float(getattr(st, "leverage", 1) or 1)
-            # notional = mark_price * qty
-            # required_margin = notional / max(lev, 1.0)
-
-            # # 1️⃣ Hard capital usage guard
-            # if total_wallet > 0:
-            #     usage_ratio = total_initial_margin / total_wallet
-            #     if usage_ratio >= CFG.MAX_CAPITAL_USAGE:
-            #         self.logger.warning(
-            #             f"[CAPITAL] usage {usage_ratio:.2%} >= {CFG.MAX_CAPITAL_USAGE:.0%}. Skip {symbol}"
-            #         )
-            #         return False
-
-            # # 2️⃣ Margin sufficiency check
-            # if required_margin > available: # * CFG.SAFETY_BUFFER: esto esta cagando todo
-
-            #     scale_factor = available / required_margin # antes (available * CFG.SAFETY_BUFFER) / required_margin
-
-            #     if scale_factor <= 0:
-            #         self.logger.warning(f"[MARGIN] {symbol} no available margin.")
-            #         return False
-
-            #     qty *= scale_factor
-            #     notional = mark_price * qty
-            #     required_margin = notional / max(lev, 1.0)
-
-            #     if required_margin > available: # * CFG.SAFETY_BUFFER: por misma razon que arriba
-            #         self.logger.warning(
-            #             f"[MARGIN] {symbol} insufficient after scaling."
-            #         )
-            #         return False
-
-            #     self.logger.warning(
-            #         f"[MARGIN] {symbol} auto-scaled | "
-            #         f"scale={scale_factor:.3f} | new_qty={qty:.6f}"
-            #     )
-
-            # # 3️⃣ Minimum notional
-            # min_notional = float(getattr(CFG, "MIN_NOTIONAL_USDT", 10.0))
-            # if notional < min_notional:
-            #     self.logger.warning(
-            #         f"[MARGIN] {symbol} too small after scaling. notional={notional:.2f}"
-            #     )
-            #     return False
 
         except Exception as e:
             self.logger.warning(f"[MARGIN] validation error {symbol}: {e}")
             return False
-            
+
         # ============================================================
         # EXECUTE MARKET ORDER
         # ============================================================
-
         try:
             order = self.exchange.place_market_order(
                 symbol=symbol,
                 side=side,
                 quantity=qty
             )
-
             if not order:
                 self.logger.warning(f"{symbol} market order returned None")
                 return False
-
             self.trade_lock.mark_entered(symbol, bar_close_ms)
             self.logger.info(f"[ENTRY] {symbol} {side} qty={qty:.6f}")
-
         except Exception:
             self.logger.exception("[ENTRY] Order execution failed.")
             return False
-        
-        # ================= DB: CREAR POSICIÓN =================
 
+        # ================= DB: CREAR POSICIÓN =================
         position_id = self.db.create_position(
             symbol=symbol,
             side=side,
             qty=qty,
             entry_price=mark_price
         )
-
         if not hasattr(st, "position_ids"):
             st.position_ids = {}
-
         st.position_ids[symbol] = position_id
-
         self.db.create_order(
             position_id=position_id,
             symbol=symbol,
@@ -360,13 +299,11 @@ class OrderManager:
             status=order.get("status"),
             raw_response=order
         )
-
         self.db.save_state(st.__dict__)
 
         # ============================================================
         # INITIAL STOP (NO INVALIDA ENTRY)
         # ============================================================
-
         if initial_sl is not None:
             try:
                 self.replace_stop_order(st, symbol, side, qty, float(initial_sl))
@@ -393,5 +330,4 @@ class OrderManager:
                 )
             except Exception as e:
                 self.logger.warning(f"[TELEGRAM] send failed: {e}")
-
-        return order    
+        return order 
