@@ -8051,3 +8051,404 @@
 2026-02-26 19:21:04 | INFO | MainThread | ADAUSDT | trend=NONE | breakL=False | breakS=False | adx=14.82 | adx_ok=False | rising_ok=True | vol_ratio=0.40 | vol_up=True
 2026-02-26 19:21:04 | INFO | MainThread | DOTUSDT | trend=BEAR | breakL=False | breakS=False | adx=17.26 | adx_ok=False | rising_ok=True | vol_ratio=0.78 | vol_up=True
 2026-02-26 19:21:04 | INFO | MainThread | BTCUSDT | trend=BEAR | breakL=False | breakS=False | adx=15.52 | adx_ok=False | rising_ok=True | vol_ratio=0.42 | vol_up=True
+2026-02-26 19:45:10 | INFO | MainThread | [CACHE] New closed candle POLUSDT close_time=1772145899999
+2026-02-26 19:45:11 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1772145899999
+2026-02-26 19:45:12 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1772145899999
+2026-02-26 19:45:14 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1772145899999
+2026-02-26 19:45:15 | INFO | MainThread | [CACHE] New closed candle LINKUSDT close_time=1772145899999
+2026-02-26 19:45:16 | INFO | MainThread | [CACHE] New closed candle DOGEUSDT close_time=1772145899999
+2026-02-26 19:45:17 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1772145899999
+2026-02-26 19:45:18 | INFO | MainThread | [CACHE] New closed candle DOTUSDT close_time=1772145899999
+2026-02-26 19:45:20 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1772145899999
+2026-02-26 19:45:20 | INFO | MainThread | POLUSDT | trend=BEAR | breakL=False | breakS=False | adx=22.91 | adx_ok=False | rising_ok=True | vol_ratio=1.12 | vol_up=False
+2026-02-26 19:45:20 | INFO | MainThread | SOLUSDT | trend=NONE | breakL=False | breakS=False | adx=24.42 | adx_ok=True | rising_ok=True | vol_ratio=0.44 | vol_up=True
+2026-02-26 19:45:20 | INFO | MainThread | XRPUSDT | trend=BEAR | breakL=False | breakS=False | adx=25.28 | adx_ok=True | rising_ok=True | vol_ratio=0.41 | vol_up=True
+2026-02-26 19:45:20 | INFO | MainThread | BNBUSDT | trend=BULL | breakL=False | breakS=False | adx=15.97 | adx_ok=False | rising_ok=True | vol_ratio=0.45 | vol_up=True
+2026-02-26 19:45:20 | INFO | MainThread | LINKUSDT | trend=BEAR | breakL=False | breakS=False | adx=19.88 | adx_ok=False | rising_ok=True | vol_ratio=0.50 | vol_up=True
+2026-02-26 19:45:20 | INFO | MainThread | DOGEUSDT | trend=NONE | breakL=False | breakS=False | adx=22.64 | adx_ok=False | rising_ok=True | vol_ratio=0.66 | vol_up=True
+2026-02-26 19:45:20 | INFO | MainThread | ADAUSDT | trend=BEAR | breakL=False | breakS=False | adx=13.26 | adx_ok=False | rising_ok=True | vol_ratio=0.36 | vol_up=False
+2026-02-26 19:45:20 | INFO | MainThread | DOTUSDT | trend=BEAR | breakL=False | breakS=False | adx=19.35 | adx_ok=False | rising_ok=True | vol_ratio=0.68 | vol_up=False
+2026-02-26 19:45:20 | INFO | MainThread | BTCUSDT | trend=BEAR | breakL=False | breakS=False | adx=13.89 | adx_ok=False | rising_ok=True | vol_ratio=0.29 | vol_up=False
+2026-02-26 19:57:08 | INFO | MainThread | [CACHE INIT] BTCUSDT loaded 500 candles
+2026-02-26 19:57:09 | INFO | MainThread | [CACHE INIT] BNBUSDT loaded 500 candles
+2026-02-26 19:57:10 | INFO | MainThread | [CACHE INIT] XRPUSDT loaded 500 candles
+2026-02-26 19:57:14 | INFO | MainThread | BTCUSDT | trend=BEAR | breakL=False | breakS=False | adx=13.89 | adx_ok=False | rising_ok=True | vol_ratio=0.29 | vol_up=False
+2026-02-26 19:57:14 | INFO | MainThread | BNBUSDT | trend=BULL | breakL=False | breakS=False | adx=15.97 | adx_ok=False | rising_ok=True | vol_ratio=0.45 | vol_up=True
+2026-02-26 19:57:14 | INFO | MainThread | XRPUSDT | trend=BEAR | breakL=False | breakS=False | adx=25.28 | adx_ok=True | rising_ok=True | vol_ratio=0.41 | vol_up=True
+2026-02-26 20:15:12 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1772147699999
+2026-02-26 20:15:13 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1772147699999
+2026-02-26 20:15:15 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1772147699999
+2026-02-26 20:15:15 | INFO | MainThread | BTCUSDT | trend=BEAR | breakL=False | breakS=False | adx=12.65 | adx_ok=False | rising_ok=True | vol_ratio=0.54 | vol_up=True
+2026-02-26 20:15:15 | INFO | MainThread | BNBUSDT | trend=BULL | breakL=False | breakS=False | adx=15.62 | adx_ok=False | rising_ok=True | vol_ratio=0.79 | vol_up=False
+2026-02-26 20:15:15 | INFO | MainThread | XRPUSDT | trend=BEAR | breakL=False | breakS=False | adx=22.48 | adx_ok=False | rising_ok=True | vol_ratio=0.56 | vol_up=True
+2026-02-26 20:30:21 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1772148599999
+2026-02-26 20:30:22 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1772148599999
+2026-02-26 20:30:23 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1772148599999
+2026-02-26 20:30:24 | INFO | MainThread | BTCUSDT | trend=BEAR | breakL=False | breakS=False | adx=12.10 | adx_ok=False | rising_ok=True | vol_ratio=0.36 | vol_up=False
+2026-02-26 20:30:24 | INFO | MainThread | BNBUSDT | trend=BULL | breakL=False | breakS=False | adx=15.24 | adx_ok=False | rising_ok=True | vol_ratio=0.58 | vol_up=False
+2026-02-26 20:30:24 | INFO | MainThread | XRPUSDT | trend=BEAR | breakL=False | breakS=False | adx=21.22 | adx_ok=False | rising_ok=True | vol_ratio=0.39 | vol_up=False
+2026-02-26 20:45:07 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1772149499999
+2026-02-26 20:45:08 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1772149499999
+2026-02-26 20:45:09 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1772149499999
+2026-02-26 20:45:10 | INFO | MainThread | BNBUSDT | trend=BULL | breakL=False | breakS=False | adx=15.26 | adx_ok=False | rising_ok=True | vol_ratio=0.93 | vol_up=True
+2026-02-26 20:45:10 | INFO | MainThread | XRPUSDT | trend=BEAR | breakL=False | breakS=False | adx=19.89 | adx_ok=False | rising_ok=True | vol_ratio=0.41 | vol_up=False
+2026-02-26 21:00:10 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1772150399999
+2026-02-26 21:00:12 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1772150399999
+2026-02-26 21:00:13 | INFO | MainThread | BTCUSDT | trend=NONE | breakL=False | breakS=False | adx=11.09 | adx_ok=False | rising_ok=True | vol_ratio=0.46 | vol_up=False
+2026-02-26 21:00:13 | INFO | MainThread | XRPUSDT | trend=BEAR | breakL=False | breakS=False | adx=18.65 | adx_ok=False | rising_ok=True | vol_ratio=0.33 | vol_up=False
+2026-02-26 21:00:27 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1772150399999
+2026-02-26 21:00:28 | INFO | MainThread | BNBUSDT | trend=BULL | breakL=False | breakS=False | adx=15.12 | adx_ok=False | rising_ok=True | vol_ratio=0.58 | vol_up=False
+2026-02-26 21:06:47 | INFO | MainThread | [DAY ROLL] Cambio de día detectado (Binance): 2026-02-27
+2026-02-26 21:15:16 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1772151299999
+2026-02-26 21:15:17 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1772151299999
+2026-02-26 21:15:19 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1772151299999
+2026-02-26 21:15:19 | INFO | MainThread | BTCUSDT | trend=BEAR | breakL=False | breakS=False | adx=11.49 | adx_ok=False | rising_ok=True | vol_ratio=1.15 | vol_up=True
+2026-02-26 21:15:19 | INFO | MainThread | BNBUSDT | trend=BULL | breakL=False | breakS=False | adx=14.44 | adx_ok=False | rising_ok=True | vol_ratio=1.46 | vol_up=True
+2026-02-26 21:15:19 | INFO | MainThread | XRPUSDT | trend=BEAR | breakL=False | breakS=False | adx=17.82 | adx_ok=False | rising_ok=True | vol_ratio=1.47 | vol_up=True
+2026-02-26 21:30:06 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1772152199999
+2026-02-26 21:30:25 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1772152199999
+2026-02-26 21:30:27 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1772152199999
+2026-02-26 21:30:27 | INFO | MainThread | BNBUSDT | trend=BULL | breakL=False | breakS=False | adx=13.52 | adx_ok=False | rising_ok=True | vol_ratio=1.23 | vol_up=False
+2026-02-26 21:30:27 | INFO | MainThread | XRPUSDT | trend=NONE | breakL=False | breakS=False | adx=17.17 | adx_ok=False | rising_ok=True | vol_ratio=0.96 | vol_up=False
+2026-02-26 21:45:09 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1772153099999
+2026-02-26 21:45:10 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1772153099999
+2026-02-26 21:45:12 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1772153099999
+2026-02-26 21:45:12 | INFO | MainThread | BTCUSDT | trend=BEAR | breakL=False | breakS=False | adx=13.70 | adx_ok=False | rising_ok=True | vol_ratio=1.60 | vol_up=True
+2026-02-26 21:45:12 | INFO | MainThread | BNBUSDT | trend=NONE | breakL=False | breakS=False | adx=13.11 | adx_ok=False | rising_ok=True | vol_ratio=1.26 | vol_up=True
+2026-02-26 21:45:12 | INFO | MainThread | XRPUSDT | trend=BEAR | breakL=False | breakS=False | adx=17.37 | adx_ok=False | rising_ok=True | vol_ratio=1.25 | vol_up=True
+2026-02-26 22:00:08 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1772153999999
+2026-02-26 22:00:09 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1772153999999
+2026-02-26 22:00:10 | INFO | MainThread | XRPUSDT | trend=NONE | breakL=False | breakS=False | adx=16.53 | adx_ok=False | rising_ok=True | vol_ratio=1.29 | vol_up=True
+2026-02-26 22:00:22 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1772153999999
+2026-02-26 22:00:24 | INFO | MainThread | BTCUSDT | trend=BEAR | breakL=False | breakS=False | adx=15.13 | adx_ok=False | rising_ok=True | vol_ratio=1.99 | vol_up=True
+2026-02-26 22:15:06 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1772154899999
+2026-02-26 22:15:07 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1772154899999
+2026-02-26 22:15:08 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1772154899999
+2026-02-26 22:15:09 | INFO | MainThread | BTCUSDT | trend=BEAR | breakL=False | breakS=True | adx=16.89 | adx_ok=False | rising_ok=True | vol_ratio=2.25 | vol_up=True
+2026-02-26 22:15:09 | INFO | MainThread | BNBUSDT | trend=NONE | breakL=False | breakS=False | adx=12.44 | adx_ok=False | rising_ok=True | vol_ratio=1.07 | vol_up=False
+2026-02-26 22:15:09 | INFO | MainThread | XRPUSDT | trend=NONE | breakL=False | breakS=False | adx=15.75 | adx_ok=False | rising_ok=True | vol_ratio=1.05 | vol_up=False
+2026-02-26 22:30:01 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1772155799999
+2026-02-26 22:30:02 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1772155799999
+2026-02-26 22:30:03 | INFO | MainThread | BNBUSDT | trend=NONE | breakL=False | breakS=False | adx=12.38 | adx_ok=False | rising_ok=True | vol_ratio=1.66 | vol_up=True
+2026-02-26 22:30:18 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1772155799999
+2026-02-26 22:30:18 | INFO | MainThread | XRPUSDT | trend=BEAR | breakL=False | breakS=False | adx=14.92 | adx_ok=False | rising_ok=True | vol_ratio=1.23 | vol_up=True
+2026-02-26 22:45:23 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1772156699999
+2026-02-26 22:45:24 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1772156699999
+2026-02-26 22:45:25 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1772156699999
+2026-02-26 22:45:25 | INFO | MainThread | BTCUSDT | trend=BEAR | breakL=False | breakS=False | adx=18.80 | adx_ok=False | rising_ok=True | vol_ratio=2.95 | vol_up=True
+2026-02-26 22:45:25 | INFO | MainThread | BNBUSDT | trend=NONE | breakL=False | breakS=False | adx=11.45 | adx_ok=False | rising_ok=True | vol_ratio=3.48 | vol_up=True
+2026-02-26 22:45:25 | INFO | MainThread | XRPUSDT | trend=BEAR | breakL=False | breakS=False | adx=14.01 | adx_ok=False | rising_ok=True | vol_ratio=1.35 | vol_up=True
+2026-02-26 23:00:04 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1772157599999
+2026-02-26 23:00:21 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1772157599999
+2026-02-26 23:00:22 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1772157599999
+2026-02-26 23:00:24 | INFO | MainThread | BTCUSDT | trend=NONE | breakL=False | breakS=False | adx=18.56 | adx_ok=False | rising_ok=True | vol_ratio=1.33 | vol_up=False
+2026-02-26 23:00:24 | INFO | MainThread | BNBUSDT | trend=BULL | breakL=False | breakS=False | adx=10.64 | adx_ok=False | rising_ok=True | vol_ratio=0.70 | vol_up=False
+2026-02-26 23:15:16 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1772158499999
+2026-02-26 23:15:18 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1772158499999
+2026-02-26 23:15:19 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1772158499999
+2026-02-26 23:15:19 | INFO | MainThread | BTCUSDT | trend=NONE | breakL=False | breakS=False | adx=17.69 | adx_ok=False | rising_ok=True | vol_ratio=1.15 | vol_up=False
+2026-02-26 23:15:19 | INFO | MainThread | BNBUSDT | trend=BULL | breakL=False | breakS=False | adx=11.34 | adx_ok=False | rising_ok=True | vol_ratio=1.31 | vol_up=True
+2026-02-26 23:15:19 | INFO | MainThread | XRPUSDT | trend=BEAR | breakL=False | breakS=False | adx=13.26 | adx_ok=False | rising_ok=True | vol_ratio=1.10 | vol_up=True
+2026-02-26 23:30:08 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1772159399999
+2026-02-26 23:30:09 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1772159399999
+2026-02-26 23:30:10 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1772159399999
+2026-02-26 23:30:11 | INFO | MainThread | BTCUSDT | trend=BEAR | breakL=False | breakS=False | adx=16.61 | adx_ok=False | rising_ok=True | vol_ratio=1.33 | vol_up=True
+2026-02-26 23:30:11 | INFO | MainThread | BNBUSDT | trend=BULL | breakL=False | breakS=False | adx=12.68 | adx_ok=False | rising_ok=True | vol_ratio=1.42 | vol_up=True
+2026-02-26 23:30:11 | INFO | MainThread | XRPUSDT | trend=BEAR | breakL=False | breakS=False | adx=13.86 | adx_ok=False | rising_ok=True | vol_ratio=1.02 | vol_up=False
+2026-02-26 23:45:17 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1772160299999
+2026-02-26 23:45:18 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1772160299999
+2026-02-26 23:45:19 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1772160299999
+2026-02-26 23:45:20 | INFO | MainThread | BTCUSDT | trend=BEAR | breakL=False | breakS=False | adx=15.54 | adx_ok=False | rising_ok=True | vol_ratio=0.79 | vol_up=False
+2026-02-26 23:45:20 | INFO | MainThread | BNBUSDT | trend=BULL | breakL=False | breakS=False | adx=14.35 | adx_ok=False | rising_ok=True | vol_ratio=1.34 | vol_up=False
+2026-02-26 23:45:20 | INFO | MainThread | XRPUSDT | trend=BEAR | breakL=False | breakS=False | adx=14.43 | adx_ok=False | rising_ok=True | vol_ratio=0.76 | vol_up=False
+2026-02-27 00:00:11 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1772161199999
+2026-02-27 00:00:12 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1772161199999
+2026-02-27 00:00:13 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1772161199999
+2026-02-27 00:00:14 | INFO | MainThread | BTCUSDT | trend=NONE | breakL=False | breakS=False | adx=15.11 | adx_ok=False | rising_ok=True | vol_ratio=0.88 | vol_up=True
+2026-02-27 00:00:14 | INFO | MainThread | BNBUSDT | trend=BULL | breakL=False | breakS=False | adx=15.91 | adx_ok=False | rising_ok=True | vol_ratio=0.86 | vol_up=False
+2026-02-27 00:00:14 | INFO | MainThread | XRPUSDT | trend=BEAR | breakL=False | breakS=False | adx=14.70 | adx_ok=False | rising_ok=True | vol_ratio=0.91 | vol_up=True
+2026-02-27 00:15:12 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1772162099999
+2026-02-27 00:15:14 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1772162099999
+2026-02-27 00:15:15 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1772162099999
+2026-02-27 00:15:15 | INFO | MainThread | BTCUSDT | trend=BEAR | breakL=False | breakS=False | adx=15.55 | adx_ok=False | rising_ok=True | vol_ratio=0.87 | vol_up=False
+2026-02-27 00:15:15 | INFO | MainThread | BNBUSDT | trend=BULL | breakL=False | breakS=False | adx=16.30 | adx_ok=False | rising_ok=True | vol_ratio=1.28 | vol_up=True
+2026-02-27 00:15:15 | INFO | MainThread | XRPUSDT | trend=NONE | breakL=False | breakS=False | adx=13.96 | adx_ok=False | rising_ok=True | vol_ratio=1.46 | vol_up=True
+2026-02-27 00:30:20 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1772162999999
+2026-02-27 00:30:21 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1772162999999
+2026-02-27 00:30:22 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1772162999999
+2026-02-27 00:30:23 | INFO | MainThread | BTCUSDT | trend=BEAR | breakL=False | breakS=False | adx=16.01 | adx_ok=False | rising_ok=True | vol_ratio=0.55 | vol_up=False
+2026-02-27 00:30:23 | INFO | MainThread | BNBUSDT | trend=BULL | breakL=False | breakS=False | adx=16.35 | adx_ok=False | rising_ok=True | vol_ratio=0.62 | vol_up=False
+2026-02-27 00:30:23 | INFO | MainThread | XRPUSDT | trend=BEAR | breakL=False | breakS=False | adx=13.28 | adx_ok=False | rising_ok=True | vol_ratio=0.48 | vol_up=False
+2026-02-27 00:41:20 | WARNING | MainThread | [TG] error: HTTPSConnectionPool(host='api.telegram.org', port=443): Max retries exceeded with url: /bot8595800756:AAFOl0BFwrOQcy3tsjHD7uHYdCnuHPdftfE/sendMessage (Caused by ConnectTimeoutError(<urllib3.connection.HTTPSConnection object at 0x116c85280>, 'Connection to api.telegram.org timed out. (connect timeout=15)'))
+2026-02-27 00:41:31 | WARNING | MainThread | [TG poll] error: HTTPSConnectionPool(host='api.telegram.org', port=443): Max retries exceeded with url: /bot8595800756:AAFOl0BFwrOQcy3tsjHD7uHYdCnuHPdftfE/getUpdates?timeout=0&offset=1 (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x1168965b0>: Failed to resolve 'api.telegram.org' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-02-27 00:41:31 | WARNING | MainThread | Account snapshot error: HTTPSConnectionPool(host='fapi.binance.com', port=443): Max retries exceeded with url: /fapi/v2/account?recvWindow=10000&timestamp=1772163691602&signature=3f245401acac94a5dc152b8e4c422fb5f2591b9fbff3082daaf1af908d6d777c (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x116896370>: Failed to resolve 'fapi.binance.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-02-27 00:41:32 | WARNING | MainThread | [TIME SYNC] Error obteniendo hora Binance: HTTPSConnectionPool(host='fapi.binance.com', port=443): Max retries exceeded with url: /fapi/v1/time (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x116896eb0>: Failed to resolve 'fapi.binance.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-02-27 00:41:32 | WARNING | MainThread | [CACHE] update error BTCUSDT: HTTPSConnectionPool(host='fapi.binance.com', port=443): Max retries exceeded with url: /fapi/v1/klines?interval=15m&limit=2&symbol=BTCUSDT (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x116f7e310>: Failed to resolve 'fapi.binance.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-02-27 00:41:32 | WARNING | MainThread | [CACHE] update error BNBUSDT: HTTPSConnectionPool(host='fapi.binance.com', port=443): Max retries exceeded with url: /fapi/v1/klines?interval=15m&limit=2&symbol=BNBUSDT (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x116f7e670>: Failed to resolve 'fapi.binance.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-02-27 00:41:32 | WARNING | MainThread | [CACHE] update error XRPUSDT: HTTPSConnectionPool(host='fapi.binance.com', port=443): Max retries exceeded with url: /fapi/v1/klines?interval=15m&limit=2&symbol=XRPUSDT (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x116f7e9d0>: Failed to resolve 'fapi.binance.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-02-27 00:41:32 | WARNING | MainThread | [RECONCILE] HTTPSConnectionPool(host='fapi.binance.com', port=443): Max retries exceeded with url: /fapi/v3/positionRisk?recvWindow=10000&timestamp=1772163692157&signature=e08266a18d9c5f32fee97371063b2b2ee49e795bac846d576bc40e566ef32f7b (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x116896130>: Failed to resolve 'fapi.binance.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-02-27 00:41:32 | WARNING | MainThread | [DAILY LOSS] could not compute dd: HTTPSConnectionPool(host='fapi.binance.com', port=443): Max retries exceeded with url: /fapi/v2/account?recvWindow=10000&timestamp=1772163692278&signature=285c2f92e3756fb902f6d06619d7d638d883439684b84ccd2258eb374088bcbd (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x116896520>: Failed to resolve 'fapi.binance.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-02-27 00:41:43 | WARNING | MainThread | Account snapshot error: HTTPSConnectionPool(host='fapi.binance.com', port=443): Read timed out. (read timeout=10)
+2026-02-27 00:45:06 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1772163899999
+2026-02-27 00:45:07 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1772163899999
+2026-02-27 00:45:09 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1772163899999
+2026-02-27 00:45:09 | INFO | MainThread | BNBUSDT | trend=BULL | breakL=False | breakS=False | adx=16.40 | adx_ok=False | rising_ok=True | vol_ratio=0.81 | vol_up=True
+2026-02-27 00:45:09 | INFO | MainThread | XRPUSDT | trend=NONE | breakL=False | breakS=False | adx=12.42 | adx_ok=False | rising_ok=True | vol_ratio=0.75 | vol_up=True
+2026-02-27 01:00:09 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1772164799999
+2026-02-27 01:00:10 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1772164799999
+2026-02-27 01:00:11 | INFO | MainThread | BNBUSDT | trend=BULL | breakL=False | breakS=False | adx=16.88 | adx_ok=False | rising_ok=True | vol_ratio=1.14 | vol_up=True
+2026-02-27 01:00:11 | INFO | MainThread | XRPUSDT | trend=BEAR | breakL=False | breakS=False | adx=12.59 | adx_ok=False | rising_ok=True | vol_ratio=0.98 | vol_up=True
+2026-02-27 01:00:24 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1772164799999
+2026-02-27 01:00:26 | INFO | MainThread | BTCUSDT | trend=BEAR | breakL=False | breakS=False | adx=15.37 | adx_ok=False | rising_ok=True | vol_ratio=1.96 | vol_up=True
+2026-02-27 01:15:06 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1772165699999
+2026-02-27 01:15:20 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1772165699999
+2026-02-27 01:15:22 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1772165699999
+2026-02-27 01:15:23 | INFO | MainThread | BTCUSDT | trend=BULL | breakL=False | breakS=False | adx=16.39 | adx_ok=False | rising_ok=True | vol_ratio=2.92 | vol_up=True
+2026-02-27 01:15:23 | INFO | MainThread | XRPUSDT | trend=BULL | breakL=False | breakS=False | adx=13.94 | adx_ok=False | rising_ok=True | vol_ratio=2.80 | vol_up=True
+2026-02-27 01:30:16 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1772166599999
+2026-02-27 01:30:17 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1772166599999
+2026-02-27 01:30:18 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1772166599999
+2026-02-27 01:30:19 | INFO | MainThread | BTCUSDT | trend=BULL | breakL=False | breakS=False | adx=18.09 | adx_ok=False | rising_ok=True | vol_ratio=2.05 | vol_up=False
+2026-02-27 01:30:19 | INFO | MainThread | BNBUSDT | trend=BULL | breakL=False | breakS=False | adx=19.31 | adx_ok=False | rising_ok=True | vol_ratio=2.10 | vol_up=False
+2026-02-27 01:30:19 | INFO | MainThread | XRPUSDT | trend=BULL | breakL=False | breakS=False | adx=15.73 | adx_ok=False | rising_ok=True | vol_ratio=2.60 | vol_up=True
+2026-02-27 01:45:16 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1772167499999
+2026-02-27 01:45:17 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1772167499999
+2026-02-27 01:45:18 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1772167499999
+2026-02-27 01:45:19 | INFO | MainThread | BTCUSDT | trend=BULL | breakL=False | breakS=False | adx=18.61 | adx_ok=False | rising_ok=True | vol_ratio=1.43 | vol_up=False
+2026-02-27 01:45:19 | INFO | MainThread | BNBUSDT | trend=BULL | breakL=False | breakS=False | adx=21.09 | adx_ok=False | rising_ok=True | vol_ratio=1.47 | vol_up=False
+2026-02-27 01:45:19 | INFO | MainThread | XRPUSDT | trend=BULL | breakL=False | breakS=False | adx=16.29 | adx_ok=False | rising_ok=True | vol_ratio=1.02 | vol_up=False
+2026-02-27 02:00:08 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1772168399999
+2026-02-27 02:00:09 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1772168399999
+2026-02-27 02:00:10 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1772168399999
+2026-02-27 02:00:10 | INFO | MainThread | BTCUSDT | trend=BULL | breakL=False | breakS=False | adx=19.06 | adx_ok=False | rising_ok=True | vol_ratio=1.19 | vol_up=False
+2026-02-27 02:00:10 | INFO | MainThread | BNBUSDT | trend=BULL | breakL=False | breakS=False | adx=22.83 | adx_ok=False | rising_ok=True | vol_ratio=0.75 | vol_up=False
+2026-02-27 02:00:10 | INFO | MainThread | XRPUSDT | trend=BULL | breakL=False | breakS=False | adx=15.91 | adx_ok=False | rising_ok=True | vol_ratio=1.14 | vol_up=True
+2026-02-27 02:15:21 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1772169299999
+2026-02-27 02:15:23 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1772169299999
+2026-02-27 02:15:24 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1772169299999
+2026-02-27 02:15:24 | INFO | MainThread | BTCUSDT | trend=BULL | breakL=False | breakS=False | adx=19.47 | adx_ok=False | rising_ok=True | vol_ratio=0.90 | vol_up=False
+2026-02-27 02:15:24 | INFO | MainThread | BNBUSDT | trend=BULL | breakL=False | breakS=False | adx=24.44 | adx_ok=True | rising_ok=True | vol_ratio=0.57 | vol_up=False
+2026-02-27 02:15:24 | INFO | MainThread | XRPUSDT | trend=BULL | breakL=False | breakS=False | adx=15.89 | adx_ok=False | rising_ok=True | vol_ratio=1.01 | vol_up=False
+2026-02-27 02:30:03 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1772170199999
+2026-02-27 02:30:20 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1772170199999
+2026-02-27 02:30:21 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1772170199999
+2026-02-27 02:30:22 | INFO | MainThread | BTCUSDT | trend=BULL | breakL=False | breakS=False | adx=19.65 | adx_ok=False | rising_ok=True | vol_ratio=0.41 | vol_up=False
+2026-02-27 02:30:22 | INFO | MainThread | BNBUSDT | trend=BULL | breakL=False | breakS=False | adx=24.25 | adx_ok=True | rising_ok=True | vol_ratio=0.60 | vol_up=True
+2026-02-27 02:45:05 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1772171099999
+2026-02-27 02:45:06 | INFO | MainThread | XRPUSDT | trend=BULL | breakL=False | breakS=False | adx=15.73 | adx_ok=False | rising_ok=True | vol_ratio=0.89 | vol_up=False
+2026-02-27 02:45:23 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1772171099999
+2026-02-27 02:45:24 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1772171099999
+2026-02-27 02:45:25 | INFO | MainThread | BTCUSDT | trend=BULL | breakL=False | breakS=False | adx=19.81 | adx_ok=False | rising_ok=True | vol_ratio=0.27 | vol_up=False
+2026-02-27 02:45:25 | INFO | MainThread | BNBUSDT | trend=BULL | breakL=False | breakS=False | adx=24.63 | adx_ok=True | rising_ok=True | vol_ratio=0.67 | vol_up=True
+2026-02-27 03:00:08 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1772171999999
+2026-02-27 03:00:10 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1772171999999
+2026-02-27 03:00:10 | INFO | MainThread | BTCUSDT | trend=BULL | breakL=False | breakS=False | adx=19.37 | adx_ok=False | rising_ok=True | vol_ratio=0.51 | vol_up=True
+2026-02-27 03:00:10 | INFO | MainThread | XRPUSDT | trend=BULL | breakL=False | breakS=False | adx=15.58 | adx_ok=False | rising_ok=True | vol_ratio=0.53 | vol_up=True
+2026-02-27 03:00:24 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1772171999999
+2026-02-27 03:00:25 | INFO | MainThread | BNBUSDT | trend=BULL | breakL=False | breakS=False | adx=24.98 | adx_ok=True | rising_ok=True | vol_ratio=0.60 | vol_up=False
+2026-02-27 03:15:07 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1772172899999
+2026-02-27 03:15:09 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1772172899999
+2026-02-27 03:15:10 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1772172899999
+2026-02-27 03:15:10 | INFO | MainThread | BTCUSDT | trend=NONE | breakL=False | breakS=False | adx=18.79 | adx_ok=False | rising_ok=True | vol_ratio=0.41 | vol_up=False
+2026-02-27 03:15:10 | INFO | MainThread | XRPUSDT | trend=NONE | breakL=False | breakS=False | adx=14.75 | adx_ok=False | rising_ok=True | vol_ratio=1.17 | vol_up=True
+2026-02-27 03:30:11 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1772173799999
+2026-02-27 03:30:12 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1772173799999
+2026-02-27 03:30:14 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1772173799999
+2026-02-27 03:30:14 | INFO | MainThread | BTCUSDT | trend=NONE | breakL=False | breakS=False | adx=17.46 | adx_ok=False | rising_ok=True | vol_ratio=0.76 | vol_up=True
+2026-02-27 03:30:14 | INFO | MainThread | BNBUSDT | trend=NONE | breakL=False | breakS=False | adx=23.07 | adx_ok=True | rising_ok=True | vol_ratio=0.95 | vol_up=True
+2026-02-27 03:30:14 | INFO | MainThread | XRPUSDT | trend=NONE | breakL=False | breakS=False | adx=13.74 | adx_ok=False | rising_ok=True | vol_ratio=1.05 | vol_up=False
+2026-02-27 03:45:15 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1772174699999
+2026-02-27 03:45:16 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1772174699999
+2026-02-27 03:45:17 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1772174699999
+2026-02-27 03:45:18 | INFO | MainThread | BTCUSDT | trend=NONE | breakL=False | breakS=False | adx=16.60 | adx_ok=False | rising_ok=True | vol_ratio=0.63 | vol_up=False
+2026-02-27 03:45:18 | INFO | MainThread | BNBUSDT | trend=NONE | breakL=False | breakS=False | adx=21.61 | adx_ok=False | rising_ok=True | vol_ratio=1.30 | vol_up=True
+2026-02-27 03:45:18 | INFO | MainThread | XRPUSDT | trend=NONE | breakL=False | breakS=False | adx=12.95 | adx_ok=False | rising_ok=True | vol_ratio=0.88 | vol_up=False
+2026-02-27 04:00:03 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1772175599999
+2026-02-27 04:00:05 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1772175599999
+2026-02-27 04:00:06 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1772175599999
+2026-02-27 04:00:06 | INFO | MainThread | XRPUSDT | trend=BULL | breakL=False | breakS=False | adx=12.88 | adx_ok=False | rising_ok=True | vol_ratio=0.75 | vol_up=False
+2026-02-27 04:15:11 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1772176499999
+2026-02-27 04:15:12 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1772176499999
+2026-02-27 04:15:14 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1772176499999
+2026-02-27 04:15:14 | INFO | MainThread | BTCUSDT | trend=NONE | breakL=False | breakS=False | adx=15.09 | adx_ok=False | rising_ok=True | vol_ratio=0.39 | vol_up=False
+2026-02-27 04:15:14 | INFO | MainThread | BNBUSDT | trend=BULL | breakL=False | breakS=False | adx=19.91 | adx_ok=False | rising_ok=True | vol_ratio=1.36 | vol_up=True
+2026-02-27 04:15:14 | INFO | MainThread | XRPUSDT | trend=BULL | breakL=False | breakS=False | adx=12.58 | adx_ok=False | rising_ok=True | vol_ratio=0.52 | vol_up=False
+2026-02-27 04:30:09 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1772177399999
+2026-02-27 04:30:10 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1772177399999
+2026-02-27 04:30:12 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1772177399999
+2026-02-27 04:30:12 | INFO | MainThread | BTCUSDT | trend=BULL | breakL=False | breakS=False | adx=14.38 | adx_ok=False | rising_ok=True | vol_ratio=0.73 | vol_up=True
+2026-02-27 04:30:12 | INFO | MainThread | BNBUSDT | trend=BULL | breakL=False | breakS=False | adx=19.93 | adx_ok=False | rising_ok=True | vol_ratio=0.94 | vol_up=False
+2026-02-27 04:30:12 | INFO | MainThread | XRPUSDT | trend=NONE | breakL=False | breakS=False | adx=11.90 | adx_ok=False | rising_ok=True | vol_ratio=0.49 | vol_up=False
+2026-02-27 04:37:19 | WARNING | MainThread | Account snapshot error: HTTPSConnectionPool(host='fapi.binance.com', port=443): Read timed out. (read timeout=10)
+2026-02-27 04:45:24 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1772178299999
+2026-02-27 04:45:26 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1772178299999
+2026-02-27 04:45:27 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1772178299999
+2026-02-27 04:45:27 | INFO | MainThread | BTCUSDT | trend=BULL | breakL=False | breakS=False | adx=13.80 | adx_ok=False | rising_ok=True | vol_ratio=0.99 | vol_up=True
+2026-02-27 04:45:27 | INFO | MainThread | BNBUSDT | trend=BULL | breakL=False | breakS=False | adx=20.38 | adx_ok=False | rising_ok=True | vol_ratio=1.20 | vol_up=True
+2026-02-27 04:45:27 | INFO | MainThread | XRPUSDT | trend=NONE | breakL=False | breakS=False | adx=11.34 | adx_ok=False | rising_ok=True | vol_ratio=0.91 | vol_up=True
+2026-02-27 05:00:07 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1772179199999
+2026-02-27 05:00:07 | INFO | MainThread | XRPUSDT | trend=BULL | breakL=True | breakS=False | adx=11.49 | adx_ok=False | rising_ok=True | vol_ratio=1.55 | vol_up=True
+2026-02-27 05:00:24 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1772179199999
+2026-02-27 05:00:25 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1772179199999
+2026-02-27 05:00:26 | INFO | MainThread | BTCUSDT | trend=NONE | breakL=False | breakS=False | adx=13.23 | adx_ok=False | rising_ok=True | vol_ratio=1.00 | vol_up=True
+2026-02-27 05:00:26 | INFO | MainThread | BNBUSDT | trend=BULL | breakL=False | breakS=False | adx=20.35 | adx_ok=False | rising_ok=True | vol_ratio=1.31 | vol_up=True
+2026-02-27 05:15:08 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1772180099999
+2026-02-27 05:15:26 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1772180099999
+2026-02-27 05:15:27 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1772180099999
+2026-02-27 05:15:29 | INFO | MainThread | BTCUSDT | trend=BULL | breakL=False | breakS=False | adx=14.01 | adx_ok=False | rising_ok=True | vol_ratio=1.62 | vol_up=True
+2026-02-27 05:15:29 | INFO | MainThread | BNBUSDT | trend=BULL | breakL=False | breakS=False | adx=19.09 | adx_ok=False | rising_ok=True | vol_ratio=0.94 | vol_up=False
+2026-02-27 05:30:11 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1772180999999
+2026-02-27 05:30:12 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1772180999999
+2026-02-27 05:30:14 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1772180999999
+2026-02-27 05:30:14 | INFO | MainThread | BTCUSDT | trend=BULL | breakL=False | breakS=False | adx=14.73 | adx_ok=False | rising_ok=True | vol_ratio=0.48 | vol_up=False
+2026-02-27 05:30:14 | INFO | MainThread | BNBUSDT | trend=BULL | breakL=False | breakS=False | adx=18.15 | adx_ok=False | rising_ok=True | vol_ratio=0.81 | vol_up=False
+2026-02-27 05:30:14 | INFO | MainThread | XRPUSDT | trend=BULL | breakL=False | breakS=False | adx=13.63 | adx_ok=False | rising_ok=True | vol_ratio=0.99 | vol_up=False
+2026-02-27 05:45:15 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1772181899999
+2026-02-27 05:45:16 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1772181899999
+2026-02-27 05:45:17 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1772181899999
+2026-02-27 05:45:17 | INFO | MainThread | BTCUSDT | trend=BULL | breakL=False | breakS=False | adx=14.51 | adx_ok=False | rising_ok=True | vol_ratio=0.77 | vol_up=True
+2026-02-27 05:45:17 | INFO | MainThread | BNBUSDT | trend=BULL | breakL=False | breakS=False | adx=17.48 | adx_ok=False | rising_ok=True | vol_ratio=0.47 | vol_up=False
+2026-02-27 05:45:17 | INFO | MainThread | XRPUSDT | trend=BULL | breakL=False | breakS=False | adx=14.91 | adx_ok=False | rising_ok=True | vol_ratio=0.89 | vol_up=False
+2026-02-27 06:00:03 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1772182799999
+2026-02-27 06:00:21 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1772182799999
+2026-02-27 06:00:23 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1772182799999
+2026-02-27 06:00:24 | INFO | MainThread | BTCUSDT | trend=BULL | breakL=False | breakS=False | adx=14.56 | adx_ok=False | rising_ok=True | vol_ratio=0.95 | vol_up=True
+2026-02-27 06:00:24 | INFO | MainThread | XRPUSDT | trend=BULL | breakL=False | breakS=False | adx=16.14 | adx_ok=False | rising_ok=True | vol_ratio=0.90 | vol_up=True
+2026-02-27 06:15:15 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1772183699999
+2026-02-27 06:15:16 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1772183699999
+2026-02-27 06:15:17 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1772183699999
+2026-02-27 06:15:18 | INFO | MainThread | BTCUSDT | trend=BULL | breakL=False | breakS=False | adx=14.27 | adx_ok=False | rising_ok=True | vol_ratio=1.64 | vol_up=True
+2026-02-27 06:15:18 | INFO | MainThread | BNBUSDT | trend=NONE | breakL=False | breakS=False | adx=15.53 | adx_ok=False | rising_ok=True | vol_ratio=0.39 | vol_up=False
+2026-02-27 06:15:18 | INFO | MainThread | XRPUSDT | trend=BULL | breakL=False | breakS=False | adx=17.54 | adx_ok=False | rising_ok=True | vol_ratio=0.82 | vol_up=False
+2026-02-27 06:30:15 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1772184599999
+2026-02-27 06:30:16 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1772184599999
+2026-02-27 06:30:18 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1772184599999
+2026-02-27 06:30:18 | INFO | MainThread | BTCUSDT | trend=BULL | breakL=False | breakS=False | adx=14.53 | adx_ok=False | rising_ok=True | vol_ratio=1.18 | vol_up=False
+2026-02-27 06:30:18 | INFO | MainThread | BNBUSDT | trend=NONE | breakL=False | breakS=False | adx=14.86 | adx_ok=False | rising_ok=True | vol_ratio=0.83 | vol_up=True
+2026-02-27 06:30:18 | INFO | MainThread | XRPUSDT | trend=BULL | breakL=False | breakS=False | adx=18.15 | adx_ok=False | rising_ok=True | vol_ratio=0.97 | vol_up=True
+2026-02-27 06:45:09 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1772185499999
+2026-02-27 06:45:10 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1772185499999
+2026-02-27 06:45:11 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1772185499999
+2026-02-27 06:45:12 | INFO | MainThread | BTCUSDT | trend=NONE | breakL=False | breakS=False | adx=13.76 | adx_ok=False | rising_ok=True | vol_ratio=1.25 | vol_up=True
+2026-02-27 06:45:12 | INFO | MainThread | BNBUSDT | trend=BULL | breakL=False | breakS=False | adx=14.58 | adx_ok=False | rising_ok=True | vol_ratio=0.78 | vol_up=False
+2026-02-27 06:45:12 | INFO | MainThread | XRPUSDT | trend=BULL | breakL=False | breakS=False | adx=17.46 | adx_ok=False | rising_ok=True | vol_ratio=1.16 | vol_up=True
+2026-02-27 07:00:15 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1772186399999
+2026-02-27 07:00:17 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1772186399999
+2026-02-27 07:00:18 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1772186399999
+2026-02-27 07:00:18 | INFO | MainThread | BTCUSDT | trend=BULL | breakL=False | breakS=False | adx=14.34 | adx_ok=False | rising_ok=True | vol_ratio=2.46 | vol_up=True
+2026-02-27 07:00:18 | INFO | MainThread | BNBUSDT | trend=BEAR | breakL=False | breakS=False | adx=15.31 | adx_ok=False | rising_ok=True | vol_ratio=1.68 | vol_up=True
+2026-02-27 07:00:18 | INFO | MainThread | XRPUSDT | trend=BULL | breakL=False | breakS=False | adx=17.13 | adx_ok=False | rising_ok=True | vol_ratio=1.98 | vol_up=True
+2026-02-27 07:15:11 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1772187299999
+2026-02-27 07:15:12 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1772187299999
+2026-02-27 07:15:13 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1772187299999
+2026-02-27 07:15:14 | INFO | MainThread | BTCUSDT | trend=BULL | breakL=False | breakS=False | adx=16.09 | adx_ok=False | rising_ok=True | vol_ratio=3.86 | vol_up=True
+2026-02-27 07:15:14 | INFO | MainThread | BNBUSDT | trend=BEAR | breakL=False | breakS=False | adx=17.61 | adx_ok=False | rising_ok=True | vol_ratio=3.48 | vol_up=True
+2026-02-27 07:15:14 | INFO | MainThread | XRPUSDT | trend=BULL | breakL=False | breakS=False | adx=18.33 | adx_ok=False | rising_ok=True | vol_ratio=3.43 | vol_up=True
+2026-02-27 07:30:16 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1772188199999
+2026-02-27 07:30:17 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1772188199999
+2026-02-27 07:30:18 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1772188199999
+2026-02-27 07:30:19 | INFO | MainThread | BTCUSDT | trend=BEAR | breakL=False | breakS=False | adx=18.10 | adx_ok=False | rising_ok=True | vol_ratio=3.25 | vol_up=False
+2026-02-27 07:30:19 | INFO | MainThread | BNBUSDT | trend=BEAR | breakL=False | breakS=False | adx=19.75 | adx_ok=False | rising_ok=True | vol_ratio=1.83 | vol_up=False
+2026-02-27 07:30:19 | INFO | MainThread | XRPUSDT | trend=BULL | breakL=False | breakS=False | adx=19.57 | adx_ok=False | rising_ok=True | vol_ratio=2.66 | vol_up=False
+2026-02-27 07:45:03 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1772189099999
+2026-02-27 07:45:16 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1772189099999
+2026-02-27 07:45:17 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1772189099999
+2026-02-27 07:45:18 | INFO | MainThread | BTCUSDT | trend=BEAR | breakL=False | breakS=False | adx=19.97 | adx_ok=False | rising_ok=True | vol_ratio=1.69 | vol_up=False
+2026-02-27 07:45:18 | INFO | MainThread | BNBUSDT | trend=BEAR | breakL=False | breakS=False | adx=21.83 | adx_ok=False | rising_ok=True | vol_ratio=1.29 | vol_up=False
+2026-02-27 08:00:05 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1772189999999
+2026-02-27 08:00:07 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1772189999999
+2026-02-27 08:00:07 | INFO | MainThread | BTCUSDT | trend=BEAR | breakL=False | breakS=False | adx=21.98 | adx_ok=False | rising_ok=True | vol_ratio=1.67 | vol_up=True
+2026-02-27 08:00:07 | INFO | MainThread | XRPUSDT | trend=BEAR | breakL=False | breakS=False | adx=20.73 | adx_ok=False | rising_ok=True | vol_ratio=0.85 | vol_up=False
+2026-02-27 08:00:21 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1772189999999
+2026-02-27 08:00:22 | INFO | MainThread | BNBUSDT | trend=BEAR | breakL=False | breakS=False | adx=24.30 | adx_ok=True | rising_ok=True | vol_ratio=1.49 | vol_up=True
+2026-02-27 08:07:47 | INFO | MainThread | [CACHE INIT] BTCUSDT loaded 500 candles
+2026-02-27 08:07:48 | INFO | MainThread | [CACHE INIT] BNBUSDT loaded 500 candles
+2026-02-27 08:07:49 | INFO | MainThread | [CACHE INIT] XRPUSDT loaded 500 candles
+2026-02-27 08:07:53 | INFO | MainThread | BTCUSDT | trend=BEAR | breakL=False | breakS=False | adx=47.32 | adx_ok=True | rising_ok=True | vol_ratio=0.83 | vol_up=True
+2026-02-27 08:07:53 | INFO | MainThread | BNBUSDT | trend=BEAR | breakL=False | breakS=False | adx=51.72 | adx_ok=True | rising_ok=True | vol_ratio=0.69 | vol_up=True
+2026-02-27 08:07:53 | INFO | MainThread | XRPUSDT | trend=BEAR | breakL=False | breakS=False | adx=52.48 | adx_ok=True | rising_ok=True | vol_ratio=1.09 | vol_up=True
+2026-02-27 08:15:07 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1772190899999
+2026-02-27 08:15:09 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1772190899999
+2026-02-27 08:15:09 | INFO | MainThread | BNBUSDT | trend=BEAR | breakL=False | breakS=False | adx=50.59 | adx_ok=True | rising_ok=True | vol_ratio=2.10 | vol_up=True
+2026-02-27 08:15:09 | INFO | MainThread | XRPUSDT | trend=BEAR | breakL=False | breakS=False | adx=51.18 | adx_ok=True | rising_ok=True | vol_ratio=0.43 | vol_up=False
+2026-02-27 08:15:22 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1772190899999
+2026-02-27 08:15:24 | INFO | MainThread | BTCUSDT | trend=BEAR | breakL=False | breakS=False | adx=47.45 | adx_ok=True | rising_ok=True | vol_ratio=0.43 | vol_up=False
+2026-02-27 08:20:02 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1772191199999
+2026-02-27 08:20:04 | INFO | MainThread | BNBUSDT | trend=BEAR | breakL=False | breakS=False | adx=49.54 | adx_ok=True | rising_ok=True | vol_ratio=0.61 | vol_up=False
+2026-02-27 08:20:17 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1772191199999
+2026-02-27 08:20:19 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1772191199999
+2026-02-27 08:20:19 | INFO | MainThread | BTCUSDT | trend=BEAR | breakL=False | breakS=True | adx=48.44 | adx_ok=True | rising_ok=True | vol_ratio=2.31 | vol_up=True
+2026-02-27 08:20:19 | INFO | MainThread | BTCUSDT → SHORT signal published
+2026-02-27 08:20:19 | INFO | MainThread | XRPUSDT | trend=BEAR | breakL=False | breakS=False | adx=51.29 | adx_ok=True | rising_ok=True | vol_ratio=1.09 | vol_up=True
+2026-02-27 08:20:23 | WARNING | MainThread | [MARGIN] BTCUSDT auto-scaled | scale=0.686 | new_qty=0.010005
+2026-02-27 08:20:23 | ERROR | MainThread | [ORDER] Market order failed BTCUSDT: APIError(code=-2019): Margin is insufficient.
+Traceback (most recent call last):
+  File "/Users/joselt/Desktop/beast-money-maker/exchange/binance_futures.py", line 308, in place_market_order
+    order = self.client.futures_create_order(
+  File "/Users/joselt/Desktop/beast-money-maker/.venv/lib/python3.8/site-packages/binance/client.py", line 7951, in futures_create_order
+    return self._request_futures_api("post", "order", True, data=params)
+  File "/Users/joselt/Desktop/beast-money-maker/.venv/lib/python3.8/site-packages/binance/client.py", line 144, in _request_futures_api
+    return self._request(method, uri, signed, force_params, **kwargs)
+  File "/Users/joselt/Desktop/beast-money-maker/.venv/lib/python3.8/site-packages/binance/client.py", line 107, in _request
+    return self._handle_response(self.response)
+  File "/Users/joselt/Desktop/beast-money-maker/.venv/lib/python3.8/site-packages/binance/client.py", line 116, in _handle_response
+    raise BinanceAPIException(response, response.status_code, response.text)
+binance.exceptions.BinanceAPIException: APIError(code=-2019): Margin is insufficient.
+2026-02-27 08:20:24 | ERROR | MainThread | [ENTRY] Order execution failed.
+Traceback (most recent call last):
+  File "/Users/joselt/Desktop/beast-money-maker/execution/order_manager.py", line 263, in execute
+    order = self.exchange.place_market_order(
+  File "/Users/joselt/Desktop/beast-money-maker/exchange/binance_futures.py", line 308, in place_market_order
+    order = self.client.futures_create_order(
+  File "/Users/joselt/Desktop/beast-money-maker/.venv/lib/python3.8/site-packages/binance/client.py", line 7951, in futures_create_order
+    return self._request_futures_api("post", "order", True, data=params)
+  File "/Users/joselt/Desktop/beast-money-maker/.venv/lib/python3.8/site-packages/binance/client.py", line 144, in _request_futures_api
+    return self._request(method, uri, signed, force_params, **kwargs)
+  File "/Users/joselt/Desktop/beast-money-maker/.venv/lib/python3.8/site-packages/binance/client.py", line 107, in _request
+    return self._handle_response(self.response)
+  File "/Users/joselt/Desktop/beast-money-maker/.venv/lib/python3.8/site-packages/binance/client.py", line 116, in _handle_response
+    raise BinanceAPIException(response, response.status_code, response.text)
+binance.exceptions.BinanceAPIException: APIError(code=-2019): Margin is insufficient.
+2026-02-27 08:25:10 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1772191499999
+2026-02-27 08:25:11 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1772191499999
+2026-02-27 08:25:13 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1772191499999
+2026-02-27 08:25:13 | INFO | MainThread | BTCUSDT | trend=BEAR | breakL=False | breakS=False | adx=49.37 | adx_ok=True | rising_ok=True | vol_ratio=0.99 | vol_up=False
+2026-02-27 08:25:13 | INFO | MainThread | BNBUSDT | trend=BEAR | breakL=False | breakS=False | adx=49.64 | adx_ok=True | rising_ok=True | vol_ratio=0.81 | vol_up=False
+2026-02-27 08:25:13 | INFO | MainThread | XRPUSDT | trend=BEAR | breakL=False | breakS=False | adx=51.40 | adx_ok=True | rising_ok=True | vol_ratio=0.49 | vol_up=False
+2026-02-27 08:30:17 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1772191799999
+2026-02-27 08:30:18 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1772191799999
+2026-02-27 08:30:20 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1772191799999
+2026-02-27 08:30:20 | INFO | MainThread | BTCUSDT | trend=BEAR | breakL=False | breakS=False | adx=49.19 | adx_ok=True | rising_ok=True | vol_ratio=0.55 | vol_up=False
+2026-02-27 08:30:20 | INFO | MainThread | BNBUSDT | trend=BEAR | breakL=False | breakS=False | adx=48.39 | adx_ok=True | rising_ok=True | vol_ratio=0.38 | vol_up=False
+2026-02-27 08:30:20 | INFO | MainThread | XRPUSDT | trend=BEAR | breakL=False | breakS=False | adx=50.53 | adx_ok=True | rising_ok=True | vol_ratio=0.39 | vol_up=False
+2026-02-27 08:35:06 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1772192099999
+2026-02-27 08:35:07 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1772192099999
+2026-02-27 08:35:08 | INFO | MainThread | BNBUSDT | trend=BEAR | breakL=False | breakS=False | adx=47.46 | adx_ok=True | rising_ok=True | vol_ratio=0.67 | vol_up=True
+2026-02-27 08:35:27 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1772192099999
+2026-02-27 08:35:27 | INFO | MainThread | XRPUSDT | trend=BEAR | breakL=False | breakS=False | adx=50.53 | adx_ok=True | rising_ok=True | vol_ratio=2.17 | vol_up=True
+2026-02-27 08:40:18 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1772192399999
+2026-02-27 08:40:19 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1772192399999
+2026-02-27 08:40:20 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1772192399999
+2026-02-27 08:40:20 | INFO | MainThread | BTCUSDT | trend=BEAR | breakL=False | breakS=True | adx=50.45 | adx_ok=True | rising_ok=True | vol_ratio=2.68 | vol_up=True
+2026-02-27 08:40:20 | INFO | MainThread | BTCUSDT → SHORT signal published
+2026-02-27 08:40:20 | INFO | MainThread | BNBUSDT | trend=BEAR | breakL=False | breakS=False | adx=47.28 | adx_ok=True | rising_ok=True | vol_ratio=1.15 | vol_up=True
+2026-02-27 08:40:20 | INFO | MainThread | XRPUSDT | trend=BEAR | breakL=False | breakS=False | adx=50.90 | adx_ok=True | rising_ok=True | vol_ratio=1.71 | vol_up=False
+2026-02-27 08:40:24 | WARNING | MainThread | [MARGIN] BTCUSDT auto-scaled | scale=0.741 | new_qty=0.010051
+2026-02-27 08:40:25 | INFO | MainThread | [ORDER] MARKET BTCUSDT SHORT qty=0.01
+2026-02-27 08:40:25 | INFO | MainThread | [ENTRY] BTCUSDT SHORT qty=0.010051
+2026-02-27 08:40:25 | INFO | MainThread | [ORDER] STOP_MARKET BTCUSDT side=BUY qty=0.01 stop=66517.8
+2026-02-27 08:40:25 | INFO | MainThread | BTCUSDT SL updated -> 66517.8317 (algoId=1000000926371287)
+2026-02-27 08:40:27 | INFO | MainThread | [SL] initial stop placed BTCUSDT SHORT sl=66517.83167926798
+2026-02-27 08:40:32 | INFO | MainThread | [RECONCILE] BTCUSDT partial close reduced=0.000051 remaining=0.010000
+2026-02-27 08:45:12 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1772192699999
+2026-02-27 08:45:13 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1772192699999
+2026-02-27 08:45:15 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1772192699999
+2026-02-27 08:45:15 | INFO | MainThread | BTCUSDT | trend=BEAR | breakL=False | breakS=False | adx=51.62 | adx_ok=True | rising_ok=True | vol_ratio=1.76 | vol_up=False
+2026-02-27 08:45:15 | INFO | MainThread | BNBUSDT | trend=BEAR | breakL=False | breakS=False | adx=47.50 | adx_ok=True | rising_ok=True | vol_ratio=1.45 | vol_up=True
+2026-02-27 08:45:15 | INFO | MainThread | XRPUSDT | trend=BEAR | breakL=False | breakS=False | adx=51.26 | adx_ok=True | rising_ok=True | vol_ratio=0.94 | vol_up=False
+2026-02-27 08:50:10 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1772192999999
+2026-02-27 08:50:12 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1772192999999
+2026-02-27 08:50:13 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1772192999999
+2026-02-27 08:50:13 | INFO | MainThread | BTCUSDT | trend=BEAR | breakL=False | breakS=False | adx=52.26 | adx_ok=True | rising_ok=True | vol_ratio=1.31 | vol_up=False
+2026-02-27 08:50:13 | INFO | MainThread | BNBUSDT | trend=BEAR | breakL=False | breakS=False | adx=47.70 | adx_ok=True | rising_ok=True | vol_ratio=1.21 | vol_up=False
+2026-02-27 08:50:13 | INFO | MainThread | XRPUSDT | trend=BEAR | breakL=False | breakS=False | adx=51.13 | adx_ok=True | rising_ok=True | vol_ratio=1.40 | vol_up=True

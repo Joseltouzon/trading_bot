@@ -2,8 +2,8 @@
 # =========================
 # SYMBOLS / TF
 # =========================
-SYMBOLS = ["POLUSDT","SOLUSDT","XRPUSDT","BNBUSDT","LINKUSDT","DOGEUSDT","ADAUSDT","DOTUSDT","BTCUSDT"]
-INTERVAL = "15m"
+SYMBOLS = ["BTCUSDT", "BNBUSDT", "XRPUSDT"]
+INTERVAL = "5m"
 KLINES_LIMIT = 500
 
 # =========================
@@ -14,7 +14,7 @@ EMA_SLOW = 35
 ADX_PERIOD = 14
 ATR_PERIOD = 14
 PIVOT_LEN = 8
-DEFAULT_ADX_MIN = 23.0
+DEFAULT_ADX_MIN = 20.0
 REQUIRE_ADX_RISING = False
 VOLUME_MIN_RATIO = 1.20
 MIN_BREAK_DISTANCE_PCT = 0.15
@@ -23,7 +23,7 @@ MIN_BODY_RATIO = 0.55
 # =========================
 # EXECUTION / RISK
 # =========================
-DEFAULT_RISK_PCT = 1.5
+DEFAULT_RISK_PCT = 1.0
 MAX_RISK_PCT_ALLOWED = 10.0
 MIN_NOTIONAL_USDT = 20          # CRÍTICO: No borrar, Binance exige min ~20USDT
 DEFAULT_LEVERAGE = 5
