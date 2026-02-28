@@ -1,7 +1,6 @@
 {% extends "base.html" %}
 
 {% block content %}
-
 <!-- NAV TABS -->
 <ul class="nav nav-pills mb-4">
     <li class="nav-item">
@@ -15,6 +14,11 @@
         </button>
     </li>
     <li class="nav-item">
+        <button class="nav-link" data-bs-toggle="pill" data-bs-target="#advanced-stats">
+            <i class="bi bi-bar-chart-line"></i> Stats Avanzadas
+        </button>
+    </li>
+    <li class="nav-item">
         <button class="nav-link" data-bs-toggle="pill" data-bs-target="#analytics">
             <i class="bi bi-graph-up"></i> Analytics
         </button>
@@ -22,11 +26,6 @@
     <li class="nav-item">
         <button class="nav-link" data-bs-toggle="pill" data-bs-target="#config">
             <i class="bi bi-sliders"></i> Configuración
-        </button>
-    </li>
-    <li class="nav-item">
-        <button class="nav-link" data-bs-toggle="pill" data-bs-target="#logs">
-            <i class="bi bi-sliders"></i> Logs
         </button>
     </li>
 </ul>
@@ -206,7 +205,123 @@
                 {% endfor %}
             </tbody>
         </table>
+    </div>
 
+    <!-- ========================= ADVANCED STATS TAB ========================= -->
+    <div class="tab-pane fade" id="advanced-stats">
+        <div class="row mt-4">
+            <div class="col-md-3">
+                <div class="card bg-secondary">
+                    <div class="card-body">
+                        <h5>Sharpe Ratio</h5>
+                        <h3
+                            class="{% if advanced_metrics.sharpe_ratio >= 1 %}text-success{% else %}text-warning{% endif %}">
+                            {{ advanced_metrics.sharpe_ratio }}
+                        </h3>
+                        <small class="text-muted">>1.0 es bueno</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card bg-secondary">
+                    <div class="card-body">
+                        <h5>Recovery Factor</h5>
+                        <h3
+                            class="{% if advanced_metrics.recovery_factor >= 3 %}text-success{% else %}text-warning{% endif %}">
+                            {{ advanced_metrics.recovery_factor }}
+                        </h3>
+                        <small class="text-muted">>3.0 es excelente</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card bg-secondary">
+                    <div class="card-body">
+                        <h5>Expectancy</h5>
+                        <h3
+                            class="{% if advanced_metrics.expectancy >= 0 %}text-success{% else %}text-danger{% endif %}">
+                            ${{ advanced_metrics.expectancy }}
+                        </h3>
+                        <small class="text-muted">Por trade</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card bg-secondary">
+                    <div class="card-body">
+                        <h5>Trades/Día</h5>
+                        <h3>{{ advanced_metrics.trades_per_day }}</h3>
+                        <small class="text-muted">Frecuencia</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-md-4">
+                <div class="card bg-secondary">
+                    <div class="card-body">
+                        <h5>Racha Máxima Wins</h5>
+                        <h3 class="text-success">{{ advanced_metrics.max_win_streak }}</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card bg-secondary">
+                    <div class="card-body">
+                        <h5>Racha Máxima Losses</h5>
+                        <h3 class="text-danger">{{ advanced_metrics.max_loss_streak }}</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card bg-secondary">
+                    <div class="card-body">
+                        <h5>Time in Market</h5>
+                        <h3>{{ time_in_market.time_in_market_pct }}%</h3>
+                        <small class="text-muted">Con posiciones abiertas</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-4">
+            <div class="card bg-secondary">
+                <div class="card-body">
+                    <h5>Estado del Caché Exchange</h5>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <strong>Último Éxito:</strong>
+                            <span class="{% if cache_health.is_stale %}text-danger{% else %}text-success{% endif %}">
+                                {{ cache_health.last_success or 'Nunca' }}
+                            </span>
+                        </div>
+                        <div class="col-md-3">
+                            <strong>Errores Consecutivos:</strong>
+                            <span
+                                class="{% if cache_health.consecutive_failures > 0 %}text-warning{% else %}text-success{% endif %}">
+                                {{ cache_health.consecutive_failures }}
+                            </span>
+                        </div>
+                        <div class="col-md-3">
+                            <strong>Tasa de Error:</strong>
+                            <span
+                                class="{% if cache_health.error_rate_pct > 5 %}text-danger{% else %}text-success{% endif %}">
+                                {{ cache_health.error_rate_pct }}%
+                            </span>
+                        </div>
+                        <div class="col-md-3">
+                            <strong>Estado:</strong>
+                            <span
+                                class="badge {% if cache_health.is_stale %}bg-danger{% elif cache_health.is_running %}bg-success{% else %}bg-warning{% endif %}">
+                                {{ 'STALE' if cache_health.is_stale else ('RUNNING' if cache_health.is_running else
+                                'STOPPED') }}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- ========================= ANALYTICS TAB ========================= -->
@@ -269,7 +384,7 @@
                 </div>
 
                 <div class="col-md-4">
-                    <label class="form-label" style="color: aquamarine;">Leverage</label>
+                    <label class="form-label" style="color: aquamarine;">Leverage x</label>
                     <input type="number" class="form-control" name="leverage" value="{{ state.leverage }}" required
                         min="1" max="50">
                     <div class="invalid-feedback">Leverage inválido.</div>
@@ -283,7 +398,7 @@
                 </div>
 
                 <div class="col-md-6">
-                    <label class="form-label" style="color: aquamarine;">Daily Loss Limit %</label>
+                    <label class="form-label" style="color: aquamarine;">Daily Loss Limit USDT</label>
                     <input type="number" step="0.1" class="form-control" name="daily_loss_limit_pct"
                         value="{{ state.daily_loss_limit_pct }}" required min="0.1" max="20">
                     <div class="invalid-feedback">Valor inválido.</div>
@@ -310,6 +425,24 @@
                     <div class="invalid-feedback">Valor inválido.</div>
                 </div>
 
+                <div class="col-md-6">
+                    <label class="form-label" style="color: aquamarine;">Timeframe</label>
+                    <select class="form-select" name="timeframe" required>
+                        <option value="1m" {% if state.timeframe=='1m' %}selected{% endif %}>1 minuto</option>
+                        <option value="3m" {% if state.timeframe=='3m' %}selected{% endif %}>3 minutos</option>
+                        <option value="5m" {% if state.timeframe=='5m' %}selected{% endif %}>5 minutos</option>
+                        <option value="15m" {% if state.timeframe=='15m' %}selected{% endif %}>15 minutos</option>
+                        <option value="30m" {% if state.timeframe=='30m' %}selected{% endif %}>30 minutos</option>
+                        <option value="1h" {% if state.timeframe=='1h' %}selected{% endif %}>1 hora</option>
+                        <option value="2h" {% if state.timeframe=='2h' %}selected{% endif %}>2 horas</option>
+                        <option value="4h" {% if state.timeframe=='4h' %}selected{% endif %}>4 horas</option>
+                        <option value="6h" {% if state.timeframe=='6h' %}selected{% endif %}>6 horas</option>
+                        <option value="12h" {% if state.timeframe=='12h' %}selected{% endif %}>12 horas</option>
+                        <option value="1d" {% if state.timeframe=='1d' %}selected{% endif %}>1 día</option>
+                    </select>
+                    <div class="invalid-feedback">Seleccione un timeframe válido.</div>
+                </div>
+
                 <div class="col-12">
                     <label class="form-label" style="color: aquamarine;">Symbols (comma separated)</label>
                     <input type="text" class="form-control" name="symbols" value="{{ state.symbols | join(',') }}"
@@ -325,31 +458,6 @@
 
             </form>
         </div>
-    </div>
-
-    <!-- ========================= LOGS TAB ========================= -->
-    <div class="tab-pane fade show active" id="logs">
-        <table class="table table-dark table-sm font-monospace">
-            <thead>
-                <tr>
-                    <th>Hora</th>
-                    <th>Level</th>
-                    <th>Symbol</th>
-                    <th>Mensaje</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for log in logs %}
-                <tr
-                    class="{% if log.level == 'ERROR' %}table-danger{% elif log.level == 'WARNING' %}table-warning{% endif %}">
-                    <td>{{ log.created_at.strftime("%H:%M:%S") }}</td>
-                    <td>{{ log.level }}</td>
-                    <td>{{ log.symbol }}</td>
-                    <td>{{ log.message }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
     </div>
 </div>
 
@@ -585,6 +693,40 @@
     setInterval(updateHealth, 20000);
     updateHealth();
 </script>
+
+<script>
+    async function updateTimeframe() {
+        try {
+            const res = await fetch("/api/timeframe");
+            if (!res.ok) return;
+            const data = await res.json();
+
+            // Actualizar display del navbar
+            const tfDisplay = document.getElementById("timeframe-display");
+            if (tfDisplay) {
+                tfDisplay.innerText = data.timeframe_display;
+            }
+
+            // Actualizar badge en Configuración
+            const tfBadge = document.getElementById("current-timeframe-badge");
+            if (tfBadge) {
+                tfBadge.innerText = `Actual: ${data.timeframe_display}`;
+            }
+
+            // Opcional: Pre-seleccionar el timeframe actual en el select
+            const tfSelect = document.querySelector('select[name="timeframe"]');
+            if (tfSelect) {
+                tfSelect.value = data.timeframe;
+            }
+        } catch (e) {
+            console.error("Timeframe update failed", e);
+        }
+    }
+
+    updateTimeframe();
+    setInterval(updateTimeframe, 30000);
+</script>
+
 <script>
     setTimeout(() => {
         location.reload();

@@ -420,6 +420,140 @@ class Database:
 
         return drawdown_curve
 
+    def get_advanced_metrics(self):
+        """Métricas avanzadas de performance"""
+        with self.cursor() as cur:
+            # 1. Sharpe Ratio (simplificado, asumiendo risk-free rate = 0)
+            cur.execute("""
+                SELECT 
+                    AVG(realized_pnl) as avg_pnl,
+                    STDDEV(realized_pnl) as stddev_pnl,
+                    COUNT(*) as total_trades
+                FROM positions
+                WHERE status = 'CLOSED'
+            """)
+            row = cur.fetchone()
+            
+            avg_pnl = float(row["avg_pnl"] or 0)
+            stddev_pnl = float(row["stddev_pnl"] or 0)
+            total_trades = int(row["total_trades"] or 0)
+            
+            sharpe_ratio = round((avg_pnl / stddev_pnl) * (252 ** 0.5), 2) if stddev_pnl > 0 else 0
+            
+            # 2. Expectancy (ganancia esperada por trade)
+            expectancy = round(avg_pnl, 2)
+            
+            # 3. Rachas máximas
+            cur.execute("""
+                SELECT 
+                    realized_pnl > 0 as is_win,
+                    closed_at
+                FROM positions
+                WHERE status = 'CLOSED'
+                ORDER BY closed_at ASC
+            """)
+            trades = cur.fetchall()
+            
+            max_win_streak = 0
+            max_loss_streak = 0
+            current_win_streak = 0
+            current_loss_streak = 0
+            
+            for trade in trades:
+                if trade["is_win"]:
+                    current_win_streak += 1
+                    current_loss_streak = 0
+                    max_win_streak = max(max_win_streak, current_win_streak)
+                else:
+                    current_loss_streak += 1
+                    current_win_streak = 0
+                    max_loss_streak = max(max_loss_streak, current_loss_streak)
+            
+            # 4. Recovery Factor
+            performance = self.get_performance_metrics()
+            stats = self.get_dashboard_stats()
+            
+            win_rate = float(stats.get("win_rate", 0) or 0)
+            avg_win = float(performance.get("avg_win", 0) or 0)
+            total_trades_for_profit = total_trades if total_trades > 0 else 1
+            
+            net_profit = avg_win * (total_trades_for_profit * (win_rate/100))
+            
+            equity_curve = self.get_equity_curve()
+            max_dd = self.calculate_drawdown(equity_curve)
+            
+            recovery_factor = round(net_profit / float(max_dd), 2) if float(max_dd) > 0 else 0
+            
+            # 5. Trading frequency (trades por día en promedio)
+            cur.execute("""
+                SELECT 
+                    MIN(closed_at::date) as first_day,
+                    MAX(closed_at::date) as last_day,
+                    COUNT(*) as total_trades
+                FROM positions
+                WHERE status = 'CLOSED'
+            """)
+            date_row = cur.fetchone()
+            
+            if date_row and date_row["first_day"] and date_row["last_day"]:
+                days_active = (date_row["last_day"] - date_row["first_day"]).days + 1
+                trades_per_day = round(total_trades / days_active, 2) if days_active > 0 else 0
+            else:
+                trades_per_day = 0
+            
+            return {
+                "sharpe_ratio": sharpe_ratio,
+                "expectancy": expectancy,
+                "max_win_streak": max_win_streak,
+                "max_loss_streak": max_loss_streak,
+                "recovery_factor": recovery_factor,
+                "trades_per_day": trades_per_day,
+            }
+
+    def get_risk_reward_stats(self):
+        """Estadísticas de riesgo/recompensa por trade"""
+        with self.cursor() as cur:
+            cur.execute("""
+                SELECT 
+                    AVG(
+                        CASE 
+                            WHEN realized_pnl > 0 THEN realized_pnl 
+                            ELSE ABS(realized_pnl) 
+                        END
+                    ) as avg_rr_ratio
+                FROM positions
+                WHERE status = 'CLOSED'
+            """)
+            row = cur.fetchone()
+            return {
+                "avg_win_amount": round(row["avg_rr_ratio"] or 0, 2)
+            }
+
+    def get_time_in_market(self):
+        """Porcentaje de tiempo con posiciones abiertas"""
+        with self.cursor() as cur:
+            cur.execute("""
+                SELECT 
+                    SUM(EXTRACT(EPOCH FROM (closed_at - opened_at))) as total_seconds_in_market,
+                    MIN(opened_at) as first_trade,
+                    MAX(closed_at) as last_trade
+                FROM positions
+                WHERE status = 'CLOSED'
+            """)
+            row = cur.fetchone()
+            
+            if not row or not row["first_trade"] or not row["last_trade"]:
+                return {"time_in_market_pct": 0}
+            
+            total_period = float((row["last_trade"] - row["first_trade"]).total_seconds())
+            time_in_market = float(row["total_seconds_in_market"] or 0)
+            
+            time_in_market_pct = round((time_in_market / total_period) * 100, 2) if total_period > 0 else 0
+            
+            return {
+                "time_in_market_pct": min(time_in_market_pct, 100)  # Cap en 100%
+            }
+            
     # ==========================================================
     # POSITIONS EVENTS
     # ==========================================================

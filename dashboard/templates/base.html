@@ -66,6 +66,9 @@
         .toast-container {
             z-index: 2000;
         }
+        .text-success {
+            color: chartreuse !important;
+        }
     </style>
 </head>
 
@@ -78,6 +81,14 @@
         <span id="exchange-health" class="badge bg-secondary ms-3">
             Checking...
         </span>
+        <span class="navbar-brand mb-0 h2" style="margin-left: 15px !important;">
+            <i class="bi bi-clock-history me-2"></i>
+            <b>Timeframe:</b>&nbsp;
+        </span>
+        <span id="timeframe-display" class="fw-bold">
+            Cargando...
+        </span>
+        </div>
     </nav>
 
     <div class="container mt-4">

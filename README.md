@@ -51,7 +51,7 @@ Este software es solo para fines educativos. El trading de futuros conlleva un a
     DB_USER=postgres
     DB_PASSWORD=tu_password
     DB_PORT=5432    
-    # dashboard: el usuario esta seteado por ahora. Usuario: tuvieja
+    # dashboard:
     DASHBOARD_PASSWORD=loquevosquieras –> aca pone lo que quieras, por si no quedo claro jajaj
 
 5. **Configurar Estrategia:**

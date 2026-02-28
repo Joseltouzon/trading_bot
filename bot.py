@@ -105,7 +105,7 @@ def main():
         exchange.set_margin_and_leverage(s, st.leverage, CFG.MARGIN_TYPE)
 
     # ================= COMPONENTES =================
-    market = MarketCache(exchange, log)
+    market = MarketCache(exchange, log, db)
     market.init_cache(st.symbols)
     bus = SignalBus()
     om = OrderManager(exchange, log, db, telegram.send)

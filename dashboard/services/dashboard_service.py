@@ -22,16 +22,18 @@ class DashboardService:
         
         equity_curve = self.db.get_equity_curve() or []
         closed_positions = self.db.get_recent_closed_positions()
-        logs = self.db.get_recent_logs()
         bot_status = self.db.get_bot_status()
         performance = self.db.get_performance_metrics()
         analytics = self.db.get_trade_analytics()
         state = self.db.load_state() or {}
         open_positions = self.db.get_open_positions_with_stops() or []
-
         # Unrealized desde exchange
         exchange_positions = self.exchange_cache.get_open_positions()
         exchange_map = {p["symbol"]: p for p in exchange_positions}
+        advanced_metrics = self.db.get_advanced_metrics()
+        risk_reward = self.db.get_risk_reward_stats()
+        time_in_market = self.db.get_time_in_market()
+        cache_health = self.exchange_cache.get_cache_health()
 
         for pos in open_positions:
             pos["unrealized_pnl"] = float(
@@ -62,7 +64,6 @@ class DashboardService:
             "equity_curve": equity_curve,
             "open_positions": open_positions,
             "closed_positions": closed_positions,
-            "logs": logs,
             "bot_status": bot_status,
             "performance": performance,
             "max_drawdown": max_drawdown,
@@ -70,5 +71,9 @@ class DashboardService:
             "state": state,
             "account": account,
             "usage_pct": usage_pct,
-            "analytics": analytics
+            "analytics": analytics,
+            "advanced_metrics": advanced_metrics,
+            "risk_reward": risk_reward,
+            "time_in_market": time_in_market,
+            "cache_health": cache_health
         }
