@@ -20,6 +20,12 @@ async def update_config(payload: dict = Body(...), db = Depends(get_db)):
         "timeframe",
         "pivot_len",      
         "paper_trading",
+        "ema_slow",
+        "ema_fast",
+        "trailing_automatico",
+        "adx_rising",
+        "vol_min_ratio",
+        "trailing_active",
     ]
     for key in allowed_keys:
         if key in payload:
@@ -42,6 +48,12 @@ async def update_config(payload: dict = Body(...), db = Depends(get_db)):
             
             if key == "paper_trading":
                 payload["paper_trading"] = bool(payload["paper_trading"])
+
+            if key == "trailing_automatico":
+                payload["trailing_automatico"] = bool(payload["trailing_automatico"])
+
+            if key == "adx_rising":
+                payload["adx_rising"] = bool(payload["adx_rising"])    
 
             if key == "risk_pct":
                 if payload["risk_pct"] <= 0 or payload["risk_pct"] > 10:

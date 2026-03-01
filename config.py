@@ -31,8 +31,8 @@ MAX_OPEN_POSITIONS = 1
 MARGIN_TYPE = "ISOLATED"
 
 # Stop / trailing
-TRAILING_PCT = 0.7              # Solo usa si TRAILING_USE_ATR = False
-TRAILING_ACTIVATION_PCT = 0.8
+TRAILING_PCT = 0.5              # Solo usa si TRAILING_USE_ATR = False
+TRAILING_ACTIVATION_PCT = 0.5
 TRAILING_USE_ATR = True         # ✅ Activo: Usa volatilidad
 TRAILING_ATR_MULT = 1.5
 MIN_INITIAL_SL_PCT = 0.35       # Mínimo SL inicial

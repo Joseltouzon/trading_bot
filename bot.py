@@ -59,13 +59,19 @@ def main():
         leverage=CFG.DEFAULT_LEVERAGE,
         symbols=CFG.SYMBOLS.copy(),
         trailing_pct=CFG.TRAILING_PCT,
+        trailing_automatico=CFG.TRAILING_USE_ATR,
         max_positions=CFG.MAX_OPEN_POSITIONS,
         adx_min=CFG.DEFAULT_ADX_MIN,
+        adx_rising=CFG.REQUIRE_ADX_RISING,
         cooldown_bars=CFG.DEFAULT_COOLDOWN_BARS,
         daily_loss_limit_pct=CFG.DEFAULT_DAILY_LOSS_LIMIT_PCT,
         paper_trading=PAPER_TRADING,
         timeframe=CFG.INTERVAL,
         pivot_len=CFG.PIVOT_LEN,
+        ema_slow=CFG.EMA_SLOW,
+        ema_fast=CFG.EMA_FAST,
+        vol_min_ratio=CFG.VOLUME_MIN_RATIO,
+        trailing_active=CFG.TRAILING_ACTIVATION_PCT,
     )
     state_dict = db.load_state() or {}
     # merge base
@@ -74,6 +80,7 @@ def main():
         **state_dict
     }
     st = BotState(**merged_data)
+    db.save_state(st.to_dict())
 
     # ================= CONFIG SYNC =================
     # La DB es la fuente de verdad. config.py solo sirve para defaults iniciales.

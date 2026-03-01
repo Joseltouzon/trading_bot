@@ -453,40 +453,67 @@
             <h5 class="mb-4" style="color: #f3f7f3;">CONFIGURACION DEL BOT</h5>
 
             <form id="configForm" class="row g-3 needs-validation" novalidate>
-                <div class="form-check form-switch mb-3 col-md-6">
+                <div class="form-check form-switch mt-4 col-md-2">
                     <input class="form-check-input" type="checkbox" id="paused" name="paused" {% if state.paused
                         %}checked{% endif %}>
                     <label class="form-check-label fw-bold" style="color: aquamarine;" for="paused">
-                        Bot pausado
+                        Bot Pausado
                     </label>
+                    <small class="text-muted" style="color: #fff !important; display: block; margin-top: 5px;">
+                        Activar para pausar
+                    </small>
                 </div>
 
-                <div class="form-check form-switch mt-4 col-md-6">
+                <div class="form-check form-switch mt-4 col-md-4">
+                    <input class="form-check-input" type="checkbox" id="trailing_automatico" name="trailing_automatico"
+                        {% if state.trailing_automatico %}checked{% endif %}>
+                    <label class="form-check-label fw-bold" style="color: aquamarine;" for="trailing_automatico">
+                        Trialing Automatico
+                    </label>
+                    <small class="text-muted" style="color: #fff !important; display: block; margin-top: 5px;">
+                        Al desactivarlo se utiliza el % de trailing de abajo
+                    </small>
+                </div>
+
+                <div class="form-check form-switch mt-4 col-md-4">
+                    <input class="form-check-input" type="checkbox" id="adx_rising" name="adx_rising" {% if
+                        state.adx_rising %}checked{% endif %}>
+                    <label class="form-check-label fw-bold" style="color: aquamarine;" for="adx_rising">
+                        ADX Rising
+                    </label>
+                    <small class="text-muted" style="color: #fff !important; display: block; margin-top: 5px;">
+                        Al activarlo se incrementa la rigurosidad al generar la señal
+                    </small>
+                </div>
+
+                <div class="form-check form-switch mt-4 col-md-2">
                     <input class="form-check-input" type="checkbox" id="paper_trading" name="paper_trading" {% if
-                        state.paper_mode %}checked{% endif %}>
+                        state.paper_trading %}checked{% endif %}>
                     <label class="form-check-label fw-bold" style="color: aquamarine;" for="paper_trading">
                         Paper Trading Mode
                     </label>
                     <small class="text-muted" style="color: #fff !important; display: block; margin-top: 5px;">
-                        Simula operaciones sin riesgo real
+                        Simula operaciones. Modo Test
                     </small>
                 </div>
 
-                <div class="col-md-4">
+                <h6 class="mb-4" style="color: #f3f7f3;">RISK</h6>
+
+                <div class="col-md-6">
                     <label class="form-label" style="color: aquamarine;">Risk %</label>
                     <input type="number" step="0.1" class="form-control" name="risk_pct" value="{{ state.risk_pct }}"
                         required min="0.1" max="10">
                     <div class="invalid-feedback">Ingrese un valor válido (0.1 - 10).</div>
                 </div>
 
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <label class="form-label" style="color: aquamarine;">Leverage x</label>
                     <input type="number" class="form-control" name="leverage" value="{{ state.leverage }}" required
                         min="1" max="50">
                     <div class="invalid-feedback">Leverage inválido.</div>
                 </div>
 
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <label class="form-label" style="color: aquamarine;">Max Positions</label>
                     <input type="number" class="form-control" name="max_positions" value="{{ state.max_positions }}"
                         required min="1" max="20">
@@ -500,10 +527,40 @@
                     <div class="invalid-feedback">Valor inválido.</div>
                 </div>
 
+                <h6 class="mb-4 mt-4" style="color: #f3f7f3;">STRATEGY</h6>
+
+                <div class="col-md-6">
+                    <label class="form-label" style="color: aquamarine;">EMA Fast</label>
+                    <input type="number" class="form-control" name="ema_fast" value="{{ state.ema_fast }}" required
+                        min="1" max="200">
+                    <div class="invalid-feedback">Debe ser entre 1 y 200.</div>
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label" style="color: aquamarine;">EMA Slow</label>
+                    <input type="number" class="form-control" name="ema_slow" value="{{ state.ema_slow }}" required
+                        min="1" max="200">
+                    <div class="invalid-feedback">Debe ser entre 1 y 200.</div>
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label" style="color: aquamarine;">Activación del Trailing - Pnl %</label>
+                    <input type="number" step="0.1" class="form-control" name="trailing_active"
+                        value="{{ state.trailing_active }}" required min="0.1" max="10">
+                    <div class="invalid-feedback">Valor inválido.</div>
+                </div>
+
                 <div class="col-md-6">
                     <label class="form-label" style="color: aquamarine;">Trailing %</label>
                     <input type="number" step="0.1" class="form-control" name="trailing_pct"
                         value="{{ state.trailing_pct }}" required min="0.1" max="10">
+                    <div class="invalid-feedback">Valor inválido.</div>
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label" style="color: aquamarine;">Volume Min Ratio %</label>
+                    <input type="number" step="0.1" class="form-control" name="vol_min_ratio"
+                        value="{{ state.vol_min_ratio }}" required min="0.1" max="10">
                     <div class="invalid-feedback">Valor inválido.</div>
                 </div>
 
@@ -610,513 +667,5 @@
         </div>
     </div>
 </div>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-<script>
-    (() => {
-        'use strict'
-
-        const form = document.getElementById('configForm')
-        const openConfirm = document.getElementById('openConfirm')
-        const confirmSave = document.getElementById('confirmSave')
-        const modal = new bootstrap.Modal(document.getElementById('confirmModal'))
-        const toastEl = document.getElementById('mainToast')
-        const toastMsg = document.getElementById('toastMessage')
-        const toast = new bootstrap.Toast(toastEl)
-
-        openConfirm.addEventListener('click', () => {
-            if (!form.checkValidity()) {
-                form.classList.add('was-validated')
-                return
-            }
-            modal.show()
-        })
-
-        confirmSave.addEventListener('click', async () => {
-
-            console.log("CLICK CONFIRM SAVE");
-
-            try {
-
-                const formData = new FormData(form)
-                const data = {}
-
-                formData.forEach((value, key) => {
-                    if (key === "symbols") {
-                        data[key] = value.split(",").map(s => s.trim())
-                    } else if (key === "paused") {
-                        data[key] = document.getElementById("paused").checked
-                    } else if (key === "paper_trading") {  
-                        data[key] = document.getElementById("paper_trading").checked
-                    } else if (key === "timeframe") {
-                        data[key] = value
-                    } else if (key === "pivot_len") {  
-                        data[key] = parseInt(value, 10)
-                    } else {
-                        data[key] = Number(value)
-                    }
-                })
-
-                console.log("Payload enviado:", data);
-
-                const res = await fetch("/update-config", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(data)
-                })
-
-                console.log("Status:", res.status);
-
-                const responseText = await res.text()
-                console.log("Response body:", responseText);
-
-                modal.hide()
-
-                if (res.ok) {
-                    toastEl.classList.remove("text-bg-danger")
-                    toastEl.classList.add("text-bg-success")
-                    toastMsg.innerText = "Configuración actualizada correctamente"
-                    toast.show()
-                    setTimeout(() => location.reload(), 1500)
-                } else {
-                    toastEl.classList.remove("text-bg-success")
-                    toastEl.classList.add("text-bg-danger")
-                    toastMsg.innerText = "Error: " + responseText
-                    toast.show()
-                }
-
-            } catch (error) {
-                console.error("ERROR EN FETCH:", error)
-                alert("Error JS: " + error.message)
-            }
-
-        })
-
-    })()
-</script>
-
-<!-- ========================= CHARTS SCRIPT ========================= -->
-
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-<script>
-    const equityData = {{ equity_curve | tojson }};
-    const drawdownData = {{ drawdown_curve | tojson }};
-    const maxDrawdown = {{ max_drawdown }};
-
-    const labels = equityData.map(e => e.created_at);
-    const equityValues = equityData.map(e => e.total_balance);
-    // Mostrar equity actual arriba // 
-    const currentEquity = equityValues.length ? equityValues[equityValues.length - 1] : 0;
-
-    // ---------- EQUITY CHART ---------- //
-    const equityCtx = document.getElementById("equityChart").getContext("2d");
-    const equityGradient = equityCtx.createLinearGradient(0, 0, 0, 300);
-    equityGradient.addColorStop(0, "rgba(0,255,0,0.35)");
-    equityGradient.addColorStop(1, "rgba(0,255,0,0)");
-    new Chart(equityCtx, { type: "line", data: { labels: labels, datasets: [{ data: equityValues, borderColor: "lime", backgroundColor: equityGradient, fill: true, tension: 0.35, pointRadius: 0, borderWidth: 2 }] }, options: { animation: { duration: 1200, easing: 'easeOutQuart' }, plugins: { legend: { display: false }, tooltip: { backgroundColor: "#111", borderColor: "lime", borderWidth: 1, callbacks: { label: ctx => "$" + ctx.parsed.y.toFixed(2) } } }, scales: { x: { ticks: { color: "#888" }, grid: { display: false } }, y: { ticks: { color: "#888", callback: value => "$" + value }, grid: { color: "rgba(255,255,255,0.04)" } } } } });
-
-    // ---------- DRAWDOWN CHART ---------- //
-    const drawdownCtx = document.getElementById("drawdownChart").getContext("2d");
-    const drawdownGradient = drawdownCtx.createLinearGradient(0, 0, 0, 300);
-    drawdownGradient.addColorStop(0, "rgba(255,0,0,0.4)");
-    drawdownGradient.addColorStop(1, "rgba(255,0,0,0)");
-    new Chart(drawdownCtx, { type: "line", data: { labels: labels, datasets: [{ data: drawdownData, borderColor: "red", backgroundColor: drawdownGradient, fill: true, tension: 0.35, pointRadius: 0, borderWidth: 2 }, { label: "Max DD", data: Array(labels.length).fill(maxDrawdown), borderColor: "rgba(255,0,0,0.6)", borderDash: [6, 6], pointRadius: 0, fill: false }] }, options: { animation: { duration: 1200, easing: 'easeOutQuart' }, plugins: { legend: { display: false }, tooltip: { backgroundColor: "#111", borderColor: "red", borderWidth: 1, callbacks: { label: ctx => ctx.parsed.y.toFixed(2) + "%" } } }, scales: { x: { ticks: { color: "#888" }, grid: { display: false } }, y: { reverse: true, ticks: { color: "#888", callback: value => value + "%" }, grid: { color: "rgba(255,0,0,0.05)" } } } } }); 
-</script>
-
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const startDate = document.getElementById('exportStartDate');
-        const endDate = document.getElementById('exportEndDate');
-
-        // No permitir fecha fin antes de fecha inicio
-        startDate?.addEventListener('change', () => {
-            if (endDate && startDate.value) {
-                endDate.min = startDate.value;
-            }
-        });
-
-        endDate?.addEventListener('change', () => {
-            if (startDate && endDate.value) {
-                startDate.max = endDate.value;
-            }
-        });
-
-        // Por defecto: último mes
-        const today = new Date().toISOString().split('T')[0];
-        const lastMonth = new Date();
-        lastMonth.setMonth(lastMonth.getMonth() - 1);
-        const lastMonthStr = lastMonth.toISOString().split('T')[0];
-
-        if (startDate) startDate.value = lastMonthStr;
-        if (endDate) endDate.value = today;
-    });
-</script>
-
-<script>
-    async function updateStats() {
-        try {
-            const res = await fetch("/api/stats");
-            if (!res.ok) return;
-
-            const data = await res.json();
-
-            // Daily PnL
-            const dailyPnlEl = document.getElementById("daily-pnl");
-            if (dailyPnlEl) {
-                dailyPnlEl.innerText = parseFloat(data.stats.daily_pnl).toFixed(2) + " USDT";
-                dailyPnlEl.className =
-                    data.stats.daily_pnl >= 0 ? "text-success" : "text-danger";
-            }
-
-            // Equity
-            const equityEl = document.getElementById("equity");
-            if (equityEl && data.account) {
-                equityEl.innerText = parseFloat(data.account.equity).toFixed(2);
-            }
-
-            // Bot status
-            const botEl = document.getElementById("bot-status");
-            if (botEl) {
-                botEl.innerText = data.bot_status;
-            }
-
-        } catch (e) {
-            console.error("Stats update failed", e);
-        }
-    }
-
-    async function updateUnrealizedPnL() {
-        try {
-            const res = await fetch("/api/open-positions/pnl");
-            if (!res.ok) return;
-
-            const data = await res.json();
-
-            Object.entries(data).forEach(([symbol, pnl]) => {
-                const el = document.getElementById(`pnl-${symbol}`);
-                if (!el) return;
-
-                const value = parseFloat(pnl);
-                el.innerText = value.toFixed(2) + " USDT";
-                el.className = value >= 0 ? "text-success" : "text-danger";
-            });
-
-        } catch (e) {
-            console.error("Unrealized update failed", e);
-        }
-    }
-
-    setInterval(() => {
-        updateStats();
-        updateUnrealizedPnL();
-    }, 15000);
-</script>
-
-<script>
-    async function updateHealth() {
-        try {
-            const res = await fetch("/api/health");
-            if (!res.ok) return;
-
-            const data = await res.json();
-
-            const badge = document.getElementById("exchange-health");
-
-            if (!badge) return;
-
-            if (data.api_reachable) {
-                badge.className = "badge bg-success ms-3";
-                badge.innerText = "API OK - " + data.latency_ms + "ms";
-            } else {
-                badge.className = "badge bg-danger ms-3";
-                badge.innerText = "API DOWN";
-            }
-
-        } catch {
-            const badge = document.getElementById("exchange-health");
-            if (badge) {
-                badge.className = "badge bg-danger ms-3";
-                badge.innerText = "API ERROR";
-            }
-        }
-    }
-
-    setInterval(updateHealth, 20000);
-    updateHealth();
-</script>
-
-<script>
-    async function updateTimeframe() {
-        try {
-            const res = await fetch("/api/timeframe");
-            if (!res.ok) return;
-            const data = await res.json();
-
-            // Actualizar display del navbar
-            const tfDisplay = document.getElementById("timeframe-display");
-            if (tfDisplay) {
-                tfDisplay.innerText = data.timeframe_display;
-            }
-
-            // Actualizar badge en Configuración
-            const tfBadge = document.getElementById("current-timeframe-badge");
-            if (tfBadge) {
-                tfBadge.innerText = `Actual: ${data.timeframe_display}`;
-            }
-
-            // Opcional: Pre-seleccionar el timeframe actual en el select
-            const tfSelect = document.querySelector('select[name="timeframe"]');
-            if (tfSelect) {
-                tfSelect.value = data.timeframe;
-            }
-        } catch (e) {
-            console.error("Timeframe update failed", e);
-        }
-    }
-
-    updateTimeframe();
-    setInterval(updateTimeframe, 30000);
-</script>
-
-<script>
-    document.getElementById('confirmExport')?.addEventListener('click', async () => {
-        const startDate = document.getElementById('exportStartDate')?.value;
-        const endDate = document.getElementById('exportEndDate')?.value;
-        const symbol = document.getElementById('exportSymbol')?.value;
-
-        // Construir query params
-        const params = new URLSearchParams();
-        params.append('format', 'csv');
-        if (startDate) params.append('start_date', startDate);
-        if (endDate) params.append('end_date', endDate);
-        if (symbol) params.append('symbol', symbol);
-
-        // Feedback visual
-        const btn = document.getElementById('confirmExport');
-        const originalText = btn.innerHTML;
-        btn.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Generando...';
-        btn.disabled = true;
-
-        try {
-            // Abrir en nueva pestaña para descargar
-            window.open(`/api/export/trades?${params.toString()}`, '_blank');
-
-            // Cerrar modal y resetear botón
-            const modal = bootstrap.Modal.getInstance(document.getElementById('exportFiltersModal'));
-            modal?.hide();
-
-            // Toast de éxito
-            showToast('✅ Exportación iniciada. Revisá tu carpeta de descargas.', 'success');
-
-        } catch (e) {
-            console.error('Export error:', e);
-            showToast('❌ Error al exportar: ' + e.message, 'danger');
-        } finally {
-            btn.innerHTML = originalText;
-            btn.disabled = false;
-        }
-    });
-
-    // Helper para toasts (si no tenés uno ya)
-    function showToast(message, type = 'info') {
-        const toastEl = document.getElementById('mainToast');
-        const toastMsg = document.getElementById('toastMessage');
-        if (!toastEl || !toastMsg) return;
-
-        toastEl.classList.remove('text-bg-success', 'text-bg-danger', 'text-bg-info', 'text-bg-warning');
-        toastEl.classList.add(`text-bg-${type}`);
-        toastMsg.innerText = message;
-
-        const toast = new bootstrap.Toast(toastEl);
-        toast.show();
-    }
-
-    // Opcional: Limpiar filtros al cerrar modal
-    document.getElementById('exportFiltersModal')?.addEventListener('hidden.bs.modal', () => {
-        document.getElementById('exportFiltersForm')?.reset();
-    });
-</script>
-
-<script>
-    // Agregar en index.html, después de los otros scripts
-
-    // ============================================================
-    // ANALYTICS FILTERS
-    // ============================================================
-
-    // Inicializar filtros al cargar la página
-    document.addEventListener('DOMContentLoaded', () => {
-        initAnalyticsFilters();
-    });
-
-    function initAnalyticsFilters() {
-        const startDate = document.getElementById('analyticsStartDate');
-        const endDate = document.getElementById('analyticsEndDate');
-
-        // Por defecto: último mes
-        const today = new Date();
-        const lastMonth = new Date();
-        lastMonth.setMonth(lastMonth.getMonth() - 1);
-
-        if (startDate) {
-            startDate.value = lastMonth.toISOString().split('T')[0];
-            startDate.max = today.toISOString().split('T')[0];
-        }
-        if (endDate) {
-            endDate.value = today.toISOString().split('T')[0];
-            endDate.min = lastMonth.toISOString().split('T')[0];
-        }
-
-        // Validación cruzada de fechas
-        startDate?.addEventListener('change', () => {
-            if (endDate && startDate.value) {
-                endDate.min = startDate.value;
-                if (endDate.value < startDate.value) {
-                    endDate.value = startDate.value;
-                }
-            }
-        });
-
-        endDate?.addEventListener('change', () => {
-            if (startDate && endDate.value) {
-                startDate.max = endDate.value;
-                if (startDate.value > endDate.value) {
-                    startDate.value = endDate.value;
-                }
-            }
-        });
-
-        // Cargar símbolos únicos para el dropdown
-        loadAnalyticsSymbols();
-    }
-
-    async function loadAnalyticsSymbols() {
-        try {
-            // Usamos el endpoint sin filtros para obtener todos los símbolos
-            const res = await fetch('/api/analytics');
-            if (!res.ok) return;
-            const data = await res.json();
-
-            const symbolSelect = document.getElementById('analyticsSymbol');
-            if (!symbolSelect) return;
-
-            // Guardar opción "Todos"
-            const allOption = symbolSelect.querySelector('option[value=""]');
-            symbolSelect.innerHTML = '';
-            if (allOption) symbolSelect.appendChild(allOption);
-
-            // Agregar símbolos únicos ordenados
-            const symbols = [...new Set(data.analytics.map(a => a.symbol))].sort();
-            symbols.forEach(sym => {
-                const opt = document.createElement('option');
-                opt.value = sym;
-                opt.textContent = sym;
-                symbolSelect.appendChild(opt);
-            });
-        } catch (e) {
-            console.error('Error loading symbols:', e);
-        }
-    }
-
-    async function applyAnalyticsFilters() {
-        const startDate = document.getElementById('analyticsStartDate')?.value;
-        const endDate = document.getElementById('analyticsEndDate')?.value;
-        const symbol = document.getElementById('analyticsSymbol')?.value;
-
-        // Construir query params
-        const params = new URLSearchParams();
-        if (startDate) params.append('start_date', startDate);
-        if (endDate) params.append('end_date', endDate);
-        if (symbol) params.append('symbol', symbol);
-
-        // Mostrar estado de carga
-        const statusEl = document.getElementById('analyticsFilterStatus');
-        const tableBody = document.getElementById('analyticsTableBody');
-        const noResultsEl = document.getElementById('analyticsNoResults');
-
-        if (statusEl) statusEl.innerText = 'Cargando...';
-        if (tableBody) tableBody.innerHTML = '<tr><td colspan="6" class="text-center">Cargando datos...</td></tr>';
-        if (noResultsEl) noResultsEl.style.display = 'none';
-
-        try {
-            const res = await fetch(`/api/analytics?${params.toString()}`);
-            if (!res.ok) throw new Error('Error en la respuesta');
-
-            const data = await res.json();
-            renderAnalyticsTable(data.analytics);
-
-            // Actualizar estado
-            if (statusEl) {
-                const count = data.analytics.length;
-                const symbolText = symbol ? ` | Símbolo: ${symbol}` : '';
-                statusEl.innerText = `${count} resultado(s)${symbolText}`;
-            }
-
-        } catch (e) {
-            console.error('Error applying filters:', e);
-            if (statusEl) statusEl.innerText = 'Error al cargar';
-            if (tableBody) tableBody.innerHTML = '<tr><td colspan="6" class="text-center text-danger">Error al cargar datos</td></tr>';
-        }
-    }
-
-    function renderAnalyticsTable(analytics) {
-        const tableBody = document.getElementById('analyticsTableBody');
-        const noResultsEl = document.getElementById('analyticsNoResults');
-
-        if (!tableBody) return;
-
-        if (!analytics || analytics.length === 0) {
-            tableBody.innerHTML = '';
-            if (noResultsEl) noResultsEl.style.display = 'block';
-            return;
-        }
-
-        if (noResultsEl) noResultsEl.style.display = 'none';
-
-        tableBody.innerHTML = analytics.map(row => {
-            const pnlClass = row.total_pnl >= 0 ? 'text-success' : 'text-danger';
-            const bestClass = row.best_trade >= 0 ? 'text-success' : 'text-danger';
-            const worstClass = row.worst_trade >= 0 ? 'text-success' : 'text-danger';
-
-            return `
-            <tr>
-                <td>${row.symbol}</td>
-                <td>${row.total_trades}</td>
-                <td class="${pnlClass}">${row.total_pnl.toFixed(2)}</td>
-                <td class="${bestClass}">${row.best_trade.toFixed(2)}</td>
-                <td class="${worstClass}">${row.worst_trade.toFixed(2)}</td>
-                <td>${row.avg_hold_hours.toFixed(2)}</td>
-            </tr>
-        `;
-        }).join('');
-    }
-
-    function resetAnalyticsFilters() {
-        const startDate = document.getElementById('analyticsStartDate');
-        const endDate = document.getElementById('analyticsEndDate');
-        const symbol = document.getElementById('analyticsSymbol');
-        const statusEl = document.getElementById('analyticsFilterStatus');
-
-        // Resetear a valores por defecto (último mes)
-        const today = new Date();
-        const lastMonth = new Date();
-        lastMonth.setMonth(lastMonth.getMonth() - 1);
-
-        if (startDate) startDate.value = lastMonth.toISOString().split('T')[0];
-        if (endDate) endDate.value = today.toISOString().split('T')[0];
-        if (symbol) symbol.value = '';
-        if (statusEl) statusEl.innerText = '';
-
-        // Recargar datos sin filtros
-        applyAnalyticsFilters();
-    }
-</script>
-
-<script>
-    setTimeout(() => {
-        location.reload();
-    }, 600000);
-</script>
 
 {% endblock %}
