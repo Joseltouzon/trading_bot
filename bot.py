@@ -64,6 +64,8 @@ def main():
         cooldown_bars=CFG.DEFAULT_COOLDOWN_BARS,
         daily_loss_limit_pct=CFG.DEFAULT_DAILY_LOSS_LIMIT_PCT,
         paper_trading=PAPER_TRADING,
+        timeframe=CFG.INTERVAL,
+        pivot_len=CFG.PIVOT_LEN,
     )
     state_dict = db.load_state() or {}
     # merge base
@@ -74,31 +76,30 @@ def main():
     st = BotState(**merged_data)
 
     # ================= CONFIG SYNC =================
-    config_fields = {
-        "risk_pct": CFG.DEFAULT_RISK_PCT,
-        "leverage": CFG.DEFAULT_LEVERAGE,
-        "symbols": CFG.SYMBOLS.copy(),
-        "trailing_pct": CFG.TRAILING_PCT,
-        "max_positions": CFG.MAX_OPEN_POSITIONS,
-        "adx_min": CFG.DEFAULT_ADX_MIN,
-        "cooldown_bars": CFG.DEFAULT_COOLDOWN_BARS,
-        "daily_loss_limit_pct": CFG.DEFAULT_DAILY_LOSS_LIMIT_PCT,
-        "paper_trading": PAPER_TRADING,
-    }
+    # La DB es la fuente de verdad. config.py solo sirve para defaults iniciales.
+    # Si querés cambiar algo, usá el dashboard. No sobrescribas la DB al iniciar.
     updated = False
-    for field, config_value in config_fields.items():
-        if getattr(st, field) != config_value:
-            setattr(st, field, config_value)
-            updated = True
+    # Solo validar que los valores cargados sean razonables (sanity check)
+    if st.risk_pct <= 0 or st.risk_pct > CFG.MAX_RISK_PCT_ALLOWED:
+        log.warning(f"[CONFIG] risk_pct inválido ({st.risk_pct}), usando default {CFG.DEFAULT_RISK_PCT}")
+        st.risk_pct = CFG.DEFAULT_RISK_PCT
+        updated = True
+
+    if st.leverage < 1 or st.leverage > 50:
+        log.warning(f"[CONFIG] leverage inválido ({st.leverage}), usando default {CFG.DEFAULT_LEVERAGE}")
+        st.leverage = CFG.DEFAULT_LEVERAGE
+        updated = True
+
+    # Guardar si hubo correcciones
+    if updated:
+        db.save_state(st.to_dict())
+        log.info("[CONFIG] Valores corregidos y guardados en DB")
 
     # ================= DAY INIT =================
     if not st.day_key:
         st.day_key = utc_day_key()
     if st.day_start_equity <= 0:
         st.day_start_equity = max(exchange.get_equity(), 0.0)
-    # Guardar si hubo sync o si era vacío
-    if updated or not state_dict:
-        db.save_state(st.to_dict())
 
     # ================= LEVERAGE =================
     for s in st.symbols:
@@ -148,8 +149,29 @@ def main():
             if now - last_state_reload > STATE_RELOAD_INTERVAL:
                 state_dict = db.load_state() or {}
                 merged_data = { **st.to_dict(), **state_dict }
-                st = BotState(**merged_data)
-                last_state_reload = now
+                new_st = BotState(**merged_data)
+
+                # Detectar cambio de paper_trading
+                if new_st.paper_trading != st.paper_trading:
+                    mode = "PAPER" if new_st.paper_trading else "PRODUCCIÓN"
+                    log.info(f"[MODE] Cambio detectado: {mode}")
+                    telegram.send(f"🔄 Modo cambiado a: <b>{mode}</b>")
+                
+                # Detectar cambio de pivot_len (si tu estrategia lo usa dinámicamente)
+                if new_st.pivot_len != st.pivot_len:
+                    log.info(f"[PIVOT] Cambio detectado: {st.pivot_len} → {new_st.pivot_len}")
+                
+                # Detectar cambio de símbolos
+                if set(new_st.symbols) != set(st.symbols):
+                    log.info(f"[SYMBOLS] Cambio detectado: {st.symbols} -> {new_st.symbols}")
+                    # Reinicializar cache con nuevos símbolos
+                    market.init_cache(new_st.symbols)
+                    # Actualizar leverage en nuevos símbolos
+                    for s in new_st.symbols:
+                        exchange.set_margin_and_leverage(s, new_st.leverage, CFG.MARGIN_TYPE)
+                
+                st = new_st
+                last_state_reload = now    
 
             # ========== MEJORA 2: Sync hora Binance para daily loss ==========
             if now - last_server_time_check > SERVER_TIME_CHECK_INTERVAL:

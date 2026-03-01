@@ -294,9 +294,17 @@ class Database:
             "win_rate": win_rate,
         }
     
-    def get_trade_analytics(self):
+    def get_trade_analytics(self, start_date: str = None, end_date: str = None, symbol: str = None):
+        """
+        Obtiene analytics de trades con filtros opcionales.
+        
+        Args:
+            start_date: 'YYYY-MM-DD' - Fecha inicio (inclusive)
+            end_date: 'YYYY-MM-DD' - Fecha fin (inclusive)
+            symbol: 'BTCUSDT' - Filtrar por símbolo específico
+        """
         with self.cursor() as cur:
-            cur.execute("""
+            query = """
                 SELECT
                     symbol,
                     COUNT(*) AS total_trades,
@@ -306,9 +314,23 @@ class Database:
                     AVG(EXTRACT(EPOCH FROM (closed_at - opened_at))/3600) AS avg_hold_hours
                 FROM positions
                 WHERE status = 'CLOSED'
-                GROUP BY symbol
-                ORDER BY total_pnl DESC
-            """)
+            """
+            params = []
+            
+            # Agregar filtros dinámicamente
+            if start_date:
+                query += " AND closed_at >= %s::date"
+                params.append(start_date)
+            if end_date:
+                query += " AND closed_at <= %s::date + INTERVAL '1 day'"
+                params.append(end_date)
+            if symbol:
+                query += " AND symbol = %s"
+                params.append(symbol.upper())
+            
+            query += " GROUP BY symbol ORDER BY total_pnl DESC"
+            
+            cur.execute(query, params if params else ())
             return cur.fetchall()
 
     def get_equity_curve(self):
@@ -332,16 +354,28 @@ class Database:
             """)
             return cur.fetchall()
 
-    def get_recent_closed_positions(self, limit=10):
+    def get_recent_closed_positions(self, limit: int = 10):
+        """
+        Obtiene posiciones cerradas. 
+        Si limit=None, devuelve TODAS (para exportación).
+        """
         with self.cursor() as cur:
-            cur.execute("""
-                SELECT symbol, side, entry_price, exit_price,
-                    realized_pnl, closed_at
+            query = """
+                SELECT 
+                    id, symbol, side, entry_price, exit_price,
+                    qty, realized_pnl, opened_at, closed_at,
+                    (SELECT payload->>'reason' FROM position_events 
+                    WHERE position_id = positions.id AND event_type = 'CLOSED'
+                    ORDER BY created_at DESC LIMIT 1) as close_reason
                 FROM positions
                 WHERE status='CLOSED'
                 ORDER BY closed_at DESC
-                LIMIT %s
-            """, (limit,))
+            """
+            if limit is not None:
+                query += " LIMIT %s"
+                cur.execute(query, (limit,))
+            else:
+                cur.execute(query)
             return cur.fetchall()
 
     def get_recent_logs(self, limit=20):
@@ -615,3 +649,33 @@ class Database:
                 "used_margin": float(row["used_margin"]),
                 "available": float(row["available"])
             }
+
+    def get_closed_positions_filtered(self, start_date: str = None, end_date: str = None, symbol: str = None):
+        """Versión filtrada para exportación"""
+        with self.cursor() as cur:
+            query = """
+                SELECT 
+                    id, symbol, side, qty, entry_price, exit_price,
+                    realized_pnl, opened_at, closed_at,
+                    (SELECT payload->>'reason' FROM position_events 
+                    WHERE position_id = positions.id AND event_type = 'CLOSED'
+                    ORDER BY created_at DESC LIMIT 1) as close_reason
+                FROM positions
+                WHERE status = 'CLOSED'
+            """
+            params = []
+            
+            if start_date:
+                query += " AND closed_at >= %s"
+                params.append(start_date)
+            if end_date:
+                query += " AND closed_at <= %s"
+                params.append(end_date)
+            if symbol:
+                query += " AND symbol = %s"
+                params.append(symbol.upper())
+            
+            query += " ORDER BY closed_at DESC"
+            
+            cur.execute(query, params if params else ())
+            return cur.fetchall()        

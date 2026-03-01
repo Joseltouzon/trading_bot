@@ -17,6 +17,7 @@ class BotState:
     adx_min: float = 18.0
     cooldown_bars: int = 12
     daily_loss_limit_pct: float = 3.0
+    pivot_len: int = 8
 
     trail: Dict[str, dict] = field(default_factory=dict)
     cooldown: Dict[str, dict] = field(default_factory=dict)
@@ -27,6 +28,7 @@ class BotState:
     day_start_equity: float = 0.0
 
     paper_trading: bool = False
+    timeframe: str = "5m"
 
     def copy(self):
         return copy.deepcopy(self)

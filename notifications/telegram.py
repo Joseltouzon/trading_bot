@@ -34,7 +34,7 @@ class Telegram:
             requests.post(url, data=payload, timeout=15)
         except Exception as e:
             self.log.warning(f"[TG] error: {e}")
-
+    
     # ============================================================
     # POLL
     # ============================================================

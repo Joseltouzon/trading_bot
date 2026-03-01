@@ -1,6 +1,8 @@
-from fastapi import APIRouter, Depends
-
+from fastapi import APIRouter, Depends, Response, Query
 from dashboard.dependencies import get_db, get_exchange, get_exchange_cache
+import csv
+import io
+from datetime import datetime
 
 router = APIRouter(prefix="/api")
 
@@ -85,4 +87,125 @@ def _format_timeframe_display(tf: str) -> str:
         "12h": "12 horas",
         "1d": "1 día"
     }
-    return mapping.get(tf, tf)       
+    return mapping.get(tf, tf)
+
+@router.get("/export/trades")
+def api_export_trades(
+    db = Depends(get_db),
+    format: str = "csv",  # Por ahora solo CSV, pero deja puerta abierta a JSON
+    start_date: str = Query(None, description="YYYY-MM-DD"),
+    end_date: str = Query(None, description="YYYY-MM-DD"),
+    symbol: str = Query(None, description="Filtrar por símbolo")
+):
+    """
+    Exporta historial de trades cerrados en formato CSV.
+    Incluye: symbol, side, entry/exit, PnL, fechas, hold time, etc.
+    """
+    if format != "csv":
+        return {"error": "Formato no soportado. Usá ?format=csv"}
+    
+    # Obtener trades cerrados con todos los campos útiles
+    trades = db.get_recent_closed_positions(limit=None)  # None = todos
+
+    # Filtrar por fechas si se proporcionan
+    if start_date or end_date or symbol:
+        trades = db.get_closed_positions_filtered(
+            start_date=start_date,
+            end_date=end_date,
+            symbol=symbol
+        )
+    else:
+        trades = db.get_recent_closed_positions(limit=None)
+    
+    # Crear buffer en memoria para el CSV
+    output = io.StringIO()
+    writer = csv.writer(output)
+    
+    # Header del CSV
+    writer.writerow([
+        "id",
+        "symbol",
+        "side",
+        "entry_price",
+        "exit_price",
+        "qty",
+        "realized_pnl",
+        "pnl_pct",
+        "opened_at",
+        "closed_at",
+        "hold_hours",
+        "close_reason"
+    ])
+    
+    # Filas de datos
+    for t in trades:
+        # Calcular hold time en horas
+        hold_hours = None
+        if t.get("opened_at") and t.get("closed_at"):
+            delta = t["closed_at"] - t["opened_at"]
+            hold_hours = round(delta.total_seconds() / 3600, 2)
+        
+        # Calcular PnL % respecto al entry
+        pnl_pct = None
+        if t.get("entry_price") and t.get("entry_price") != 0:
+            pnl_pct = round(
+                ((t["exit_price"] - t["entry_price"]) / t["entry_price"]) * 100 
+                if t["side"] == "LONG" 
+                else ((t["entry_price"] - t["exit_price"]) / t["entry_price"]) * 100,
+                2
+            )
+        
+        writer.writerow([
+            t.get("id", ""),
+            t.get("symbol", ""),
+            t.get("side", ""),
+            t.get("entry_price", ""),
+            t.get("exit_price", ""),
+            t.get("qty", ""),
+            round(float(t.get("realized_pnl", 0) or 0), 2),
+            pnl_pct,
+            t.get("opened_at", "").strftime("%Y-%m-%d %H:%M:%S") if t.get("opened_at") else "",
+            t.get("closed_at", "").strftime("%Y-%m-%d %H:%M:%S") if t.get("closed_at") else "",
+            hold_hours,
+            t.get("close_reason", "")
+        ])
+    
+    # Preparar respuesta HTTP con headers de descarga
+    filename = f"beast_trades_{datetime.now().strftime('%Y%m%d_%H%M%S')}.csv"
+    
+    return Response(
+        content=output.getvalue(),
+        media_type="text/csv",
+        headers={"Content-Disposition": f"attachment; filename={filename}"}
+    )  
+
+@router.get("/analytics")
+def api_analytics(
+    db = Depends(get_db),
+    start_date: str = None,
+    end_date: str = None,
+    symbol: str = None
+):
+    """
+    Devuelve analytics de trades con filtros opcionales.
+    Útil para actualizar la tabla sin recargar toda la página.
+    """
+    analytics = db.get_trade_analytics(
+        start_date=start_date,
+        end_date=end_date,
+        symbol=symbol
+    )
+    
+    # Formatear para JSON (Decimal → float, datetime → string)
+    result = []
+    for row in analytics:
+        result.append({
+            "symbol": row["symbol"],
+            "total_trades": int(row["total_trades"] or 0),
+            "total_pnl": float(row["total_pnl"] or 0),
+            "best_trade": float(row["best_trade"] or 0),
+            "worst_trade": float(row["worst_trade"] or 0),
+            "avg_hold_hours": round(float(row["avg_hold_hours"] or 0), 2)
+        })
+    
+    return {"analytics": result}           

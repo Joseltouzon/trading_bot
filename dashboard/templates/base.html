@@ -66,6 +66,7 @@
         .toast-container {
             z-index: 2000;
         }
+
         .text-success {
             color: chartreuse !important;
         }
@@ -81,14 +82,14 @@
         <span id="exchange-health" class="badge bg-secondary ms-3">
             Checking...
         </span>
-        <span class="navbar-brand mb-0 h2" style="margin-left: 15px !important;">
-            <i class="bi bi-clock-history me-2"></i>
-            <b>Timeframe:</b>&nbsp;
-        </span>
-        <span id="timeframe-display" class="fw-bold">
+        <span id="timeframe-display" class="badge bg-info text-dark ms-3" style="margin-left: 15px !important;">
             Cargando...
         </span>
-        </div>
+        {% if state.paper_trading %}
+        <span class="badge bg-warning text-dark ms-2" style="margin-left: 15px !important;">🧪 PAPER</span>
+        {% else %}
+        <span class="badge bg-warning text-dark ms-2" style="margin-left: 15px !important;">🧪 PRODUCCION</span>
+        {% endif %}
     </nav>
 
     <div class="container mt-4">
