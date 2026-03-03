@@ -2,6 +2,8 @@
 
 import pandas as pd
 import config as CFG
+import logging
+logger = logging.getLogger(__name__)
 
 from strategy.indicators import ema, adx, atr
 from strategy.pivots import last_pivot_levels
@@ -89,6 +91,24 @@ def compute_signals(df: pd.DataFrame) -> dict:
     # ============================
     # BREAKOUT
     # ============================
+    # Filtro Momentum: % de cambio en las últimas N velas
+    momentum_lookback = getattr(CFG, "MOMENTUM_LOOKBACK", 3)
+    min_momentum_pct = getattr(CFG, "MIN_MOMENTUM_PCT", 0.25)  # 0.25% en 3 velas de 5m
+
+    # Calcular momentum (rate of change)
+    if len(close) >= momentum_lookback + 1:
+        momentum_pct = ((close.iloc[-1] - close.iloc[-(momentum_lookback + 1)]) / 
+                        close.iloc[-(momentum_lookback + 1)]) * 100
+    else:
+        momentum_pct = 0.0
+
+    # Evaluar según dirección de tendencia
+    momentum_ok = False
+    if trend == "BULL":
+        momentum_ok = momentum_pct >= min_momentum_pct
+    elif trend == "BEAR":
+        momentum_ok = momentum_pct <= -min_momentum_pct
+
     # filtro de cuerpo
     body_size = abs(last["close"] - last["open"])
     range_size = last["high"] - last["low"]
@@ -98,7 +118,7 @@ def compute_signals(df: pd.DataFrame) -> dict:
 
     strong_body = body_ratio >= min_body_ratio
 
-    # filtro de rango de expansion
+    # filtro de rango de expansion descomentar este antes que el que sigue
     prev_range = prev["high"] - prev["low"]
     range_expansion = range_size > prev_range * 1.2
 
@@ -106,6 +126,16 @@ def compute_signals(df: pd.DataFrame) -> dict:
     lookback = 8
     recent_range = df["high"].iloc[-lookback:-1].max() - df["low"].iloc[-lookback:-1].min()
     compression = prev_range < recent_range * 0.5
+
+    if last_ph is not None and last["close"] > 0:
+        break_distance_pct_long = ((last["close"] - last_ph) / last_ph) * 100
+    else:
+        break_distance_pct_long = 0.0
+
+    if last_pl is not None and last_pl > 0:
+        break_distance_pct_short = ((last_pl - last["close"]) / last_pl) * 100
+    else:
+        break_distance_pct_short = 0.0
 
     breakout_long = False
     breakout_short = False
@@ -115,26 +145,24 @@ def compute_signals(df: pd.DataFrame) -> dict:
         min_break_pct = getattr(CFG, "MIN_BREAK_DISTANCE_PCT", 0.15)
 
         if trend == "BULL" and last_ph is not None:
-            break_distance_pct = ((last["close"] - last_ph) / last_ph) * 100
-
             breakout_long = (
                 prev["close"] <= last_ph and
                 last["close"] > last_ph and
-                break_distance_pct >= min_break_pct
+                break_distance_pct_long >= min_break_pct
                 and strong_body
-                and range_expansion
+                and momentum_ok
+                # and range_expansion
                 # and compression
             ) 
 
         if trend == "BEAR" and last_pl is not None:
-            break_distance_pct = ((last_pl - last["close"]) / last_pl) * 100
-
             breakout_short = (
                 prev["close"] >= last_pl and
                 last["close"] < last_pl and
-                break_distance_pct >= min_break_pct
+                break_distance_pct_short >= min_break_pct
                 and strong_body
-                and range_expansion
+                and momentum_ok
+                # and range_expansion
                 # and compression
             ) 
 
