@@ -4,7 +4,8 @@
 <head>
     <title>Beast Money Maker</title>
     <!-- Favicon -->
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 16 16%22><text y=%2214%22 font-size=%2216%22>🐺</text></svg>">
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 16 16%22><text y=%2214%22 font-size=%2216%22>🐺</text></svg>">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
@@ -253,12 +254,26 @@
 
                 const data = await res.json();
 
-                // Daily PnL
+                // Daily PnL: Priorizar Binance si existe, sino fallback a DB
                 const dailyPnlEl = document.getElementById("daily-pnl");
                 if (dailyPnlEl) {
-                    dailyPnlEl.innerText = parseFloat(data.stats.daily_pnl).toFixed(2) + " USDT";
-                    dailyPnlEl.className =
-                        data.stats.daily_pnl >= 0 ? "text-success" : "text-danger";
+                    // ✅ Usar Binance value si existe, sino DB
+                    const pnl = data.stats.daily_pnl_binance !== undefined
+                        ? data.stats.daily_pnl_binance
+                        : data.stats.daily_pnl;
+
+                    dailyPnlEl.innerText = parseFloat(pnl).toFixed(2) + " USDT";
+                    dailyPnlEl.className = pnl >= 0 ? "text-success" : "text-danger";
+                }
+                const badgeEl = document.getElementById("pnl-source-badge");
+                if (badgeEl) {
+                    if (data.stats.daily_pnl_binance !== undefined) {
+                        badgeEl.innerText = "Binance Real";
+                        badgeEl.className = "badge bg-success text-dark";
+                    } else {
+                        badgeEl.innerText = "DB Local";
+                        badgeEl.className = "badge bg-warning text-dark";
+                    }
                 }
 
                 // Equity
@@ -285,13 +300,32 @@
 
                 const data = await res.json();
 
-                Object.entries(data).forEach(([symbol, pnl]) => {
-                    const el = document.getElementById(`pnl-${symbol}`);
-                    if (!el) return;
+                // ✅ CORRECCIÓN: Desestructurar el objeto values correctamente
+                Object.entries(data).forEach(([symbol, values]) => {
+                    const { unrealized_pnl, mark_price, pnl_pct } = values;
 
-                    const value = parseFloat(pnl);
-                    el.innerText = value.toFixed(2) + " USDT";
-                    el.className = value >= 0 ? "text-success" : "text-danger";
+                    // ✅ Actualizar Unrealized PnL
+                    const pnlEl = document.getElementById(`pnl-${symbol}`);
+                    if (pnlEl && unrealized_pnl !== undefined) {
+                        const value = parseFloat(unrealized_pnl);
+                        pnlEl.innerText = value.toFixed(2) + " USDT";
+                        pnlEl.className = value >= 0 ? "text-success" : "text-danger";
+                    }
+
+                    // ✅ Actualizar Mark Price
+                    const markEl = document.getElementById(`mark-${symbol}`);
+                    if (markEl && mark_price !== undefined) {
+                        const mark = parseFloat(mark_price);
+                        markEl.innerText = mark.toFixed(4);
+                    }
+
+                    // ✅ Actualizar PnL %
+                    const pctEl = document.getElementById(`pnlpct-${symbol}`);
+                    if (pctEl && pnl_pct !== undefined) {
+                        const pct = parseFloat(pnl_pct);
+                        pctEl.innerText = pct.toFixed(2) + "%";
+                        pctEl.className = pct >= 0 ? "text-success" : "text-danger";
+                    }
                 });
 
             } catch (e) {
@@ -310,11 +344,8 @@
             try {
                 const res = await fetch("/api/health");
                 if (!res.ok) return;
-
                 const data = await res.json();
-
                 const badge = document.getElementById("exchange-health");
-
                 if (!badge) return;
 
                 if (data.api_reachable) {
@@ -431,13 +462,7 @@
     </script>
 
     <script>
-        // Agregar en index.html, después de los otros scripts
 
-        // ============================================================
-        // ANALYTICS FILTERS
-        // ============================================================
-
-        // Inicializar filtros al cargar la página
         document.addEventListener('DOMContentLoaded', () => {
             initAnalyticsFilters();
         });
@@ -602,6 +627,176 @@
 
             // Recargar datos sin filtros
             applyAnalyticsFilters();
+        }
+    </script>
+
+    <script>
+        // ============================================================
+        // PERFORMANCE FILTERS
+        // ============================================================
+
+        document.addEventListener('DOMContentLoaded', () => {
+            initPerformanceFilters();
+        });
+
+        function initPerformanceFilters() {
+            const startDate = document.getElementById('performanceStartDate');
+            const endDate = document.getElementById('performanceEndDate');
+
+            // Por defecto: último mes
+            const today = new Date();
+            const lastMonth = new Date();
+            lastMonth.setMonth(lastMonth.getMonth() - 1);
+
+            if (startDate) {
+                startDate.value = lastMonth.toISOString().split('T')[0];
+                startDate.max = today.toISOString().split('T')[0];
+            }
+            if (endDate) {
+                endDate.value = today.toISOString().split('T')[0];
+                endDate.min = lastMonth.toISOString().split('T')[0];
+            }
+
+            // Validación cruzada de fechas
+            startDate?.addEventListener('change', () => {
+                if (endDate && startDate.value) {
+                    endDate.min = startDate.value;
+                    if (endDate.value < startDate.value) {
+                        endDate.value = startDate.value;
+                    }
+                }
+            });
+
+            endDate?.addEventListener('change', () => {
+                if (startDate && endDate.value) {
+                    startDate.max = endDate.value;
+                    if (startDate.value > endDate.value) {
+                        startDate.value = endDate.value;
+                    }
+                }
+            });
+
+            // Cargar símbolos únicos para el dropdown
+            loadPerformanceSymbols();
+        }
+
+        async function loadPerformanceSymbols() {
+            try {
+                const res = await fetch('/api/closed-positions?limit=1000');
+                if (!res.ok) return;
+                const data = await res.json();
+
+                const symbolSelect = document.getElementById('performanceSymbol');
+                if (!symbolSelect) return;
+
+                // Guardar opción "Todos"
+                const allOption = symbolSelect.querySelector('option[value=""]');
+                symbolSelect.innerHTML = '';
+                if (allOption) symbolSelect.appendChild(allOption);
+
+                // Agregar símbolos únicos ordenados
+                const symbols = [...new Set(data.positions.map(p => p.symbol))].sort();
+                symbols.forEach(sym => {
+                    const opt = document.createElement('option');
+                    opt.value = sym;
+                    opt.textContent = sym;
+                    symbolSelect.appendChild(opt);
+                });
+            } catch (e) {
+                console.error('Error loading symbols:', e);
+            }
+        }
+
+        async function applyPerformanceFilters() {
+            const startDate = document.getElementById('performanceStartDate')?.value;
+            const endDate = document.getElementById('performanceEndDate')?.value;
+            const symbol = document.getElementById('performanceSymbol')?.value;
+
+            // Construir query params
+            const params = new URLSearchParams();
+            params.append('limit', '100');
+            if (startDate) params.append('start_date', startDate);
+            if (endDate) params.append('end_date', endDate);
+            if (symbol) params.append('symbol', symbol);
+
+            // Mostrar estado de carga
+            const statusEl = document.getElementById('performanceFilterStatus');
+            const tableBody = document.getElementById('closedPositionsTableBody');
+            const noResultsEl = document.getElementById('performanceNoResults');
+
+            if (statusEl) statusEl.innerText = 'Cargando...';
+            if (tableBody) tableBody.innerHTML = '<tr><td colspan="6" class="text-center">Cargando datos...</td></tr>';
+            if (noResultsEl) noResultsEl.style.display = 'none';
+
+            try {
+                const res = await fetch(`/api/closed-positions?${params.toString()}`);
+                if (!res.ok) throw new Error('Error en la respuesta');
+
+                const data = await res.json();
+                renderPerformanceTable(data.positions);
+
+                // Actualizar estado
+                if (statusEl) {
+                    const count = data.positions.length;
+                    const symbolText = symbol ? ` | Símbolo: ${symbol}` : '';
+                    statusEl.innerText = `${count} resultado(s)${symbolText}`;
+                }
+
+            } catch (e) {
+                console.error('Error applying filters:', e);
+                if (statusEl) statusEl.innerText = 'Error al cargar';
+                if (tableBody) tableBody.innerHTML = '<tr><td colspan="6" class="text-center text-danger">Error al cargar datos</td></tr>';
+            }
+        }
+
+        function renderPerformanceTable(positions) {
+            const tableBody = document.getElementById('closedPositionsTableBody');
+            const noResultsEl = document.getElementById('performanceNoResults');
+
+            if (!tableBody) return;
+
+            if (!positions || positions.length === 0) {
+                tableBody.innerHTML = '';
+                if (noResultsEl) noResultsEl.style.display = 'block';
+                return;
+            }
+
+            if (noResultsEl) noResultsEl.style.display = 'none';
+
+            tableBody.innerHTML = positions.map(pos => {
+                const pnlClass = pos.realized_pnl >= 0 ? 'text-success' : 'text-danger';
+
+                return `
+            <tr>
+                <td>${pos.symbol}</td>
+                <td>${pos.side}</td>
+                <td>${pos.entry_price}</td>
+                <td>${pos.exit_price}</td>
+                <td class="${pnlClass}">${pos.realized_pnl.toFixed(2)}</td>
+                <td class="text-warning">-$${pos.commission.toFixed(4)}</td>
+            </tr>
+        `;
+            }).join('');
+        }
+
+        function resetPerformanceFilters() {
+            const startDate = document.getElementById('performanceStartDate');
+            const endDate = document.getElementById('performanceEndDate');
+            const symbol = document.getElementById('performanceSymbol');
+            const statusEl = document.getElementById('performanceFilterStatus');
+
+            // Resetear a valores por defecto (último mes)
+            const today = new Date();
+            const lastMonth = new Date();
+            lastMonth.setMonth(lastMonth.getMonth() - 1);
+
+            if (startDate) startDate.value = lastMonth.toISOString().split('T')[0];
+            if (endDate) endDate.value = today.toISOString().split('T')[0];
+            if (symbol) symbol.value = '';
+            if (statusEl) statusEl.innerText = '';
+
+            // Recargar datos sin filtros
+            applyPerformanceFilters();
         }
     </script>
 

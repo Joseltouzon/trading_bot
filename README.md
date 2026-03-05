@@ -14,7 +14,7 @@ Este software es solo para fines educativos. El trading de futuros conlleva un a
 - **Dashboard:** Comandos vía Telegram para monitoreo en tiempo real.
 
 ## 📋 Requisitos
-- Python 3.9+
+- Python 3+
 - PostgreSQL Database
 - Cuenta Binance Futures (API Keys)
 - Bot de Telegram (Token & Chat ID)

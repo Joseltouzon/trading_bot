@@ -51,19 +51,20 @@ class Database:
             """, (symbol, side, qty, entry_price, strategy_tag))
             return cur.fetchone()["id"]
 
-    def close_position(self, position_id, exit_price, realized_pnl, close_reason=None):
+    def close_position(self, position_id, exit_price, realized_pnl, close_reason=None, commission=0.0, commission_pct=0.0):
         with self.cursor() as cur:
-
             # 1️⃣ actualizar posición
             cur.execute("""
                 UPDATE positions
                 SET status='CLOSED',
                     exit_price=%s,
                     realized_pnl=%s,
+                    commission=%s,
+                    commission_pct=%s,
                     closed_at=NOW()
                 WHERE id=%s;
-            """, (exit_price, realized_pnl, position_id))
-
+            """, (exit_price, realized_pnl, commission, commission_pct, position_id))
+            
             # 2️⃣ desactivar stops
             cur.execute("""
                 UPDATE position_stops
@@ -72,7 +73,7 @@ class Database:
                 WHERE position_id=%s
                 AND is_active=TRUE;
             """, (position_id,))
-
+            
             # 3️⃣ evento histórico
             cur.execute("""
                 INSERT INTO position_events (position_id, event_type, payload)
@@ -83,6 +84,8 @@ class Database:
                 json.dumps({
                     "exit_price": exit_price,
                     "realized_pnl": realized_pnl,
+                    "commission": commission,
+                    "commission_pct": commission_pct,
                     "reason": close_reason
                 })
             ))
@@ -363,7 +366,7 @@ class Database:
             query = """
                 SELECT 
                     id, symbol, side, entry_price, exit_price,
-                    qty, realized_pnl, opened_at, closed_at,
+                    qty, realized_pnl, opened_at, closed_at, commission,
                     (SELECT payload->>'reason' FROM position_events 
                     WHERE position_id = positions.id AND event_type = 'CLOSED'
                     ORDER BY created_at DESC LIMIT 1) as close_reason
@@ -650,26 +653,33 @@ class Database:
                 "available": float(row["available"])
             }
 
-    def get_closed_positions_filtered(self, start_date: str = None, end_date: str = None, symbol: str = None):
-        """Versión filtrada para exportación"""
+    def get_recent_closed_positions_filtered(self, limit=10, start_date: str = None, end_date: str = None, symbol: str = None):
+        """
+        Obtiene posiciones cerradas con filtros opcionales.
+        
+        Args:
+            limit: Cantidad máxima (None = todos)
+            start_date: 'YYYY-MM-DD' (opcional)
+            end_date: 'YYYY-MM-DD' (opcional)
+            symbol: 'BTCUSDT' (opcional)
+        
+        Returns:
+            list: Posiciones cerradas filtradas
+        """
         with self.cursor() as cur:
             query = """
-                SELECT 
-                    id, symbol, side, qty, entry_price, exit_price,
-                    realized_pnl, opened_at, closed_at,
-                    (SELECT payload->>'reason' FROM position_events 
-                    WHERE position_id = positions.id AND event_type = 'CLOSED'
-                    ORDER BY created_at DESC LIMIT 1) as close_reason
+                SELECT symbol, side, entry_price, exit_price,
+                    realized_pnl, commission, closed_at
                 FROM positions
-                WHERE status = 'CLOSED'
+                WHERE status='CLOSED'
             """
             params = []
             
             if start_date:
-                query += " AND closed_at >= %s"
+                query += " AND closed_at >= %s::date"
                 params.append(start_date)
             if end_date:
-                query += " AND closed_at <= %s"
+                query += " AND closed_at <= %s::date + INTERVAL '1 day'"
                 params.append(end_date)
             if symbol:
                 query += " AND symbol = %s"
@@ -677,5 +687,78 @@ class Database:
             
             query += " ORDER BY closed_at DESC"
             
+            if limit is not None:
+                query += " LIMIT %s"
+                params.append(limit)
+            
             cur.execute(query, params if params else ())
-            return cur.fetchall()        
+            return cur.fetchall()
+
+    def get_equity_at_day_start(self, day_start_hour_arg: int = 21) -> float:
+        """
+        Obtiene el equity al inicio del día de trading (21:00 ARG = 00:00 UTC).
+        """
+        import datetime
+        from datetime import timedelta
+        
+        # Calcular inicio del día en UTC
+        now_utc = datetime.datetime.utcnow()
+        start_hour_utc = (day_start_hour_arg) % 24  # ARG es UTC-3
+        
+        start_of_day = now_utc.replace(
+            hour=start_hour_utc,
+            minute=0,
+            second=0,
+            microsecond=0
+        )
+        
+        if now_utc < start_of_day:
+            start_of_day -= timedelta(days=1)
+        
+        with self.cursor() as cur:
+            cur.execute("""
+                SELECT total_balance
+                FROM equity_snapshots
+                WHERE created_at >= %s
+                ORDER BY created_at ASC
+                LIMIT 1
+            """, (start_of_day,))
+            
+            row = cur.fetchone()
+            return float(row["total_balance"]) if row else 0.0
+
+    def get_total_commissions(self, start_date: str = None, end_date: str = None):
+        """
+        Obtiene el total de comisiones pagadas en un período.
+        
+        Args:
+            start_date: 'YYYY-MM-DD' (opcional)
+            end_date: 'YYYY-MM-DD' (opcional)
+        
+        Returns:
+            dict: { total_commission: float, trade_count: int }
+        """
+        with self.cursor() as cur:
+            query = """
+                SELECT 
+                    COALESCE(SUM(commission), 0) as total_commission,
+                    COUNT(*) as trade_count
+                FROM positions
+                WHERE status = 'CLOSED'
+            """
+            params = []
+            
+            if start_date:
+                query += " AND closed_at >= %s::date"
+                params.append(start_date)
+            if end_date:
+                query += " AND closed_at <= %s::date + INTERVAL '1 day'"
+                params.append(end_date)
+            
+            cur.execute(query, params if params else ())
+            row = cur.fetchone()
+            
+            return {
+                "total_commission": round(float(row["total_commission"] or 0), 2),
+                "trade_count": int(row["trade_count"] or 0)
+            }

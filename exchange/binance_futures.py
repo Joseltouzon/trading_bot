@@ -409,23 +409,37 @@ class BinanceFutures:
     # ============================================================
     # PERFORMANCE
     # ============================================================
-
+    
     def get_daily_realized_pnl(self) -> float:
         """
-        PnL realizado hoy (UTC).
+        Obtiene el PnL realizado del día desde la DB (equity snapshots).
+        Esto incluye realized + unrealized, que es lo que realmente te importa
+        para saber "cuánto hice hoy".
+        
+        Returns:
+            float: PnL del día en USDT
         """
-        start_ts = int(time.time() // 86400 * 86400) * 1000  # inicio día UTC en ms
-
-        income = self.client.futures_income_history(
-            incomeType="REALIZED_PNL",
-            startTime=start_ts
-        )
-
-        total = 0.0
-        for row in income:
-            total += float(row.get("income", 0.0))
-
-        return total
+        try:
+            from db import Database
+            db = Database()
+            
+            # Obtener equity actual
+            current_equity = self.get_equity()
+            
+            # Obtener equity al inicio del día (desde tu DB)
+            start_equity = db.get_equity_at_day_start()
+            
+            if start_equity <= 0:
+                return 0.0
+            
+            # PnL = Equity actual - Equity inicio del día
+            daily_pnl = current_equity - start_equity
+            
+            return round(daily_pnl, 2)
+            
+        except Exception as e:
+            self.logger.error(f"[DAILY_PNL] Error: {e}")
+            return 0.0
 
     # ============================================================
     # EXPOSURE
@@ -510,4 +524,91 @@ class BinanceFutures:
         if price <= 0:
             return 0.0
 
-        return (atr / price) * 100.0        
+        return (atr / price) * 100.0     
+
+    # TRAER PNL REAL
+
+    def get_realized_pnl_from_binance(self, symbol: str, open_time_ms: int) -> float:
+        """
+        Obtiene el PnL realizado REAL desde Binance para una posición específica.
+        Usa futures_account_trades y suma el realizedPnl de los trades de cierre.
+        
+        Args:
+            symbol: 'BTCUSDT'
+            open_time_ms: Timestamp de apertura de la posición (en milisegundos)
+        
+        Returns:
+            realized_pnl: El PnL real que Binance reporta (incluye fees)
+        """
+        try:
+            # Obtener todos los trades desde la apertura de la posición
+            trades = self.client.futures_account_trades(
+                symbol=symbol,
+                startTime=open_time_ms,
+                limit=100  # Ajustar si necesitás más
+            )
+            
+            total_realized_pnl = 0.0
+            
+            for trade in trades:
+                # Binance ya incluye fees en realizedPnl
+                realized = float(trade.get("realizedPnl", 0) or 0)
+                total_realized_pnl += realized
+            
+            return total_realized_pnl
+            
+        except Exception as e:
+            self.logger.warning(f"[BINANCE_PNL] Error fetching realized PnL for {symbol}: {e}")
+            return 0.0
+
+
+    def get_position_close_info(self, symbol: str, open_time_ms: int):
+        """
+        Obtiene información completa del cierre de posición desde Binance.
+        Incluye: exit_price, realized_pnl, fees, qty cerrada.
+        """
+        try:
+            trades = self.client.futures_account_trades(
+                symbol=symbol,
+                startTime=open_time_ms,
+                limit=100
+            )
+            
+            if not trades:
+                return None
+            
+            total_realized_pnl = 0.0
+            total_qty = 0.0
+            weighted_exit_price = 0.0
+            total_commission = 0.0
+            
+            for trade in trades:
+                realized = float(trade.get("realizedPnl", 0) or 0)
+                qty = abs(float(trade.get("qty", 0) or 0))
+                price = float(trade.get("price", 0) or 0)
+                commission = float(trade.get("commission", 0) or 0)
+                
+                # Solo contar trades que tienen realizedPnl (son de cierre/reducción)
+                if realized != 0 or trade.get("realizedPnl") is not None:
+                    total_realized_pnl += realized
+                    total_qty += qty
+                    weighted_exit_price += price * qty
+                    total_commission += commission
+            
+            if total_qty == 0:
+                return None
+            
+            avg_exit_price = weighted_exit_price / total_qty
+            
+            return {
+                "symbol": symbol,
+                "exit_price": avg_exit_price,
+                "realized_pnl": total_realized_pnl,  # ← ESTE ES EL VALOR REAL DE BINANCE
+                "closed_qty": total_qty,
+                "total_commission": total_commission,
+                "trade_count": len(trades)
+            }
+            
+        except Exception as e:
+            self.logger.error(f"[POSITION_CLOSE] Error: {e}")
+            return None

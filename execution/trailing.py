@@ -45,7 +45,7 @@ class TrailingManager:
         is_long = direction == "LONG"
         pnl_pct = (mp - entry) / entry * 100.0 if is_long else (entry - mp) / entry * 100.0
 
-        # --- FIX 1: Inicialización segura tras restart ---
+        # --- Inicialización segura tras restart ---
         # Si no existe registro en memoria/DB pero hay posición, inicializar desde entry_price
         # para no perder el "mejor precio" histórico si el bot se cayó.
         if symbol not in st.trail:

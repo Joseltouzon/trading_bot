@@ -34,6 +34,7 @@ class DashboardService:
         risk_reward = self.db.get_risk_reward_stats()
         time_in_market = self.db.get_time_in_market()
         cache_health = self.exchange_cache.get_cache_health()
+        commissions = self.db.get_total_commissions()
 
         for pos in open_positions:
             pos["unrealized_pnl"] = float(
@@ -75,5 +76,6 @@ class DashboardService:
             "advanced_metrics": advanced_metrics,
             "risk_reward": risk_reward,
             "time_in_market": time_in_market,
-            "cache_health": cache_health
+            "cache_health": cache_health,
+            "commissions": commissions
         }

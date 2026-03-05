@@ -7,15 +7,21 @@ from datetime import datetime
 router = APIRouter(prefix="/api")
 
 @router.get("/stats")
-def api_stats(db = Depends(get_db)):
-
+def api_stats(db = Depends(get_db), exchange = Depends(get_exchange)):
     stats = db.get_dashboard_stats() or {}
     account = db.get_latest_account_snapshot() or {}
     bot_status = db.get_bot_status() or "UNKNOWN"
-
+    
+    # 🆕 Obtener PnL real de Binance
+    try:
+        binance_pnl = exchange.get_daily_realized_pnl()
+    except Exception:
+        binance_pnl = stats.get("daily_pnl", 0)  # Fallback a DB
+    
     return {
         "stats": {
-            "daily_pnl": stats.get("daily_pnl", 0),
+            "daily_pnl": stats.get("daily_pnl", 0),      # DB value (backup)
+            "daily_pnl_binance": round(binance_pnl, 2),  # ✅ Binance real
             **stats
         },
         "account": {
@@ -34,17 +40,50 @@ def api_open_positions_pnl(
     db = Depends(get_db),
     exchange = Depends(get_exchange)
 ):
+    """
+    Devuelve unrealized PnL + Mark Price + PnL % para cada posición abierta.
+    """
     open_positions = db.get_open_positions_with_stops() or []
-
     exchange_positions = exchange.get_open_positions()
     exchange_map = {p["symbol"]: p for p in exchange_positions}
-
-    return {
-        pos["symbol"]: float(
-            exchange_map.get(pos["symbol"], {}).get("unrealized_pnl", 0)
-        )
-        for pos in open_positions
-    }
+    
+    result = {}
+    for pos in open_positions:
+        symbol = pos["symbol"]
+        ex_pos = exchange_map.get(symbol, {})
+        
+        # ✅ Obtener entry_price de la DB (fuente de verdad)
+        entry_price = float(pos.get("entry_price") or 0)
+        if entry_price <= 0:
+            # Si no hay entry válido, omitir este símbolo
+            continue
+        
+        # ✅ Obtener Mark Price actual (con fallback seguro)
+        try:
+            mark_price = float(exchange.get_mark_price(symbol))
+        except Exception:
+            mark_price = 0.0
+        
+        # ✅ Usar side de la DB, no del exchange (más confiable)
+        side = pos.get("side", "LONG")
+        
+        # Calcular PnL % con validación
+        if entry_price > 0 and mark_price > 0:
+            if side == "LONG":
+                pnl_pct = (mark_price - entry_price) / entry_price * 100
+            else:  # SHORT
+                pnl_pct = (entry_price - mark_price) / entry_price * 100
+        else:
+            pnl_pct = 0.0
+        
+        result[symbol] = {
+            "unrealized_pnl": float(ex_pos.get("unrealized_pnl", 0) or 0),
+            "mark_price": mark_price,
+            "pnl_pct": round(pnl_pct, 2),
+            "entry_price": entry_price  # ← Útil para debug/frontend
+        }
+    
+    return result  
 
 @router.get("/cache-health")
 def api_cache_health(exchange_cache = Depends(get_exchange_cache)):
@@ -208,4 +247,38 @@ def api_analytics(
             "avg_hold_hours": round(float(row["avg_hold_hours"] or 0), 2)
         })
     
-    return {"analytics": result}           
+    return {"analytics": result}
+
+@router.get("/closed-positions")
+def api_closed_positions(
+    db = Depends(get_db),
+    limit: int = 50,
+    start_date: str = None,
+    end_date: str = None,
+    symbol: str = None
+):
+    """
+    Devuelve posiciones cerradas con filtros opcionales.
+    Útil para actualizar la tabla sin recargar toda la página.
+    """
+    positions = db.get_recent_closed_positions_filtered(
+        limit=limit if limit > 0 else None,
+        start_date=start_date,
+        end_date=end_date,
+        symbol=symbol
+    )
+    
+    # Formatear para JSON
+    result = []
+    for pos in positions:
+        result.append({
+            "symbol": pos["symbol"],
+            "side": pos["side"],
+            "entry_price": float(pos["entry_price"] or 0),
+            "exit_price": float(pos["exit_price"] or 0),
+            "realized_pnl": float(pos["realized_pnl"] or 0),
+            "commission": float(pos["commission"] or 0),
+            "closed_at": pos["closed_at"].strftime("%Y-%m-%d %H:%M:%S") if pos["closed_at"] else None
+        })
+    
+    return {"positions": result}          

@@ -220,6 +220,8 @@ class EventLoop:
         """
         Sincroniza posiciones de Binance con la DB.
         🆕 Detecta y adopta posiciones manuales no registradas.
+        🆕 Usa PnL REAL de Binance para cierres (no cálculo manual).
+        🆕 Guarda comisión real (USDT + %) de Binance.
         """
         try:
             exchange_positions = self.exchange.get_open_positions()
@@ -241,12 +243,12 @@ class EventLoop:
                 # Si existe en Binance pero NO en DB → ADOPTAR
                 if symbol not in db_symbols:
                     self._adopt_manual_position(st, symbol, ex_pos)
-                    db_symbols.add(symbol)  # Evitar duplicados en el siguiente loop
+                    db_symbols.add(symbol)
 
             # Refrescar lista de DB con las nuevas adopciones
             db_open = self.db.get_open_positions()
 
-            # Paso 2: Procesar posiciones ya conocidas (lógica original)
+            # Paso 2: Procesar posiciones ya conocidas
             for pos in db_open:
                 symbol = pos["symbol"]
                 db_qty = float(pos["qty"])
@@ -258,25 +260,33 @@ class EventLoop:
                 if ex_qty == 0.0:
                     open_time_ms = int(pos["opened_at"].timestamp() * 1000)
                     
-                    # 1️⃣ Traer trades desde apertura
+                    # 🆕 1️⃣ Obtener trades desde la apertura para calcular comisiones
                     trades = self.exchange.client.futures_account_trades(
-                        symbol=symbol, startTime=open_time_ms
+                        symbol=symbol,
+                        startTime=open_time_ms
                     )
+                    
                     if not trades:
+                        self.log.warning(f"[RECONCILE] No trades found for {symbol}")
                         continue
-
-                    # 2️⃣ Filtrar trades de cierre
+                    
+                    # 🆕 2️⃣ Filtrar trades de cierre y sumar comisiones
                     closing_trades = []
+                    total_commission = 0.0
+                    
                     for t in trades:
-                        buyer = t.get("buyer")
-                        is_closing = (buyer is False) if pos["side"] == "LONG" else (buyer is True)
-                        if is_closing:
+                        realized = float(t.get("realizedPnl", 0) or 0)
+                        commission = float(t.get("commission", 0) or 0)
+                        
+                        # Identificar trades de cierre (tienen realizedPnl != 0)
+                        if realized != 0:
                             closing_trades.append(t)
-
+                            total_commission += commission  # ← Sumar comisión de cada trade
+                    
                     if not closing_trades:
                         continue
-
-                    # 3️⃣ Calcular EXIT PRICE ponderado
+                    
+                    # 🆕 3️⃣ Calcular exit_price ponderado
                     total_qty = 0.0
                     weighted_price = 0.0
                     for t in closing_trades:
@@ -284,36 +294,54 @@ class EventLoop:
                         price = float(t["price"])
                         total_qty += qty
                         weighted_price += qty * price
-                    exit_price = (weighted_price / total_qty) if total_qty > 0 else None
-
-                    # 4️⃣ Calcular PnL MANUALMENTE (más preciso que income_history)
+                    exit_price = (weighted_price / total_qty) if total_qty > 0 else float(pos["entry_price"])
+                    
+                    # 🆕 4️⃣ Obtener PnL REAL de Binance (ya incluye comisiones internamente)
+                    position_history = self.exchange.get_position_history(
+                        symbol=symbol,
+                        open_time=open_time_ms
+                    )
+                    
+                    if position_history:
+                        realized_pnl = float(position_history["realizedPnl"])  # ← PnL neto (ya incluye fees)
+                        self.log.info(f"[RECONCILE] {symbol} PnL={realized_pnl} Commission={total_commission}")
+                    else:
+                        # Fallback: cálculo manual si falla la API
+                        entry_price = float(pos["entry_price"])
+                        qty_closed = float(pos["qty"])
+                        if pos["side"] == "LONG":
+                            realized_pnl = (exit_price - entry_price) * qty_closed
+                        else:
+                            realized_pnl = (entry_price - exit_price) * qty_closed
+                        # Restar comisiones calculadas
+                        realized_pnl -= total_commission
+                    
+                    # 🆕 5️⃣ Calcular comisión como porcentaje del notional
                     entry_price = float(pos["entry_price"])
                     qty_closed = float(pos["qty"])
-                    if pos["side"] == "LONG":
-                        realized_pnl = (exit_price - entry_price) * qty_closed
-                    else:
-                        realized_pnl = (entry_price - exit_price) * qty_closed
-
-                    # 5️⃣ Restar comisiones estimadas (~0.04% round trip)
                     notional = entry_price * qty_closed
-                    estimated_fees = notional * 0.0004
-                    realized_pnl -= estimated_fees
-
-                    # 6️⃣ Obtener close_time real
-                    last_trade = max(closing_trades, key=lambda x: x["time"])
-                    close_time_ms = last_trade["time"]
-
-                    # 7️⃣ Cerrar en DB
+                    commission_pct = (total_commission / notional * 100) if notional > 0 else 0
+                    
+                    # 🆕 6️⃣ Obtener close_time real
+                    if closing_trades:
+                        last_trade = max(closing_trades, key=lambda x: x["time"])
+                        close_time_ms = last_trade["time"]
+                    else:
+                        close_time_ms = int(time.time() * 1000)  # Fallback a ahora
+                    
+                    # 🆕 7️⃣ Cerrar en DB con PnL real + comisión
                     self.db.close_position(
                         position_id=pos["id"],
                         exit_price=exit_price,
                         realized_pnl=realized_pnl,
+                        commission=total_commission,        
+                        commission_pct=commission_pct,       
                         close_reason="STOP_OR_MANUAL"
                     )
-
-                    # 8️⃣ Desactivar stops
+                    
+                    # 8️⃣ Desactivar stops en DB
                     self.db.deactivate_stops(pos["id"])
-
+                    
                     # 9️⃣ Limpiar estado en memoria
                     if hasattr(st, "position_ids"):
                         st.position_ids.pop(symbol, None)
@@ -321,25 +349,27 @@ class EventLoop:
                         st.trail.pop(symbol, None)
                     if hasattr(st, "stop_orders"):
                         st.stop_orders.pop(symbol, None)
-
+                    
                     # 🔟 Persistir estado
                     self.db.save_state(st.__dict__)
-
+                    
                     # 1️⃣1️⃣ Telegram notification
                     try:
                         r = float(realized_pnl or 0)
                         ep = float(exit_price or 0)
                         emoji = "🟢" if r >= 0 else "🔴"
-                        self.tg_send(
-                            f"{emoji} <b>Posición cerrada</b>\n"
-                            f"Symbol: {symbol}\n"
-                            f"Side: {pos['side']}\n"
-                            f"Exit: {ep:.4f}\n"
-                            f"Realized: {r:.4f} USDT"
-                        )
+                        if self.tg_send:
+                            self.tg_send(
+                                f"{emoji} <b>Posición cerrada</b>\n"
+                                f"Symbol: {symbol}\n"
+                                f"Side: {pos['side']}\n"
+                                f"Exit: {ep:.4f}\n"
+                                f"Realized: {r:.4f} USDT\n"
+                                f"Commission: {total_commission:.4f} USDT ({commission_pct:.3f}%)"
+                            )
                     except Exception as e:
                         self.log.warning(f"[TG CLOSE NOTIFY] {e}")
-
+                    
                     continue
                     
                 # ==================================================

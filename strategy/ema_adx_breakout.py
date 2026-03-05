@@ -2,12 +2,13 @@
 
 import pandas as pd
 import config as CFG
-import logging
-logger = logging.getLogger(__name__)
-
+from db import Database
+from core.logging_setup import setup_logging
 from strategy.indicators import ema, adx, atr
 from strategy.pivots import last_pivot_levels
 
+db = Database()
+log = setup_logging(db)
 
 def compute_signals(df: pd.DataFrame) -> dict:
 
@@ -173,6 +174,18 @@ def compute_signals(df: pd.DataFrame) -> dict:
     adx_val = float(last["adx"])
     adx_prev = float(prev["adx"])
     adx_increasing = adx_val > adx_prev
+
+    #debug = {
+    #    "pivot_delay_candles": CFG.PIVOT_LEN,
+    #    "ema_slope_pct": slope_pct,
+    #    "break_distance_pct_long": round(break_distance_pct_long, 4),
+    #    "break_distance_pct_short": round(break_distance_pct_short, 4),
+    #    "body_ratio": body_ratio,
+    #    "range_expansion": range_expansion,
+    #    "vol_ratio": vol_ratio,
+    #    "atr_pct": atr_pct,
+    #}
+    #log.info(f"DEBUG: {debug}")
 
     return {
         "trend": trend,
