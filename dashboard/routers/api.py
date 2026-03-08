@@ -281,4 +281,76 @@ def api_closed_positions(
             "closed_at": pos["closed_at"].strftime("%Y-%m-%d %H:%M:%S") if pos["closed_at"] else None
         })
     
-    return {"positions": result}          
+    return {"positions": result}
+
+@router.post("/positions/{symbol}/close")
+def api_close_position(
+    symbol: str,
+    exchange = Depends(get_exchange),
+    db = Depends(get_db)
+):
+    """
+    Cierra una posición abierta al mercado.
+    Retorna el resultado de la operación.
+    """
+    try:
+        # Verificar que la posición existe y está abierta
+        open_positions = db.get_open_positions_with_stops()
+        position = next((p for p in open_positions if p["symbol"] == symbol), None)
+        
+        if not position:
+            raise HTTPException(status_code=404, detail=f"Posición {symbol} no encontrada o ya cerrada")
+        
+        # Ejecutar cierre en Binance
+        result = exchange.close_position(symbol)
+        
+        # Registrar evento en DB (opcional, para auditoría)
+        db.create_position_event(
+            position_id=position["id"],
+            event_type="MANUAL_CLOSE",
+            payload={"triggered_by": "dashboard", "timestamp": time.time()}
+        )
+        
+        return {
+            "status": "ok",
+            "message": f"Posición {symbol} cerrada correctamente",
+            "symbol": symbol
+        }
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error al cerrar posición: {str(e)}")
+
+@router.get("/daily-pnl")
+def api_daily_pnl(
+    db = Depends(get_db),
+    days: int = 30  # Default: último mes
+):
+    """
+    Devuelve PnL diario para el calendario de performance.
+    
+    Query params:
+        days: int (opcional) - Cantidad de días hacia atrás (max 90)
+    """
+    # Limitar a 90 días para no sobrecargar
+    days = min(max(days, 1), 90)
+    
+    daily_pnl = db.get_daily_pnl_calendar(days=days)
+    
+    # Calcular resumen para el frontend
+    total_pnl = sum(d["pnl_usdt"] for d in daily_pnl)
+    total_trades = sum(d["trades"] for d in daily_pnl)
+    total_wins = sum(d["wins"] for d in daily_pnl)
+    
+    return {
+        "daily_pnl": daily_pnl,
+        "summary": {
+            "total_pnl": round(total_pnl, 2),
+            "total_trades": total_trades,
+            "win_rate": round((total_wins / total_trades * 100), 2) if total_trades > 0 else 0,
+            "avg_pnl_per_day": round(total_pnl / len(daily_pnl), 2) if daily_pnl else 0,
+            "best_day": max(daily_pnl, key=lambda x: x["pnl_usdt"]) if daily_pnl else None,
+            "worst_day": min(daily_pnl, key=lambda x: x["pnl_usdt"]) if daily_pnl else None
+        }
+    }

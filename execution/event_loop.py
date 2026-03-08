@@ -352,7 +352,13 @@ class EventLoop:
                     
                     # 🔟 Persistir estado
                     self.db.save_state(st.__dict__)
-                    
+
+                    # 📊 LOG MÉTRICAS POST-OPERACIÓN
+                    entry_time_ms = int(pos["opened_at"].timestamp() * 1000)
+                    hold_min = (close_time_ms - entry_time_ms) / 60000
+                    move_pct = ((exit_price - float(pos["entry_price"])) / float(pos["entry_price"])) * 100 if pos["side"] == "LONG" else ((float(pos["entry_price"]) - exit_price) / float(pos["entry_price"])) * 100
+                    self.log.info(f"[METRICS] {symbol} {pos['side']} | hold={hold_min:.1f}min | move={move_pct:+.3f}% | pnl={realized_pnl:+.4f} | comm={total_commission:.4f} | net={realized_pnl - total_commission:+.4f}")
+                                        
                     # 1️⃣1️⃣ Telegram notification
                     try:
                         r = float(realized_pnl or 0)

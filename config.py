@@ -18,11 +18,15 @@ PIVOT_LEN = 5
 DEFAULT_ADX_MIN = 20.0
 REQUIRE_ADX_RISING = False
 VOLUME_MIN_RATIO = 1.20
+MAX_VOLUME_RATIO = 2.5
 MIN_BREAK_DISTANCE_PCT = 0.08
 MIN_BODY_RATIO = 0.55
 # Momentum trigger
 MOMENTUM_LOOKBACK = 3
-MIN_MOMENTUM_PCT = 0.25  # 0.25% de movimiento en 3 velas (15 min en 5m)
+MIN_MOMENTUM_PCT = 0.15  # 0.15% de movimiento en 3 velas (15 min en 5m)
+MAX_PIVOT_AGE = 15              # Pivot debe tener <= 15 velas de antigüedad
+MIN_PIVOT_DISTANCE_PCT = 0.15   # Mínimo 0.15% entre precio y pivot para entrar
+SL_BUFFER_PCT = 0.0012          # Buffer 0.12% extra en SL contra stop hunts
 
 # =========================
 # EXECUTION / RISK

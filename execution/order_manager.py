@@ -137,7 +137,7 @@ class OrderManager:
     def execute(self, st, signal: dict):
         symbol = signal["symbol"]
         side = signal["side"]
-        signal_price = float(signal["price"])
+        signal_price = float(signal.get("signal_price", signal.get("close", 0)))
         qty = float(signal["qty"])
         bar_close_ms = int(signal.get("bar_close_ms", 0))
         initial_sl = signal.get("initial_sl", None)
@@ -194,12 +194,17 @@ class OrderManager:
             self.logger.warning(f"[FUNDING] error {symbol}: {e}")
             return False
 
-        # ===== Slippage Guard =====
-        if not slippage_allowed(signal_price, mark_price):
+        # ===== Slippage Guard Dinámico =====
+        base_slippage = float(getattr(CFG, "MAX_SLIPPAGE_RATIO", 0.003))
+        # Si hay alta volatilidad (ATR > 0.3%), permitimos más slippage
+        atr_pct = self.exchange.get_atr_pct(symbol) if hasattr(self.exchange, "get_atr_pct") else 0.2
+        dynamic_slippage = base_slippage + min(atr_pct * 0.5, 0.002)  # Máximo +0.2%
+
+        if not slippage_allowed(signal_price, mark_price, max_ratio=dynamic_slippage):
             diff_ratio = abs(mark_price - signal_price) / signal_price if signal_price else 999
             self.logger.warning(
                 f"[SLIPPAGE] {symbol} blocked. "
-                f"signal={signal_price:.6f} mark={mark_price:.6f} diff={diff_ratio*100:.3f}%"
+                f"signal={signal_price:.2f} mark={mark_price:.2f} diff={diff_ratio*100:.3f}% > limit {dynamic_slippage*100:.3f}%"
             )
             return False
 
@@ -257,9 +262,10 @@ class OrderManager:
             return False
 
         # ============================================================
-        # EXECUTE MARKET ORDER
+        # EXECUTE MARKET ORDER + SL INMEDIATO
         # ============================================================
         try:
+            # 1. Ejecutar entrada market
             order = self.exchange.place_market_order(
                 symbol=symbol,
                 side=side,
@@ -268,8 +274,27 @@ class OrderManager:
             if not order:
                 self.logger.warning(f"{symbol} market order returned None")
                 return False
+            
+            # 2. COLOCAR SL INMEDIATAMENTE (antes de DB updates)
+            if initial_sl is not None:
+                try:
+                    sl_result = self.replace_stop_order(st, symbol, side, qty, float(initial_sl))
+                    if sl_result:
+                        self.logger.info(f"[SL] initial stop placed {symbol} {side} sl={float(initial_sl):.4f}")
+                    else:
+                        # Si falla el SL, logear pero NO cerrar la posición (para no perder la entrada)
+                        self.logger.error(f"[SL WARNING] {symbol} stop creation returned False")
+                except Exception as e:
+                    self.logger.error(f"[SL CRITICAL] {symbol} stop creation exception: {e}")
+                    # En producción: considerar cerrar la posición si no hay SL
+                    # self.exchange.close_position(symbol, qty)
+                    # return False
+            
+            # 3. Recién ahora marcar como entered y loguear
             self.trade_lock.mark_entered(symbol, bar_close_ms)
-            self.logger.info(f"[ENTRY] {symbol} {side} qty={qty:.6f}")
+            sl_display = f"{float(initial_sl):.2f}" if initial_sl is not None else "N/A"
+            self.logger.info(f"[ENTRY] {symbol} {side} qty={qty:.6f} @ {mark_price:.2f} SL={sl_display}")
+            
         except Exception:
             self.logger.exception("[ENTRY] Order execution failed.")
             return False
@@ -300,22 +325,6 @@ class OrderManager:
             raw_response=order
         )
         self.db.save_state(st.__dict__)
-
-        # ============================================================
-        # INITIAL STOP (NO INVALIDA ENTRY)
-        # ============================================================
-        if initial_sl is not None:
-            try:
-                self.replace_stop_order(st, symbol, side, qty, float(initial_sl))
-                self.logger.info(
-                    f"[SL] initial stop placed {symbol} {side} sl={float(initial_sl)}"
-                )
-            except Exception as e:
-                self.logger.warning(f"[SL] stop creation failed {symbol}: {e}")
-        else:
-            self.logger.warning(
-                f"[SL] {symbol} entered WITHOUT initial stop (initial_sl=None)"
-            )
 
         # ===== Telegram =====
         if self.tg_send:

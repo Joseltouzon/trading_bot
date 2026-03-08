@@ -694,38 +694,75 @@ class Database:
             cur.execute(query, params if params else ())
             return cur.fetchall()
 
-    def get_equity_at_day_start(self, day_start_hour_arg: int = 21) -> float:
+    def get_equity_at_day_start(self, day_start_hour: int = 21) -> float:
         """
-        Obtiene el equity al inicio del día de trading (21:00 ARG = 00:00 UTC).
+        Obtiene el equity al inicio del día de trading (21:00 ARG del día anterior).
+        La DB guarda timestamps en hora Argentina (sin timezone).
+        
+        Args:
+            day_start_hour: Hora en Argentina donde empieza el día (default: 21)
+        
+        Returns:
+            float: Equity al inicio del día de trading
         """
         import datetime
         from datetime import timedelta
         
-        # Calcular inicio del día en UTC
-        now_utc = datetime.datetime.utcnow()
-        start_hour_utc = (day_start_hour_arg) % 24  # ARG es UTC-3
-        
-        start_of_day = now_utc.replace(
-            hour=start_hour_utc,
-            minute=0,
-            second=0,
-            microsecond=0
-        )
-        
-        if now_utc < start_of_day:
-            start_of_day -= timedelta(days=1)
-        
-        with self.cursor() as cur:
-            cur.execute("""
-                SELECT total_balance
-                FROM equity_snapshots
-                WHERE created_at >= %s
-                ORDER BY created_at ASC
-                LIMIT 1
-            """, (start_of_day,))
+        try:
+            now = datetime.datetime.now()  # Hora local (ARG, igual que la DB)
             
-            row = cur.fetchone()
-            return float(row["total_balance"]) if row else 0.0
+            # ============================================
+            # CALCULAR INICIO DEL DÍA DE TRADING
+            # ============================================
+            # El día de trading actual empezó a las 21:00 ARG de ayer
+            # Ej: Si hoy es 2026-03-07 15:00 ARG, el día empezó el 2026-03-06 21:00 ARG
+            
+            # Si todavía no son las 21:00 ARG, el día de trading empezó ayer a las 21:00
+            # Si ya son las 21:00 o más, el día de trading empezó hoy a las 21:00
+            if now.hour < day_start_hour:
+                # Todavía no son las 21:00, el día empezó ayer
+                start_of_day = datetime.datetime.combine(
+                    now.date() - timedelta(days=1),
+                    datetime.time(day_start_hour, 0, 0)
+                )
+            else:
+                # Ya pasaron las 21:00, el día empezó hoy
+                start_of_day = datetime.datetime.combine(
+                    now.date(),
+                    datetime.time(day_start_hour, 0, 0)
+                )
+            
+            # ============================================
+            # BUSCAR PRIMER SNAPSHOT DESPUÉS DEL INICIO
+            # ============================================
+            with self.cursor() as cur:
+                cur.execute("""
+                    SELECT total_balance, created_at
+                    FROM equity_snapshots
+                    WHERE created_at >= %s
+                    ORDER BY created_at ASC
+                    LIMIT 1
+                """, (start_of_day,))
+                
+                row = cur.fetchone()
+                
+                # Si no hay snapshot después del inicio, buscar el último antes
+                if not row:
+                    cur.execute("""
+                        SELECT total_balance, created_at
+                        FROM equity_snapshots
+                        WHERE created_at < %s
+                        ORDER BY created_at DESC
+                        LIMIT 1
+                    """, (start_of_day,))
+                    row = cur.fetchone()
+                
+                return float(row["total_balance"]) if row else 0.0
+                
+        except Exception as e:
+            import logging
+            logging.error(f"Error en get_equity_at_day_start: {e}")
+            return 0.0
 
     def get_total_commissions(self, start_date: str = None, end_date: str = None):
         """
@@ -762,3 +799,136 @@ class Database:
                 "total_commission": round(float(row["total_commission"] or 0), 2),
                 "trade_count": int(row["trade_count"] or 0)
             }
+
+    def get_daily_pnl_calendar(self, days: int = 30, day_start_hour: int = 21):
+        """
+        Obtiene PnL diario basado en EQUITY SNAPSHOTS.
+        La DB guarda timestamps en hora Argentina (sin timezone).
+        Cada día va desde las 21:00 hasta las 21:00 del día siguiente.
+        """
+        import datetime
+        from datetime import timedelta
+        
+        try:
+            result = []
+            now = datetime.datetime.now()  # Hora local (ARG, igual que la DB)
+            
+            for day_offset in range(days):
+                # ============================================
+                # CALCULAR INICIO Y FIN DEL DÍA DE TRADING
+                # ============================================
+                # El día de trading N empieza a las 21:00 del día N-1
+                # Ej: "Día 2026-03-06" va desde 2026-03-05 21:00 hasta 2026-03-06 21:00
+                
+                # Calcular la fecha del día de trading
+                target_date = (now.date() - timedelta(days=day_offset))
+                
+                # Inicio: 21:00 del día anterior
+                day_start = datetime.datetime.combine(
+                    target_date - timedelta(days=1),
+                    datetime.time(day_start_hour, 0, 0)
+                )
+                
+                # Fin: 21:00 del día actual
+                day_end = datetime.datetime.combine(
+                    target_date,
+                    datetime.time(day_start_hour, 0, 0)
+                )
+                
+                # Ajuste para "hoy": si todavía no son las 21:00, 
+                # el día de trading actual todavía no terminó
+                if day_offset == 0 and now.hour < day_start_hour:
+                    # Usar "ahora" como fin en lugar de las 21:00
+                    day_end = now
+                
+                with self.cursor() as cur:
+                    # ============================================
+                    # 1️⃣ EQUITY INICIAL (primer snapshot después de las 21:00)
+                    # ============================================
+                    cur.execute("""
+                        SELECT total_balance, created_at
+                        FROM equity_snapshots
+                        WHERE created_at >= %s AND created_at < %s
+                        ORDER BY created_at ASC
+                        LIMIT 1
+                    """, (day_start, day_end))
+                    
+                    start_row = cur.fetchone()
+                    
+                    # Si no hay snapshot en ese rango, buscar el último antes de las 21:00
+                    if not start_row:
+                        cur.execute("""
+                            SELECT total_balance, created_at
+                            FROM equity_snapshots
+                            WHERE created_at < %s
+                            ORDER BY created_at DESC
+                            LIMIT 1
+                        """, (day_start,))
+                        start_row = cur.fetchone()
+                    
+                    start_equity = float(start_row["total_balance"]) if start_row else 0.0
+                    
+                    # ============================================
+                    # 2️⃣ EQUITY FINAL (último snapshot antes de las 21:00)
+                    # ============================================
+                    cur.execute("""
+                        SELECT total_balance, created_at
+                        FROM equity_snapshots
+                        WHERE created_at >= %s AND created_at < %s
+                        ORDER BY created_at DESC
+                        LIMIT 1
+                    """, (day_start, day_end))
+                    
+                    end_row = cur.fetchone()
+                    end_equity = float(end_row["total_balance"]) if end_row else 0.0
+                    
+                    # ============================================
+                    # 3️⃣ CALCULAR PNL
+                    # ============================================
+                    pnl_usdt = end_equity - start_equity
+                    pnl_pct = (pnl_usdt / start_equity * 100) if start_equity > 0 else 0.0
+                    
+                    # ============================================
+                    # 4️⃣ TRADES DEL DÍA (cerrados entre 21:00 y 21:00)
+                    # ============================================
+                    cur.execute("""
+                        SELECT 
+                            COUNT(*) as trade_count,
+                            COUNT(*) FILTER (WHERE realized_pnl > 0) as wins
+                        FROM positions
+                        WHERE status = 'CLOSED'
+                        AND closed_at >= %s AND closed_at < %s
+                    """, (day_start, day_end))
+                    
+                    trades_row = cur.fetchone()
+                    trade_count = int(trades_row["trade_count"] or 0)
+                    wins = int(trades_row["wins"] or 0)
+                
+                # ============================================
+                # 5️⃣ AGREGAR RESULTADO
+                # ============================================
+                result.append({
+                    "date": target_date.strftime("%Y-%m-%d"),
+                    "pnl_usdt": round(pnl_usdt, 2),
+                    "pnl_pct": round(pnl_pct, 2),
+                    "trades": trade_count,
+                    "wins": wins
+                })
+            
+            # Ordenar por fecha descendente
+            result.sort(key=lambda x: x["date"], reverse=True)
+            
+            # Eliminar duplicados
+            seen_dates = set()
+            unique_result = []
+            for item in result:
+                if item["date"] not in seen_dates:
+                    seen_dates.add(item["date"])
+                    unique_result.append(item)
+            
+            return unique_result
+            
+        except Exception as e:
+            import logging
+            logging.error(f"Error en get_daily_pnl_calendar: {e}")
+            return []

@@ -73,6 +73,54 @@
         .text-success {
             color: chartreuse !important;
         }
+
+        /* Animación de fila al cerrarse */
+        #performance tbody tr {
+            transition: opacity 0.3s ease, background-color 0.2s ease;
+        }
+
+        #performance tbody tr:hover {
+            background-color: #1f2937 !important;
+        }
+
+        /* Botón de close: hover effect */
+        .btn-close-position {
+            transition: transform 0.1s ease;
+        }
+
+        .btn-close-position:hover {
+            transform: scale(1.05);
+        }
+
+        .btn-close-position:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .tab-pane {
+            transition: opacity 0.15s ease-in-out;
+        }
+
+        /* Highlight visual en el botón del tab activo */
+        .nav-pills .nav-link.active {
+            box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.5);
+        }
+
+        /* Highlight para el día actual en el calendario */
+        #calendar tbody tr.table-info {
+            background-color: rgba(191, 226, 239, 0.15) !important;
+        }
+
+        /* Animación suave al cargar filas */
+        #calendar tbody tr {
+            transition: background-color 0.2s ease;
+        }
+
+        /* Tooltip para ver detalles al pasar el mouse */
+        #calendar tbody tr:hover {
+            background-color: #1f2937 !important;
+            cursor: default;
+        }
     </style>
 </head>
 
@@ -801,9 +849,206 @@
     </script>
 
     <script>
+        // ============================================================
+        // CLOSE POSITION HANDLER
+        // ============================================================
+        let pendingCloseSymbol = null;
+
+        function confirmClosePosition(symbol) {
+            pendingCloseSymbol = symbol;
+            document.getElementById('closeSymbol').innerText = symbol;
+
+            const modal = new bootstrap.Modal(document.getElementById('closeConfirmModal'));
+            modal.show();
+        }
+
+        document.getElementById('confirmCloseBtn')?.addEventListener('click', async () => {
+            if (!pendingCloseSymbol) return;
+
+            const symbol = pendingCloseSymbol;
+            const modal = bootstrap.Modal.getInstance(document.getElementById('closeConfirmModal'));
+            const btn = document.getElementById('confirmCloseBtn');
+
+            // Feedback visual
+            btn.disabled = true;
+            btn.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Cerrando...';
+
+            try {
+                const res = await fetch(`/api/positions/${symbol}/close`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' }
+                });
+
+                const data = await res.json();
+
+                if (res.ok) {
+                    // Remover fila
+                    const row = document.getElementById(`row-${symbol}`);
+                    if (row) {
+                        row.style.opacity = '0';
+                        setTimeout(() => row.remove(), 300);
+                    }
+                    showToast(`✅ ${symbol} cerrada correctamente`, 'success');
+                    updateStats();
+                    modal.hide();
+                } else {
+                    showToast(`❌ Error: ${data.detail}`, 'danger');
+                }
+            } catch (e) {
+                showToast(`❌ Error: ${e.message}`, 'danger');
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = '<i class="bi bi-x-circle"></i> Sí, cerrar posición';
+                pendingCloseSymbol = null;
+            }
+        });
+
+        // Resetear al cerrar modal
+        document.getElementById('closeConfirmModal')?.addEventListener('hidden.bs.modal', () => {
+            pendingCloseSymbol = null;
+        });
+    </script>
+
+    <!-- ================= TAB PERSISTENCE ================= -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const TAB_STORAGE_KEY = 'beast_dashboard_active_tab';
+
+            // ✅ 1. Restaurar tab al cargar la página
+            const savedTab = localStorage.getItem(TAB_STORAGE_KEY);
+            if (savedTab) {
+                // Buscar el botón del tab guardado
+                const tabButton = document.querySelector(`[data-bs-target="${savedTab}"]`);
+                if (tabButton) {
+                    // Usar Bootstrap 5 API para activar el tab
+                    const tab = new bootstrap.Tab(tabButton);
+                    tab.show();
+                }
+            }
+
+            // ✅ 2. Guardar tab cuando el usuario cambia
+            const tabButtons = document.querySelectorAll('[data-bs-toggle="pill"]');
+            tabButtons.forEach(button => {
+                button.addEventListener('shown.bs.tab', (event) => {
+                    const target = event.target.getAttribute('data-bs-target');
+                    if (target) {
+                        localStorage.setItem(TAB_STORAGE_KEY, target);
+                    }
+                });
+            });
+        });
+    </script>
+
+    <script>
+        // ============================================================
+        // CALENDAR TAB
+        // ============================================================
+
+        // Cargar calendario al iniciar si el tab está activo
+        document.addEventListener('DOMContentLoaded', () => {
+            // Si el tab de calendario es el activo, cargar datos
+            const calendarTab = document.querySelector('[data-bs-target="#calendar"]');
+            calendarTab?.addEventListener('shown.bs.tab', () => {
+                loadCalendar();
+            });
+
+            // Cargar datos cuando cambia el selector de días
+            document.getElementById('calendarDays')?.addEventListener('change', loadCalendar);
+
+            // Cargar por defecto (últimos 30 días)
+            loadCalendar();
+        });
+
+        async function loadCalendar() {
+            const days = document.getElementById('calendarDays')?.value || 30;
+            const statusEl = document.getElementById('calendarStatus');
+            const tableBody = document.getElementById('calendarTableBody');
+            const noDataEl = document.getElementById('calendarNoData');
+
+            // Feedback visual
+            if (statusEl) statusEl.innerText = 'Cargando...';
+            if (tableBody) tableBody.innerHTML = '<tr><td colspan="5" class="text-center">Cargando datos...</td></tr>';
+            if (noDataEl) noDataEl.style.display = 'none';
+
+            try {
+                const res = await fetch(`/api/daily-pnl?days=${days}`);
+                if (!res.ok) throw new Error('Error en la respuesta');
+
+                const data = await res.json();
+                renderCalendar(data.daily_pnl, data.summary);
+
+                if (statusEl) {
+                    statusEl.innerText = `${data.daily_pnl.length} días cargados`;
+                }
+
+            } catch (e) {
+                console.error('Calendar load failed:', e);
+                if (statusEl) statusEl.innerText = 'Error al cargar';
+                if (tableBody) tableBody.innerHTML = '<tr><td colspan="5" class="text-center text-danger">Error al cargar datos</td></tr>';
+            }
+        }
+
+        function renderCalendar(dailyPnl, summary) {
+            const tableBody = document.getElementById('calendarTableBody');
+            const noDataEl = document.getElementById('calendarNoData');
+
+            if (!tableBody) return;
+
+            // Mostrar mensaje si no hay datos
+            if (!dailyPnl || dailyPnl.length === 0) {
+                tableBody.innerHTML = '';
+                if (noDataEl) noDataEl.style.display = 'block';
+                return;
+            }
+
+            if (noDataEl) noDataEl.style.display = 'none';
+
+            // Renderizar filas
+            tableBody.innerHTML = dailyPnl.map(day => {
+                const pnlClass = day.pnl_usdt >= 0 ? 'text-success' : 'text-danger';
+                const pctClass = day.pnl_pct >= 0 ? 'text-success' : 'text-danger';
+                const isToday = day.date === new Date().toISOString().split('T')[0];
+                const rowClass = isToday ? 'table-info' : '';
+
+                return `
+            <tr class="${rowClass}">
+                <td>
+                    <strong>${day.date}</strong>
+                    ${isToday ? '<span class="badge bg-primary ms-1">Hoy</span>' : ''}
+                </td>
+                <td>${day.trades}</td>
+                <td>${day.wins} <small class="text-muted" style="color: rgb(215, 212, 10) !important;">(${day.trades > 0 ? Math.round(day.wins / day.trades * 100) : 0}%)</small></td>
+                <td class="${pnlClass} fw-bold">${day.pnl_usdt >= 0 ? '+' : ''}${day.pnl_usdt.toFixed(2)}</td>
+                <td class="${pctClass}">${day.pnl_pct >= 0 ? '+' : ''}${day.pnl_pct.toFixed(2)}%</td>
+            </tr>
+        `;
+            }).join('');
+
+            // Actualizar resumen
+            if (summary) {
+                const totalPnlEl = document.getElementById('summaryTotalPnl');
+                const tradesEl = document.getElementById('summaryTrades');
+                const winRateEl = document.getElementById('summaryWinRate');
+                const avgPnlEl = document.getElementById('summaryAvgPnl');
+
+                if (totalPnlEl) {
+                    totalPnlEl.innerText = `$${summary.total_pnl.toFixed(2)}`;
+                    totalPnlEl.className = summary.total_pnl >= 0 ? 'text-success' : 'text-danger';
+                }
+                if (tradesEl) tradesEl.innerText = summary.total_trades;
+                if (winRateEl) winRateEl.innerText = `${summary.win_rate}%`;
+                if (avgPnlEl) {
+                    avgPnlEl.innerText = `$${summary.avg_pnl_per_day.toFixed(2)}`;
+                    avgPnlEl.className = summary.avg_pnl_per_day >= 0 ? 'text-success' : 'text-danger';
+                }
+            }
+        }
+    </script>
+
+    <script>
         setTimeout(() => {
             location.reload();
-        }, 600000);
+        }, 150000);
     </script>
 
 </body>

@@ -60,6 +60,12 @@ class SignalEngine:
             self.bus.publish(
                 SignalEvent(symbol, "LONG", sig, last_close_time)
             )
+            self.log.info(
+                f"{symbol} ENTRY_DEBUG | "
+                f"ph={sig['last_ph']:.2f} pl={sig['last_pl']:.2f} | "
+                f"close={sig['close']:.2f} | "
+                f"atr={sig['atr']:.4f} ({(sig['atr']/sig['close']*100):.2f}%)"
+            )
             self.log.info(f"{symbol} → LONG signal published")
 
         # ===== SHORT =====
@@ -71,5 +77,11 @@ class SignalEngine:
         ):
             self.bus.publish(
                 SignalEvent(symbol, "SHORT", sig, last_close_time)
+            )
+            self.log.info(
+                f"{symbol} ENTRY_DEBUG | "
+                f"ph={sig['last_ph']:.2f} pl={sig['last_pl']:.2f} | "
+                f"close={sig['close']:.2f} | "
+                f"atr={sig['atr']:.4f} ({(sig['atr']/sig['close']*100):.2f}%)"
             )
             self.log.info(f"{symbol} → SHORT signal published")

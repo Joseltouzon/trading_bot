@@ -10,6 +10,7 @@ from strategy.pivots import last_pivot_levels
 db = Database()
 log = setup_logging(db)
 
+
 def compute_signals(df: pd.DataFrame) -> dict:
 
     if df is None or len(df) < 50:
@@ -25,6 +26,7 @@ def compute_signals(df: pd.DataFrame) -> dict:
             "close": 0.0,
             "last_ph": None,
             "last_pl": None,
+            "pivot_fresh": False,  # ← NUEVO
         }
 
     df_closed = df.iloc[:-1].copy()
@@ -53,7 +55,7 @@ def compute_signals(df: pd.DataFrame) -> dict:
     slope = last["ema_fast"] - df_closed["ema_fast"].iloc[-3]
 
     slope_pct = (slope / last["close"]) * 100 if last["close"] > 0 else 0
-    min_slope_pct = getattr(CFG, "MIN_EMA_SLOPE_PCT", 0.02)
+    min_slope_pct = getattr(CFG, "MIN_EMA_SLOPE_PCT", 0.01)
 
     if abs(slope_pct) < min_slope_pct:
         trend = "NONE"
@@ -64,70 +66,98 @@ def compute_signals(df: pd.DataFrame) -> dict:
             trend = "BEAR"
 
     # ============================
-    # PIVOTS
+    # PIVOTS + FRESCURA
     # ============================
 
     last_ph, last_pl = last_pivot_levels(df_closed, CFG.PIVOT_LEN)
 
+    # NUEVO: Verificar si el pivot es "fresco" (formado en las últimas N velas)
+    pivot_fresh_long = False
+    pivot_fresh_short = False
+    max_pivot_age = getattr(CFG, "MAX_PIVOT_AGE", 15)  # velas
+
+    if last_ph is not None:
+        # Buscar cuándo se formó el último pivot high
+        ph_mask = df_closed["high"] == last_ph
+        if ph_mask.any():
+            last_ph_idx = ph_mask[ph_mask].index[-1]
+            candles_since_ph = len(df_closed) - df_closed.index.get_loc(last_ph_idx) - 1
+            pivot_fresh_long = candles_since_ph <= max_pivot_age
+
+    if last_pl is not None:
+        pl_mask = df_closed["low"] == last_pl
+        if pl_mask.any():
+            last_pl_idx = pl_mask[pl_mask].index[-1]
+            candles_since_pl = len(df_closed) - df_closed.index.get_loc(last_pl_idx) - 1
+            pivot_fresh_short = candles_since_pl <= max_pivot_age
+
     # ============================
-    # VOLUME
+    # VOLUME (con techo para evitar clímax)
     # ============================
 
     vol_ma = float(last["volume_ma"]) if float(last["volume_ma"]) > 0 else float(volume.mean())
     vol_ratio = float(last["volume"]) / vol_ma if vol_ma > 0 else 1.0
     vol_increasing = float(last["volume"]) > float(prev["volume"])
 
-    volume_confirmed = (vol_ratio >= CFG.VOLUME_MIN_RATIO) and vol_increasing
+    # NUEVO: Volumen máximo para evitar entrar en clímax
+    max_vol_ratio = getattr(CFG, "MAX_VOLUME_RATIO", 2.5)
+    volume_confirmed = (
+        vol_ratio >= CFG.VOLUME_MIN_RATIO and
+        vol_ratio <= max_vol_ratio and
+        vol_increasing
+    )
 
     # ============================
-    # ATR FILTER (evita mercado muerto)
+    # ATR FILTER
     # ============================
 
     atr_val = float(last["atr"])
     atr_pct = (atr_val / last["close"]) * 100 if last["close"] > 0 else 0
     min_atr_pct = getattr(CFG, "MIN_ATR_PCT", 0.20)
-
     volatility_ok = atr_pct >= min_atr_pct
 
     # ============================
-    # BREAKOUT
+    # MOMENTUM (mejorado: enfocado en vela actual)
     # ============================
-    # Filtro Momentum: % de cambio en las últimas N velas
-    momentum_lookback = getattr(CFG, "MOMENTUM_LOOKBACK", 3)
-    min_momentum_pct = getattr(CFG, "MIN_MOMENTUM_PCT", 0.25)  # 0.25% en 3 velas de 5m
 
-    # Calcular momentum (rate of change)
+    momentum_lookback = getattr(CFG, "MOMENTUM_LOOKBACK", 3)
+    min_momentum_pct = getattr(CFG, "MIN_MOMENTUM_PCT", 0.15)
+
+    # Momentum de las últimas N velas (base)
     if len(close) >= momentum_lookback + 1:
         momentum_pct = ((close.iloc[-1] - close.iloc[-(momentum_lookback + 1)]) / 
                         close.iloc[-(momentum_lookback + 1)]) * 100
     else:
         momentum_pct = 0.0
 
-    # Evaluar según dirección de tendencia
+    # NUEVO: Momentum intravela (¿la vela actual está cerrando fuerte?)
+    candle_body_pct = ((last["close"] - last["open"]) / (last["high"] - last["low"])) if (last["high"] > last["low"]) else 0
+    candle_momentum_strong = (
+        (trend == "BULL" and candle_body_pct >= 0.6 and last["close"] > last["open"]) or
+        (trend == "BEAR" and candle_body_pct >= 0.6 and last["close"] < last["open"])
+    )
+
+    # Evaluar momentum según tendencia
     momentum_ok = False
     if trend == "BULL":
-        momentum_ok = momentum_pct >= min_momentum_pct
+        momentum_ok = (momentum_pct >= min_momentum_pct) or candle_momentum_strong
     elif trend == "BEAR":
-        momentum_ok = momentum_pct <= -min_momentum_pct
+        momentum_ok = (momentum_pct <= -min_momentum_pct) or candle_momentum_strong
 
-    # filtro de cuerpo
+    # ============================
+    # BREAKOUT (CAMBIOS CRÍTICOS AQUÍ)
+    # ============================
+
     body_size = abs(last["close"] - last["open"])
     range_size = last["high"] - last["low"]
-
     body_ratio = body_size / range_size if range_size > 0 else 0
     min_body_ratio = getattr(CFG, "MIN_BODY_RATIO", 0.55)
-
     strong_body = body_ratio >= min_body_ratio
 
-    # filtro de rango de expansion descomentar este antes que el que sigue
     prev_range = prev["high"] - prev["low"]
     range_expansion = range_size > prev_range * 1.2
 
-    # filtro de compresion previa - todavia no
-    lookback = 8
-    recent_range = df["high"].iloc[-lookback:-1].max() - df["low"].iloc[-lookback:-1].min()
-    compression = prev_range < recent_range * 0.5
-
+    # Pre-calcular distancias
     if last_ph is not None and last["close"] > 0:
         break_distance_pct_long = ((last["close"] - last_ph) / last_ph) * 100
     else:
@@ -142,30 +172,50 @@ def compute_signals(df: pd.DataFrame) -> dict:
     breakout_short = False
 
     if volatility_ok and volume_confirmed:
+        min_break_pct = getattr(CFG, "MIN_BREAK_DISTANCE_PCT", 0.08)
 
-        min_break_pct = getattr(CFG, "MIN_BREAK_DISTANCE_PCT", 0.15)
-
+        # ============================
+        # LONG BREAKOUT (CORREGIDO)
+        # ============================
         if trend == "BULL" and last_ph is not None:
+            # NUEVO: Entrar por ruptura de mecha, no por cierre
+            # Condiciones:
+            # 1. La vela anterior NO rompió el pivot (prev["high"] <= last_ph)
+            # 2. La vela ACTUAL rompió con la mecha (last["high"] > last_ph)
+            # 3. La vela es alcista (last["close"] > last["open"])
+            # 4. Distancia mínima al pivot (evita entradas pegadas)
+            
+            min_pivot_distance_pct = getattr(CFG, "MIN_PIVOT_DISTANCE_PCT", 0.15)
+            distance_ok = break_distance_pct_long >= min_pivot_distance_pct
+            
             breakout_long = (
-                prev["close"] <= last_ph and
-                last["close"] > last_ph and
-                break_distance_pct_long >= min_break_pct
-                and strong_body
-                and momentum_ok
-                # and range_expansion
-                # and compression
-            ) 
+                prev["high"] <= last_ph and          # ← CAMBIO: prev["high"] en vez de prev["close"]
+                last["high"] > last_ph and           # ← CAMBIO: last["high"] en vez de last["close"]
+                last["close"] > last["open"] and     # ← NUEVO: vela alcista
+                distance_ok and
+                break_distance_pct_long >= min_break_pct and
+                strong_body and
+                momentum_ok and
+                pivot_fresh_long                      # ← NUEVO: pivot fresco
+            )
 
+        # ============================
+        # SHORT BREAKOUT (CORREGIDO)
+        # ============================
         if trend == "BEAR" and last_pl is not None:
+            min_pivot_distance_pct = getattr(CFG, "MIN_PIVOT_DISTANCE_PCT", 0.15)
+            distance_ok = break_distance_pct_short >= min_pivot_distance_pct
+            
             breakout_short = (
-                prev["close"] >= last_pl and
-                last["close"] < last_pl and
-                break_distance_pct_short >= min_break_pct
-                and strong_body
-                and momentum_ok
-                # and range_expansion
-                # and compression
-            ) 
+                prev["low"] >= last_pl and           # ← CAMBIO: prev["low"] en vez de prev["close"]
+                last["low"] < last_pl and            # ← CAMBIO: last["low"] en vez de last["close"]
+                last["close"] < last["open"] and     # ← NUEVO: vela bajista
+                distance_ok and
+                break_distance_pct_short >= min_break_pct and
+                strong_body and
+                momentum_ok and
+                pivot_fresh_short                     # ← NUEVO: pivot fresco
+            )
 
     # ============================
     # ADX
@@ -174,18 +224,6 @@ def compute_signals(df: pd.DataFrame) -> dict:
     adx_val = float(last["adx"])
     adx_prev = float(prev["adx"])
     adx_increasing = adx_val > adx_prev
-
-    #debug = {
-    #    "pivot_delay_candles": CFG.PIVOT_LEN,
-    #    "ema_slope_pct": slope_pct,
-    #    "break_distance_pct_long": round(break_distance_pct_long, 4),
-    #    "break_distance_pct_short": round(break_distance_pct_short, 4),
-    #    "body_ratio": body_ratio,
-    #    "range_expansion": range_expansion,
-    #    "vol_ratio": vol_ratio,
-    #    "atr_pct": atr_pct,
-    #}
-    #log.info(f"DEBUG: {debug}")
 
     return {
         "trend": trend,
@@ -199,19 +237,23 @@ def compute_signals(df: pd.DataFrame) -> dict:
         "vol_ratio": float(vol_ratio),
         "vol_increasing": bool(vol_increasing),
         "close": float(last["close"]),
+        "signal_price": float(last_ph) if trend == "BULL" and breakout_long else (float(last_pl) if trend == "BEAR" and breakout_short else float(last["close"])), # ← NUEVO
     }
 
 
 def build_initial_sl(direction: str, df: pd.DataFrame, atr_val: float):
-
     last_ph, last_pl = last_pivot_levels(df, CFG.PIVOT_LEN)
 
     if direction == "LONG":
         if last_pl is None:
             return None
-        return float(last_pl) - (atr_val * 0.8)
-
+        # Buffer extra contra stop hunts
+        buffer_pct = getattr(CFG, "SL_BUFFER_PCT", 0.001)
+        sl_price = float(last_pl) - (atr_val * 1.2)
+        return sl_price * (1 - buffer_pct)
     else:
         if last_ph is None:
             return None
-        return float(last_ph) + (atr_val * 0.8)
+        buffer_pct = getattr(CFG, "SL_BUFFER_PCT", 0.001)
+        sl_price = float(last_ph) + (atr_val * 1.2)
+        return sl_price * (1 + buffer_pct)
