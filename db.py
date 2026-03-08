@@ -932,3 +932,16 @@ class Database:
             import logging
             logging.error(f"Error en get_daily_pnl_calendar: {e}")
             return []
+
+    def get_position_tp_summary(self, position_id: int):
+        """Obtiene resumen de TP ejecutados para una posición"""
+        with self.cursor() as cur:
+            cur.execute("""
+                SELECT 
+                    COUNT(*) FILTER (WHERE event_type = 'TAKE_PROFIT') as tp_hits,
+                    JSON_AGG(payload ORDER BY created_at) as tp_details
+                FROM position_events
+                WHERE position_id = %s
+                AND event_type = 'TAKE_PROFIT'
+            """, (position_id,))
+            return cur.fetchone()

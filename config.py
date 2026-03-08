@@ -70,3 +70,19 @@ MARK_POLL_SECONDS = 3
 TESTNET = False
 API_CACHE_TTL_SECONDS = 2
 EXCHANGE_INFO_TTL_SECONDS = 60
+
+# ============================================================
+# TAKE PROFIT ESCALONADO
+# ============================================================
+USE_TAKE_PROFIT = True
+
+# Niveles de TP: [R:R, % a cerrar, ¿mover SL a Breakeven?]
+TP_LEVELS = [
+    {"ratio": 1.5, "close_pct": 50, "move_sl_to_be": True},   # 50% en 1.5R → SL a Entry
+    {"ratio": 2.5, "close_pct": 30, "move_sl_to_be": False},  # 30% en 2.5R → dejar correr
+    {"ratio": 4.0, "close_pct": 20, "move_sl_to_be": False},  # 20% en 4.0R → moonbag
+]
+
+MIN_R_FOR_FIRST_TP = 1.2      # No activar TP si R:R < 1.2 (evitar ruido)
+TP_THROTTLE_SECONDS = 10      # Mínimo tiempo entre ejecuciones de TP por símbolo
+TP_USE_MARK_PRICE = True      # Usar Mark Price (no last) para evaluar TP

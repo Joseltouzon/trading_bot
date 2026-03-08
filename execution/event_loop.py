@@ -3,6 +3,7 @@
 import time
 import config as CFG
 from core.utils import utc_day_key
+from execution.take_profit_manager import TakeProfitManager
 
 
 class EventLoop:
@@ -21,6 +22,15 @@ class EventLoop:
         self.tg_send = tg_send
         self.db = db
         self.log = logger
+        # 🆕 Take Profit Manager
+        self.tp_manager = TakeProfitManager(
+            exchange=exchange,
+            market=market,
+            order_manager=order_manager,
+            db=db,
+            tg_send=tg_send,
+            logger=logger
+        )
 
     # ============================================================
     # GUARDS
@@ -341,7 +351,9 @@ class EventLoop:
                     
                     # 8️⃣ Desactivar stops en DB
                     self.db.deactivate_stops(pos["id"])
-                    
+                    # 🆕 Limpiar estado de TP para este símbolo
+                    if hasattr(self, "tp_manager"):
+                        self.tp_manager.reset_symbol(symbol)
                     # 9️⃣ Limpiar estado en memoria
                     if hasattr(st, "position_ids"):
                         st.position_ids.pop(symbol, None)
@@ -463,6 +475,10 @@ class EventLoop:
         if self._daily_loss_exceeded(st):
             self.log.warning("[DAILY LOSS] limit exceeded. Blocking entries.")
             return False
+
+        # Evaluar Take Profit (antes de nuevas entradas)
+        if getattr(CFG, "USE_TAKE_PROFIT", False):
+            self.tp_manager.loop_once(st)    
 
         # Pop signal
         ev = self.bus.pop_any()
