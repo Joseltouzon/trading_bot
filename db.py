@@ -945,3 +945,23 @@ class Database:
                 AND event_type = 'TAKE_PROFIT'
             """, (position_id,))
             return cur.fetchone()
+
+    # ==========================================================
+    # ML: SIGNAL FEATURES (Machine Laernaing)
+    # ==========================================================
+
+    def update_position_features(self, position_id: int, features: dict):
+        """
+        Guarda los features de la señal que generó la posición.
+        Usado para ML: permite correlacionar features con resultado final.
+        
+        Args:
+            position_id: ID de la posición en la tabla positions
+            features: Dict con los features de la señal (ADX, volumen, momentum, etc.)
+        """
+        with self.cursor() as cur:
+            cur.execute("""
+                UPDATE positions
+                SET signal_features = %s
+                WHERE id = %s
+            """, (json.dumps(features), position_id))        

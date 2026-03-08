@@ -451,7 +451,8 @@ class EventLoop:
         return {
             "symbol": sym, "side": side, "price": price, "qty": qty,
             "atr": atr, "bar_close_ms": int(ev.kline_close_time_ms),
-            "initial_sl": initial_sl
+            "initial_sl": initial_sl,
+            "ml_features": ev.signal.get("ml_features"),
         }
 
     # ============================================================

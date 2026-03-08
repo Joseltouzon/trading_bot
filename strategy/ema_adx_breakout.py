@@ -175,7 +175,7 @@ def compute_signals(df: pd.DataFrame) -> dict:
         min_break_pct = getattr(CFG, "MIN_BREAK_DISTANCE_PCT", 0.08)
 
         # ============================
-        # LONG BREAKOUT (CORREGIDO)
+        # LONG BREAKOUT
         # ============================
         if trend == "BULL" and last_ph is not None:
             # NUEVO: Entrar por ruptura de mecha, no por cierre
@@ -200,7 +200,7 @@ def compute_signals(df: pd.DataFrame) -> dict:
             )
 
         # ============================
-        # SHORT BREAKOUT (CORREGIDO)
+        # SHORT BREAKOUT
         # ============================
         if trend == "BEAR" and last_pl is not None:
             min_pivot_distance_pct = getattr(CFG, "MIN_PIVOT_DISTANCE_PCT", 0.15)
@@ -225,6 +225,26 @@ def compute_signals(df: pd.DataFrame) -> dict:
     adx_prev = float(prev["adx"])
     adx_increasing = adx_val > adx_prev
 
+    # ===== CAPTURAR FEATURES PARA ML =====
+    ml_features = {
+        "adx": float(last["adx"]),
+        "adx_increasing": bool(adx_increasing),
+        "atr": float(atr_val),
+        "atr_pct": float((atr_val / last["close"] * 100) if last["close"] > 0 else 0),
+        "vol_ratio": float(vol_ratio),
+        "vol_increasing": bool(vol_increasing),
+        "momentum_pct": float(momentum_pct),
+        "body_ratio": float(body_ratio),
+        "pivot_fresh_long": bool(pivot_fresh_long),
+        "pivot_fresh_short": bool(pivot_fresh_short),
+        "break_distance_pct_long": float(break_distance_pct_long),
+        "break_distance_pct_short": float(break_distance_pct_short),
+        "trend": str(trend),
+        "candle_momentum_strong": bool(candle_momentum_strong),
+        "volume_confirmed": bool(volume_confirmed),
+        "volatility_ok": bool(volatility_ok),
+    }
+
     return {
         "trend": trend,
         "last_ph": float(last_ph) if last_ph is not None else None,
@@ -237,7 +257,8 @@ def compute_signals(df: pd.DataFrame) -> dict:
         "vol_ratio": float(vol_ratio),
         "vol_increasing": bool(vol_increasing),
         "close": float(last["close"]),
-        "signal_price": float(last_ph) if trend == "BULL" and breakout_long else (float(last_pl) if trend == "BEAR" and breakout_short else float(last["close"])), # ← NUEVO
+        "signal_price": float(last_ph) if trend == "BULL" and breakout_long else(float(last_pl) if trend == "BEAR" and breakout_short else float(last["close"])),
+        "ml_features": ml_features,
     }
 
 

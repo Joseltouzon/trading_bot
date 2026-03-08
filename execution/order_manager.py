@@ -306,8 +306,21 @@ class OrderManager:
             qty=qty,
             entry_price=mark_price
         )
+        # ===== PERSISTIR FEATURES PARA ML =====
+        ml_features = signal.get("ml_features")
+        if ml_features and isinstance(ml_features, dict):
+            try:
+                self.db.update_position_features(
+                    position_id=position_id,
+                    features=ml_features
+                )
+                self.logger.debug(f"[ML] Features guardados {symbol} pos_id={position_id}")
+            except Exception as e:
+                self.logger.warning(f"[ML] Error guardando features {symbol}: {e}")
+
         if not hasattr(st, "position_ids"):
             st.position_ids = {}
+
         st.position_ids[symbol] = position_id
         self.db.create_order(
             position_id=position_id,
