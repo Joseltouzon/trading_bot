@@ -199,6 +199,9 @@ class OrderManager:
         # Si hay alta volatilidad (ATR > 0.3%), permitimos más slippage
         atr_pct = self.exchange.get_atr_pct(symbol) if hasattr(self.exchange, "get_atr_pct") else 0.2
         dynamic_slippage = base_slippage + min(atr_pct * 0.5, 0.002)  # Máximo +0.2%
+        
+        # LOG PARA DEBUG
+        self.logger.debug(f"[SLIPPAGE] {symbol} signal_price={signal_price:.6f} mark={mark_price:.6f} atr_pct={atr_pct:.4f}%")
 
         if not slippage_allowed(signal_price, mark_price, max_ratio=dynamic_slippage):
             diff_ratio = abs(mark_price - signal_price) / signal_price if signal_price else 999

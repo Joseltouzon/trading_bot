@@ -419,7 +419,7 @@ class EventLoop:
         side = ev.direction
         sig = ev.signal
 
-        price = float(sig.get("close", 0.0))
+        price = float(sig.get("signal_price", sig.get("close", 0.0)))
         atr = float(sig.get("atr", 0.0))
 
         if price <= 0 or atr <= 0:
