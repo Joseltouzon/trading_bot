@@ -137,7 +137,7 @@ class OrderManager:
     def execute(self, st, signal: dict):
         symbol = signal["symbol"]
         side = signal["side"]
-        signal_price = float(signal.get("signal_price", signal.get("close", 0)))
+        signal_price = float(signal.get("price", 0))
         qty = float(signal["qty"])
         bar_close_ms = int(signal.get("bar_close_ms", 0))
         initial_sl = signal.get("initial_sl", None)
@@ -201,7 +201,7 @@ class OrderManager:
         dynamic_slippage = base_slippage + min(atr_pct * 0.5, 0.002)  # Máximo +0.2%
         
         # LOG PARA DEBUG
-        self.logger.debug(f"[SLIPPAGE] {symbol} signal_price={signal_price:.6f} mark={mark_price:.6f} atr_pct={atr_pct:.4f}%")
+        self.logger.info(f"[SLIPPAGE] {symbol} price={signal_price:.6f} mark={mark_price:.6f} atr_pct={atr_pct:.4f}%")
 
         if not slippage_allowed(signal_price, mark_price, max_ratio=dynamic_slippage):
             diff_ratio = abs(mark_price - signal_price) / signal_price if signal_price else 999
