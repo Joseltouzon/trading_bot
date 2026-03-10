@@ -294,7 +294,7 @@ class BinanceFutures:
     # ORDERS
     # ============================================================
 
-    def place_market_order(self, symbol: str, side: str, quantity: float):
+    def place_market_order(self, symbol: str, side: str, quantity: float, reduce_only: bool = False):
         """
         side: "LONG" | "SHORT"
         """
@@ -305,13 +305,18 @@ class BinanceFutures:
             raise ValueError(f"Qty invalid after normalization. symbol={symbol} qty={quantity}")
 
         try:
-            order = self.client.futures_create_order(
-                symbol=symbol,
-                side=order_side,
-                type=FUTURE_ORDER_TYPE_MARKET,
-                quantity=q
-            )
-            self.logger.info(f"[ORDER] MARKET {symbol} {side} qty={q}")
+            order_params = {
+                "symbol": symbol,
+                "side": order_side,
+                "type": FUTURE_ORDER_TYPE_MARKET,
+                "quantity": q
+            }
+            # Agrega reduceOnly SOLO si es True (Binance lo ignora si es False)
+            if reduce_only:
+                order_params["reduceOnly"] = "true"  # Binance espera string "true"/"false"
+            
+            order = self.client.futures_create_order(**order_params)
+            self.logger.info(f"[ORDER] MARKET {symbol} {side} qty={q} reduce_only={reduce_only}")
             return order
         except Exception as e:
             self.logger.exception(f"[ORDER] Market order failed {symbol}: {e}")

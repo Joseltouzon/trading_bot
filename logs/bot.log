@@ -5051,3 +5051,703 @@
 2026-03-10 08:15:21 | INFO | MainThread | XRPUSDT | trend=BEAR | breakL=False | breakS=False | adx=31.67 | adx_ok=True | rising_ok=True | vol_ratio=0.73 | vol_up=False
 2026-03-10 08:15:21 | INFO | MainThread | HYPEUSDT | trend=BEAR | breakL=False | breakS=False | adx=13.15 | adx_ok=False | rising_ok=True | vol_ratio=0.39 | vol_up=False
 2026-03-10 08:15:21 | INFO | MainThread | PENGUUSDT | trend=BEAR | breakL=False | breakS=False | adx=29.52 | adx_ok=True | rising_ok=True | vol_ratio=0.11 | vol_up=False
+2026-03-10 08:38:01 | INFO | MainThread | [CACHE INIT] BTCUSDT loaded 500 candles
+2026-03-10 08:38:02 | INFO | MainThread | [CACHE INIT] SOLUSDT loaded 500 candles
+2026-03-10 08:38:03 | INFO | MainThread | [CACHE INIT] AAVEUSDT loaded 500 candles
+2026-03-10 08:38:04 | INFO | MainThread | [CACHE INIT] XRPUSDT loaded 500 candles
+2026-03-10 08:38:05 | INFO | MainThread | [CACHE INIT] HYPEUSDT loaded 500 candles
+2026-03-10 08:38:05 | INFO | MainThread | [CACHE INIT] PENGUUSDT loaded 500 candles
+2026-03-10 08:38:12 | INFO | MainThread | BTCUSDT | trend=BEAR | breakL=False | breakS=False | adx=16.28 | adx_ok=False | rising_ok=True | vol_ratio=0.45 | vol_up=False
+2026-03-10 08:38:12 | INFO | MainThread | SOLUSDT | trend=BEAR | breakL=False | breakS=False | adx=16.10 | adx_ok=False | rising_ok=True | vol_ratio=0.75 | vol_up=True
+2026-03-10 08:38:12 | INFO | MainThread | AAVEUSDT | trend=BEAR | breakL=False | breakS=False | adx=32.32 | adx_ok=True | rising_ok=True | vol_ratio=0.68 | vol_up=True
+2026-03-10 08:38:12 | INFO | MainThread | XRPUSDT | trend=BEAR | breakL=False | breakS=False | adx=32.34 | adx_ok=True | rising_ok=True | vol_ratio=1.03 | vol_up=False
+2026-03-10 08:38:12 | INFO | MainThread | HYPEUSDT | trend=BULL | breakL=False | breakS=False | adx=17.06 | adx_ok=False | rising_ok=True | vol_ratio=1.33 | vol_up=True
+2026-03-10 08:38:12 | INFO | MainThread | PENGUUSDT | trend=BEAR | breakL=False | breakS=False | adx=23.50 | adx_ok=True | rising_ok=True | vol_ratio=1.03 | vol_up=False
+2026-03-10 08:45:16 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1773143099999
+2026-03-10 08:45:17 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1773143099999
+2026-03-10 08:45:18 | INFO | MainThread | [CACHE] New closed candle AAVEUSDT close_time=1773143099999
+2026-03-10 08:45:20 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1773143099999
+2026-03-10 08:45:21 | INFO | MainThread | [CACHE] New closed candle HYPEUSDT close_time=1773143099999
+2026-03-10 08:45:22 | INFO | MainThread | [CACHE] New closed candle PENGUUSDT close_time=1773143099999
+2026-03-10 08:45:22 | INFO | MainThread | BTCUSDT | trend=BEAR | breakL=False | breakS=False | adx=15.67 | adx_ok=False | rising_ok=True | vol_ratio=0.83 | vol_up=True
+2026-03-10 08:45:22 | INFO | MainThread | SOLUSDT | trend=BEAR | breakL=False | breakS=False | adx=14.47 | adx_ok=False | rising_ok=True | vol_ratio=0.51 | vol_up=True
+2026-03-10 08:45:22 | INFO | MainThread | AAVEUSDT | trend=BEAR | breakL=False | breakS=False | adx=29.21 | adx_ok=True | rising_ok=True | vol_ratio=0.48 | vol_up=True
+2026-03-10 08:45:22 | INFO | MainThread | XRPUSDT | trend=BEAR | breakL=False | breakS=False | adx=34.07 | adx_ok=True | rising_ok=True | vol_ratio=1.05 | vol_up=True
+2026-03-10 08:45:22 | INFO | MainThread | HYPEUSDT | trend=BULL | breakL=False | breakS=False | adx=18.70 | adx_ok=False | rising_ok=True | vol_ratio=0.97 | vol_up=True
+2026-03-10 08:45:22 | INFO | MainThread | PENGUUSDT | trend=BEAR | breakL=False | breakS=False | adx=21.50 | adx_ok=True | rising_ok=True | vol_ratio=1.03 | vol_up=True
+2026-03-10 08:50:07 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1773143399999
+2026-03-10 08:50:09 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1773143399999
+2026-03-10 08:50:10 | INFO | MainThread | [CACHE] New closed candle AAVEUSDT close_time=1773143399999
+2026-03-10 08:50:11 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1773143399999
+2026-03-10 08:50:12 | INFO | MainThread | [CACHE] New closed candle HYPEUSDT close_time=1773143399999
+2026-03-10 08:50:14 | INFO | MainThread | [CACHE] New closed candle PENGUUSDT close_time=1773143399999
+2026-03-10 08:50:14 | INFO | MainThread | BTCUSDT | trend=BEAR | breakL=False | breakS=False | adx=15.20 | adx_ok=False | rising_ok=True | vol_ratio=0.79 | vol_up=False
+2026-03-10 08:50:14 | INFO | MainThread | SOLUSDT | trend=BEAR | breakL=False | breakS=False | adx=14.02 | adx_ok=False | rising_ok=True | vol_ratio=2.27 | vol_up=True
+2026-03-10 08:50:14 | INFO | MainThread | AAVEUSDT | trend=BEAR | breakL=False | breakS=False | adx=28.29 | adx_ok=True | rising_ok=True | vol_ratio=0.46 | vol_up=False
+2026-03-10 08:50:14 | INFO | MainThread | XRPUSDT | trend=BEAR | breakL=False | breakS=False | adx=35.16 | adx_ok=True | rising_ok=True | vol_ratio=1.61 | vol_up=True
+2026-03-10 08:50:14 | INFO | MainThread | HYPEUSDT | trend=BULL | breakL=False | breakS=False | adx=18.22 | adx_ok=False | rising_ok=True | vol_ratio=0.92 | vol_up=False
+2026-03-10 08:50:14 | INFO | MainThread | PENGUUSDT | trend=BEAR | breakL=False | breakS=False | adx=20.36 | adx_ok=True | rising_ok=True | vol_ratio=0.58 | vol_up=False
+2026-03-10 08:55:05 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1773143699999
+2026-03-10 08:55:06 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1773143699999
+2026-03-10 08:55:08 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1773143699999
+2026-03-10 08:55:10 | INFO | MainThread | [CACHE] New closed candle HYPEUSDT close_time=1773143699999
+2026-03-10 08:55:11 | INFO | MainThread | [CACHE] New closed candle PENGUUSDT close_time=1773143699999
+2026-03-10 08:55:11 | INFO | MainThread | SOLUSDT | trend=NONE | breakL=False | breakS=False | adx=13.59 | adx_ok=False | rising_ok=True | vol_ratio=0.57 | vol_up=False
+2026-03-10 08:55:11 | INFO | MainThread | XRPUSDT | trend=BEAR | breakL=False | breakS=False | adx=36.18 | adx_ok=True | rising_ok=True | vol_ratio=0.69 | vol_up=False
+2026-03-10 08:55:11 | INFO | MainThread | HYPEUSDT | trend=BULL | breakL=False | breakS=False | adx=18.12 | adx_ok=False | rising_ok=True | vol_ratio=0.67 | vol_up=False
+2026-03-10 08:55:11 | INFO | MainThread | PENGUUSDT | trend=BEAR | breakL=False | breakS=False | adx=19.16 | adx_ok=False | rising_ok=True | vol_ratio=0.54 | vol_up=False
+2026-03-10 08:55:23 | INFO | MainThread | [CACHE] New closed candle AAVEUSDT close_time=1773143699999
+2026-03-10 08:55:26 | INFO | MainThread | AAVEUSDT | trend=BEAR | breakL=False | breakS=False | adx=27.25 | adx_ok=True | rising_ok=True | vol_ratio=0.49 | vol_up=True
+2026-03-10 09:00:16 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1773143999999
+2026-03-10 09:00:18 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1773143999999
+2026-03-10 09:00:19 | INFO | MainThread | [CACHE] New closed candle AAVEUSDT close_time=1773143999999
+2026-03-10 09:00:20 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1773143999999
+2026-03-10 09:00:21 | INFO | MainThread | [CACHE] New closed candle HYPEUSDT close_time=1773143999999
+2026-03-10 09:00:22 | INFO | MainThread | [CACHE] New closed candle PENGUUSDT close_time=1773143999999
+2026-03-10 09:00:23 | INFO | MainThread | BTCUSDT | trend=BEAR | breakL=False | breakS=False | adx=14.33 | adx_ok=False | rising_ok=True | vol_ratio=1.14 | vol_up=True
+2026-03-10 09:00:23 | INFO | MainThread | SOLUSDT | trend=NONE | breakL=False | breakS=False | adx=12.73 | adx_ok=False | rising_ok=True | vol_ratio=0.58 | vol_up=False
+2026-03-10 09:00:23 | INFO | MainThread | AAVEUSDT | trend=BEAR | breakL=False | breakS=False | adx=26.61 | adx_ok=True | rising_ok=True | vol_ratio=0.33 | vol_up=False
+2026-03-10 09:00:23 | INFO | MainThread | XRPUSDT | trend=BEAR | breakL=False | breakS=False | adx=37.27 | adx_ok=True | rising_ok=True | vol_ratio=0.91 | vol_up=True
+2026-03-10 09:00:23 | INFO | MainThread | HYPEUSDT | trend=BULL | breakL=False | breakS=False | adx=18.10 | adx_ok=False | rising_ok=True | vol_ratio=0.52 | vol_up=False
+2026-03-10 09:00:23 | INFO | MainThread | PENGUUSDT | trend=BEAR | breakL=False | breakS=False | adx=18.58 | adx_ok=False | rising_ok=True | vol_ratio=0.66 | vol_up=True
+2026-03-10 09:05:11 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1773144299999
+2026-03-10 09:05:12 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1773144299999
+2026-03-10 09:05:13 | INFO | MainThread | [CACHE] New closed candle AAVEUSDT close_time=1773144299999
+2026-03-10 09:05:14 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1773144299999
+2026-03-10 09:05:15 | INFO | MainThread | [CACHE] New closed candle HYPEUSDT close_time=1773144299999
+2026-03-10 09:05:16 | INFO | MainThread | [CACHE] New closed candle PENGUUSDT close_time=1773144299999
+2026-03-10 09:05:17 | INFO | MainThread | BTCUSDT | trend=BEAR | breakL=False | breakS=False | adx=15.15 | adx_ok=False | rising_ok=True | vol_ratio=1.81 | vol_up=True
+2026-03-10 09:05:17 | INFO | MainThread | SOLUSDT | trend=BEAR | breakL=False | breakS=False | adx=12.68 | adx_ok=False | rising_ok=True | vol_ratio=1.53 | vol_up=True
+2026-03-10 09:05:17 | INFO | MainThread | AAVEUSDT | trend=BEAR | breakL=False | breakS=False | adx=26.36 | adx_ok=True | rising_ok=True | vol_ratio=0.83 | vol_up=True
+2026-03-10 09:05:17 | INFO | MainThread | XRPUSDT | trend=BEAR | breakL=False | breakS=False | adx=38.75 | adx_ok=True | rising_ok=True | vol_ratio=1.19 | vol_up=True
+2026-03-10 09:05:17 | INFO | MainThread | HYPEUSDT | trend=NONE | breakL=False | breakS=False | adx=18.83 | adx_ok=False | rising_ok=True | vol_ratio=2.31 | vol_up=True
+2026-03-10 09:05:17 | INFO | MainThread | PENGUUSDT | trend=BEAR | breakL=False | breakS=False | adx=18.37 | adx_ok=False | rising_ok=True | vol_ratio=1.26 | vol_up=True
+2026-03-10 09:10:04 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1773144599999
+2026-03-10 09:10:26 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1773144599999
+2026-03-10 09:10:27 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1773144599999
+2026-03-10 09:10:29 | INFO | MainThread | [CACHE] New closed candle AAVEUSDT close_time=1773144599999
+2026-03-10 09:10:31 | INFO | MainThread | [CACHE] New closed candle HYPEUSDT close_time=1773144599999
+2026-03-10 09:10:32 | INFO | MainThread | [CACHE] New closed candle PENGUUSDT close_time=1773144599999
+2026-03-10 09:10:32 | INFO | MainThread | BTCUSDT | trend=BEAR | breakL=False | breakS=False | adx=16.58 | adx_ok=False | rising_ok=True | vol_ratio=2.63 | vol_up=True
+2026-03-10 09:10:32 | INFO | MainThread | SOLUSDT | trend=BEAR | breakL=False | breakS=False | adx=13.49 | adx_ok=False | rising_ok=True | vol_ratio=2.67 | vol_up=True
+2026-03-10 09:10:32 | INFO | MainThread | AAVEUSDT | trend=BEAR | breakL=False | breakS=False | adx=27.16 | adx_ok=True | rising_ok=True | vol_ratio=2.36 | vol_up=True
+2026-03-10 09:10:32 | INFO | MainThread | HYPEUSDT | trend=BULL | breakL=False | breakS=False | adx=18.86 | adx_ok=False | rising_ok=True | vol_ratio=1.59 | vol_up=False
+2026-03-10 09:10:32 | INFO | MainThread | PENGUUSDT | trend=BEAR | breakL=False | breakS=False | adx=18.47 | adx_ok=False | rising_ok=True | vol_ratio=1.11 | vol_up=False
+2026-03-10 09:15:11 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1773144899999
+2026-03-10 09:15:12 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1773144899999
+2026-03-10 09:15:13 | INFO | MainThread | [CACHE] New closed candle AAVEUSDT close_time=1773144899999
+2026-03-10 09:15:15 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1773144899999
+2026-03-10 09:15:16 | INFO | MainThread | [CACHE] New closed candle HYPEUSDT close_time=1773144899999
+2026-03-10 09:15:17 | INFO | MainThread | [CACHE] New closed candle PENGUUSDT close_time=1773144899999
+2026-03-10 09:15:17 | INFO | MainThread | BTCUSDT | trend=BEAR | breakL=False | breakS=False | adx=18.04 | adx_ok=False | rising_ok=True | vol_ratio=1.77 | vol_up=False
+2026-03-10 09:15:18 | INFO | MainThread | SOLUSDT | trend=BEAR | breakL=False | breakS=False | adx=14.25 | adx_ok=False | rising_ok=True | vol_ratio=0.89 | vol_up=False
+2026-03-10 09:15:18 | INFO | MainThread | AAVEUSDT | trend=BEAR | breakL=False | breakS=False | adx=27.90 | adx_ok=True | rising_ok=True | vol_ratio=1.52 | vol_up=False
+2026-03-10 09:15:18 | INFO | MainThread | XRPUSDT | trend=BEAR | breakL=False | breakS=False | adx=42.56 | adx_ok=True | rising_ok=True | vol_ratio=0.78 | vol_up=False
+2026-03-10 09:15:18 | INFO | MainThread | HYPEUSDT | trend=BULL | breakL=False | breakS=False | adx=18.16 | adx_ok=False | rising_ok=True | vol_ratio=1.55 | vol_up=True
+2026-03-10 09:15:18 | INFO | MainThread | PENGUUSDT | trend=BEAR | breakL=False | breakS=False | adx=19.26 | adx_ok=False | rising_ok=True | vol_ratio=3.32 | vol_up=True
+2026-03-10 09:20:16 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1773145199999
+2026-03-10 09:20:17 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1773145199999
+2026-03-10 09:20:19 | INFO | MainThread | [CACHE] New closed candle AAVEUSDT close_time=1773145199999
+2026-03-10 09:20:20 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1773145199999
+2026-03-10 09:20:21 | INFO | MainThread | [CACHE] New closed candle HYPEUSDT close_time=1773145199999
+2026-03-10 09:20:22 | INFO | MainThread | [CACHE] New closed candle PENGUUSDT close_time=1773145199999
+2026-03-10 09:20:23 | INFO | MainThread | BTCUSDT | trend=BEAR | breakL=False | breakS=False | adx=19.41 | adx_ok=False | rising_ok=True | vol_ratio=0.63 | vol_up=False
+2026-03-10 09:20:23 | INFO | MainThread | SOLUSDT | trend=BEAR | breakL=False | breakS=False | adx=15.03 | adx_ok=False | rising_ok=True | vol_ratio=0.88 | vol_up=False
+2026-03-10 09:20:23 | INFO | MainThread | AAVEUSDT | trend=BEAR | breakL=False | breakS=False | adx=28.25 | adx_ok=True | rising_ok=True | vol_ratio=0.78 | vol_up=False
+2026-03-10 09:20:23 | INFO | MainThread | XRPUSDT | trend=BEAR | breakL=False | breakS=False | adx=43.55 | adx_ok=True | rising_ok=True | vol_ratio=0.59 | vol_up=False
+2026-03-10 09:20:23 | INFO | MainThread | HYPEUSDT | trend=BEAR | breakL=False | breakS=False | adx=17.13 | adx_ok=False | rising_ok=True | vol_ratio=2.07 | vol_up=True
+2026-03-10 09:20:23 | INFO | MainThread | PENGUUSDT | trend=BEAR | breakL=False | breakS=False | adx=19.99 | adx_ok=False | rising_ok=True | vol_ratio=0.84 | vol_up=False
+2026-03-10 09:25:11 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1773145499999
+2026-03-10 09:25:12 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1773145499999
+2026-03-10 09:25:14 | INFO | MainThread | [CACHE] New closed candle AAVEUSDT close_time=1773145499999
+2026-03-10 09:25:15 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1773145499999
+2026-03-10 09:25:16 | INFO | MainThread | [CACHE] New closed candle HYPEUSDT close_time=1773145499999
+2026-03-10 09:25:17 | INFO | MainThread | [CACHE] New closed candle PENGUUSDT close_time=1773145499999
+2026-03-10 09:25:17 | INFO | MainThread | BTCUSDT | trend=BEAR | breakL=False | breakS=False | adx=19.39 | adx_ok=False | rising_ok=True | vol_ratio=0.93 | vol_up=True
+2026-03-10 09:25:17 | INFO | MainThread | SOLUSDT | trend=BEAR | breakL=False | breakS=False | adx=15.03 | adx_ok=False | rising_ok=True | vol_ratio=0.80 | vol_up=False
+2026-03-10 09:25:17 | INFO | MainThread | AAVEUSDT | trend=BEAR | breakL=False | breakS=False | adx=28.39 | adx_ok=True | rising_ok=True | vol_ratio=0.65 | vol_up=False
+2026-03-10 09:25:18 | INFO | MainThread | XRPUSDT | trend=BEAR | breakL=False | breakS=False | adx=44.62 | adx_ok=True | rising_ok=True | vol_ratio=0.69 | vol_up=True
+2026-03-10 09:25:18 | INFO | MainThread | HYPEUSDT | trend=BEAR | breakL=False | breakS=False | adx=16.18 | adx_ok=False | rising_ok=True | vol_ratio=0.50 | vol_up=False
+2026-03-10 09:25:18 | INFO | MainThread | PENGUUSDT | trend=BEAR | breakL=False | breakS=False | adx=20.85 | adx_ok=True | rising_ok=True | vol_ratio=1.21 | vol_up=True
+2026-03-10 09:30:28 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1773145799999
+2026-03-10 09:30:29 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1773145799999
+2026-03-10 09:30:30 | INFO | MainThread | [CACHE] New closed candle AAVEUSDT close_time=1773145799999
+2026-03-10 09:30:31 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1773145799999
+2026-03-10 09:30:32 | INFO | MainThread | [CACHE] New closed candle HYPEUSDT close_time=1773145799999
+2026-03-10 09:30:34 | INFO | MainThread | [CACHE] New closed candle PENGUUSDT close_time=1773145799999
+2026-03-10 09:30:34 | INFO | MainThread | BTCUSDT | trend=BEAR | breakL=False | breakS=False | adx=20.14 | adx_ok=True | rising_ok=True | vol_ratio=0.78 | vol_up=False
+2026-03-10 09:30:34 | INFO | MainThread | SOLUSDT | trend=BEAR | breakL=False | breakS=False | adx=15.31 | adx_ok=False | rising_ok=True | vol_ratio=0.85 | vol_up=True
+2026-03-10 09:30:34 | INFO | MainThread | AAVEUSDT | trend=BEAR | breakL=False | breakS=False | adx=28.11 | adx_ok=True | rising_ok=True | vol_ratio=0.75 | vol_up=True
+2026-03-10 09:30:34 | INFO | MainThread | XRPUSDT | trend=BEAR | breakL=False | breakS=False | adx=45.84 | adx_ok=True | rising_ok=True | vol_ratio=0.71 | vol_up=True
+2026-03-10 09:30:34 | INFO | MainThread | HYPEUSDT | trend=BEAR | breakL=False | breakS=False | adx=15.47 | adx_ok=False | rising_ok=True | vol_ratio=0.87 | vol_up=True
+2026-03-10 09:30:34 | INFO | MainThread | PENGUUSDT | trend=BEAR | breakL=False | breakS=False | adx=22.21 | adx_ok=True | rising_ok=True | vol_ratio=0.99 | vol_up=False
+2026-03-10 09:35:12 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1773146099999
+2026-03-10 09:35:13 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1773146099999
+2026-03-10 09:35:14 | INFO | MainThread | [CACHE] New closed candle AAVEUSDT close_time=1773146099999
+2026-03-10 09:35:15 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1773146099999
+2026-03-10 09:35:16 | INFO | MainThread | [CACHE] New closed candle HYPEUSDT close_time=1773146099999
+2026-03-10 09:35:17 | INFO | MainThread | [CACHE] New closed candle PENGUUSDT close_time=1773146099999
+2026-03-10 09:35:18 | INFO | MainThread | BTCUSDT | trend=BEAR | breakL=False | breakS=False | adx=21.26 | adx_ok=True | rising_ok=True | vol_ratio=1.15 | vol_up=True
+2026-03-10 09:35:18 | INFO | MainThread | SOLUSDT | trend=BEAR | breakL=False | breakS=False | adx=16.16 | adx_ok=False | rising_ok=True | vol_ratio=1.65 | vol_up=True
+2026-03-10 09:35:18 | INFO | MainThread | AAVEUSDT | trend=BEAR | breakL=False | breakS=False | adx=26.60 | adx_ok=True | rising_ok=True | vol_ratio=1.10 | vol_up=True
+2026-03-10 09:35:18 | INFO | MainThread | XRPUSDT | trend=BEAR | breakL=False | breakS=False | adx=47.09 | adx_ok=True | rising_ok=True | vol_ratio=0.85 | vol_up=True
+2026-03-10 09:35:18 | INFO | MainThread | HYPEUSDT | trend=BEAR | breakL=False | breakS=False | adx=14.41 | adx_ok=False | rising_ok=True | vol_ratio=0.68 | vol_up=False
+2026-03-10 09:35:18 | INFO | MainThread | PENGUUSDT | trend=BEAR | breakL=False | breakS=False | adx=24.01 | adx_ok=True | rising_ok=True | vol_ratio=2.13 | vol_up=True
+2026-03-10 09:40:04 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1773146399999
+2026-03-10 09:40:07 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1773146399999
+2026-03-10 09:40:09 | INFO | MainThread | [CACHE] New closed candle PENGUUSDT close_time=1773146399999
+2026-03-10 09:40:09 | INFO | MainThread | XRPUSDT | trend=NONE | breakL=False | breakS=False | adx=46.23 | adx_ok=True | rising_ok=True | vol_ratio=1.35 | vol_up=True
+2026-03-10 09:40:09 | INFO | MainThread | PENGUUSDT | trend=BEAR | breakL=False | breakS=False | adx=24.01 | adx_ok=True | rising_ok=True | vol_ratio=1.68 | vol_up=False
+2026-03-10 09:40:21 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1773146399999
+2026-03-10 09:40:22 | INFO | MainThread | [CACHE] New closed candle AAVEUSDT close_time=1773146399999
+2026-03-10 09:40:24 | INFO | MainThread | [CACHE] New closed candle HYPEUSDT close_time=1773146399999
+2026-03-10 09:40:25 | INFO | MainThread | SOLUSDT | trend=BEAR | breakL=False | breakS=False | adx=15.99 | adx_ok=False | rising_ok=True | vol_ratio=1.20 | vol_up=False
+2026-03-10 09:40:25 | INFO | MainThread | AAVEUSDT | trend=BEAR | breakL=False | breakS=False | adx=25.62 | adx_ok=True | rising_ok=True | vol_ratio=1.43 | vol_up=True
+2026-03-10 09:40:25 | INFO | MainThread | HYPEUSDT | trend=BEAR | breakL=False | breakS=False | adx=14.91 | adx_ok=False | rising_ok=True | vol_ratio=1.39 | vol_up=True
+2026-03-10 09:45:11 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1773146699999
+2026-03-10 09:45:12 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1773146699999
+2026-03-10 09:45:14 | INFO | MainThread | [CACHE] New closed candle AAVEUSDT close_time=1773146699999
+2026-03-10 09:45:15 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1773146699999
+2026-03-10 09:45:16 | INFO | MainThread | [CACHE] New closed candle HYPEUSDT close_time=1773146699999
+2026-03-10 09:45:17 | INFO | MainThread | [CACHE] New closed candle PENGUUSDT close_time=1773146699999
+2026-03-10 09:45:17 | INFO | MainThread | BTCUSDT | trend=BEAR | breakL=False | breakS=False | adx=21.63 | adx_ok=True | rising_ok=True | vol_ratio=0.52 | vol_up=False
+2026-03-10 09:45:17 | INFO | MainThread | SOLUSDT | trend=NONE | breakL=False | breakS=False | adx=15.83 | adx_ok=False | rising_ok=True | vol_ratio=0.54 | vol_up=False
+2026-03-10 09:45:18 | INFO | MainThread | AAVEUSDT | trend=BEAR | breakL=False | breakS=False | adx=24.71 | adx_ok=True | rising_ok=True | vol_ratio=1.06 | vol_up=False
+2026-03-10 09:45:18 | INFO | MainThread | XRPUSDT | trend=BEAR | breakL=False | breakS=False | adx=45.44 | adx_ok=True | rising_ok=True | vol_ratio=0.41 | vol_up=False
+2026-03-10 09:45:18 | INFO | MainThread | HYPEUSDT | trend=BEAR | breakL=False | breakS=False | adx=16.00 | adx_ok=False | rising_ok=True | vol_ratio=1.36 | vol_up=True
+2026-03-10 09:45:18 | INFO | MainThread | PENGUUSDT | trend=BEAR | breakL=False | breakS=False | adx=24.01 | adx_ok=True | rising_ok=True | vol_ratio=0.60 | vol_up=False
+2026-03-10 09:50:05 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1773146999999
+2026-03-10 09:50:08 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1773146999999
+2026-03-10 09:50:09 | INFO | MainThread | [CACHE] New closed candle HYPEUSDT close_time=1773146999999
+2026-03-10 09:50:10 | INFO | MainThread | [CACHE] New closed candle PENGUUSDT close_time=1773146999999
+2026-03-10 09:50:11 | INFO | MainThread | XRPUSDT | trend=BEAR | breakL=False | breakS=False | adx=44.79 | adx_ok=True | rising_ok=True | vol_ratio=0.49 | vol_up=True
+2026-03-10 09:50:11 | INFO | MainThread | HYPEUSDT | trend=BEAR | breakL=False | breakS=False | adx=16.76 | adx_ok=False | rising_ok=True | vol_ratio=0.68 | vol_up=False
+2026-03-10 09:50:11 | INFO | MainThread | PENGUUSDT | trend=BEAR | breakL=False | breakS=False | adx=23.89 | adx_ok=True | rising_ok=True | vol_ratio=0.71 | vol_up=True
+2026-03-10 09:50:22 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1773146999999
+2026-03-10 09:50:23 | INFO | MainThread | [CACHE] New closed candle AAVEUSDT close_time=1773146999999
+2026-03-10 09:50:26 | INFO | MainThread | SOLUSDT | trend=BEAR | breakL=False | breakS=False | adx=14.96 | adx_ok=False | rising_ok=True | vol_ratio=0.76 | vol_up=True
+2026-03-10 09:50:26 | INFO | MainThread | AAVEUSDT | trend=BEAR | breakL=False | breakS=False | adx=24.11 | adx_ok=True | rising_ok=True | vol_ratio=1.55 | vol_up=True
+2026-03-10 09:55:11 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1773147299999
+2026-03-10 09:55:12 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1773147299999
+2026-03-10 09:55:13 | INFO | MainThread | [CACHE] New closed candle AAVEUSDT close_time=1773147299999
+2026-03-10 09:55:14 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1773147299999
+2026-03-10 09:55:15 | INFO | MainThread | [CACHE] New closed candle HYPEUSDT close_time=1773147299999
+2026-03-10 09:55:17 | INFO | MainThread | [CACHE] New closed candle PENGUUSDT close_time=1773147299999
+2026-03-10 09:55:17 | INFO | MainThread | BTCUSDT | trend=BEAR | breakL=False | breakS=False | adx=19.98 | adx_ok=False | rising_ok=True | vol_ratio=1.27 | vol_up=True
+2026-03-10 09:55:17 | INFO | MainThread | SOLUSDT | trend=BEAR | breakL=False | breakS=False | adx=14.03 | adx_ok=False | rising_ok=True | vol_ratio=0.64 | vol_up=False
+2026-03-10 09:55:17 | INFO | MainThread | AAVEUSDT | trend=BULL | breakL=False | breakS=False | adx=23.56 | adx_ok=True | rising_ok=True | vol_ratio=0.58 | vol_up=False
+2026-03-10 09:55:17 | INFO | MainThread | XRPUSDT | trend=BEAR | breakL=False | breakS=False | adx=43.80 | adx_ok=True | rising_ok=True | vol_ratio=0.84 | vol_up=True
+2026-03-10 09:55:17 | INFO | MainThread | HYPEUSDT | trend=BULL | breakL=False | breakS=False | adx=17.79 | adx_ok=False | rising_ok=True | vol_ratio=0.54 | vol_up=False
+2026-03-10 09:55:17 | INFO | MainThread | PENGUUSDT | trend=BEAR | breakL=False | breakS=False | adx=23.60 | adx_ok=True | rising_ok=True | vol_ratio=0.86 | vol_up=True
+2026-03-10 10:00:13 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1773147599999
+2026-03-10 10:00:15 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1773147599999
+2026-03-10 10:00:16 | INFO | MainThread | [CACHE] New closed candle AAVEUSDT close_time=1773147599999
+2026-03-10 10:00:18 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1773147599999
+2026-03-10 10:00:19 | INFO | MainThread | [CACHE] New closed candle HYPEUSDT close_time=1773147599999
+2026-03-10 10:00:20 | INFO | MainThread | [CACHE] New closed candle PENGUUSDT close_time=1773147599999
+2026-03-10 10:00:21 | INFO | MainThread | BTCUSDT | trend=BEAR | breakL=False | breakS=False | adx=19.43 | adx_ok=False | rising_ok=True | vol_ratio=0.44 | vol_up=False
+2026-03-10 10:00:21 | INFO | MainThread | SOLUSDT | trend=BEAR | breakL=False | breakS=False | adx=13.82 | adx_ok=False | rising_ok=True | vol_ratio=0.64 | vol_up=False
+2026-03-10 10:00:21 | INFO | MainThread | AAVEUSDT | trend=BULL | breakL=False | breakS=False | adx=22.53 | adx_ok=True | rising_ok=True | vol_ratio=0.41 | vol_up=False
+2026-03-10 10:00:21 | INFO | MainThread | XRPUSDT | trend=BEAR | breakL=False | breakS=False | adx=42.88 | adx_ok=True | rising_ok=True | vol_ratio=0.51 | vol_up=False
+2026-03-10 10:00:21 | INFO | MainThread | HYPEUSDT | trend=BULL | breakL=False | breakS=False | adx=18.80 | adx_ok=False | rising_ok=True | vol_ratio=0.52 | vol_up=False
+2026-03-10 10:00:21 | INFO | MainThread | PENGUUSDT | trend=BEAR | breakL=False | breakS=False | adx=23.77 | adx_ok=True | rising_ok=True | vol_ratio=0.76 | vol_up=False
+2026-03-10 10:05:07 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1773147899999
+2026-03-10 10:05:08 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1773147899999
+2026-03-10 10:05:10 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1773147899999
+2026-03-10 10:05:11 | INFO | MainThread | [CACHE] New closed candle HYPEUSDT close_time=1773147899999
+2026-03-10 10:05:12 | INFO | MainThread | [CACHE] New closed candle PENGUUSDT close_time=1773147899999
+2026-03-10 10:05:13 | INFO | MainThread | BTCUSDT | trend=BEAR | breakL=False | breakS=False | adx=18.12 | adx_ok=False | rising_ok=True | vol_ratio=1.20 | vol_up=True
+2026-03-10 10:05:13 | INFO | MainThread | SOLUSDT | trend=BEAR | breakL=False | breakS=False | adx=12.92 | adx_ok=False | rising_ok=True | vol_ratio=1.10 | vol_up=True
+2026-03-10 10:05:13 | INFO | MainThread | XRPUSDT | trend=BEAR | breakL=False | breakS=False | adx=41.26 | adx_ok=True | rising_ok=True | vol_ratio=0.91 | vol_up=True
+2026-03-10 10:05:13 | INFO | MainThread | HYPEUSDT | trend=BULL | breakL=False | breakS=False | adx=20.19 | adx_ok=True | rising_ok=True | vol_ratio=1.01 | vol_up=True
+2026-03-10 10:05:13 | INFO | MainThread | PENGUUSDT | trend=BEAR | breakL=False | breakS=False | adx=22.95 | adx_ok=True | rising_ok=True | vol_ratio=1.16 | vol_up=True
+2026-03-10 10:05:24 | INFO | MainThread | [CACHE] New closed candle AAVEUSDT close_time=1773147899999
+2026-03-10 10:05:26 | INFO | MainThread | AAVEUSDT | trend=BULL | breakL=False | breakS=False | adx=22.68 | adx_ok=True | rising_ok=True | vol_ratio=0.99 | vol_up=True
+2026-03-10 10:10:08 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1773148199999
+2026-03-10 10:10:09 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1773148199999
+2026-03-10 10:10:10 | INFO | MainThread | [CACHE] New closed candle AAVEUSDT close_time=1773148199999
+2026-03-10 10:10:11 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1773148199999
+2026-03-10 10:10:12 | INFO | MainThread | [CACHE] New closed candle HYPEUSDT close_time=1773148199999
+2026-03-10 10:10:14 | INFO | MainThread | [CACHE] New closed candle PENGUUSDT close_time=1773148199999
+2026-03-10 10:10:14 | INFO | MainThread | BTCUSDT | trend=BEAR | breakL=False | breakS=False | adx=17.65 | adx_ok=False | rising_ok=True | vol_ratio=1.88 | vol_up=True
+2026-03-10 10:10:14 | INFO | MainThread | SOLUSDT | trend=BULL | breakL=False | breakS=False | adx=13.22 | adx_ok=False | rising_ok=True | vol_ratio=2.28 | vol_up=True
+2026-03-10 10:10:14 | INFO | MainThread | AAVEUSDT | trend=BULL | breakL=True | breakS=False | adx=24.37 | adx_ok=True | rising_ok=True | vol_ratio=2.25 | vol_up=True
+2026-03-10 10:10:14 | INFO | MainThread | AAVEUSDT ENTRY_DEBUG | ph=112.09 pl=111.02 | close=112.63 | atr=0.3285 (0.29%)
+2026-03-10 10:10:14 | INFO | MainThread | AAVEUSDT → LONG signal published
+2026-03-10 10:10:14 | INFO | MainThread | XRPUSDT | trend=BEAR | breakL=False | breakS=False | adx=38.74 | adx_ok=True | rising_ok=True | vol_ratio=1.75 | vol_up=True
+2026-03-10 10:10:14 | INFO | MainThread | HYPEUSDT | trend=BULL | breakL=False | breakS=False | adx=20.39 | adx_ok=True | rising_ok=True | vol_ratio=1.66 | vol_up=True
+2026-03-10 10:10:14 | INFO | MainThread | PENGUUSDT | trend=BEAR | breakL=False | breakS=False | adx=22.75 | adx_ok=True | rising_ok=True | vol_ratio=2.82 | vol_up=True
+2026-03-10 10:10:18 | INFO | MainThread | [SLIPPAGE] AAVEUSDT price=112.090000 mark=112.619061 atr_pct=0.2645%
+2026-03-10 10:10:18 | WARNING | MainThread | [MARGIN] AAVEUSDT auto-scaled | scale=0.729 | new_qty=6.433935
+2026-03-10 10:10:19 | ERROR | MainThread | [ORDER] Market order failed AAVEUSDT: APIError(code=-2019): Margin is insufficient.
+Traceback (most recent call last):
+  File "/Users/joselt/Desktop/beast-money-maker/exchange/binance_futures.py", line 308, in place_market_order
+    order = self.client.futures_create_order(
+  File "/Users/joselt/Desktop/beast-money-maker/.venv/lib/python3.8/site-packages/binance/client.py", line 7951, in futures_create_order
+    return self._request_futures_api("post", "order", True, data=params)
+  File "/Users/joselt/Desktop/beast-money-maker/.venv/lib/python3.8/site-packages/binance/client.py", line 144, in _request_futures_api
+    return self._request(method, uri, signed, force_params, **kwargs)
+  File "/Users/joselt/Desktop/beast-money-maker/.venv/lib/python3.8/site-packages/binance/client.py", line 107, in _request
+    return self._handle_response(self.response)
+  File "/Users/joselt/Desktop/beast-money-maker/.venv/lib/python3.8/site-packages/binance/client.py", line 116, in _handle_response
+    raise BinanceAPIException(response, response.status_code, response.text)
+binance.exceptions.BinanceAPIException: APIError(code=-2019): Margin is insufficient.
+2026-03-10 10:10:19 | ERROR | MainThread | [ENTRY] Order execution failed.
+Traceback (most recent call last):
+  File "/Users/joselt/Desktop/beast-money-maker/execution/order_manager.py", line 272, in execute
+    order = self.exchange.place_market_order(
+  File "/Users/joselt/Desktop/beast-money-maker/exchange/binance_futures.py", line 308, in place_market_order
+    order = self.client.futures_create_order(
+  File "/Users/joselt/Desktop/beast-money-maker/.venv/lib/python3.8/site-packages/binance/client.py", line 7951, in futures_create_order
+    return self._request_futures_api("post", "order", True, data=params)
+  File "/Users/joselt/Desktop/beast-money-maker/.venv/lib/python3.8/site-packages/binance/client.py", line 144, in _request_futures_api
+    return self._request(method, uri, signed, force_params, **kwargs)
+  File "/Users/joselt/Desktop/beast-money-maker/.venv/lib/python3.8/site-packages/binance/client.py", line 107, in _request
+    return self._handle_response(self.response)
+  File "/Users/joselt/Desktop/beast-money-maker/.venv/lib/python3.8/site-packages/binance/client.py", line 116, in _handle_response
+    raise BinanceAPIException(response, response.status_code, response.text)
+binance.exceptions.BinanceAPIException: APIError(code=-2019): Margin is insufficient.
+2026-03-10 10:15:08 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1773148499999
+2026-03-10 10:15:09 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1773148499999
+2026-03-10 10:15:11 | INFO | MainThread | [CACHE] New closed candle AAVEUSDT close_time=1773148499999
+2026-03-10 10:15:12 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1773148499999
+2026-03-10 10:15:13 | INFO | MainThread | [CACHE] New closed candle HYPEUSDT close_time=1773148499999
+2026-03-10 10:15:14 | INFO | MainThread | [CACHE] New closed candle PENGUUSDT close_time=1773148499999
+2026-03-10 10:15:14 | INFO | MainThread | BTCUSDT | trend=BULL | breakL=False | breakS=False | adx=17.22 | adx_ok=False | rising_ok=True | vol_ratio=0.61 | vol_up=False
+2026-03-10 10:15:14 | INFO | MainThread | SOLUSDT | trend=BULL | breakL=False | breakS=False | adx=13.50 | adx_ok=False | rising_ok=True | vol_ratio=0.85 | vol_up=False
+2026-03-10 10:15:15 | INFO | MainThread | AAVEUSDT | trend=BULL | breakL=False | breakS=False | adx=25.94 | adx_ok=True | rising_ok=True | vol_ratio=0.99 | vol_up=False
+2026-03-10 10:15:15 | INFO | MainThread | XRPUSDT | trend=BEAR | breakL=False | breakS=False | adx=36.56 | adx_ok=True | rising_ok=True | vol_ratio=0.83 | vol_up=False
+2026-03-10 10:15:15 | INFO | MainThread | HYPEUSDT | trend=BULL | breakL=False | breakS=False | adx=21.05 | adx_ok=True | rising_ok=True | vol_ratio=3.12 | vol_up=True
+2026-03-10 10:15:15 | INFO | MainThread | PENGUUSDT | trend=BEAR | breakL=False | breakS=False | adx=22.56 | adx_ok=True | rising_ok=True | vol_ratio=0.43 | vol_up=False
+2026-03-10 10:20:11 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1773148799999
+2026-03-10 10:20:12 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1773148799999
+2026-03-10 10:20:13 | INFO | MainThread | [CACHE] New closed candle AAVEUSDT close_time=1773148799999
+2026-03-10 10:20:14 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1773148799999
+2026-03-10 10:20:16 | INFO | MainThread | [CACHE] New closed candle HYPEUSDT close_time=1773148799999
+2026-03-10 10:20:17 | INFO | MainThread | [CACHE] New closed candle PENGUUSDT close_time=1773148799999
+2026-03-10 10:20:17 | INFO | MainThread | BTCUSDT | trend=BULL | breakL=False | breakS=False | adx=17.63 | adx_ok=False | rising_ok=True | vol_ratio=1.37 | vol_up=True
+2026-03-10 10:20:17 | INFO | MainThread | SOLUSDT | trend=BULL | breakL=False | breakS=False | adx=13.94 | adx_ok=False | rising_ok=True | vol_ratio=1.23 | vol_up=True
+2026-03-10 10:20:17 | INFO | MainThread | AAVEUSDT | trend=BULL | breakL=False | breakS=False | adx=26.85 | adx_ok=True | rising_ok=True | vol_ratio=0.94 | vol_up=False
+2026-03-10 10:20:17 | INFO | MainThread | XRPUSDT | trend=BULL | breakL=False | breakS=False | adx=35.38 | adx_ok=True | rising_ok=True | vol_ratio=1.01 | vol_up=True
+2026-03-10 10:20:17 | INFO | MainThread | HYPEUSDT | trend=BULL | breakL=False | breakS=False | adx=22.22 | adx_ok=True | rising_ok=True | vol_ratio=1.72 | vol_up=False
+2026-03-10 10:20:17 | INFO | MainThread | PENGUUSDT | trend=BEAR | breakL=False | breakS=False | adx=22.19 | adx_ok=True | rising_ok=True | vol_ratio=1.52 | vol_up=True
+2026-03-10 10:25:09 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1773149099999
+2026-03-10 10:25:10 | INFO | MainThread | [CACHE] New closed candle AAVEUSDT close_time=1773149099999
+2026-03-10 10:25:11 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1773149099999
+2026-03-10 10:25:12 | INFO | MainThread | [CACHE] New closed candle HYPEUSDT close_time=1773149099999
+2026-03-10 10:25:14 | INFO | MainThread | [CACHE] New closed candle PENGUUSDT close_time=1773149099999
+2026-03-10 10:25:14 | INFO | MainThread | SOLUSDT | trend=BULL | breakL=False | breakS=False | adx=15.00 | adx_ok=False | rising_ok=True | vol_ratio=0.99 | vol_up=False
+2026-03-10 10:25:14 | INFO | MainThread | AAVEUSDT | trend=BULL | breakL=False | breakS=False | adx=27.09 | adx_ok=True | rising_ok=True | vol_ratio=1.29 | vol_up=True
+2026-03-10 10:25:14 | INFO | MainThread | XRPUSDT | trend=BULL | breakL=False | breakS=False | adx=34.65 | adx_ok=True | rising_ok=True | vol_ratio=1.52 | vol_up=True
+2026-03-10 10:25:14 | INFO | MainThread | HYPEUSDT | trend=BULL | breakL=False | breakS=False | adx=23.39 | adx_ok=True | rising_ok=True | vol_ratio=0.99 | vol_up=False
+2026-03-10 10:25:14 | INFO | MainThread | PENGUUSDT | trend=BULL | breakL=False | breakS=False | adx=22.38 | adx_ok=True | rising_ok=True | vol_ratio=1.42 | vol_up=False
+2026-03-10 10:25:24 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1773149099999
+2026-03-10 10:25:29 | INFO | MainThread | BTCUSDT | trend=BULL | breakL=False | breakS=False | adx=17.58 | adx_ok=False | rising_ok=True | vol_ratio=0.90 | vol_up=False
+2026-03-10 10:30:03 | INFO | MainThread | [CACHE] New closed candle AAVEUSDT close_time=1773149399999
+2026-03-10 10:30:05 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1773149399999
+2026-03-10 10:30:06 | INFO | MainThread | [CACHE] New closed candle HYPEUSDT close_time=1773149399999
+2026-03-10 10:30:07 | INFO | MainThread | [CACHE] New closed candle PENGUUSDT close_time=1773149399999
+2026-03-10 10:30:08 | INFO | MainThread | XRPUSDT | trend=BULL | breakL=False | breakS=False | adx=34.13 | adx_ok=True | rising_ok=True | vol_ratio=0.74 | vol_up=False
+2026-03-10 10:30:08 | INFO | MainThread | HYPEUSDT | trend=BULL | breakL=False | breakS=False | adx=23.97 | adx_ok=True | rising_ok=True | vol_ratio=1.61 | vol_up=True
+2026-03-10 10:30:08 | INFO | MainThread | PENGUUSDT | trend=BULL | breakL=False | breakS=False | adx=21.85 | adx_ok=True | rising_ok=True | vol_ratio=1.48 | vol_up=True
+2026-03-10 10:30:20 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1773149399999
+2026-03-10 10:30:21 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1773149399999
+2026-03-10 10:30:24 | INFO | MainThread | BTCUSDT | trend=BULL | breakL=False | breakS=False | adx=17.56 | adx_ok=False | rising_ok=True | vol_ratio=0.98 | vol_up=True
+2026-03-10 10:30:24 | INFO | MainThread | SOLUSDT | trend=BULL | breakL=False | breakS=False | adx=15.99 | adx_ok=False | rising_ok=True | vol_ratio=1.07 | vol_up=True
+2026-03-10 10:35:16 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1773149699999
+2026-03-10 10:35:17 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1773149699999
+2026-03-10 10:35:18 | INFO | MainThread | [CACHE] New closed candle AAVEUSDT close_time=1773149699999
+2026-03-10 10:35:20 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1773149699999
+2026-03-10 10:35:21 | INFO | MainThread | [CACHE] New closed candle HYPEUSDT close_time=1773149699999
+2026-03-10 10:35:22 | INFO | MainThread | [CACHE] New closed candle PENGUUSDT close_time=1773149699999
+2026-03-10 10:35:22 | INFO | MainThread | BTCUSDT | trend=BULL | breakL=False | breakS=False | adx=18.93 | adx_ok=False | rising_ok=True | vol_ratio=3.47 | vol_up=True
+2026-03-10 10:35:22 | INFO | MainThread | SOLUSDT | trend=BULL | breakL=False | breakS=False | adx=15.88 | adx_ok=False | rising_ok=True | vol_ratio=3.72 | vol_up=True
+2026-03-10 10:35:22 | INFO | MainThread | AAVEUSDT | trend=BULL | breakL=False | breakS=False | adx=26.52 | adx_ok=True | rising_ok=True | vol_ratio=2.71 | vol_up=True
+2026-03-10 10:35:22 | INFO | MainThread | XRPUSDT | trend=BULL | breakL=False | breakS=False | adx=32.05 | adx_ok=True | rising_ok=True | vol_ratio=2.16 | vol_up=True
+2026-03-10 10:35:22 | INFO | MainThread | HYPEUSDT | trend=BULL | breakL=False | breakS=False | adx=24.00 | adx_ok=True | rising_ok=True | vol_ratio=2.03 | vol_up=True
+2026-03-10 10:35:22 | INFO | MainThread | PENGUUSDT | trend=BEAR | breakL=False | breakS=True | adx=21.77 | adx_ok=True | rising_ok=True | vol_ratio=2.14 | vol_up=True
+2026-03-10 10:35:22 | INFO | MainThread | PENGUUSDT ENTRY_DEBUG | ph=0.01 pl=0.01 | close=0.01 | atr=0.0000 (0.45%)
+2026-03-10 10:35:22 | INFO | MainThread | PENGUUSDT → SHORT signal published
+2026-03-10 10:35:26 | INFO | MainThread | [SLIPPAGE] PENGUUSDT price=0.007119 mark=0.007086 atr_pct=0.4548%
+2026-03-10 10:35:27 | INFO | MainThread | [ORDER] MARKET PENGUUSDT SHORT qty=91471.0
+2026-03-10 10:35:28 | INFO | MainThread | [ORDER] STOP_MARKET PENGUUSDT side=BUY qty=91471.0 stop=0.007188
+2026-03-10 10:35:28 | INFO | MainThread | PENGUUSDT SL updated -> 0.0072 (algoId=1000001039236851)
+2026-03-10 10:35:29 | INFO | MainThread | [SL] initial stop placed PENGUUSDT SHORT sl=0.0072
+2026-03-10 10:35:29 | INFO | MainThread | [ENTRY] PENGUUSDT SHORT qty=91471.660734 @ 0.01 SL=0.01
+2026-03-10 10:35:38 | INFO | MainThread | [RECONCILE] PENGUUSDT partial close reduced=0.660734 remaining=91471.000000
+2026-03-10 10:38:43 | INFO | MainThread | [TRAILING] Activado PENGUUSDT SHORT PnL:0.83%
+2026-03-10 10:38:44 | INFO | MainThread | [CANCEL] ALGO STOP PENGUUSDT algoId=1000001039236851
+2026-03-10 10:38:45 | INFO | MainThread | [ORDER] STOP_MARKET PENGUUSDT side=BUY qty=91471.0 stop=0.007078
+2026-03-10 10:38:45 | INFO | MainThread | PENGUUSDT SL updated -> 0.0071 (algoId=1000001039269952)
+2026-03-10 10:38:59 | ERROR | MainThread | [TP EXEC] Error in partial close PENGUUSDT: place_market_order() got an unexpected keyword argument 'reduce_only'
+Traceback (most recent call last):
+  File "/Users/joselt/Desktop/beast-money-maker/execution/take_profit_manager.py", line 185, in _execute_partial_close
+    close_order = self.exchange.place_market_order(
+TypeError: place_market_order() got an unexpected keyword argument 'reduce_only'
+2026-03-10 10:39:01 | INFO | MainThread | [CANCEL] ALGO STOP PENGUUSDT algoId=1000001039269952
+2026-03-10 10:39:01 | INFO | MainThread | [ORDER] STOP_MARKET PENGUUSDT side=BUY qty=91471.0 stop=0.007064
+2026-03-10 10:39:01 | INFO | MainThread | PENGUUSDT SL updated -> 0.0071 (algoId=1000001039273299)
+2026-03-10 10:39:18 | ERROR | MainThread | [TP EXEC] Error in partial close PENGUUSDT: place_market_order() got an unexpected keyword argument 'reduce_only'
+Traceback (most recent call last):
+  File "/Users/joselt/Desktop/beast-money-maker/execution/take_profit_manager.py", line 185, in _execute_partial_close
+    close_order = self.exchange.place_market_order(
+TypeError: place_market_order() got an unexpected keyword argument 'reduce_only'
+2026-03-10 10:39:20 | INFO | MainThread | [CANCEL] ALGO STOP PENGUUSDT algoId=1000001039273299
+2026-03-10 10:39:20 | INFO | MainThread | [ORDER] STOP_MARKET PENGUUSDT side=BUY qty=91471.0 stop=0.007062
+2026-03-10 10:39:20 | INFO | MainThread | PENGUUSDT SL updated -> 0.0071 (algoId=1000001039276833)
+2026-03-10 10:39:36 | ERROR | MainThread | [TP EXEC] Error in partial close PENGUUSDT: place_market_order() got an unexpected keyword argument 'reduce_only'
+Traceback (most recent call last):
+  File "/Users/joselt/Desktop/beast-money-maker/execution/take_profit_manager.py", line 185, in _execute_partial_close
+    close_order = self.exchange.place_market_order(
+TypeError: place_market_order() got an unexpected keyword argument 'reduce_only'
+2026-03-10 10:39:38 | INFO | MainThread | [CANCEL] ALGO STOP PENGUUSDT algoId=1000001039276833
+2026-03-10 10:39:39 | INFO | MainThread | [ORDER] STOP_MARKET PENGUUSDT side=BUY qty=91471.0 stop=0.007056
+2026-03-10 10:39:39 | INFO | MainThread | PENGUUSDT SL updated -> 0.0071 (algoId=1000001039279668)
+2026-03-10 10:40:11 | INFO | MainThread | [CANCEL] ALGO STOP PENGUUSDT algoId=1000001039279668
+2026-03-10 10:40:11 | INFO | MainThread | [ORDER] STOP_MARKET PENGUUSDT side=BUY qty=91471.0 stop=0.007053
+2026-03-10 10:40:11 | INFO | MainThread | PENGUUSDT SL updated -> 0.0071 (algoId=1000001039285297)
+2026-03-10 10:40:16 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1773149999999
+2026-03-10 10:40:17 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1773149999999
+2026-03-10 10:40:18 | INFO | MainThread | [CACHE] New closed candle AAVEUSDT close_time=1773149999999
+2026-03-10 10:40:20 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1773149999999
+2026-03-10 10:40:21 | INFO | MainThread | [CACHE] New closed candle HYPEUSDT close_time=1773149999999
+2026-03-10 10:40:22 | INFO | MainThread | [CACHE] New closed candle PENGUUSDT close_time=1773149999999
+2026-03-10 10:40:23 | INFO | MainThread | BTCUSDT | trend=BEAR | breakL=False | breakS=False | adx=21.44 | adx_ok=True | rising_ok=True | vol_ratio=5.84 | vol_up=True
+2026-03-10 10:40:23 | INFO | MainThread | SOLUSDT | trend=BEAR | breakL=False | breakS=False | adx=17.65 | adx_ok=False | rising_ok=True | vol_ratio=4.94 | vol_up=True
+2026-03-10 10:40:23 | INFO | MainThread | AAVEUSDT | trend=BULL | breakL=False | breakS=False | adx=27.56 | adx_ok=True | rising_ok=True | vol_ratio=4.49 | vol_up=True
+2026-03-10 10:40:23 | INFO | MainThread | XRPUSDT | trend=BEAR | breakL=False | breakS=False | adx=32.23 | adx_ok=True | rising_ok=True | vol_ratio=2.76 | vol_up=True
+2026-03-10 10:40:23 | INFO | MainThread | HYPEUSDT | trend=BULL | breakL=False | breakS=False | adx=24.29 | adx_ok=True | rising_ok=True | vol_ratio=5.07 | vol_up=True
+2026-03-10 10:40:23 | INFO | MainThread | PENGUUSDT | trend=BEAR | breakL=False | breakS=False | adx=23.18 | adx_ok=True | rising_ok=True | vol_ratio=5.31 | vol_up=True
+2026-03-10 10:44:39 | INFO | MainThread | [RECONCILE] PENGUUSDT PnL=3.201485 Commission=0.32261819999999997
+2026-03-10 10:44:39 | INFO | MainThread | [METRICS] PENGUUSDT SHORT | hold=9.0min | move=+0.452% | pnl=+3.2015 | comm=0.3226 | net=+2.8789
+2026-03-10 10:45:06 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1773150299999
+2026-03-10 10:45:08 | INFO | MainThread | [CACHE] New closed candle AAVEUSDT close_time=1773150299999
+2026-03-10 10:45:09 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1773150299999
+2026-03-10 10:45:11 | INFO | MainThread | [CACHE] New closed candle HYPEUSDT close_time=1773150299999
+2026-03-10 10:45:12 | INFO | MainThread | [CACHE] New closed candle PENGUUSDT close_time=1773150299999
+2026-03-10 10:45:12 | INFO | MainThread | BTCUSDT | trend=BEAR | breakL=False | breakS=False | adx=23.82 | adx_ok=True | rising_ok=True | vol_ratio=3.17 | vol_up=False
+2026-03-10 10:45:12 | INFO | MainThread | AAVEUSDT | trend=BEAR | breakL=False | breakS=False | adx=28.52 | adx_ok=True | rising_ok=True | vol_ratio=2.10 | vol_up=False
+2026-03-10 10:45:12 | INFO | MainThread | XRPUSDT | trend=BEAR | breakL=False | breakS=False | adx=32.39 | adx_ok=True | rising_ok=True | vol_ratio=1.75 | vol_up=False
+2026-03-10 10:45:12 | INFO | MainThread | HYPEUSDT | trend=BEAR | breakL=False | breakS=False | adx=24.55 | adx_ok=True | rising_ok=True | vol_ratio=2.20 | vol_up=False
+2026-03-10 10:45:12 | INFO | MainThread | PENGUUSDT | trend=BEAR | breakL=False | breakS=False | adx=24.49 | adx_ok=True | rising_ok=True | vol_ratio=2.08 | vol_up=False
+2026-03-10 10:45:23 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1773150299999
+2026-03-10 10:45:27 | INFO | MainThread | SOLUSDT | trend=BEAR | breakL=False | breakS=False | adx=19.29 | adx_ok=False | rising_ok=True | vol_ratio=2.51 | vol_up=False
+2026-03-10 10:50:12 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1773150599999
+2026-03-10 10:50:14 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1773150599999
+2026-03-10 10:50:15 | INFO | MainThread | [CACHE] New closed candle AAVEUSDT close_time=1773150599999
+2026-03-10 10:50:16 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1773150599999
+2026-03-10 10:50:17 | INFO | MainThread | [CACHE] New closed candle HYPEUSDT close_time=1773150599999
+2026-03-10 10:50:18 | INFO | MainThread | [CACHE] New closed candle PENGUUSDT close_time=1773150599999
+2026-03-10 10:50:19 | INFO | MainThread | BTCUSDT | trend=BEAR | breakL=False | breakS=False | adx=25.08 | adx_ok=True | rising_ok=True | vol_ratio=1.81 | vol_up=False
+2026-03-10 10:50:19 | INFO | MainThread | SOLUSDT | trend=BEAR | breakL=False | breakS=False | adx=19.74 | adx_ok=False | rising_ok=True | vol_ratio=1.83 | vol_up=False
+2026-03-10 10:50:19 | INFO | MainThread | AAVEUSDT | trend=BEAR | breakL=False | breakS=False | adx=27.77 | adx_ok=True | rising_ok=True | vol_ratio=1.13 | vol_up=False
+2026-03-10 10:50:19 | INFO | MainThread | XRPUSDT | trend=BEAR | breakL=False | breakS=False | adx=30.97 | adx_ok=True | rising_ok=True | vol_ratio=1.55 | vol_up=False
+2026-03-10 10:50:19 | INFO | MainThread | HYPEUSDT | trend=BEAR | breakL=False | breakS=False | adx=24.20 | adx_ok=True | rising_ok=True | vol_ratio=1.80 | vol_up=False
+2026-03-10 10:50:19 | INFO | MainThread | PENGUUSDT | trend=BEAR | breakL=False | breakS=False | adx=24.26 | adx_ok=True | rising_ok=True | vol_ratio=2.01 | vol_up=True
+2026-03-10 10:55:25 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1773150899999
+2026-03-10 10:55:26 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1773150899999
+2026-03-10 10:55:27 | INFO | MainThread | [CACHE] New closed candle AAVEUSDT close_time=1773150899999
+2026-03-10 10:55:29 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1773150899999
+2026-03-10 10:55:30 | INFO | MainThread | [CACHE] New closed candle HYPEUSDT close_time=1773150899999
+2026-03-10 10:55:31 | INFO | MainThread | [CACHE] New closed candle PENGUUSDT close_time=1773150899999
+2026-03-10 10:55:31 | INFO | MainThread | BTCUSDT | trend=BEAR | breakL=False | breakS=False | adx=25.83 | adx_ok=True | rising_ok=True | vol_ratio=1.03 | vol_up=False
+2026-03-10 10:55:31 | INFO | MainThread | SOLUSDT | trend=BEAR | breakL=False | breakS=False | adx=19.65 | adx_ok=False | rising_ok=True | vol_ratio=0.88 | vol_up=False
+2026-03-10 10:55:31 | INFO | MainThread | AAVEUSDT | trend=BEAR | breakL=False | breakS=False | adx=26.62 | adx_ok=True | rising_ok=True | vol_ratio=0.74 | vol_up=False
+2026-03-10 10:55:32 | INFO | MainThread | XRPUSDT | trend=BULL | breakL=False | breakS=False | adx=29.46 | adx_ok=True | rising_ok=True | vol_ratio=0.88 | vol_up=False
+2026-03-10 10:55:32 | INFO | MainThread | HYPEUSDT | trend=BEAR | breakL=False | breakS=False | adx=23.92 | adx_ok=True | rising_ok=True | vol_ratio=0.70 | vol_up=False
+2026-03-10 10:55:32 | INFO | MainThread | PENGUUSDT | trend=BEAR | breakL=False | breakS=False | adx=23.52 | adx_ok=True | rising_ok=True | vol_ratio=0.71 | vol_up=False
+2026-03-10 11:00:11 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1773151199999
+2026-03-10 11:00:12 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1773151199999
+2026-03-10 11:00:13 | INFO | MainThread | [CACHE] New closed candle AAVEUSDT close_time=1773151199999
+2026-03-10 11:00:14 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1773151199999
+2026-03-10 11:00:16 | INFO | MainThread | [CACHE] New closed candle HYPEUSDT close_time=1773151199999
+2026-03-10 11:00:17 | INFO | MainThread | [CACHE] New closed candle PENGUUSDT close_time=1773151199999
+2026-03-10 11:00:17 | INFO | MainThread | BTCUSDT | trend=BEAR | breakL=False | breakS=False | adx=27.15 | adx_ok=True | rising_ok=True | vol_ratio=1.50 | vol_up=True
+2026-03-10 11:00:17 | INFO | MainThread | SOLUSDT | trend=BEAR | breakL=False | breakS=False | adx=20.53 | adx_ok=True | rising_ok=True | vol_ratio=1.10 | vol_up=True
+2026-03-10 11:00:17 | INFO | MainThread | AAVEUSDT | trend=BEAR | breakL=False | breakS=False | adx=26.69 | adx_ok=True | rising_ok=True | vol_ratio=1.26 | vol_up=True
+2026-03-10 11:00:17 | INFO | MainThread | XRPUSDT | trend=BULL | breakL=False | breakS=False | adx=28.59 | adx_ok=True | rising_ok=True | vol_ratio=1.09 | vol_up=True
+2026-03-10 11:00:17 | INFO | MainThread | HYPEUSDT | trend=BEAR | breakL=False | breakS=False | adx=25.00 | adx_ok=True | rising_ok=True | vol_ratio=2.07 | vol_up=True
+2026-03-10 11:00:17 | INFO | MainThread | PENGUUSDT | trend=BEAR | breakL=False | breakS=False | adx=23.71 | adx_ok=True | rising_ok=True | vol_ratio=1.13 | vol_up=True
+2026-03-10 11:05:09 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1773151499999
+2026-03-10 11:05:10 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1773151499999
+2026-03-10 11:05:12 | INFO | MainThread | [CACHE] New closed candle AAVEUSDT close_time=1773151499999
+2026-03-10 11:05:13 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1773151499999
+2026-03-10 11:05:14 | INFO | MainThread | [CACHE] New closed candle HYPEUSDT close_time=1773151499999
+2026-03-10 11:05:16 | INFO | MainThread | [CACHE] New closed candle PENGUUSDT close_time=1773151499999
+2026-03-10 11:05:16 | INFO | MainThread | BTCUSDT | trend=BEAR | breakL=False | breakS=False | adx=28.97 | adx_ok=True | rising_ok=True | vol_ratio=1.93 | vol_up=True
+2026-03-10 11:05:16 | INFO | MainThread | SOLUSDT | trend=BEAR | breakL=False | breakS=False | adx=21.95 | adx_ok=True | rising_ok=True | vol_ratio=2.23 | vol_up=True
+2026-03-10 11:05:16 | INFO | MainThread | AAVEUSDT | trend=BEAR | breakL=False | breakS=False | adx=27.28 | adx_ok=True | rising_ok=True | vol_ratio=1.50 | vol_up=True
+2026-03-10 11:05:16 | INFO | MainThread | XRPUSDT | trend=BULL | breakL=False | breakS=False | adx=28.65 | adx_ok=True | rising_ok=True | vol_ratio=1.48 | vol_up=True
+2026-03-10 11:05:16 | INFO | MainThread | HYPEUSDT | trend=BEAR | breakL=False | breakS=False | adx=26.40 | adx_ok=True | rising_ok=True | vol_ratio=3.55 | vol_up=True
+2026-03-10 11:05:16 | INFO | MainThread | PENGUUSDT | trend=BEAR | breakL=False | breakS=False | adx=24.13 | adx_ok=True | rising_ok=True | vol_ratio=1.16 | vol_up=True
+2026-03-10 11:10:03 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1773151799999
+2026-03-10 11:10:04 | INFO | MainThread | [CACHE] New closed candle AAVEUSDT close_time=1773151799999
+2026-03-10 11:10:05 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1773151799999
+2026-03-10 11:10:17 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1773151799999
+2026-03-10 11:10:21 | INFO | MainThread | [CACHE] New closed candle HYPEUSDT close_time=1773151799999
+2026-03-10 11:10:22 | INFO | MainThread | [CACHE] New closed candle PENGUUSDT close_time=1773151799999
+2026-03-10 11:10:22 | INFO | MainThread | BTCUSDT | trend=BEAR | breakL=False | breakS=False | adx=30.90 | adx_ok=True | rising_ok=True | vol_ratio=1.90 | vol_up=True
+2026-03-10 11:10:22 | INFO | MainThread | HYPEUSDT | trend=BEAR | breakL=False | breakS=False | adx=27.85 | adx_ok=True | rising_ok=True | vol_ratio=1.30 | vol_up=False
+2026-03-10 11:10:22 | INFO | MainThread | PENGUUSDT | trend=BEAR | breakL=False | breakS=False | adx=24.09 | adx_ok=True | rising_ok=True | vol_ratio=1.60 | vol_up=True
+2026-03-10 11:15:17 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1773152099999
+2026-03-10 11:15:18 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1773152099999
+2026-03-10 11:15:20 | INFO | MainThread | [CACHE] New closed candle AAVEUSDT close_time=1773152099999
+2026-03-10 11:15:21 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1773152099999
+2026-03-10 11:15:22 | INFO | MainThread | [CACHE] New closed candle HYPEUSDT close_time=1773152099999
+2026-03-10 11:15:23 | INFO | MainThread | [CACHE] New closed candle PENGUUSDT close_time=1773152099999
+2026-03-10 11:15:24 | INFO | MainThread | BTCUSDT | trend=BEAR | breakL=False | breakS=False | adx=32.79 | adx_ok=True | rising_ok=True | vol_ratio=1.34 | vol_up=False
+2026-03-10 11:15:24 | INFO | MainThread | SOLUSDT | trend=BEAR | breakL=False | breakS=False | adx=25.47 | adx_ok=True | rising_ok=True | vol_ratio=1.40 | vol_up=False
+2026-03-10 11:15:24 | INFO | MainThread | AAVEUSDT | trend=BEAR | breakL=False | breakS=False | adx=29.34 | adx_ok=True | rising_ok=True | vol_ratio=2.37 | vol_up=True
+2026-03-10 11:15:24 | INFO | MainThread | XRPUSDT | trend=BEAR | breakL=False | breakS=False | adx=28.11 | adx_ok=True | rising_ok=True | vol_ratio=1.07 | vol_up=False
+2026-03-10 11:15:24 | INFO | MainThread | HYPEUSDT | trend=BEAR | breakL=False | breakS=False | adx=29.49 | adx_ok=True | rising_ok=True | vol_ratio=1.42 | vol_up=True
+2026-03-10 11:15:24 | INFO | MainThread | PENGUUSDT | trend=BEAR | breakL=False | breakS=False | adx=24.39 | adx_ok=True | rising_ok=True | vol_ratio=0.91 | vol_up=False
+2026-03-10 11:16:38 | WARNING | MainThread | [CACHE] mark price error XRPUSDT: HTTPSConnectionPool(host='fapi.binance.com', port=443): Read timed out. (read timeout=10)
+2026-03-10 11:16:53 | WARNING | MainThread | [CACHE] mark price error HYPEUSDT: HTTPSConnectionPool(host='fapi.binance.com', port=443): Max retries exceeded with url: /fapi/v1/premiumIndex?symbol=HYPEUSDT (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x11a38f790>: Failed to establish a new connection: [Errno 51] Network is unreachable'))
+2026-03-10 11:16:53 | WARNING | MainThread | [CACHE] mark price error PENGUUSDT: HTTPSConnectionPool(host='fapi.binance.com', port=443): Max retries exceeded with url: /fapi/v1/premiumIndex?symbol=PENGUUSDT (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x11a5e8880>: Failed to resolve 'fapi.binance.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-03-10 11:16:53 | WARNING | MainThread | [RECONCILE] HTTPSConnectionPool(host='fapi.binance.com', port=443): Max retries exceeded with url: /fapi/v3/positionRisk?recvWindow=10000&timestamp=1773152213372&signature=fdb80e6458de911c895faf4cccf57433ee4012bf69abbb997639630fd8129974 (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x11a5e8250>: Failed to resolve 'fapi.binance.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-03-10 11:16:53 | WARNING | MainThread | [DAILY LOSS] could not compute dd: HTTPSConnectionPool(host='fapi.binance.com', port=443): Max retries exceeded with url: /fapi/v2/account?recvWindow=10000&timestamp=1773152213377&signature=6a8d3e9388f6e4187e555dc92446be8449413e800ad5720892c83436d3a84f90 (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x11a5e8070>: Failed to resolve 'fapi.binance.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-03-10 11:16:53 | ERROR | MainThread | [TP MANAGER] loop error: HTTPSConnectionPool(host='fapi.binance.com', port=443): Max retries exceeded with url: /fapi/v3/positionRisk?recvWindow=10000&timestamp=1773152213383&signature=080d23f9ec87b25821dc4cb0cd1cc374847db38fc3fedf2340e6a3759babea79 (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x11a69d190>: Failed to resolve 'fapi.binance.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-03-10 11:16:53 | WARNING | MainThread | [TG] error: HTTPSConnectionPool(host='api.telegram.org', port=443): Max retries exceeded with url: /bot8595800756:AAFOl0BFwrOQcy3tsjHD7uHYdCnuHPdftfE/sendMessage (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x11a69da60>: Failed to resolve 'api.telegram.org' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-03-10 11:16:53 | WARNING | MainThread | [TG] error: HTTPSConnectionPool(host='api.telegram.org', port=443): Max retries exceeded with url: /bot8595800756:AAFOl0BFwrOQcy3tsjHD7uHYdCnuHPdftfE/sendMessage (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x11a69d430>: Failed to resolve 'api.telegram.org' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-03-10 11:16:53 | WARNING | MainThread | [TG poll] error: HTTPSConnectionPool(host='api.telegram.org', port=443): Max retries exceeded with url: /bot8595800756:AAFOl0BFwrOQcy3tsjHD7uHYdCnuHPdftfE/getUpdates?timeout=0&offset=1 (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x11a5e8670>: Failed to resolve 'api.telegram.org' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-03-10 11:16:53 | WARNING | MainThread | Account snapshot error: HTTPSConnectionPool(host='fapi.binance.com', port=443): Max retries exceeded with url: /fapi/v2/account?recvWindow=10000&timestamp=1773152213407&signature=1561b4975bdca6ac8db8d84bd03759ab7a8798ca1b9325b46a62b09f5868e0bc (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x11a5e8f10>: Failed to resolve 'fapi.binance.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-03-10 11:16:53 | WARNING | MainThread | [CACHE] update error BTCUSDT: HTTPSConnectionPool(host='fapi.binance.com', port=443): Max retries exceeded with url: /fapi/v1/klines?interval=5m&limit=2&symbol=BTCUSDT (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x11a38f8b0>: Failed to resolve 'fapi.binance.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-03-10 11:16:53 | WARNING | MainThread | [CACHE] update error SOLUSDT: HTTPSConnectionPool(host='fapi.binance.com', port=443): Max retries exceeded with url: /fapi/v1/klines?interval=5m&limit=2&symbol=SOLUSDT (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x11a4c9ac0>: Failed to resolve 'fapi.binance.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-03-10 11:16:53 | WARNING | MainThread | [CACHE] update error AAVEUSDT: HTTPSConnectionPool(host='fapi.binance.com', port=443): Max retries exceeded with url: /fapi/v1/klines?interval=5m&limit=2&symbol=AAVEUSDT (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x11a4ff430>: Failed to resolve 'fapi.binance.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-03-10 11:16:53 | WARNING | MainThread | [CACHE] update error XRPUSDT: HTTPSConnectionPool(host='fapi.binance.com', port=443): Max retries exceeded with url: /fapi/v1/klines?interval=5m&limit=2&symbol=XRPUSDT (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x11cf3f370>: Failed to resolve 'fapi.binance.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-03-10 11:16:53 | WARNING | MainThread | [CACHE] update error HYPEUSDT: HTTPSConnectionPool(host='fapi.binance.com', port=443): Max retries exceeded with url: /fapi/v1/klines?interval=5m&limit=2&symbol=HYPEUSDT (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x11cf3f6d0>: Failed to resolve 'fapi.binance.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-03-10 11:16:53 | WARNING | MainThread | [CACHE] update error PENGUUSDT: HTTPSConnectionPool(host='fapi.binance.com', port=443): Max retries exceeded with url: /fapi/v1/klines?interval=5m&limit=2&symbol=PENGUUSDT (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x11cf3fa60>: Failed to resolve 'fapi.binance.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-03-10 11:16:53 | WARNING | MainThread | [RECONCILE] HTTPSConnectionPool(host='fapi.binance.com', port=443): Max retries exceeded with url: /fapi/v3/positionRisk?recvWindow=10000&timestamp=1773152213952&signature=93d94215d92f50254d40a2a0f55457cdbc97e59be6f58f79d6cff5df3d824e29 (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x11cf3fd90>: Failed to resolve 'fapi.binance.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-03-10 11:16:53 | WARNING | MainThread | [DAILY LOSS] could not compute dd: HTTPSConnectionPool(host='fapi.binance.com', port=443): Max retries exceeded with url: /fapi/v2/account?recvWindow=10000&timestamp=1773152213957&signature=e4f8dcb4900168406b939ee3c353eb676d627f760d2164e2cae6b45d63cc4a57 (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x11a4ff5b0>: Failed to resolve 'fapi.binance.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-03-10 11:16:53 | ERROR | MainThread | [TP MANAGER] loop error: HTTPSConnectionPool(host='fapi.binance.com', port=443): Max retries exceeded with url: /fapi/v3/positionRisk?recvWindow=10000&timestamp=1773152213963&signature=3be609b62eadae40e3ab245b8bc09cdf616954d702cad5bf28e71122a66199b3 (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x11a4c9ac0>: Failed to resolve 'fapi.binance.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-03-10 11:16:53 | WARNING | MainThread | [TG] error: HTTPSConnectionPool(host='api.telegram.org', port=443): Max retries exceeded with url: /bot8595800756:AAFOl0BFwrOQcy3tsjHD7uHYdCnuHPdftfE/sendMessage (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x11a5e8dc0>: Failed to resolve 'api.telegram.org' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-03-10 11:16:53 | WARNING | MainThread | [TG] error: HTTPSConnectionPool(host='api.telegram.org', port=443): Max retries exceeded with url: /bot8595800756:AAFOl0BFwrOQcy3tsjHD7uHYdCnuHPdftfE/sendMessage (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x11cf3f6a0>: Failed to resolve 'api.telegram.org' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-03-10 11:16:53 | WARNING | MainThread | [TG poll] error: HTTPSConnectionPool(host='api.telegram.org', port=443): Max retries exceeded with url: /bot8595800756:AAFOl0BFwrOQcy3tsjHD7uHYdCnuHPdftfE/getUpdates?timeout=0&offset=1 (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x11a69d0a0>: Failed to resolve 'api.telegram.org' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-03-10 11:16:53 | WARNING | MainThread | Account snapshot error: HTTPSConnectionPool(host='fapi.binance.com', port=443): Max retries exceeded with url: /fapi/v2/account?recvWindow=10000&timestamp=1773152213995&signature=7820d60a21d52de1ecb13f88e4e817ff7a5dc270394ea941991d222b92ad9041 (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x11a69df70>: Failed to resolve 'fapi.binance.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-03-10 11:16:54 | WARNING | MainThread | [CACHE] mark price error BTCUSDT: HTTPSConnectionPool(host='fapi.binance.com', port=443): Max retries exceeded with url: /fapi/v1/premiumIndex?symbol=BTCUSDT (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x11a69d8b0>: Failed to resolve 'fapi.binance.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-03-10 11:16:54 | WARNING | MainThread | [CACHE] mark price error SOLUSDT: HTTPSConnectionPool(host='fapi.binance.com', port=443): Max retries exceeded with url: /fapi/v1/premiumIndex?symbol=SOLUSDT (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x11cf6c1c0>: Failed to resolve 'fapi.binance.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-03-10 11:16:54 | WARNING | MainThread | [CACHE] mark price error AAVEUSDT: HTTPSConnectionPool(host='fapi.binance.com', port=443): Max retries exceeded with url: /fapi/v1/premiumIndex?symbol=AAVEUSDT (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x11a69d670>: Failed to resolve 'fapi.binance.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-03-10 11:16:54 | WARNING | MainThread | [CACHE] mark price error XRPUSDT: HTTPSConnectionPool(host='fapi.binance.com', port=443): Max retries exceeded with url: /fapi/v1/premiumIndex?symbol=XRPUSDT (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x11a69d760>: Failed to resolve 'fapi.binance.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-03-10 11:16:54 | WARNING | MainThread | [CACHE] mark price error HYPEUSDT: HTTPSConnectionPool(host='fapi.binance.com', port=443): Max retries exceeded with url: /fapi/v1/premiumIndex?symbol=HYPEUSDT (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x11a69daf0>: Failed to resolve 'fapi.binance.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-03-10 11:16:54 | WARNING | MainThread | [CACHE] mark price error PENGUUSDT: HTTPSConnectionPool(host='fapi.binance.com', port=443): Max retries exceeded with url: /fapi/v1/premiumIndex?symbol=PENGUUSDT (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x11a69d550>: Failed to resolve 'fapi.binance.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-03-10 11:16:54 | WARNING | MainThread | [RECONCILE] HTTPSConnectionPool(host='fapi.binance.com', port=443): Max retries exceeded with url: /fapi/v3/positionRisk?recvWindow=10000&timestamp=1773152214553&signature=982c26325de02f3ac8ff1a63a7045ff17a867a368d206677c06b6cf30eb1c63d (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x11a5e8820>: Failed to resolve 'fapi.binance.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-03-10 11:16:54 | WARNING | MainThread | [DAILY LOSS] could not compute dd: HTTPSConnectionPool(host='fapi.binance.com', port=443): Max retries exceeded with url: /fapi/v2/account?recvWindow=10000&timestamp=1773152214558&signature=ad397ff65022acab19b7c3b0f8892d18c2568a489e3d2860fafa6e9d7d65b85c (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x11a5e8340>: Failed to resolve 'fapi.binance.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-03-10 11:16:54 | ERROR | MainThread | [TP MANAGER] loop error: HTTPSConnectionPool(host='fapi.binance.com', port=443): Max retries exceeded with url: /fapi/v3/positionRisk?recvWindow=10000&timestamp=1773152214564&signature=4e2308172506134f54c0b3377c129e71a0ccdf0cd3f4f4fe459eafc85ccf8931 (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x11a5e8d90>: Failed to resolve 'fapi.binance.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-03-10 11:16:54 | WARNING | MainThread | [TG] error: HTTPSConnectionPool(host='api.telegram.org', port=443): Max retries exceeded with url: /bot8595800756:AAFOl0BFwrOQcy3tsjHD7uHYdCnuHPdftfE/sendMessage (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x11cf3f250>: Failed to resolve 'api.telegram.org' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-03-10 11:16:54 | WARNING | MainThread | [TG] error: HTTPSConnectionPool(host='api.telegram.org', port=443): Max retries exceeded with url: /bot8595800756:AAFOl0BFwrOQcy3tsjHD7uHYdCnuHPdftfE/sendMessage (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x11cf3fd30>: Failed to resolve 'api.telegram.org' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-03-10 11:16:54 | WARNING | MainThread | [TG poll] error: HTTPSConnectionPool(host='api.telegram.org', port=443): Max retries exceeded with url: /bot8595800756:AAFOl0BFwrOQcy3tsjHD7uHYdCnuHPdftfE/getUpdates?timeout=0&offset=1 (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x11cf3fd90>: Failed to resolve 'api.telegram.org' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-03-10 11:16:54 | WARNING | MainThread | Account snapshot error: HTTPSConnectionPool(host='fapi.binance.com', port=443): Max retries exceeded with url: /fapi/v2/account?recvWindow=10000&timestamp=1773152214598&signature=a60d474ed636ea07dd402a245036f93cda17d5e6077705745b767faf5ceea8a4 (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x11cf3f7f0>: Failed to resolve 'fapi.binance.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-03-10 11:16:55 | WARNING | MainThread | [RECONCILE] HTTPSConnectionPool(host='fapi.binance.com', port=443): Max retries exceeded with url: /fapi/v3/positionRisk?recvWindow=10000&timestamp=1773152215122&signature=60836042af373cb7c286982c8e4595ea2253987cae04117f73d01e184de5e597 (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x11cf3f400>: Failed to resolve 'fapi.binance.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-03-10 11:16:55 | WARNING | MainThread | [DAILY LOSS] could not compute dd: HTTPSConnectionPool(host='fapi.binance.com', port=443): Max retries exceeded with url: /fapi/v2/account?recvWindow=10000&timestamp=1773152215128&signature=9a75e2d1198c18308b6f14151c2f0e9c4a96d83b8e1721f7c3c430bdfc867b82 (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x11a3d7a00>: Failed to resolve 'fapi.binance.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-03-10 11:16:55 | ERROR | MainThread | [TP MANAGER] loop error: HTTPSConnectionPool(host='fapi.binance.com', port=443): Max retries exceeded with url: /fapi/v3/positionRisk?recvWindow=10000&timestamp=1773152215133&signature=9c1d28f4bff1e7c5f1a87d816b38d667ce3e73ddbc6f38bef07ec96c5602f72e (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x11a4c9f40>: Failed to resolve 'fapi.binance.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-03-10 11:16:55 | WARNING | MainThread | [TG] error: HTTPSConnectionPool(host='api.telegram.org', port=443): Max retries exceeded with url: /bot8595800756:AAFOl0BFwrOQcy3tsjHD7uHYdCnuHPdftfE/sendMessage (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x11a5e8dc0>: Failed to resolve 'api.telegram.org' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-03-10 11:16:55 | WARNING | MainThread | [TG] error: HTTPSConnectionPool(host='api.telegram.org', port=443): Max retries exceeded with url: /bot8595800756:AAFOl0BFwrOQcy3tsjHD7uHYdCnuHPdftfE/sendMessage (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x11a69d430>: Failed to resolve 'api.telegram.org' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-03-10 11:16:55 | WARNING | MainThread | [TG poll] error: HTTPSConnectionPool(host='api.telegram.org', port=443): Max retries exceeded with url: /bot8595800756:AAFOl0BFwrOQcy3tsjHD7uHYdCnuHPdftfE/getUpdates?timeout=0&offset=1 (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x11cf6c7f0>: Failed to resolve 'api.telegram.org' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-03-10 11:16:55 | WARNING | MainThread | Account snapshot error: HTTPSConnectionPool(host='fapi.binance.com', port=443): Max retries exceeded with url: /fapi/v2/account?recvWindow=10000&timestamp=1773152215156&signature=6be1c730e8d721dd1316abbeade842930f18fa06d855b24dea9cc67b08865521 (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x11a5e8d30>: Failed to resolve 'fapi.binance.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-03-10 11:16:55 | WARNING | MainThread | [RECONCILE] HTTPSConnectionPool(host='fapi.binance.com', port=443): Max retries exceeded with url: /fapi/v3/positionRisk?recvWindow=10000&timestamp=1773152215684&signature=22f97cd56c71b3575247e7331977c12d4ea72a91f90461bc4abe62c03addfa80 (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x11a5e8850>: Failed to resolve 'fapi.binance.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-03-10 11:16:55 | WARNING | MainThread | [DAILY LOSS] could not compute dd: HTTPSConnectionPool(host='fapi.binance.com', port=443): Max retries exceeded with url: /fapi/v2/account?recvWindow=10000&timestamp=1773152215690&signature=4040b84f4bbec6a2f15adec9235e02c39649662ca745aaea716a779f203c4237 (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x11a5e8160>: Failed to resolve 'fapi.binance.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-03-10 11:16:55 | ERROR | MainThread | [TP MANAGER] loop error: HTTPSConnectionPool(host='fapi.binance.com', port=443): Max retries exceeded with url: /fapi/v3/positionRisk?recvWindow=10000&timestamp=1773152215695&signature=412271e6ca6e4ad70dfd7dcfb70062b96fffd097706dd4cf33b97cc4e6698bae (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x11a38f9a0>: Failed to resolve 'fapi.binance.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-03-10 11:16:55 | WARNING | MainThread | [TG] error: HTTPSConnectionPool(host='api.telegram.org', port=443): Max retries exceeded with url: /bot8595800756:AAFOl0BFwrOQcy3tsjHD7uHYdCnuHPdftfE/sendMessage (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x11a69d730>: Failed to resolve 'api.telegram.org' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-03-10 11:16:55 | WARNING | MainThread | [TG] error: HTTPSConnectionPool(host='api.telegram.org', port=443): Max retries exceeded with url: /bot8595800756:AAFOl0BFwrOQcy3tsjHD7uHYdCnuHPdftfE/sendMessage (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x11cf3f970>: Failed to resolve 'api.telegram.org' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-03-10 11:16:55 | WARNING | MainThread | [TG poll] error: HTTPSConnectionPool(host='api.telegram.org', port=443): Max retries exceeded with url: /bot8595800756:AAFOl0BFwrOQcy3tsjHD7uHYdCnuHPdftfE/getUpdates?timeout=0&offset=1 (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x11cf6c160>: Failed to resolve 'api.telegram.org' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-03-10 11:16:55 | WARNING | MainThread | Account snapshot error: HTTPSConnectionPool(host='fapi.binance.com', port=443): Max retries exceeded with url: /fapi/v2/account?recvWindow=10000&timestamp=1773152215719&signature=87c4f48dbbd2b1319dc0f7101d285cfb17ad24b5c3cb6a887af9387af9f42b4c (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x11cf6cb80>: Failed to resolve 'fapi.binance.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-03-10 11:16:56 | WARNING | MainThread | [RECONCILE] HTTPSConnectionPool(host='fapi.binance.com', port=443): Max retries exceeded with url: /fapi/v3/positionRisk?recvWindow=10000&timestamp=1773152216245&signature=43a63c894ed4f91f3df653b1323c2122e61d038eed75708dc4c9307be1355828 (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x11cf3f9d0>: Failed to resolve 'fapi.binance.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-03-10 11:16:56 | WARNING | MainThread | [DAILY LOSS] could not compute dd: HTTPSConnectionPool(host='fapi.binance.com', port=443): Max retries exceeded with url: /fapi/v2/account?recvWindow=10000&timestamp=1773152216250&signature=1a55a3135859213ea7176aafe42e115570e5f8f6a526855517678ed7ad496137 (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x11cf3f7c0>: Failed to resolve 'fapi.binance.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-03-10 11:16:56 | ERROR | MainThread | [TP MANAGER] loop error: HTTPSConnectionPool(host='fapi.binance.com', port=443): Max retries exceeded with url: /fapi/v3/positionRisk?recvWindow=10000&timestamp=1773152216255&signature=794e038e33ca3b45a22abbf9b21e7b6d677ecd5142dc30a2993e8282745a30ca (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x11cf3fc10>: Failed to resolve 'fapi.binance.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-03-10 11:16:56 | WARNING | MainThread | [TG] error: HTTPSConnectionPool(host='api.telegram.org', port=443): Max retries exceeded with url: /bot8595800756:AAFOl0BFwrOQcy3tsjHD7uHYdCnuHPdftfE/sendMessage (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x11a69d250>: Failed to resolve 'api.telegram.org' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-03-10 11:16:56 | WARNING | MainThread | [TG] error: HTTPSConnectionPool(host='api.telegram.org', port=443): Max retries exceeded with url: /bot8595800756:AAFOl0BFwrOQcy3tsjHD7uHYdCnuHPdftfE/sendMessage (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x11a5e8e50>: Failed to resolve 'api.telegram.org' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-03-10 11:16:56 | WARNING | MainThread | [TG poll] error: HTTPSConnectionPool(host='api.telegram.org', port=443): Max retries exceeded with url: /bot8595800756:AAFOl0BFwrOQcy3tsjHD7uHYdCnuHPdftfE/getUpdates?timeout=0&offset=1 (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x11a5e8460>: Failed to resolve 'api.telegram.org' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-03-10 11:16:56 | WARNING | MainThread | Account snapshot error: HTTPSConnectionPool(host='fapi.binance.com', port=443): Max retries exceeded with url: /fapi/v2/account?recvWindow=10000&timestamp=1773152216285&signature=bb203cf10c6300b0f5da61f0b0f2b54cb4f77a9a199517b3f40237293a8c9114 (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x11cf6c160>: Failed to resolve 'fapi.binance.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-03-10 11:16:56 | WARNING | MainThread | [RECONCILE] HTTPSConnectionPool(host='fapi.binance.com', port=443): Max retries exceeded with url: /fapi/v3/positionRisk?recvWindow=10000&timestamp=1773152216813&signature=cd123c92df0f748f63efdc1b154b9d363013fd3d9f4ad2d248d2b20db313779b (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x11cf72070>: Failed to resolve 'fapi.binance.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-03-10 11:16:56 | WARNING | MainThread | [DAILY LOSS] could not compute dd: HTTPSConnectionPool(host='fapi.binance.com', port=443): Max retries exceeded with url: /fapi/v2/account?recvWindow=10000&timestamp=1773152216819&signature=a814c4a7b7dcfbf00fcd331a3f2082af4be70406f29b7078db748eef87df621f (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x11a38fbe0>: Failed to resolve 'fapi.binance.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-03-10 11:16:56 | ERROR | MainThread | [TP MANAGER] loop error: HTTPSConnectionPool(host='fapi.binance.com', port=443): Max retries exceeded with url: /fapi/v3/positionRisk?recvWindow=10000&timestamp=1773152216825&signature=ae8338da4d5abe73a5b9d8a06ad3d9602a78d4d8ae1fab3fb1793e17d88184e3 (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x11a69db20>: Failed to resolve 'fapi.binance.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-03-10 11:16:56 | WARNING | MainThread | [TG] error: HTTPSConnectionPool(host='api.telegram.org', port=443): Max retries exceeded with url: /bot8595800756:AAFOl0BFwrOQcy3tsjHD7uHYdCnuHPdftfE/sendMessage (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x11a4ff580>: Failed to resolve 'api.telegram.org' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-03-10 11:16:56 | WARNING | MainThread | [TG] error: HTTPSConnectionPool(host='api.telegram.org', port=443): Max retries exceeded with url: /bot8595800756:AAFOl0BFwrOQcy3tsjHD7uHYdCnuHPdftfE/sendMessage (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x11cf3f9d0>: Failed to resolve 'api.telegram.org' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-03-10 11:16:56 | WARNING | MainThread | [TG poll] error: HTTPSConnectionPool(host='api.telegram.org', port=443): Max retries exceeded with url: /bot8595800756:AAFOl0BFwrOQcy3tsjHD7uHYdCnuHPdftfE/getUpdates?timeout=0&offset=1 (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x11a5e8fa0>: Failed to resolve 'api.telegram.org' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-03-10 11:16:56 | WARNING | MainThread | Account snapshot error: HTTPSConnectionPool(host='fapi.binance.com', port=443): Max retries exceeded with url: /fapi/v2/account?recvWindow=10000&timestamp=1773152216848&signature=e57315b6639798c0a96f53c1050dd6bc9602e04ba31caa9c9ad65014362d23fb (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x11a5e8e50>: Failed to resolve 'fapi.binance.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-03-10 11:16:57 | WARNING | MainThread | [RECONCILE] HTTPSConnectionPool(host='fapi.binance.com', port=443): Max retries exceeded with url: /fapi/v3/positionRisk?recvWindow=10000&timestamp=1773152217374&signature=05573834d182f92bb6534dcec71021b8340e73dff96212d1e0031fde26dea487 (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x11cf6c1c0>: Failed to resolve 'fapi.binance.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-03-10 11:16:57 | WARNING | MainThread | [DAILY LOSS] could not compute dd: HTTPSConnectionPool(host='fapi.binance.com', port=443): Max retries exceeded with url: /fapi/v2/account?recvWindow=10000&timestamp=1773152217380&signature=3f5237e5b0d9a67aa63a4135f1953200faad810c2ca93deb57ef8ad2573ff322 (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x11cf72310>: Failed to resolve 'fapi.binance.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-03-10 11:16:57 | ERROR | MainThread | [TP MANAGER] loop error: HTTPSConnectionPool(host='fapi.binance.com', port=443): Max retries exceeded with url: /fapi/v3/positionRisk?recvWindow=10000&timestamp=1773152217386&signature=8315e284ecdf92a063cfb9284fbcf0d0e561a86ad53fa9a656aff77d154db333 (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x11a5e85b0>: Failed to resolve 'fapi.binance.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-03-10 11:16:57 | WARNING | MainThread | [TG] error: HTTPSConnectionPool(host='api.telegram.org', port=443): Max retries exceeded with url: /bot8595800756:AAFOl0BFwrOQcy3tsjHD7uHYdCnuHPdftfE/sendMessage (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x11a5e8be0>: Failed to resolve 'api.telegram.org' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-03-10 11:16:57 | WARNING | MainThread | [TG] error: HTTPSConnectionPool(host='api.telegram.org', port=443): Max retries exceeded with url: /bot8595800756:AAFOl0BFwrOQcy3tsjHD7uHYdCnuHPdftfE/sendMessage (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x11cf3f370>: Failed to resolve 'api.telegram.org' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-03-10 11:16:57 | WARNING | MainThread | [TG poll] error: HTTPSConnectionPool(host='api.telegram.org', port=443): Max retries exceeded with url: /bot8595800756:AAFOl0BFwrOQcy3tsjHD7uHYdCnuHPdftfE/getUpdates?timeout=0&offset=1 (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x11a69d5b0>: Failed to resolve 'api.telegram.org' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-03-10 11:16:57 | WARNING | MainThread | Account snapshot error: HTTPSConnectionPool(host='fapi.binance.com', port=443): Max retries exceeded with url: /fapi/v2/account?recvWindow=10000&timestamp=1773152217410&signature=5eefbd6f955a6c73ce1be77507a55e39dbf9941dbc1a3952cc89ae293fde4244 (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x11a69d520>: Failed to resolve 'fapi.binance.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-03-10 11:16:57 | WARNING | MainThread | [CACHE] mark price error BTCUSDT: HTTPSConnectionPool(host='fapi.binance.com', port=443): Max retries exceeded with url: /fapi/v1/premiumIndex?symbol=BTCUSDT (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x11a4c9d90>: Failed to resolve 'fapi.binance.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-03-10 11:16:57 | WARNING | MainThread | [CACHE] mark price error SOLUSDT: HTTPSConnectionPool(host='fapi.binance.com', port=443): Max retries exceeded with url: /fapi/v1/premiumIndex?symbol=SOLUSDT (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x11a38f8b0>: Failed to resolve 'fapi.binance.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-03-10 11:16:57 | WARNING | MainThread | [CACHE] mark price error AAVEUSDT: HTTPSConnectionPool(host='fapi.binance.com', port=443): Max retries exceeded with url: /fapi/v1/premiumIndex?symbol=AAVEUSDT (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x11cf726a0>: Failed to resolve 'fapi.binance.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-03-10 11:16:57 | WARNING | MainThread | [CACHE] mark price error XRPUSDT: HTTPSConnectionPool(host='fapi.binance.com', port=443): Max retries exceeded with url: /fapi/v1/premiumIndex?symbol=XRPUSDT (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x11a4c9670>: Failed to resolve 'fapi.binance.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-03-10 11:16:57 | WARNING | MainThread | [CACHE] mark price error HYPEUSDT: HTTPSConnectionPool(host='fapi.binance.com', port=443): Max retries exceeded with url: /fapi/v1/premiumIndex?symbol=HYPEUSDT (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x11a69d9d0>: Failed to resolve 'fapi.binance.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-03-10 11:16:57 | WARNING | MainThread | [CACHE] mark price error PENGUUSDT: HTTPSConnectionPool(host='fapi.binance.com', port=443): Max retries exceeded with url: /fapi/v1/premiumIndex?symbol=PENGUUSDT (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x11a69d910>: Failed to resolve 'fapi.binance.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-03-10 11:17:08 | WARNING | MainThread | [RECONCILE] HTTPSConnectionPool(host='fapi.binance.com', port=443): Max retries exceeded with url: /fapi/v3/positionRisk?recvWindow=10000&timestamp=1773152218030&signature=e3f0c147de024b4141ce470eefc2716e9fb8feb071f980756ba7bbc31294090a (Caused by ConnectTimeoutError(<urllib3.connection.HTTPSConnection object at 0x11a69d5b0>, 'Connection to fapi.binance.com timed out. (connect timeout=10)'))
+2026-03-10 11:17:23 | WARNING | MainThread | [DAILY LOSS] could not compute dd: HTTPSConnectionPool(host='fapi.binance.com', port=443): Max retries exceeded with url: /fapi/v2/account?recvWindow=10000&timestamp=1773152228042&signature=bc272f36f9522c14039bbbdf9655f565aabcd761c5b78242c5ce2ec2f2965e25 (Caused by ConnectTimeoutError(<urllib3.connection.HTTPSConnection object at 0x11a4ff1f0>, 'Connection to fapi.binance.com timed out. (connect timeout=10)'))
+2026-03-10 11:17:23 | ERROR | MainThread | [TP MANAGER] loop error: HTTPSConnectionPool(host='fapi.binance.com', port=443): Max retries exceeded with url: /fapi/v3/positionRisk?recvWindow=10000&timestamp=1773152243073&signature=22966661f0ce0c091b49e9914dfccf66c8bf324449af82a5244353984ad41853 (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x11cf3f070>: Failed to resolve 'fapi.binance.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-03-10 11:17:23 | WARNING | MainThread | [TG] error: HTTPSConnectionPool(host='api.telegram.org', port=443): Max retries exceeded with url: /bot8595800756:AAFOl0BFwrOQcy3tsjHD7uHYdCnuHPdftfE/sendMessage (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x11cf3fa00>: Failed to resolve 'api.telegram.org' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-03-10 11:17:23 | WARNING | MainThread | [TG] error: HTTPSConnectionPool(host='api.telegram.org', port=443): Max retries exceeded with url: /bot8595800756:AAFOl0BFwrOQcy3tsjHD7uHYdCnuHPdftfE/sendMessage (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x11a5e8070>: Failed to resolve 'api.telegram.org' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-03-10 11:17:23 | WARNING | MainThread | [TG poll] error: HTTPSConnectionPool(host='api.telegram.org', port=443): Max retries exceeded with url: /bot8595800756:AAFOl0BFwrOQcy3tsjHD7uHYdCnuHPdftfE/getUpdates?timeout=0&offset=1 (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x11a5e8e50>: Failed to resolve 'api.telegram.org' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-03-10 11:17:23 | WARNING | MainThread | Account snapshot error: HTTPSConnectionPool(host='fapi.binance.com', port=443): Max retries exceeded with url: /fapi/v2/account?recvWindow=10000&timestamp=1773152243725&signature=7960d12ffce64db0e387713e6bee7c0b7181a31d3b79b870f733857b8559e575 (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x11a5e8580>: Failed to resolve 'fapi.binance.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2026-03-10 11:17:34 | WARNING | MainThread | [CACHE] update error BTCUSDT: HTTPSConnectionPool(host='fapi.binance.com', port=443): Read timed out. (read timeout=10)
+2026-03-10 11:20:16 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1773152399999
+2026-03-10 11:20:18 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1773152399999
+2026-03-10 11:20:19 | INFO | MainThread | [CACHE] New closed candle AAVEUSDT close_time=1773152399999
+2026-03-10 11:20:20 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1773152399999
+2026-03-10 11:20:21 | INFO | MainThread | [CACHE] New closed candle HYPEUSDT close_time=1773152399999
+2026-03-10 11:20:23 | INFO | MainThread | [CACHE] New closed candle PENGUUSDT close_time=1773152399999
+2026-03-10 11:20:23 | INFO | MainThread | BTCUSDT | trend=BEAR | breakL=False | breakS=False | adx=34.86 | adx_ok=True | rising_ok=True | vol_ratio=2.29 | vol_up=True
+2026-03-10 11:20:23 | INFO | MainThread | SOLUSDT | trend=BEAR | breakL=False | breakS=False | adx=27.46 | adx_ok=True | rising_ok=True | vol_ratio=1.93 | vol_up=True
+2026-03-10 11:20:23 | INFO | MainThread | AAVEUSDT | trend=BEAR | breakL=False | breakS=False | adx=30.57 | adx_ok=True | rising_ok=True | vol_ratio=1.88 | vol_up=False
+2026-03-10 11:20:23 | INFO | MainThread | XRPUSDT | trend=BEAR | breakL=False | breakS=False | adx=27.38 | adx_ok=True | rising_ok=True | vol_ratio=1.43 | vol_up=True
+2026-03-10 11:20:23 | INFO | MainThread | HYPEUSDT | trend=BEAR | breakL=False | breakS=False | adx=30.71 | adx_ok=True | rising_ok=True | vol_ratio=0.99 | vol_up=False
+2026-03-10 11:20:23 | INFO | MainThread | PENGUUSDT | trend=BEAR | breakL=False | breakS=False | adx=24.82 | adx_ok=True | rising_ok=True | vol_ratio=0.94 | vol_up=True
+2026-03-10 11:25:14 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1773152699999
+2026-03-10 11:25:15 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1773152699999
+2026-03-10 11:25:16 | INFO | MainThread | [CACHE] New closed candle AAVEUSDT close_time=1773152699999
+2026-03-10 11:25:17 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1773152699999
+2026-03-10 11:25:19 | INFO | MainThread | [CACHE] New closed candle HYPEUSDT close_time=1773152699999
+2026-03-10 11:25:20 | INFO | MainThread | [CACHE] New closed candle PENGUUSDT close_time=1773152699999
+2026-03-10 11:25:20 | INFO | MainThread | BTCUSDT | trend=BEAR | breakL=False | breakS=False | adx=35.91 | adx_ok=True | rising_ok=True | vol_ratio=0.90 | vol_up=False
+2026-03-10 11:25:20 | INFO | MainThread | SOLUSDT | trend=BEAR | breakL=False | breakS=False | adx=28.78 | adx_ok=True | rising_ok=True | vol_ratio=0.79 | vol_up=False
+2026-03-10 11:25:20 | INFO | MainThread | AAVEUSDT | trend=BEAR | breakL=False | breakS=False | adx=30.98 | adx_ok=True | rising_ok=True | vol_ratio=0.77 | vol_up=False
+2026-03-10 11:25:20 | INFO | MainThread | XRPUSDT | trend=BEAR | breakL=False | breakS=False | adx=25.52 | adx_ok=True | rising_ok=True | vol_ratio=0.96 | vol_up=False
+2026-03-10 11:25:20 | INFO | MainThread | HYPEUSDT | trend=BEAR | breakL=False | breakS=False | adx=31.85 | adx_ok=True | rising_ok=True | vol_ratio=0.45 | vol_up=False
+2026-03-10 11:25:20 | INFO | MainThread | PENGUUSDT | trend=BEAR | breakL=False | breakS=False | adx=24.17 | adx_ok=True | rising_ok=True | vol_ratio=2.44 | vol_up=True
+2026-03-10 11:30:04 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1773152999999
+2026-03-10 11:30:06 | INFO | MainThread | [CACHE] New closed candle AAVEUSDT close_time=1773152999999
+2026-03-10 11:30:08 | INFO | MainThread | [CACHE] New closed candle HYPEUSDT close_time=1773152999999
+2026-03-10 11:30:10 | INFO | MainThread | BTCUSDT | trend=BEAR | breakL=False | breakS=False | adx=36.12 | adx_ok=True | rising_ok=True | vol_ratio=0.53 | vol_up=False
+2026-03-10 11:30:10 | INFO | MainThread | HYPEUSDT | trend=BEAR | breakL=False | breakS=False | adx=32.08 | adx_ok=True | rising_ok=True | vol_ratio=0.49 | vol_up=True
+2026-03-10 11:30:21 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1773152999999
+2026-03-10 11:30:23 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1773152999999
+2026-03-10 11:30:25 | INFO | MainThread | [CACHE] New closed candle PENGUUSDT close_time=1773152999999
+2026-03-10 11:30:25 | INFO | MainThread | SOLUSDT | trend=BEAR | breakL=False | breakS=False | adx=28.80 | adx_ok=True | rising_ok=True | vol_ratio=1.00 | vol_up=True
+2026-03-10 11:30:25 | INFO | MainThread | XRPUSDT | trend=BULL | breakL=False | breakS=False | adx=24.32 | adx_ok=True | rising_ok=True | vol_ratio=0.90 | vol_up=False
+2026-03-10 11:30:25 | INFO | MainThread | PENGUUSDT | trend=BEAR | breakL=False | breakS=False | adx=22.98 | adx_ok=True | rising_ok=True | vol_ratio=0.73 | vol_up=False
+2026-03-10 11:35:11 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1773153299999
+2026-03-10 11:35:12 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1773153299999
+2026-03-10 11:35:14 | INFO | MainThread | [CACHE] New closed candle AAVEUSDT close_time=1773153299999
+2026-03-10 11:35:15 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1773153299999
+2026-03-10 11:35:16 | INFO | MainThread | [CACHE] New closed candle HYPEUSDT close_time=1773153299999
+2026-03-10 11:35:17 | INFO | MainThread | [CACHE] New closed candle PENGUUSDT close_time=1773153299999
+2026-03-10 11:35:17 | INFO | MainThread | BTCUSDT | trend=BEAR | breakL=False | breakS=False | adx=35.87 | adx_ok=True | rising_ok=True | vol_ratio=0.61 | vol_up=True
+2026-03-10 11:35:17 | INFO | MainThread | SOLUSDT | trend=BEAR | breakL=False | breakS=False | adx=28.14 | adx_ok=True | rising_ok=True | vol_ratio=0.81 | vol_up=False
+2026-03-10 11:35:17 | INFO | MainThread | AAVEUSDT | trend=BEAR | breakL=False | breakS=False | adx=29.62 | adx_ok=True | rising_ok=True | vol_ratio=0.60 | vol_up=True
+2026-03-10 11:35:17 | INFO | MainThread | XRPUSDT | trend=BULL | breakL=False | breakS=False | adx=24.18 | adx_ok=True | rising_ok=True | vol_ratio=1.49 | vol_up=True
+2026-03-10 11:35:18 | INFO | MainThread | HYPEUSDT | trend=BEAR | breakL=False | breakS=False | adx=29.89 | adx_ok=True | rising_ok=True | vol_ratio=1.45 | vol_up=True
+2026-03-10 11:35:18 | INFO | MainThread | PENGUUSDT | trend=BEAR | breakL=False | breakS=False | adx=21.50 | adx_ok=True | rising_ok=True | vol_ratio=0.91 | vol_up=True
+2026-03-10 11:40:13 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1773153599999
+2026-03-10 11:40:14 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1773153599999
+2026-03-10 11:40:15 | INFO | MainThread | [CACHE] New closed candle AAVEUSDT close_time=1773153599999
+2026-03-10 11:40:17 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1773153599999
+2026-03-10 11:40:18 | INFO | MainThread | [CACHE] New closed candle HYPEUSDT close_time=1773153599999
+2026-03-10 11:40:19 | INFO | MainThread | [CACHE] New closed candle PENGUUSDT close_time=1773153599999
+2026-03-10 11:40:20 | INFO | MainThread | BTCUSDT | trend=BEAR | breakL=False | breakS=False | adx=34.78 | adx_ok=True | rising_ok=True | vol_ratio=0.59 | vol_up=True
+2026-03-10 11:40:20 | INFO | MainThread | SOLUSDT | trend=BEAR | breakL=False | breakS=False | adx=26.99 | adx_ok=True | rising_ok=True | vol_ratio=0.59 | vol_up=False
+2026-03-10 11:40:20 | INFO | MainThread | AAVEUSDT | trend=BEAR | breakL=False | breakS=False | adx=28.01 | adx_ok=True | rising_ok=True | vol_ratio=0.62 | vol_up=True
+2026-03-10 11:40:20 | INFO | MainThread | XRPUSDT | trend=BULL | breakL=False | breakS=False | adx=25.04 | adx_ok=True | rising_ok=True | vol_ratio=1.88 | vol_up=True
+2026-03-10 11:40:20 | INFO | MainThread | HYPEUSDT | trend=BEAR | breakL=False | breakS=False | adx=27.85 | adx_ok=True | rising_ok=True | vol_ratio=0.69 | vol_up=False
+2026-03-10 11:40:20 | INFO | MainThread | PENGUUSDT | trend=BEAR | breakL=False | breakS=False | adx=20.49 | adx_ok=True | rising_ok=True | vol_ratio=0.45 | vol_up=False
+2026-03-10 11:45:06 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1773153899999
+2026-03-10 11:45:09 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1773153899999
+2026-03-10 11:45:11 | INFO | MainThread | [CACHE] New closed candle PENGUUSDT close_time=1773153899999
+2026-03-10 11:45:11 | INFO | MainThread | BTCUSDT | trend=BEAR | breakL=False | breakS=False | adx=32.47 | adx_ok=True | rising_ok=True | vol_ratio=1.44 | vol_up=True
+2026-03-10 11:45:11 | INFO | MainThread | XRPUSDT | trend=BULL | breakL=False | breakS=False | adx=26.49 | adx_ok=True | rising_ok=True | vol_ratio=2.60 | vol_up=True
+2026-03-10 11:45:11 | INFO | MainThread | PENGUUSDT | trend=BULL | breakL=False | breakS=False | adx=20.54 | adx_ok=True | rising_ok=True | vol_ratio=1.96 | vol_up=True
+2026-03-10 11:45:22 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1773153899999
+2026-03-10 11:45:23 | INFO | MainThread | [CACHE] New closed candle AAVEUSDT close_time=1773153899999
+2026-03-10 11:45:25 | INFO | MainThread | [CACHE] New closed candle HYPEUSDT close_time=1773153899999
+2026-03-10 11:45:26 | INFO | MainThread | SOLUSDT | trend=BEAR | breakL=False | breakS=False | adx=25.29 | adx_ok=True | rising_ok=True | vol_ratio=1.56 | vol_up=True
+2026-03-10 11:45:26 | INFO | MainThread | AAVEUSDT | trend=BEAR | breakL=False | breakS=False | adx=26.36 | adx_ok=True | rising_ok=True | vol_ratio=1.09 | vol_up=True
+2026-03-10 11:45:27 | INFO | MainThread | HYPEUSDT | trend=BEAR | breakL=False | breakS=False | adx=26.73 | adx_ok=True | rising_ok=True | vol_ratio=1.07 | vol_up=True
+2026-03-10 11:50:14 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1773154199999
+2026-03-10 11:50:15 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1773154199999
+2026-03-10 11:50:16 | INFO | MainThread | [CACHE] New closed candle AAVEUSDT close_time=1773154199999
+2026-03-10 11:50:17 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1773154199999
+2026-03-10 11:50:18 | INFO | MainThread | [CACHE] New closed candle HYPEUSDT close_time=1773154199999
+2026-03-10 11:50:20 | INFO | MainThread | [CACHE] New closed candle PENGUUSDT close_time=1773154199999
+2026-03-10 11:50:20 | INFO | MainThread | BTCUSDT | trend=BEAR | breakL=False | breakS=False | adx=30.76 | adx_ok=True | rising_ok=True | vol_ratio=1.03 | vol_up=False
+2026-03-10 11:50:20 | INFO | MainThread | SOLUSDT | trend=BEAR | breakL=False | breakS=False | adx=24.27 | adx_ok=True | rising_ok=True | vol_ratio=1.08 | vol_up=False
+2026-03-10 11:50:20 | INFO | MainThread | AAVEUSDT | trend=BULL | breakL=False | breakS=False | adx=25.35 | adx_ok=True | rising_ok=True | vol_ratio=0.69 | vol_up=False
+2026-03-10 11:50:20 | INFO | MainThread | XRPUSDT | trend=BULL | breakL=False | breakS=False | adx=28.28 | adx_ok=True | rising_ok=True | vol_ratio=2.19 | vol_up=False
+2026-03-10 11:50:20 | INFO | MainThread | HYPEUSDT | trend=BEAR | breakL=False | breakS=False | adx=25.68 | adx_ok=True | rising_ok=True | vol_ratio=0.47 | vol_up=False
+2026-03-10 11:50:20 | INFO | MainThread | PENGUUSDT | trend=BULL | breakL=False | breakS=False | adx=21.01 | adx_ok=True | rising_ok=True | vol_ratio=0.62 | vol_up=False
+2026-03-10 11:55:11 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1773154499999
+2026-03-10 11:55:12 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1773154499999
+2026-03-10 11:55:14 | INFO | MainThread | [CACHE] New closed candle AAVEUSDT close_time=1773154499999
+2026-03-10 11:55:15 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1773154499999
+2026-03-10 11:55:16 | INFO | MainThread | [CACHE] New closed candle HYPEUSDT close_time=1773154499999
+2026-03-10 11:55:17 | INFO | MainThread | [CACHE] New closed candle PENGUUSDT close_time=1773154499999
+2026-03-10 11:55:18 | INFO | MainThread | BTCUSDT | trend=BULL | breakL=False | breakS=False | adx=30.50 | adx_ok=True | rising_ok=True | vol_ratio=1.64 | vol_up=True
+2026-03-10 11:55:18 | INFO | MainThread | SOLUSDT | trend=BULL | breakL=False | breakS=False | adx=24.68 | adx_ok=True | rising_ok=True | vol_ratio=2.01 | vol_up=True
+2026-03-10 11:55:18 | INFO | MainThread | AAVEUSDT | trend=BULL | breakL=False | breakS=False | adx=25.47 | adx_ok=True | rising_ok=True | vol_ratio=1.34 | vol_up=True
+2026-03-10 11:55:18 | INFO | MainThread | XRPUSDT | trend=BULL | breakL=False | breakS=False | adx=30.14 | adx_ok=True | rising_ok=True | vol_ratio=1.69 | vol_up=False
+2026-03-10 11:55:18 | INFO | MainThread | HYPEUSDT | trend=BEAR | breakL=False | breakS=False | adx=24.67 | adx_ok=True | rising_ok=True | vol_ratio=0.54 | vol_up=True
+2026-03-10 11:55:18 | INFO | MainThread | PENGUUSDT | trend=BULL | breakL=False | breakS=False | adx=21.70 | adx_ok=True | rising_ok=True | vol_ratio=0.91 | vol_up=True
+2026-03-10 12:00:04 | INFO | MainThread | [CACHE] New closed candle AAVEUSDT close_time=1773154799999
+2026-03-10 12:00:06 | INFO | MainThread | [CACHE] New closed candle HYPEUSDT close_time=1773154799999
+2026-03-10 12:00:07 | INFO | MainThread | [CACHE] New closed candle PENGUUSDT close_time=1773154799999
+2026-03-10 12:00:07 | INFO | MainThread | HYPEUSDT | trend=BULL | breakL=False | breakS=False | adx=24.36 | adx_ok=True | rising_ok=True | vol_ratio=1.70 | vol_up=True
+2026-03-10 12:00:18 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1773154799999
+2026-03-10 12:00:19 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1773154799999
+2026-03-10 12:00:21 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1773154799999
+2026-03-10 12:00:23 | INFO | MainThread | BTCUSDT | trend=BULL | breakL=False | breakS=False | adx=30.96 | adx_ok=True | rising_ok=True | vol_ratio=2.16 | vol_up=True
+2026-03-10 12:00:23 | INFO | MainThread | SOLUSDT | trend=BULL | breakL=False | breakS=False | adx=25.64 | adx_ok=True | rising_ok=True | vol_ratio=2.28 | vol_up=True
+2026-03-10 12:00:23 | INFO | MainThread | XRPUSDT | trend=BULL | breakL=False | breakS=False | adx=32.24 | adx_ok=True | rising_ok=True | vol_ratio=1.75 | vol_up=True
+2026-03-10 12:05:21 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1773155099999
+2026-03-10 12:05:22 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1773155099999
+2026-03-10 12:05:23 | INFO | MainThread | [CACHE] New closed candle AAVEUSDT close_time=1773155099999
+2026-03-10 12:05:25 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1773155099999
+2026-03-10 12:05:26 | INFO | MainThread | [CACHE] New closed candle HYPEUSDT close_time=1773155099999
+2026-03-10 12:05:27 | INFO | MainThread | [CACHE] New closed candle PENGUUSDT close_time=1773155099999
+2026-03-10 12:05:27 | INFO | MainThread | BTCUSDT | trend=BULL | breakL=False | breakS=False | adx=31.80 | adx_ok=True | rising_ok=True | vol_ratio=1.75 | vol_up=False
+2026-03-10 12:05:27 | INFO | MainThread | SOLUSDT | trend=BULL | breakL=False | breakS=False | adx=26.94 | adx_ok=True | rising_ok=True | vol_ratio=1.96 | vol_up=False
+2026-03-10 12:05:27 | INFO | MainThread | AAVEUSDT | trend=BULL | breakL=False | breakS=False | adx=27.26 | adx_ok=True | rising_ok=True | vol_ratio=2.45 | vol_up=True
+2026-03-10 12:05:27 | INFO | MainThread | XRPUSDT | trend=BULL | breakL=False | breakS=False | adx=34.43 | adx_ok=True | rising_ok=True | vol_ratio=1.65 | vol_up=False
+2026-03-10 12:05:27 | INFO | MainThread | HYPEUSDT | trend=BULL | breakL=False | breakS=False | adx=23.28 | adx_ok=True | rising_ok=True | vol_ratio=1.23 | vol_up=False
+2026-03-10 12:05:27 | INFO | MainThread | PENGUUSDT | trend=BULL | breakL=False | breakS=False | adx=24.55 | adx_ok=True | rising_ok=True | vol_ratio=1.05 | vol_up=False
+2026-03-10 12:10:12 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1773155399999
+2026-03-10 12:10:13 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1773155399999
+2026-03-10 12:10:14 | INFO | MainThread | [CACHE] New closed candle AAVEUSDT close_time=1773155399999
+2026-03-10 12:10:16 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1773155399999
+2026-03-10 12:10:17 | INFO | MainThread | [CACHE] New closed candle HYPEUSDT close_time=1773155399999
+2026-03-10 12:10:18 | INFO | MainThread | [CACHE] New closed candle PENGUUSDT close_time=1773155399999
+2026-03-10 12:10:18 | INFO | MainThread | BTCUSDT | trend=BULL | breakL=False | breakS=False | adx=31.74 | adx_ok=True | rising_ok=True | vol_ratio=1.33 | vol_up=False
+2026-03-10 12:10:18 | INFO | MainThread | SOLUSDT | trend=BULL | breakL=False | breakS=False | adx=27.43 | adx_ok=True | rising_ok=True | vol_ratio=1.15 | vol_up=False
+2026-03-10 12:10:18 | INFO | MainThread | AAVEUSDT | trend=BULL | breakL=False | breakS=False | adx=27.22 | adx_ok=True | rising_ok=True | vol_ratio=1.41 | vol_up=False
+2026-03-10 12:10:18 | INFO | MainThread | XRPUSDT | trend=BULL | breakL=False | breakS=False | adx=35.61 | adx_ok=True | rising_ok=True | vol_ratio=1.51 | vol_up=False
+2026-03-10 12:10:18 | INFO | MainThread | HYPEUSDT | trend=BULL | breakL=False | breakS=False | adx=21.86 | adx_ok=True | rising_ok=True | vol_ratio=1.08 | vol_up=False
+2026-03-10 12:10:18 | INFO | MainThread | PENGUUSDT | trend=BULL | breakL=False | breakS=False | adx=24.76 | adx_ok=True | rising_ok=True | vol_ratio=0.69 | vol_up=False
+2026-03-10 12:15:06 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1773155699999
+2026-03-10 12:15:07 | INFO | MainThread | [CACHE] New closed candle AAVEUSDT close_time=1773155699999
+2026-03-10 12:15:08 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1773155699999
+2026-03-10 12:15:10 | INFO | MainThread | [CACHE] New closed candle PENGUUSDT close_time=1773155699999
+2026-03-10 12:15:10 | INFO | MainThread | SOLUSDT | trend=BULL | breakL=False | breakS=False | adx=27.13 | adx_ok=True | rising_ok=True | vol_ratio=0.67 | vol_up=False
+2026-03-10 12:15:10 | INFO | MainThread | AAVEUSDT | trend=BULL | breakL=False | breakS=False | adx=27.19 | adx_ok=True | rising_ok=True | vol_ratio=0.87 | vol_up=False
+2026-03-10 12:15:10 | INFO | MainThread | XRPUSDT | trend=BULL | breakL=False | breakS=False | adx=35.99 | adx_ok=True | rising_ok=True | vol_ratio=0.87 | vol_up=False
+2026-03-10 12:15:10 | INFO | MainThread | PENGUUSDT | trend=BULL | breakL=False | breakS=False | adx=24.80 | adx_ok=True | rising_ok=True | vol_ratio=0.58 | vol_up=False
+2026-03-10 12:15:21 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1773155699999
+2026-03-10 12:15:24 | INFO | MainThread | [CACHE] New closed candle HYPEUSDT close_time=1773155699999
+2026-03-10 12:15:25 | INFO | MainThread | BTCUSDT | trend=BULL | breakL=False | breakS=False | adx=31.47 | adx_ok=True | rising_ok=True | vol_ratio=0.55 | vol_up=False
+2026-03-10 12:15:26 | INFO | MainThread | HYPEUSDT | trend=BEAR | breakL=False | breakS=False | adx=20.49 | adx_ok=True | rising_ok=True | vol_ratio=0.66 | vol_up=False
+2026-03-10 12:20:15 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1773155999999
+2026-03-10 12:20:16 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1773155999999
+2026-03-10 12:20:17 | INFO | MainThread | [CACHE] New closed candle AAVEUSDT close_time=1773155999999
+2026-03-10 12:20:18 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1773155999999
+2026-03-10 12:20:19 | INFO | MainThread | [CACHE] New closed candle HYPEUSDT close_time=1773155999999
+2026-03-10 12:20:20 | INFO | MainThread | [CACHE] New closed candle PENGUUSDT close_time=1773155999999
+2026-03-10 12:20:21 | INFO | MainThread | BTCUSDT | trend=BULL | breakL=False | breakS=False | adx=30.79 | adx_ok=True | rising_ok=True | vol_ratio=0.63 | vol_up=True
+2026-03-10 12:20:21 | INFO | MainThread | SOLUSDT | trend=BULL | breakL=False | breakS=False | adx=26.50 | adx_ok=True | rising_ok=True | vol_ratio=0.80 | vol_up=True
+2026-03-10 12:20:21 | INFO | MainThread | AAVEUSDT | trend=BULL | breakL=False | breakS=False | adx=26.82 | adx_ok=True | rising_ok=True | vol_ratio=0.64 | vol_up=False
+2026-03-10 12:20:21 | INFO | MainThread | XRPUSDT | trend=NONE | breakL=False | breakS=False | adx=35.24 | adx_ok=True | rising_ok=True | vol_ratio=1.03 | vol_up=True
+2026-03-10 12:20:21 | INFO | MainThread | HYPEUSDT | trend=BEAR | breakL=False | breakS=False | adx=19.91 | adx_ok=False | rising_ok=True | vol_ratio=0.76 | vol_up=True
+2026-03-10 12:20:21 | INFO | MainThread | PENGUUSDT | trend=BULL | breakL=False | breakS=False | adx=24.26 | adx_ok=True | rising_ok=True | vol_ratio=0.59 | vol_up=False
+2026-03-10 12:25:15 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1773156299999
+2026-03-10 12:25:17 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1773156299999
+2026-03-10 12:25:18 | INFO | MainThread | [CACHE] New closed candle AAVEUSDT close_time=1773156299999
+2026-03-10 12:25:19 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1773156299999
+2026-03-10 12:25:20 | INFO | MainThread | [CACHE] New closed candle HYPEUSDT close_time=1773156299999
+2026-03-10 12:25:21 | INFO | MainThread | [CACHE] New closed candle PENGUUSDT close_time=1773156299999
+2026-03-10 12:25:22 | INFO | MainThread | BTCUSDT | trend=BULL | breakL=False | breakS=False | adx=30.31 | adx_ok=True | rising_ok=True | vol_ratio=0.42 | vol_up=False
+2026-03-10 12:25:22 | INFO | MainThread | SOLUSDT | trend=BULL | breakL=False | breakS=False | adx=26.15 | adx_ok=True | rising_ok=True | vol_ratio=0.46 | vol_up=False
+2026-03-10 12:25:22 | INFO | MainThread | AAVEUSDT | trend=BULL | breakL=False | breakS=False | adx=26.48 | adx_ok=True | rising_ok=True | vol_ratio=0.52 | vol_up=False
+2026-03-10 12:25:22 | INFO | MainThread | XRPUSDT | trend=BULL | breakL=False | breakS=False | adx=34.53 | adx_ok=True | rising_ok=True | vol_ratio=0.40 | vol_up=False
+2026-03-10 12:25:22 | INFO | MainThread | HYPEUSDT | trend=BEAR | breakL=False | breakS=False | adx=19.05 | adx_ok=False | rising_ok=True | vol_ratio=0.54 | vol_up=False
+2026-03-10 12:25:22 | INFO | MainThread | PENGUUSDT | trend=BULL | breakL=False | breakS=False | adx=24.00 | adx_ok=True | rising_ok=True | vol_ratio=1.50 | vol_up=True
