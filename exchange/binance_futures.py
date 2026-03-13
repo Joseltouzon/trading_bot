@@ -319,6 +319,28 @@ class BinanceFutures:
             self.logger.info(f"[ORDER] MARKET {symbol} {side} qty={q} reduce_only={reduce_only}")
             return order
         except Exception as e:
+            error_msg = str(e)
+            # MANEJO ESPECÍFICO: Margin Insufficient (-2019)
+            if "-2019" in error_msg or "Margin is insufficient" in error_msg:
+                self.logger.warning(
+                    f"[ORDER] {symbol} margin error. "
+                    f"Sugerencia: reducir qty en ~5% o aumentar leverage."
+                )
+            # MANEJO ESPECÍFICO: ReduceOnly Failed (-4118)
+            if "-4118" in error_msg or "ReduceOnly Order Failed" in error_msg:
+                self.logger.warning(
+                    f"[ORDER] {symbol} reduceOnly failed. "
+                    f"Intentando fallback: cerrar posición completa sin reduceOnly..."
+                )
+                try:
+                    # Fallback: intentar sin reduceOnly (menos seguro pero evita perder el TP)
+                    fallback_params = {k: v for k, v in order_params.items() if k != "reduceOnly"}
+                    order = self.client.futures_create_order(**fallback_params)
+                    self.logger.info(f"[ORDER] {symbol} fallback order placed without reduceOnly")
+                    return order
+                except Exception as fallback_e:
+                    self.logger.error(f"[ORDER] {symbol} fallback also failed: {fallback_e}")
+            
             self.logger.exception(f"[ORDER] Market order failed {symbol}: {e}")
             raise
 

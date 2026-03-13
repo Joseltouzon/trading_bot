@@ -90,7 +90,7 @@ class TakeProfitManager:
             atr = float(self.market.get_last_atr(symbol) or 0)
             if atr <= 0:
                 return
-            sl_mult = float(getattr(CFG, "INITIAL_SL_ATR_MULT", 2.0))
+            sl_mult = float(getattr(CFG, "INITIAL_SL_ATR_MULT", 1.5))
             initial_sl = entry - (atr * sl_mult) if side == "LONG" else entry + (atr * sl_mult)
         
         risk = abs(entry - initial_sl)
@@ -109,7 +109,7 @@ class TakeProfitManager:
             return
         
         for i, tp in enumerate(tp_levels):
-            tp_ratio = float(tp.get("ratio", 1.5))
+            tp_ratio = float(tp.get("ratio", 3.5))
             close_pct = float(tp.get("close_pct", 50))
             move_to_be = bool(tp.get("move_sl_to_be", False))
             
@@ -168,7 +168,20 @@ class TakeProfitManager:
         
         # Calcular cantidad a cerrar
         close_qty = total_qty * (close_pct / 100.0)
-        remaining_qty = total_qty - close_qty
+        # NORMALIZAR cantidad según filtros de Binance (CRÍTICO para reduceOnly)
+        close_qty = self.exchange.normalize_qty(symbol, close_qty)
+
+        # Validar que no sea cero tras normalizar
+        if close_qty <= 0:
+            self.log.warning(f"[TP] {symbol} close_qty became 0 after normalization. Skipping.")
+            return
+
+        # Buffer de seguridad: cerrar 99.9% del cálculo para evitar que Binance rechace por 1 satoshi
+        SAFETY_BUFFER = 0.999  # 99.9%
+        close_qty = close_qty * SAFETY_BUFFER
+        close_qty = self.exchange.normalize_qty(symbol, close_qty)  # Re-normalizar tras buffer
+
+        remaining_qty = total_qty - close_qty 
         
         # Validaciones de Binance
         min_notional = float(getattr(CFG, "MIN_NOTIONAL_USDT", 20))

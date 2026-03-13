@@ -71,7 +71,7 @@ def compute_signals(df: pd.DataFrame) -> dict:
 
     last_ph, last_pl = last_pivot_levels(df_closed, CFG.PIVOT_LEN)
 
-    # NUEVO: Verificar si el pivot es "fresco" (formado en las últimas N velas)
+    # Verificar si el pivot es "fresco" (formado en las últimas N velas)
     pivot_fresh_long = False
     pivot_fresh_short = False
     max_pivot_age = getattr(CFG, "MAX_PIVOT_AGE", 15)  # velas
@@ -99,7 +99,7 @@ def compute_signals(df: pd.DataFrame) -> dict:
     vol_ratio = float(last["volume"]) / vol_ma if vol_ma > 0 else 1.0
     vol_increasing = float(last["volume"]) > float(prev["volume"])
 
-    # NUEVO: Volumen máximo para evitar entrar en clímax
+    # Volumen máximo para evitar entrar en clímax
     max_vol_ratio = getattr(CFG, "MAX_VOLUME_RATIO", 2.5)
     volume_confirmed = (
         vol_ratio >= CFG.VOLUME_MIN_RATIO and
@@ -117,7 +117,7 @@ def compute_signals(df: pd.DataFrame) -> dict:
     volatility_ok = atr_pct >= min_atr_pct
 
     # ============================
-    # MOMENTUM (mejorado: enfocado en vela actual)
+    # MOMENTUM (enfocado en vela actual)
     # ============================
 
     momentum_lookback = getattr(CFG, "MOMENTUM_LOOKBACK", 3)
@@ -130,7 +130,7 @@ def compute_signals(df: pd.DataFrame) -> dict:
     else:
         momentum_pct = 0.0
 
-    # NUEVO: Momentum intravela (¿la vela actual está cerrando fuerte?)
+    # Momentum intravela (¿la vela actual está cerrando fuerte?)
     candle_body_pct = ((last["close"] - last["open"]) / (last["high"] - last["low"])) if (last["high"] > last["low"]) else 0
     candle_momentum_strong = (
         (trend == "BULL" and candle_body_pct >= 0.6 and last["close"] > last["open"]) or
@@ -145,7 +145,7 @@ def compute_signals(df: pd.DataFrame) -> dict:
         momentum_ok = (momentum_pct <= -min_momentum_pct) or candle_momentum_strong
 
     # ============================
-    # BREAKOUT (CAMBIOS CRÍTICOS AQUÍ)
+    # BREAKOUT 
     # ============================
 
     body_size = abs(last["close"] - last["open"])

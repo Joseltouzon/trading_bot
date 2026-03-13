@@ -228,6 +228,10 @@ class OrderManager:
             if hasattr(self.exchange, "get_available_balance"):
                 available = float(self.exchange.get_available_balance())
                 lev = float(getattr(st, "leverage", 1) or 1)
+
+                # 0. Buffer de seguridad para margen (evita APIError -2019)
+                margin_buffer = float(getattr(CFG, "MARGIN_SAFETY_BUFFER", 0.03))
+                available_with_buffer = available * (1 - margin_buffer)
                 
                 # 1. Asegurar Mínimo Notional de Binance (CRÍTICO PARA CUENTAS < $200)
                 min_notional = float(getattr(CFG, "MIN_NOTIONAL_USDT", 20.0))
@@ -238,14 +242,14 @@ class OrderManager:
                     qty = min_notional / mark_price
                     self.logger.warning(f"[MIN NOTIONAL] {symbol} ajustado a {qty:.4f} para cumplir min {min_notional}")
                 
-                # 2. Recalcular margen requerido con qty ajustada
+                # 2. Recalcular margen requerido con qty ajustada con Buffer
                 notional = mark_price * qty
                 required_margin = notional / max(lev, 1.0)
                 
                 # 3. Verificar Margen (Sin bloqueo estricto de SAFETY_BUFFER para cuentas pequeñas)
-                if required_margin > available:
+                if required_margin > available_with_buffer:
                     # Intentar escalar hacia abajo si no hay margen suficiente
-                    scale_factor = available / required_margin
+                    scale_factor = available_with_buffer / required_margin
                     if scale_factor <= 0.1: # Si hay menos del 10% del margen necesario, abortar
                         self.logger.warning(f"[MARGIN] {symbol} insuficiente incluso escalando.")
                         return False
@@ -253,7 +257,13 @@ class OrderManager:
                     qty *= scale_factor
                     notional = mark_price * qty
                     required_margin = notional / max(lev, 1.0)
-                    self.logger.warning(f"[MARGIN] {symbol} auto-scaled | scale={scale_factor:.3f} | new_qty={qty:.6f}")
+                    self.logger.warning(
+                        f"[MARGIN] {symbol} auto-scaled | "
+                        f"scale={scale_factor:.3f} | "
+                        f"new_qty={qty:.6f} | "
+                        f"available_orig={available:.2f} | "
+                        f"available_buffered={available_with_buffer:.2f}"
+                    )
                     
                     # Verificar nuevamente que tras escalar no violamos el mínimo notional
                     if notional < min_notional:
