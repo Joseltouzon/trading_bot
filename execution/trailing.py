@@ -86,7 +86,7 @@ class TrailingManager:
             return
 
         use_atr = bool(getattr(CFG, "TRAILING_USE_ATR", False))
-        atr_mult = float(getattr(CFG, "TRAILING_ATR_MULT", 1.5))
+        atr_mult = float(getattr(CFG, "TRAILING_ATR_MULT", 0.7))
         old_sl = tr.get("sl")
 
         # Calcular Nuevo SL

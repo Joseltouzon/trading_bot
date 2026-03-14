@@ -90,7 +90,7 @@ class TakeProfitManager:
             atr = float(self.market.get_last_atr(symbol) or 0)
             if atr <= 0:
                 return
-            sl_mult = float(getattr(CFG, "INITIAL_SL_ATR_MULT", 1.5))
+            sl_mult = float(getattr(CFG, "INITIAL_SL_ATR_MULT", 0.7))
             initial_sl = entry - (atr * sl_mult) if side == "LONG" else entry + (atr * sl_mult)
         
         risk = abs(entry - initial_sl)

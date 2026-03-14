@@ -18,7 +18,7 @@ PIVOT_LEN = 5
 DEFAULT_ADX_MIN = 20.0
 REQUIRE_ADX_RISING = False
 VOLUME_MIN_RATIO = 1.20
-MAX_VOLUME_RATIO = 3.0
+MAX_VOLUME_RATIO = 3.5
 MIN_BREAK_DISTANCE_PCT = 0.05
 MIN_BODY_RATIO = 0.50
 MIN_ATR_PCT = 0.15
@@ -47,9 +47,9 @@ MARGIN_SAFETY_BUFFER = 0.03     # 3% buffer extra para evitar -2019 en Binance, 
 TRAILING_PCT = 0.5              # Solo usa si TRAILING_USE_ATR = False
 TRAILING_ACTIVATION_PCT = 0.5
 TRAILING_USE_ATR = True         # ✅ Activo: Usa volatilidad
-TRAILING_ATR_MULT = 1.5
+TRAILING_ATR_MULT = 0.7
 MIN_INITIAL_SL_PCT = 0.35       # Mínimo SL inicial
-INITIAL_SL_ATR_MULT = 1.5
+INITIAL_SL_ATR_MULT = 0.7
 
 # Cooldown / daily loss
 DEFAULT_COOLDOWN_BARS = 4
@@ -79,7 +79,7 @@ EXCHANGE_INFO_TTL_SECONDS = 60
 # ============================================================
 # TAKE PROFIT ESCALONADO
 # ============================================================
-USE_TAKE_PROFIT = True
+USE_TAKE_PROFIT = False
 
 # Niveles de TP: [R:R, % a cerrar, ¿mover SL a Breakeven?]
 TP_LEVELS = [

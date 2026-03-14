@@ -438,7 +438,7 @@ class EventLoop:
         qty = max(qty, 0.001)
 
         # Initial SL
-        sl_mult = float(getattr(CFG, "INITIAL_SL_ATR_MULT", 1.5))
+        sl_mult = float(getattr(CFG, "INITIAL_SL_ATR_MULT", 0.7))
         min_sl_pct = float(getattr(CFG, "MIN_INITIAL_SL_PCT", 0.3))
         raw_sl_dist = atr * sl_mult
         min_sl_dist = price * (min_sl_pct / 100.0)
