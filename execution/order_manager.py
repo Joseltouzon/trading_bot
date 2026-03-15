@@ -277,39 +277,14 @@ class OrderManager:
         # ============================================================
         # EXECUTE MARKET ORDER + SL INMEDIATO
         # ============================================================
-        try:
-            # 1. Ejecutar entrada market
-            order = self.exchange.place_market_order(
-                symbol=symbol,
-                side=side,
-                quantity=qty
-            )
-            if not order:
-                self.logger.warning(f"{symbol} market order returned None")
-                return False
-            
-            # 2. COLOCAR SL INMEDIATAMENTE (antes de DB updates)
-            if initial_sl is not None:
-                try:
-                    sl_result = self.replace_stop_order(st, symbol, side, qty, float(initial_sl))
-                    if sl_result:
-                        self.logger.info(f"[SL] initial stop placed {symbol} {side} sl={float(initial_sl):.4f}")
-                    else:
-                        # Si falla el SL, logear pero NO cerrar la posición (para no perder la entrada)
-                        self.logger.error(f"[SL WARNING] {symbol} stop creation returned False")
-                except Exception as e:
-                    self.logger.error(f"[SL CRITICAL] {symbol} stop creation exception: {e}")
-                    # En producción: considerar cerrar la posición si no hay SL
-                    # self.exchange.close_position(symbol, qty)
-                    # return False
-            
-            # 3. Recién ahora marcar como entered y loguear
-            self.trade_lock.mark_entered(symbol, bar_close_ms)
-            sl_display = f"{float(initial_sl):.2f}" if initial_sl is not None else "N/A"
-            self.logger.info(f"[ENTRY] {symbol} {side} qty={qty:.6f} @ {mark_price:.2f} SL={sl_display}")
-            
-        except Exception:
-            self.logger.exception("[ENTRY] Order execution failed.")
+        # 1. Ejecutar entrada market
+        order = self.exchange.place_market_order(
+            symbol=symbol,
+            side=side,
+            quantity=qty
+        )
+        if not order:
+            self.logger.warning(f"{symbol} market order returned None")
             return False
 
         # ================= DB: CREAR POSICIÓN =================
@@ -319,6 +294,11 @@ class OrderManager:
             qty=qty,
             entry_price=mark_price
         )
+
+        if not hasattr(st, "position_ids"):
+            st.position_ids = {}
+        st.position_ids[symbol] = position_id
+
         # ===== PERSISTIR FEATURES PARA ML =====
         ml_features = signal.get("ml_features")
         if ml_features and isinstance(ml_features, dict):
@@ -331,10 +311,22 @@ class OrderManager:
             except Exception as e:
                 self.logger.warning(f"[ML] Error guardando features {symbol}: {e}")
 
-        if not hasattr(st, "position_ids"):
-            st.position_ids = {}
+        # 2. COLOCAR SL (YA tiene position_id)
+        if initial_sl is not None:
+            try:
+                sl_result = self.replace_stop_order(st, symbol, side, qty, float(initial_sl))
+                if sl_result:
+                    self.logger.info(f"[SL] initial stop placed {symbol} {side} sl={float(initial_sl):.4f}")
+                else:
+                    self.logger.error(f"[SL WARNING] {symbol} stop creation returned False")
+            except Exception as e:
+                self.logger.error(f"[SL CRITICAL] {symbol} stop creation exception: {e}")
 
-        st.position_ids[symbol] = position_id
+        # 3. Recién ahora marcar como entered y loguear
+        self.trade_lock.mark_entered(symbol, bar_close_ms)
+        sl_display = f"{float(initial_sl):.2f}" if initial_sl is not None else "N/A"
+        self.logger.info(f"[ENTRY] {symbol} {side} qty={qty:.6f} @ {mark_price:.2f} SL={sl_display}")
+
         self.db.create_order(
             position_id=position_id,
             symbol=symbol,

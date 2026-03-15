@@ -26,7 +26,7 @@ MIN_ATR_PCT = 0.15
 MOMENTUM_LOOKBACK = 3
 MIN_MOMENTUM_PCT = 0.12         # 0.15% de movimiento en 3 velas (15 min en 5m)
 MAX_PIVOT_AGE = 15              # Pivot debe tener <= 15 velas de antigüedad
-MIN_PIVOT_DISTANCE_PCT = 0.10   # Mínimo 0.15% entre precio y pivot para entrar
+MIN_PIVOT_DISTANCE_PCT = 0.15   # Mínimo 0.15% entre precio y pivot para entrar
 SL_BUFFER_PCT = 0.0012          # Buffer 0.12% extra en SL contra stop hunts
 
 # =========================
@@ -36,7 +36,7 @@ DEFAULT_RISK_PCT = 1.0
 MAX_RISK_PCT_ALLOWED = 10.0
 MIN_NOTIONAL_USDT = 20          # CRÍTICO: No borrar, Binance exige min ~20USDT
 DEFAULT_LEVERAGE = 5
-MAX_OPEN_POSITIONS = 1
+MAX_OPEN_POSITIONS = 2
 MARGIN_TYPE = "ISOLATED"
 # =========================
 # MARGIN / RISK
@@ -47,7 +47,7 @@ MARGIN_SAFETY_BUFFER = 0.03     # 3% buffer extra para evitar -2019 en Binance, 
 TRAILING_PCT = 0.5              # Solo usa si TRAILING_USE_ATR = False
 TRAILING_ACTIVATION_PCT = 0.5
 TRAILING_USE_ATR = True         # ✅ Activo: Usa volatilidad
-TRAILING_ATR_MULT = 0.7
+TRAILING_ATR_MULT = 1.5
 MIN_INITIAL_SL_PCT = 0.35       # Mínimo SL inicial
 INITIAL_SL_ATR_MULT = 0.7
 

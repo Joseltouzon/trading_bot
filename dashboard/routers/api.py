@@ -74,7 +74,7 @@ def api_open_positions_pnl(
             else:  # SHORT
                 pnl_pct = (entry_price - mark_price) / entry_price * 100
         else:
-            pnl_pct = 0.0
+            pnl_pct = 0.0   
         
         result[symbol] = {
             "unrealized_pnl": float(ex_pos.get("unrealized_pnl", 0) or 0),

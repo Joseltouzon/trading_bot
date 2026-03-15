@@ -28,7 +28,7 @@ numpy>=1.24.0,<3.0
 urllib3>=2.0.0,<3.0
 
 # script test correlacion de simbolos
-ccxt=4.5.40
+ccxt==4.5.40
 
 # =======================
 # OPTIONAL (recomendado para producción)

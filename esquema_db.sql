@@ -321,6 +321,9 @@ CREATE TABLE public.positions (
     exit_price numeric(20,10),
     realized_pnl numeric(20,10),
     strategy_tag character varying(50),
+    commission numeric(20,10) DEFAULT 0,
+    commission_pct numeric(8,6) DEFAULT 0,
+    signal_features jsonb,
     CONSTRAINT positions_side_check CHECK (((side)::text = ANY ((ARRAY['LONG'::character varying, 'SHORT'::character varying])::text[]))),
     CONSTRAINT positions_status_check CHECK (((status)::text = ANY ((ARRAY['OPEN'::character varying, 'CLOSED'::character varying])::text[])))
 );
