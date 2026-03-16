@@ -1415,3 +1415,1073 @@
 2026-03-16 10:50:16 | INFO | MainThread | ARBUSDT | trend=BULL | breakL=False | breakS=False | adx=13.81 | adx_ok=False | rising_ok=True | vol_ratio=1.94 | vol_up=False
 2026-03-16 10:50:16 | INFO | MainThread | ADAUSDT | trend=NONE | breakL=False | breakS=False | adx=14.59 | adx_ok=False | rising_ok=True | vol_ratio=1.59 | vol_up=False
 2026-03-16 10:50:16 | INFO | MainThread | PENGUUSDT | trend=BULL | breakL=False | breakS=False | adx=17.44 | adx_ok=False | rising_ok=True | vol_ratio=2.14 | vol_up=True
+2026-03-16 10:55:05 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1773669299999
+2026-03-16 10:55:06 | INFO | MainThread | [CACHE] New closed candle 1000PEPEUSDT close_time=1773669299999
+2026-03-16 10:55:07 | INFO | MainThread | [CACHE] New closed candle AVAXUSDT close_time=1773669299999
+2026-03-16 10:55:08 | INFO | MainThread | [CACHE] New closed candle UNIUSDT close_time=1773669299999
+2026-03-16 10:55:09 | INFO | MainThread | [CACHE] New closed candle ARBUSDT close_time=1773669299999
+2026-03-16 10:55:10 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1773669299999
+2026-03-16 10:55:12 | INFO | MainThread | [CACHE] New closed candle PENGUUSDT close_time=1773669299999
+2026-03-16 10:55:12 | INFO | MainThread | XRPUSDT | trend=BULL | breakL=False | breakS=False | adx=26.39 | adx_ok=True | rising_ok=True | vol_ratio=1.36 | vol_up=False
+2026-03-16 10:55:12 | INFO | MainThread | UNIUSDT | trend=BULL | breakL=False | breakS=False | adx=37.36 | adx_ok=True | rising_ok=True | vol_ratio=1.95 | vol_up=False
+2026-03-16 10:55:12 | INFO | MainThread | ADAUSDT | trend=BULL | breakL=False | breakS=False | adx=14.08 | adx_ok=False | rising_ok=True | vol_ratio=1.44 | vol_up=False
+2026-03-16 10:55:12 | INFO | MainThread | PENGUUSDT | trend=BEAR | breakL=False | breakS=False | adx=17.73 | adx_ok=False | rising_ok=True | vol_ratio=1.24 | vol_up=False
+2026-03-16 10:55:22 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1773669299999
+2026-03-16 10:55:23 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1773669299999
+2026-03-16 10:55:24 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1773669299999
+2026-03-16 10:55:30 | INFO | MainThread | BTCUSDT | trend=NONE | breakL=False | breakS=False | adx=41.97 | adx_ok=True | rising_ok=True | vol_ratio=1.37 | vol_up=False
+2026-03-16 10:55:30 | INFO | MainThread | SOLUSDT | trend=BULL | breakL=False | breakS=False | adx=19.05 | adx_ok=False | rising_ok=True | vol_ratio=1.55 | vol_up=False
+2026-03-16 10:55:30 | INFO | MainThread | BNBUSDT | trend=BULL | breakL=False | breakS=False | adx=17.46 | adx_ok=False | rising_ok=True | vol_ratio=1.01 | vol_up=False
+2026-03-16 11:00:03 | INFO | MainThread | [CACHE] New closed candle 1000PEPEUSDT close_time=1773669599999
+2026-03-16 11:00:04 | INFO | MainThread | [CACHE] New closed candle AVAXUSDT close_time=1773669599999
+2026-03-16 11:00:06 | INFO | MainThread | [CACHE] New closed candle ARBUSDT close_time=1773669599999
+2026-03-16 11:00:08 | INFO | MainThread | [CACHE] New closed candle PENGUUSDT close_time=1773669599999
+2026-03-16 11:00:08 | INFO | MainThread | 1000PEPEUSDT | trend=BEAR | breakL=False | breakS=False | adx=20.29 | adx_ok=True | rising_ok=True | vol_ratio=0.84 | vol_up=False
+2026-03-16 11:00:08 | INFO | MainThread | AVAXUSDT | trend=BEAR | breakL=False | breakS=False | adx=19.59 | adx_ok=False | rising_ok=True | vol_ratio=1.25 | vol_up=False
+2026-03-16 11:00:08 | INFO | MainThread | ARBUSDT | trend=BEAR | breakL=False | breakS=False | adx=14.37 | adx_ok=False | rising_ok=True | vol_ratio=0.54 | vol_up=False
+2026-03-16 11:00:08 | INFO | MainThread | PENGUUSDT | trend=BEAR | breakL=False | breakS=False | adx=18.10 | adx_ok=False | rising_ok=True | vol_ratio=1.24 | vol_up=True
+2026-03-16 11:00:22 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1773669599999
+2026-03-16 11:00:23 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1773669599999
+2026-03-16 11:00:24 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1773669599999
+2026-03-16 11:00:26 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1773669599999
+2026-03-16 11:00:28 | INFO | MainThread | [CACHE] New closed candle UNIUSDT close_time=1773669599999
+2026-03-16 11:00:30 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1773669599999
+2026-03-16 11:00:31 | INFO | MainThread | BTCUSDT | trend=BULL | breakL=False | breakS=False | adx=39.84 | adx_ok=True | rising_ok=True | vol_ratio=0.78 | vol_up=False
+2026-03-16 11:00:31 | INFO | MainThread | SOLUSDT | trend=BULL | breakL=False | breakS=False | adx=18.49 | adx_ok=False | rising_ok=True | vol_ratio=1.28 | vol_up=False
+2026-03-16 11:00:31 | INFO | MainThread | BNBUSDT | trend=NONE | breakL=False | breakS=False | adx=16.41 | adx_ok=False | rising_ok=True | vol_ratio=1.01 | vol_up=False
+2026-03-16 11:00:31 | INFO | MainThread | XRPUSDT | trend=BULL | breakL=False | breakS=False | adx=24.59 | adx_ok=True | rising_ok=True | vol_ratio=1.24 | vol_up=False
+2026-03-16 11:00:31 | INFO | MainThread | UNIUSDT | trend=BULL | breakL=False | breakS=False | adx=38.76 | adx_ok=True | rising_ok=True | vol_ratio=0.81 | vol_up=False
+2026-03-16 11:00:31 | INFO | MainThread | ADAUSDT | trend=BEAR | breakL=False | breakS=False | adx=13.87 | adx_ok=False | rising_ok=True | vol_ratio=0.82 | vol_up=False
+2026-03-16 11:05:05 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1773669899999
+2026-03-16 11:05:07 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1773669899999
+2026-03-16 11:05:08 | INFO | MainThread | [CACHE] New closed candle 1000PEPEUSDT close_time=1773669899999
+2026-03-16 11:05:09 | INFO | MainThread | [CACHE] New closed candle AVAXUSDT close_time=1773669899999
+2026-03-16 11:05:11 | INFO | MainThread | [CACHE] New closed candle ARBUSDT close_time=1773669899999
+2026-03-16 11:05:12 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1773669899999
+2026-03-16 11:05:13 | INFO | MainThread | [CACHE] New closed candle PENGUUSDT close_time=1773669899999
+2026-03-16 11:05:13 | INFO | MainThread | BNBUSDT | trend=BULL | breakL=False | breakS=False | adx=16.14 | adx_ok=False | rising_ok=True | vol_ratio=1.89 | vol_up=True
+2026-03-16 11:05:13 | INFO | MainThread | XRPUSDT | trend=BULL | breakL=False | breakS=False | adx=24.04 | adx_ok=True | rising_ok=True | vol_ratio=0.96 | vol_up=False
+2026-03-16 11:05:13 | INFO | MainThread | 1000PEPEUSDT | trend=BEAR | breakL=False | breakS=False | adx=19.15 | adx_ok=False | rising_ok=True | vol_ratio=0.75 | vol_up=False
+2026-03-16 11:05:13 | INFO | MainThread | AVAXUSDT | trend=BEAR | breakL=False | breakS=False | adx=18.17 | adx_ok=False | rising_ok=True | vol_ratio=0.85 | vol_up=True
+2026-03-16 11:05:13 | INFO | MainThread | ARBUSDT | trend=BEAR | breakL=False | breakS=False | adx=14.18 | adx_ok=False | rising_ok=True | vol_ratio=0.63 | vol_up=True
+2026-03-16 11:05:13 | INFO | MainThread | ADAUSDT | trend=BEAR | breakL=False | breakS=False | adx=13.30 | adx_ok=False | rising_ok=True | vol_ratio=1.12 | vol_up=True
+2026-03-16 11:05:13 | INFO | MainThread | PENGUUSDT | trend=BEAR | breakL=False | breakS=False | adx=17.26 | adx_ok=False | rising_ok=True | vol_ratio=1.23 | vol_up=True
+2026-03-16 11:05:28 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1773669899999
+2026-03-16 11:05:29 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1773669899999
+2026-03-16 11:05:33 | INFO | MainThread | [CACHE] New closed candle UNIUSDT close_time=1773669899999
+2026-03-16 11:05:35 | INFO | MainThread | BTCUSDT | trend=BULL | breakL=False | breakS=False | adx=39.17 | adx_ok=True | rising_ok=True | vol_ratio=1.70 | vol_up=True
+2026-03-16 11:05:35 | INFO | MainThread | SOLUSDT | trend=BULL | breakL=False | breakS=False | adx=17.34 | adx_ok=False | rising_ok=True | vol_ratio=1.40 | vol_up=True
+2026-03-16 11:05:35 | INFO | MainThread | UNIUSDT | trend=BULL | breakL=False | breakS=False | adx=40.67 | adx_ok=True | rising_ok=True | vol_ratio=0.85 | vol_up=True
+2026-03-16 11:10:02 | INFO | MainThread | [CACHE] New closed candle UNIUSDT close_time=1773670199999
+2026-03-16 11:10:04 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1773670199999
+2026-03-16 11:10:19 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1773670199999
+2026-03-16 11:10:20 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1773670199999
+2026-03-16 11:10:21 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1773670199999
+2026-03-16 11:10:22 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1773670199999
+2026-03-16 11:10:23 | INFO | MainThread | [CACHE] New closed candle 1000PEPEUSDT close_time=1773670199999
+2026-03-16 11:10:24 | INFO | MainThread | [CACHE] New closed candle AVAXUSDT close_time=1773670199999
+2026-03-16 11:10:26 | INFO | MainThread | [CACHE] New closed candle ARBUSDT close_time=1773670199999
+2026-03-16 11:10:28 | INFO | MainThread | [CACHE] New closed candle PENGUUSDT close_time=1773670199999
+2026-03-16 11:10:28 | INFO | MainThread | BTCUSDT | trend=BULL | breakL=False | breakS=False | adx=38.91 | adx_ok=True | rising_ok=True | vol_ratio=0.99 | vol_up=False
+2026-03-16 11:10:28 | INFO | MainThread | SOLUSDT | trend=BULL | breakL=False | breakS=False | adx=17.04 | adx_ok=False | rising_ok=True | vol_ratio=0.83 | vol_up=False
+2026-03-16 11:10:28 | INFO | MainThread | BNBUSDT | trend=BULL | breakL=False | breakS=False | adx=15.93 | adx_ok=False | rising_ok=True | vol_ratio=1.18 | vol_up=False
+2026-03-16 11:10:28 | INFO | MainThread | XRPUSDT | trend=BULL | breakL=False | breakS=False | adx=23.85 | adx_ok=True | rising_ok=True | vol_ratio=0.90 | vol_up=False
+2026-03-16 11:10:28 | INFO | MainThread | 1000PEPEUSDT | trend=BEAR | breakL=False | breakS=False | adx=18.18 | adx_ok=False | rising_ok=True | vol_ratio=0.80 | vol_up=True
+2026-03-16 11:10:28 | INFO | MainThread | AVAXUSDT | trend=BEAR | breakL=False | breakS=False | adx=17.01 | adx_ok=False | rising_ok=True | vol_ratio=1.26 | vol_up=True
+2026-03-16 11:10:28 | INFO | MainThread | ARBUSDT | trend=BULL | breakL=False | breakS=False | adx=13.79 | adx_ok=False | rising_ok=True | vol_ratio=1.33 | vol_up=True
+2026-03-16 11:10:28 | INFO | MainThread | PENGUUSDT | trend=BEAR | breakL=False | breakS=False | adx=16.11 | adx_ok=False | rising_ok=True | vol_ratio=0.88 | vol_up=False
+2026-03-16 11:14:06 | WARNING | MainThread | [TG poll] error: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=10)
+2026-03-16 11:15:22 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1773670499999
+2026-03-16 11:15:24 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1773670499999
+2026-03-16 11:15:25 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1773670499999
+2026-03-16 11:15:26 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1773670499999
+2026-03-16 11:15:27 | INFO | MainThread | [CACHE] New closed candle 1000PEPEUSDT close_time=1773670499999
+2026-03-16 11:15:28 | INFO | MainThread | [CACHE] New closed candle AVAXUSDT close_time=1773670499999
+2026-03-16 11:15:29 | INFO | MainThread | [CACHE] New closed candle UNIUSDT close_time=1773670499999
+2026-03-16 11:15:31 | INFO | MainThread | [CACHE] New closed candle ARBUSDT close_time=1773670499999
+2026-03-16 11:15:32 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1773670499999
+2026-03-16 11:15:33 | INFO | MainThread | [CACHE] New closed candle PENGUUSDT close_time=1773670499999
+2026-03-16 11:15:33 | INFO | MainThread | BTCUSDT | trend=BULL | breakL=False | breakS=False | adx=38.67 | adx_ok=True | rising_ok=True | vol_ratio=0.80 | vol_up=False
+2026-03-16 11:15:33 | INFO | MainThread | SOLUSDT | trend=BULL | breakL=False | breakS=False | adx=16.91 | adx_ok=False | rising_ok=True | vol_ratio=0.60 | vol_up=False
+2026-03-16 11:15:33 | INFO | MainThread | BNBUSDT | trend=BULL | breakL=False | breakS=False | adx=15.95 | adx_ok=False | rising_ok=True | vol_ratio=1.01 | vol_up=False
+2026-03-16 11:15:33 | INFO | MainThread | XRPUSDT | trend=BULL | breakL=False | breakS=False | adx=23.84 | adx_ok=True | rising_ok=True | vol_ratio=0.79 | vol_up=False
+2026-03-16 11:15:33 | INFO | MainThread | 1000PEPEUSDT | trend=BEAR | breakL=False | breakS=False | adx=17.67 | adx_ok=False | rising_ok=True | vol_ratio=0.76 | vol_up=False
+2026-03-16 11:15:33 | INFO | MainThread | AVAXUSDT | trend=BEAR | breakL=False | breakS=False | adx=16.16 | adx_ok=False | rising_ok=True | vol_ratio=0.67 | vol_up=False
+2026-03-16 11:15:33 | INFO | MainThread | UNIUSDT | trend=BULL | breakL=False | breakS=False | adx=43.29 | adx_ok=True | rising_ok=True | vol_ratio=0.68 | vol_up=False
+2026-03-16 11:15:33 | INFO | MainThread | ARBUSDT | trend=BULL | breakL=False | breakS=False | adx=13.07 | adx_ok=False | rising_ok=True | vol_ratio=0.81 | vol_up=False
+2026-03-16 11:15:33 | INFO | MainThread | ADAUSDT | trend=BULL | breakL=False | breakS=False | adx=13.43 | adx_ok=False | rising_ok=True | vol_ratio=0.99 | vol_up=False
+2026-03-16 11:15:33 | INFO | MainThread | PENGUUSDT | trend=BEAR | breakL=False | breakS=False | adx=15.25 | adx_ok=False | rising_ok=True | vol_ratio=1.01 | vol_up=True
+2026-03-16 11:20:05 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1773670799999
+2026-03-16 11:20:06 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1773670799999
+2026-03-16 11:20:07 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1773670799999
+2026-03-16 11:20:09 | INFO | MainThread | [CACHE] New closed candle 1000PEPEUSDT close_time=1773670799999
+2026-03-16 11:20:10 | INFO | MainThread | [CACHE] New closed candle AVAXUSDT close_time=1773670799999
+2026-03-16 11:20:11 | INFO | MainThread | [CACHE] New closed candle UNIUSDT close_time=1773670799999
+2026-03-16 11:20:12 | INFO | MainThread | [CACHE] New closed candle ARBUSDT close_time=1773670799999
+2026-03-16 11:20:13 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1773670799999
+2026-03-16 11:20:14 | INFO | MainThread | [CACHE] New closed candle PENGUUSDT close_time=1773670799999
+2026-03-16 11:20:15 | INFO | MainThread | BTCUSDT | trend=BULL | breakL=False | breakS=False | adx=38.07 | adx_ok=True | rising_ok=True | vol_ratio=0.55 | vol_up=False
+2026-03-16 11:20:15 | INFO | MainThread | BNBUSDT | trend=NONE | breakL=False | breakS=False | adx=15.14 | adx_ok=False | rising_ok=True | vol_ratio=0.81 | vol_up=False
+2026-03-16 11:20:15 | INFO | MainThread | 1000PEPEUSDT | trend=BEAR | breakL=False | breakS=False | adx=17.03 | adx_ok=False | rising_ok=True | vol_ratio=0.54 | vol_up=False
+2026-03-16 11:20:15 | INFO | MainThread | AVAXUSDT | trend=BEAR | breakL=False | breakS=False | adx=15.33 | adx_ok=False | rising_ok=True | vol_ratio=0.50 | vol_up=False
+2026-03-16 11:20:15 | INFO | MainThread | UNIUSDT | trend=BULL | breakL=False | breakS=False | adx=44.07 | adx_ok=True | rising_ok=True | vol_ratio=1.13 | vol_up=True
+2026-03-16 11:20:15 | INFO | MainThread | ARBUSDT | trend=BULL | breakL=False | breakS=False | adx=12.23 | adx_ok=False | rising_ok=True | vol_ratio=0.80 | vol_up=False
+2026-03-16 11:20:15 | INFO | MainThread | ADAUSDT | trend=BULL | breakL=False | breakS=False | adx=13.64 | adx_ok=False | rising_ok=True | vol_ratio=0.65 | vol_up=False
+2026-03-16 11:20:15 | INFO | MainThread | PENGUUSDT | trend=BEAR | breakL=False | breakS=False | adx=14.40 | adx_ok=False | rising_ok=True | vol_ratio=0.69 | vol_up=False
+2026-03-16 11:20:29 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1773670799999
+2026-03-16 11:20:35 | INFO | MainThread | SOLUSDT | trend=BULL | breakL=False | breakS=False | adx=16.80 | adx_ok=False | rising_ok=True | vol_ratio=0.55 | vol_up=False
+2026-03-16 11:25:05 | INFO | MainThread | [CACHE] New closed candle ARBUSDT close_time=1773671099999
+2026-03-16 11:25:21 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1773671099999
+2026-03-16 11:25:22 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1773671099999
+2026-03-16 11:25:23 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1773671099999
+2026-03-16 11:25:24 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1773671099999
+2026-03-16 11:25:26 | INFO | MainThread | [CACHE] New closed candle 1000PEPEUSDT close_time=1773671099999
+2026-03-16 11:25:27 | INFO | MainThread | [CACHE] New closed candle AVAXUSDT close_time=1773671099999
+2026-03-16 11:25:28 | INFO | MainThread | [CACHE] New closed candle UNIUSDT close_time=1773671099999
+2026-03-16 11:25:30 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1773671099999
+2026-03-16 11:25:31 | INFO | MainThread | [CACHE] New closed candle PENGUUSDT close_time=1773671099999
+2026-03-16 11:25:31 | INFO | MainThread | BTCUSDT | trend=NONE | breakL=False | breakS=False | adx=37.08 | adx_ok=True | rising_ok=True | vol_ratio=0.64 | vol_up=True
+2026-03-16 11:25:31 | INFO | MainThread | SOLUSDT | trend=NONE | breakL=False | breakS=False | adx=16.00 | adx_ok=False | rising_ok=True | vol_ratio=1.01 | vol_up=True
+2026-03-16 11:25:31 | INFO | MainThread | BNBUSDT | trend=BULL | breakL=False | breakS=False | adx=14.09 | adx_ok=False | rising_ok=True | vol_ratio=0.75 | vol_up=False
+2026-03-16 11:25:31 | INFO | MainThread | XRPUSDT | trend=BULL | breakL=False | breakS=False | adx=23.99 | adx_ok=True | rising_ok=True | vol_ratio=1.05 | vol_up=True
+2026-03-16 11:25:31 | INFO | MainThread | 1000PEPEUSDT | trend=BULL | breakL=False | breakS=False | adx=16.72 | adx_ok=False | rising_ok=True | vol_ratio=0.52 | vol_up=False
+2026-03-16 11:25:31 | INFO | MainThread | AVAXUSDT | trend=BEAR | breakL=False | breakS=False | adx=14.73 | adx_ok=False | rising_ok=True | vol_ratio=0.72 | vol_up=True
+2026-03-16 11:25:31 | INFO | MainThread | UNIUSDT | trend=BULL | breakL=False | breakS=False | adx=44.38 | adx_ok=True | rising_ok=True | vol_ratio=0.53 | vol_up=False
+2026-03-16 11:25:31 | INFO | MainThread | ADAUSDT | trend=NONE | breakL=False | breakS=False | adx=14.02 | adx_ok=False | rising_ok=True | vol_ratio=0.38 | vol_up=False
+2026-03-16 11:25:31 | INFO | MainThread | PENGUUSDT | trend=BEAR | breakL=False | breakS=False | adx=13.63 | adx_ok=False | rising_ok=True | vol_ratio=0.86 | vol_up=True
+2026-03-16 11:30:04 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1773671399999
+2026-03-16 11:30:06 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1773671399999
+2026-03-16 11:30:07 | INFO | MainThread | [CACHE] New closed candle 1000PEPEUSDT close_time=1773671399999
+2026-03-16 11:30:08 | INFO | MainThread | [CACHE] New closed candle AVAXUSDT close_time=1773671399999
+2026-03-16 11:30:09 | INFO | MainThread | [CACHE] New closed candle UNIUSDT close_time=1773671399999
+2026-03-16 11:30:11 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1773671399999
+2026-03-16 11:30:12 | INFO | MainThread | [CACHE] New closed candle PENGUUSDT close_time=1773671399999
+2026-03-16 11:30:13 | INFO | MainThread | 1000PEPEUSDT | trend=BULL | breakL=False | breakS=False | adx=16.94 | adx_ok=False | rising_ok=True | vol_ratio=0.97 | vol_up=True
+2026-03-16 11:30:13 | INFO | MainThread | AVAXUSDT | trend=BEAR | breakL=False | breakS=False | adx=14.73 | adx_ok=False | rising_ok=True | vol_ratio=1.34 | vol_up=True
+2026-03-16 11:30:13 | INFO | MainThread | UNIUSDT | trend=BULL | breakL=False | breakS=False | adx=41.74 | adx_ok=True | rising_ok=True | vol_ratio=1.47 | vol_up=True
+2026-03-16 11:30:13 | INFO | MainThread | ADAUSDT | trend=BEAR | breakL=False | breakS=False | adx=14.35 | adx_ok=False | rising_ok=True | vol_ratio=2.02 | vol_up=True
+2026-03-16 11:30:13 | INFO | MainThread | PENGUUSDT | trend=BEAR | breakL=False | breakS=False | adx=13.22 | adx_ok=False | rising_ok=True | vol_ratio=1.50 | vol_up=True
+2026-03-16 11:30:27 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1773671399999
+2026-03-16 11:30:28 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1773671399999
+2026-03-16 11:30:33 | INFO | MainThread | [CACHE] New closed candle ARBUSDT close_time=1773671399999
+2026-03-16 11:30:35 | INFO | MainThread | BTCUSDT | trend=BULL | breakL=False | breakS=False | adx=35.55 | adx_ok=True | rising_ok=True | vol_ratio=2.07 | vol_up=True
+2026-03-16 11:30:35 | INFO | MainThread | BNBUSDT | trend=BEAR | breakL=False | breakS=False | adx=15.38 | adx_ok=False | rising_ok=True | vol_ratio=2.08 | vol_up=True
+2026-03-16 11:30:35 | INFO | MainThread | ARBUSDT | trend=BEAR | breakL=False | breakS=False | adx=12.58 | adx_ok=False | rising_ok=True | vol_ratio=0.71 | vol_up=True
+2026-03-16 11:35:10 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1773671699999
+2026-03-16 11:35:11 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1773671699999
+2026-03-16 11:35:12 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1773671699999
+2026-03-16 11:35:14 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1773671699999
+2026-03-16 11:35:15 | INFO | MainThread | [CACHE] New closed candle 1000PEPEUSDT close_time=1773671699999
+2026-03-16 11:35:16 | INFO | MainThread | [CACHE] New closed candle AVAXUSDT close_time=1773671699999
+2026-03-16 11:35:17 | INFO | MainThread | [CACHE] New closed candle UNIUSDT close_time=1773671699999
+2026-03-16 11:35:18 | INFO | MainThread | [CACHE] New closed candle ARBUSDT close_time=1773671699999
+2026-03-16 11:35:19 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1773671699999
+2026-03-16 11:35:21 | INFO | MainThread | [CACHE] New closed candle PENGUUSDT close_time=1773671699999
+2026-03-16 11:35:21 | INFO | MainThread | BTCUSDT | trend=BEAR | breakL=False | breakS=False | adx=35.27 | adx_ok=True | rising_ok=True | vol_ratio=4.21 | vol_up=True
+2026-03-16 11:35:21 | INFO | MainThread | SOLUSDT | trend=BEAR | breakL=False | breakS=False | adx=17.47 | adx_ok=False | rising_ok=True | vol_ratio=3.01 | vol_up=True
+2026-03-16 11:35:21 | INFO | MainThread | BNBUSDT | trend=BEAR | breakL=False | breakS=False | adx=17.94 | adx_ok=False | rising_ok=True | vol_ratio=3.97 | vol_up=True
+2026-03-16 11:35:21 | INFO | MainThread | XRPUSDT | trend=BULL | breakL=False | breakS=False | adx=22.59 | adx_ok=True | rising_ok=True | vol_ratio=2.76 | vol_up=True
+2026-03-16 11:35:21 | INFO | MainThread | 1000PEPEUSDT | trend=BULL | breakL=False | breakS=False | adx=16.11 | adx_ok=False | rising_ok=True | vol_ratio=1.39 | vol_up=True
+2026-03-16 11:35:21 | INFO | MainThread | AVAXUSDT | trend=BEAR | breakL=False | breakS=False | adx=17.01 | adx_ok=False | rising_ok=True | vol_ratio=5.48 | vol_up=True
+2026-03-16 11:35:21 | INFO | MainThread | UNIUSDT | trend=BULL | breakL=False | breakS=False | adx=40.27 | adx_ok=True | rising_ok=True | vol_ratio=2.50 | vol_up=True
+2026-03-16 11:35:21 | INFO | MainThread | ARBUSDT | trend=BEAR | breakL=False | breakS=False | adx=14.52 | adx_ok=False | rising_ok=True | vol_ratio=3.10 | vol_up=True
+2026-03-16 11:35:21 | INFO | MainThread | ADAUSDT | trend=BEAR | breakL=False | breakS=False | adx=15.26 | adx_ok=False | rising_ok=True | vol_ratio=2.61 | vol_up=True
+2026-03-16 11:35:21 | INFO | MainThread | PENGUUSDT | trend=BEAR | breakL=False | breakS=False | adx=14.64 | adx_ok=False | rising_ok=True | vol_ratio=3.76 | vol_up=True
+2026-03-16 11:35:42 | WARNING | MainThread | [TG poll] error: HTTPSConnectionPool(host='api.telegram.org', port=443): Max retries exceeded with url: /bot8595800756:AAFOl0BFwrOQcy3tsjHD7uHYdCnuHPdftfE/getUpdates?timeout=0&offset=164713451 (Caused by ConnectTimeoutError(<HTTPSConnection(host='api.telegram.org', port=443) at 0x112e3fed0>, 'Connection to api.telegram.org timed out. (connect timeout=10)'))
+2026-03-16 11:40:01 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1773671999999
+2026-03-16 11:40:07 | INFO | MainThread | BNBUSDT | trend=BEAR | breakL=False | breakS=False | adx=20.58 | adx_ok=True | rising_ok=True | vol_ratio=1.58 | vol_up=False
+2026-03-16 11:40:21 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1773671999999
+2026-03-16 11:40:22 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1773671999999
+2026-03-16 11:40:24 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1773671999999
+2026-03-16 11:40:25 | INFO | MainThread | [CACHE] New closed candle 1000PEPEUSDT close_time=1773671999999
+2026-03-16 11:40:26 | INFO | MainThread | [CACHE] New closed candle AVAXUSDT close_time=1773671999999
+2026-03-16 11:40:27 | INFO | MainThread | [CACHE] New closed candle UNIUSDT close_time=1773671999999
+2026-03-16 11:40:29 | INFO | MainThread | [CACHE] New closed candle ARBUSDT close_time=1773671999999
+2026-03-16 11:40:30 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1773671999999
+2026-03-16 11:40:31 | INFO | MainThread | [CACHE] New closed candle PENGUUSDT close_time=1773671999999
+2026-03-16 11:40:31 | INFO | MainThread | BTCUSDT | trend=BEAR | breakL=False | breakS=False | adx=35.31 | adx_ok=True | rising_ok=True | vol_ratio=1.37 | vol_up=False
+2026-03-16 11:40:31 | INFO | MainThread | SOLUSDT | trend=BEAR | breakL=False | breakS=False | adx=18.70 | adx_ok=False | rising_ok=True | vol_ratio=0.86 | vol_up=False
+2026-03-16 11:40:31 | INFO | MainThread | XRPUSDT | trend=BULL | breakL=False | breakS=False | adx=21.77 | adx_ok=True | rising_ok=True | vol_ratio=1.03 | vol_up=False
+2026-03-16 11:40:31 | INFO | MainThread | 1000PEPEUSDT | trend=BULL | breakL=False | breakS=False | adx=16.05 | adx_ok=False | rising_ok=True | vol_ratio=1.25 | vol_up=False
+2026-03-16 11:40:31 | INFO | MainThread | AVAXUSDT | trend=BEAR | breakL=False | breakS=False | adx=19.12 | adx_ok=False | rising_ok=True | vol_ratio=1.04 | vol_up=False
+2026-03-16 11:40:31 | INFO | MainThread | UNIUSDT | trend=BEAR | breakL=False | breakS=False | adx=38.91 | adx_ok=True | rising_ok=True | vol_ratio=1.40 | vol_up=False
+2026-03-16 11:40:31 | INFO | MainThread | ARBUSDT | trend=BEAR | breakL=False | breakS=False | adx=15.26 | adx_ok=False | rising_ok=True | vol_ratio=1.17 | vol_up=False
+2026-03-16 11:40:31 | INFO | MainThread | ADAUSDT | trend=BEAR | breakL=False | breakS=False | adx=15.81 | adx_ok=False | rising_ok=True | vol_ratio=0.85 | vol_up=False
+2026-03-16 11:40:31 | INFO | MainThread | PENGUUSDT | trend=BEAR | breakL=False | breakS=False | adx=15.84 | adx_ok=False | rising_ok=True | vol_ratio=1.26 | vol_up=False
+2026-03-16 11:45:16 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1773672299999
+2026-03-16 11:45:17 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1773672299999
+2026-03-16 11:45:18 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1773672299999
+2026-03-16 11:45:19 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1773672299999
+2026-03-16 11:45:20 | INFO | MainThread | [CACHE] New closed candle 1000PEPEUSDT close_time=1773672299999
+2026-03-16 11:45:22 | INFO | MainThread | [CACHE] New closed candle AVAXUSDT close_time=1773672299999
+2026-03-16 11:45:23 | INFO | MainThread | [CACHE] New closed candle UNIUSDT close_time=1773672299999
+2026-03-16 11:45:24 | INFO | MainThread | [CACHE] New closed candle ARBUSDT close_time=1773672299999
+2026-03-16 11:45:25 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1773672299999
+2026-03-16 11:45:26 | INFO | MainThread | [CACHE] New closed candle PENGUUSDT close_time=1773672299999
+2026-03-16 11:45:27 | INFO | MainThread | BTCUSDT | trend=BEAR | breakL=False | breakS=False | adx=35.77 | adx_ok=True | rising_ok=True | vol_ratio=2.21 | vol_up=True
+2026-03-16 11:45:27 | INFO | MainThread | SOLUSDT | trend=BEAR | breakL=False | breakS=False | adx=20.05 | adx_ok=True | rising_ok=True | vol_ratio=0.79 | vol_up=False
+2026-03-16 11:45:27 | INFO | MainThread | BNBUSDT | trend=BEAR | breakL=False | breakS=False | adx=23.03 | adx_ok=True | rising_ok=True | vol_ratio=1.10 | vol_up=False
+2026-03-16 11:45:27 | INFO | MainThread | XRPUSDT | trend=BEAR | breakL=False | breakS=False | adx=21.34 | adx_ok=True | rising_ok=True | vol_ratio=1.00 | vol_up=False
+2026-03-16 11:45:27 | INFO | MainThread | 1000PEPEUSDT | trend=BULL | breakL=False | breakS=False | adx=15.59 | adx_ok=False | rising_ok=True | vol_ratio=0.78 | vol_up=False
+2026-03-16 11:45:27 | INFO | MainThread | AVAXUSDT | trend=BEAR | breakL=False | breakS=False | adx=21.10 | adx_ok=True | rising_ok=True | vol_ratio=0.73 | vol_up=False
+2026-03-16 11:45:27 | INFO | MainThread | UNIUSDT | trend=BEAR | breakL=False | breakS=False | adx=37.64 | adx_ok=True | rising_ok=True | vol_ratio=0.88 | vol_up=False
+2026-03-16 11:45:27 | INFO | MainThread | ARBUSDT | trend=BEAR | breakL=False | breakS=False | adx=16.14 | adx_ok=False | rising_ok=True | vol_ratio=0.95 | vol_up=False
+2026-03-16 11:45:27 | INFO | MainThread | ADAUSDT | trend=BEAR | breakL=False | breakS=False | adx=16.75 | adx_ok=False | rising_ok=True | vol_ratio=1.41 | vol_up=True
+2026-03-16 11:45:27 | INFO | MainThread | PENGUUSDT | trend=BEAR | breakL=False | breakS=False | adx=17.45 | adx_ok=False | rising_ok=True | vol_ratio=1.49 | vol_up=True
+2026-03-16 11:50:09 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1773672599999
+2026-03-16 11:50:10 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1773672599999
+2026-03-16 11:50:11 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1773672599999
+2026-03-16 11:50:12 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1773672599999
+2026-03-16 11:50:14 | INFO | MainThread | [CACHE] New closed candle 1000PEPEUSDT close_time=1773672599999
+2026-03-16 11:50:15 | INFO | MainThread | [CACHE] New closed candle AVAXUSDT close_time=1773672599999
+2026-03-16 11:50:16 | INFO | MainThread | [CACHE] New closed candle UNIUSDT close_time=1773672599999
+2026-03-16 11:50:17 | INFO | MainThread | [CACHE] New closed candle ARBUSDT close_time=1773672599999
+2026-03-16 11:50:18 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1773672599999
+2026-03-16 11:50:19 | INFO | MainThread | [CACHE] New closed candle PENGUUSDT close_time=1773672599999
+2026-03-16 11:50:20 | INFO | MainThread | BTCUSDT | trend=BEAR | breakL=False | breakS=False | adx=36.19 | adx_ok=True | rising_ok=True | vol_ratio=0.59 | vol_up=False
+2026-03-16 11:50:20 | INFO | MainThread | SOLUSDT | trend=BEAR | breakL=False | breakS=False | adx=20.56 | adx_ok=True | rising_ok=True | vol_ratio=0.81 | vol_up=True
+2026-03-16 11:50:20 | INFO | MainThread | BNBUSDT | trend=BEAR | breakL=False | breakS=False | adx=25.18 | adx_ok=True | rising_ok=True | vol_ratio=1.17 | vol_up=True
+2026-03-16 11:50:20 | INFO | MainThread | XRPUSDT | trend=BEAR | breakL=False | breakS=False | adx=20.30 | adx_ok=True | rising_ok=True | vol_ratio=0.62 | vol_up=False
+2026-03-16 11:50:20 | INFO | MainThread | 1000PEPEUSDT | trend=NONE | breakL=False | breakS=False | adx=14.83 | adx_ok=False | rising_ok=True | vol_ratio=0.50 | vol_up=False
+2026-03-16 11:50:20 | INFO | MainThread | AVAXUSDT | trend=BEAR | breakL=False | breakS=False | adx=22.80 | adx_ok=True | rising_ok=True | vol_ratio=0.62 | vol_up=False
+2026-03-16 11:50:20 | INFO | MainThread | UNIUSDT | trend=BEAR | breakL=False | breakS=False | adx=35.91 | adx_ok=True | rising_ok=True | vol_ratio=0.61 | vol_up=False
+2026-03-16 11:50:20 | INFO | MainThread | ARBUSDT | trend=BEAR | breakL=False | breakS=False | adx=16.62 | adx_ok=False | rising_ok=True | vol_ratio=0.67 | vol_up=False
+2026-03-16 11:50:20 | INFO | MainThread | ADAUSDT | trend=BEAR | breakL=False | breakS=False | adx=17.50 | adx_ok=False | rising_ok=True | vol_ratio=0.62 | vol_up=False
+2026-03-16 11:50:20 | INFO | MainThread | PENGUUSDT | trend=BEAR | breakL=False | breakS=False | adx=18.78 | adx_ok=False | rising_ok=True | vol_ratio=0.61 | vol_up=False
+2026-03-16 11:55:16 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1773672899999
+2026-03-16 11:55:17 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1773672899999
+2026-03-16 11:55:19 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1773672899999
+2026-03-16 11:55:20 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1773672899999
+2026-03-16 11:55:21 | INFO | MainThread | [CACHE] New closed candle 1000PEPEUSDT close_time=1773672899999
+2026-03-16 11:55:22 | INFO | MainThread | [CACHE] New closed candle AVAXUSDT close_time=1773672899999
+2026-03-16 11:55:23 | INFO | MainThread | [CACHE] New closed candle UNIUSDT close_time=1773672899999
+2026-03-16 11:55:24 | INFO | MainThread | [CACHE] New closed candle ARBUSDT close_time=1773672899999
+2026-03-16 11:55:25 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1773672899999
+2026-03-16 11:55:27 | INFO | MainThread | [CACHE] New closed candle PENGUUSDT close_time=1773672899999
+2026-03-16 11:55:27 | INFO | MainThread | BTCUSDT | trend=BEAR | breakL=False | breakS=False | adx=35.74 | adx_ok=True | rising_ok=True | vol_ratio=0.73 | vol_up=True
+2026-03-16 11:55:27 | INFO | MainThread | SOLUSDT | trend=BEAR | breakL=False | breakS=False | adx=20.52 | adx_ok=True | rising_ok=True | vol_ratio=0.74 | vol_up=False
+2026-03-16 11:55:27 | INFO | MainThread | BNBUSDT | trend=BEAR | breakL=False | breakS=False | adx=26.74 | adx_ok=True | rising_ok=True | vol_ratio=0.71 | vol_up=False
+2026-03-16 11:55:27 | INFO | MainThread | XRPUSDT | trend=BULL | breakL=False | breakS=False | adx=19.52 | adx_ok=False | rising_ok=True | vol_ratio=0.94 | vol_up=True
+2026-03-16 11:55:27 | INFO | MainThread | 1000PEPEUSDT | trend=BULL | breakL=False | breakS=False | adx=13.93 | adx_ok=False | rising_ok=True | vol_ratio=1.07 | vol_up=True
+2026-03-16 11:55:27 | INFO | MainThread | AVAXUSDT | trend=BEAR | breakL=False | breakS=False | adx=23.50 | adx_ok=True | rising_ok=True | vol_ratio=0.67 | vol_up=True
+2026-03-16 11:55:27 | INFO | MainThread | UNIUSDT | trend=BEAR | breakL=False | breakS=False | adx=33.45 | adx_ok=True | rising_ok=True | vol_ratio=0.55 | vol_up=False
+2026-03-16 11:55:27 | INFO | MainThread | ARBUSDT | trend=BEAR | breakL=False | breakS=False | adx=17.48 | adx_ok=False | rising_ok=True | vol_ratio=0.86 | vol_up=True
+2026-03-16 11:55:27 | INFO | MainThread | ADAUSDT | trend=BEAR | breakL=False | breakS=False | adx=16.85 | adx_ok=False | rising_ok=True | vol_ratio=0.74 | vol_up=True
+2026-03-16 11:55:27 | INFO | MainThread | PENGUUSDT | trend=BEAR | breakL=False | breakS=False | adx=18.91 | adx_ok=False | rising_ok=True | vol_ratio=0.76 | vol_up=True
+2026-03-16 12:00:11 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1773673199999
+2026-03-16 12:00:12 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1773673199999
+2026-03-16 12:00:13 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1773673199999
+2026-03-16 12:00:14 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1773673199999
+2026-03-16 12:00:16 | INFO | MainThread | [CACHE] New closed candle 1000PEPEUSDT close_time=1773673199999
+2026-03-16 12:00:17 | INFO | MainThread | [CACHE] New closed candle AVAXUSDT close_time=1773673199999
+2026-03-16 12:00:18 | INFO | MainThread | [CACHE] New closed candle UNIUSDT close_time=1773673199999
+2026-03-16 12:00:19 | INFO | MainThread | [CACHE] New closed candle ARBUSDT close_time=1773673199999
+2026-03-16 12:00:20 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1773673199999
+2026-03-16 12:00:21 | INFO | MainThread | [CACHE] New closed candle PENGUUSDT close_time=1773673199999
+2026-03-16 12:00:22 | INFO | MainThread | BTCUSDT | trend=BEAR | breakL=False | breakS=False | adx=34.32 | adx_ok=True | rising_ok=True | vol_ratio=0.69 | vol_up=False
+2026-03-16 12:00:22 | INFO | MainThread | SOLUSDT | trend=BEAR | breakL=False | breakS=False | adx=19.48 | adx_ok=False | rising_ok=True | vol_ratio=0.65 | vol_up=False
+2026-03-16 12:00:22 | INFO | MainThread | BNBUSDT | trend=BEAR | breakL=False | breakS=False | adx=26.69 | adx_ok=True | rising_ok=True | vol_ratio=0.81 | vol_up=True
+2026-03-16 12:00:22 | INFO | MainThread | XRPUSDT | trend=BULL | breakL=False | breakS=False | adx=21.48 | adx_ok=True | rising_ok=True | vol_ratio=4.45 | vol_up=True
+2026-03-16 12:00:22 | INFO | MainThread | 1000PEPEUSDT | trend=BULL | breakL=False | breakS=False | adx=13.81 | adx_ok=False | rising_ok=True | vol_ratio=0.83 | vol_up=False
+2026-03-16 12:00:22 | INFO | MainThread | AVAXUSDT | trend=BEAR | breakL=False | breakS=False | adx=22.72 | adx_ok=True | rising_ok=True | vol_ratio=0.82 | vol_up=True
+2026-03-16 12:00:22 | INFO | MainThread | UNIUSDT | trend=BULL | breakL=False | breakS=False | adx=32.30 | adx_ok=True | rising_ok=True | vol_ratio=0.79 | vol_up=True
+2026-03-16 12:00:22 | INFO | MainThread | ARBUSDT | trend=BEAR | breakL=False | breakS=False | adx=16.72 | adx_ok=False | rising_ok=True | vol_ratio=0.42 | vol_up=False
+2026-03-16 12:00:22 | INFO | MainThread | ADAUSDT | trend=BEAR | breakL=False | breakS=False | adx=16.12 | adx_ok=False | rising_ok=True | vol_ratio=1.29 | vol_up=True
+2026-03-16 12:00:22 | INFO | MainThread | PENGUUSDT | trend=BEAR | breakL=False | breakS=False | adx=17.63 | adx_ok=False | rising_ok=True | vol_ratio=0.76 | vol_up=True
+2026-03-16 12:04:13 | WARNING | MainThread | [TG poll] error: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=10)
+2026-03-16 12:05:09 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1773673499999
+2026-03-16 12:05:11 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1773673499999
+2026-03-16 12:05:12 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1773673499999
+2026-03-16 12:05:13 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1773673499999
+2026-03-16 12:05:14 | INFO | MainThread | [CACHE] New closed candle 1000PEPEUSDT close_time=1773673499999
+2026-03-16 12:05:15 | INFO | MainThread | [CACHE] New closed candle AVAXUSDT close_time=1773673499999
+2026-03-16 12:05:16 | INFO | MainThread | [CACHE] New closed candle UNIUSDT close_time=1773673499999
+2026-03-16 12:05:18 | INFO | MainThread | [CACHE] New closed candle ARBUSDT close_time=1773673499999
+2026-03-16 12:05:19 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1773673499999
+2026-03-16 12:05:20 | INFO | MainThread | [CACHE] New closed candle PENGUUSDT close_time=1773673499999
+2026-03-16 12:05:20 | INFO | MainThread | BTCUSDT | trend=NONE | breakL=False | breakS=False | adx=32.86 | adx_ok=True | rising_ok=True | vol_ratio=0.48 | vol_up=False
+2026-03-16 12:05:20 | INFO | MainThread | SOLUSDT | trend=BEAR | breakL=False | breakS=False | adx=18.22 | adx_ok=False | rising_ok=True | vol_ratio=0.53 | vol_up=False
+2026-03-16 12:05:20 | INFO | MainThread | BNBUSDT | trend=NONE | breakL=False | breakS=False | adx=26.62 | adx_ok=True | rising_ok=True | vol_ratio=0.72 | vol_up=False
+2026-03-16 12:05:20 | INFO | MainThread | XRPUSDT | trend=BULL | breakL=False | breakS=False | adx=23.52 | adx_ok=True | rising_ok=True | vol_ratio=2.85 | vol_up=False
+2026-03-16 12:05:20 | INFO | MainThread | 1000PEPEUSDT | trend=BULL | breakL=False | breakS=False | adx=13.27 | adx_ok=False | rising_ok=True | vol_ratio=0.81 | vol_up=False
+2026-03-16 12:05:20 | INFO | MainThread | AVAXUSDT | trend=BEAR | breakL=False | breakS=False | adx=21.99 | adx_ok=True | rising_ok=True | vol_ratio=0.74 | vol_up=False
+2026-03-16 12:05:20 | INFO | MainThread | UNIUSDT | trend=BULL | breakL=False | breakS=False | adx=31.38 | adx_ok=True | rising_ok=True | vol_ratio=0.98 | vol_up=True
+2026-03-16 12:05:20 | INFO | MainThread | ARBUSDT | trend=BEAR | breakL=False | breakS=False | adx=16.01 | adx_ok=False | rising_ok=True | vol_ratio=0.77 | vol_up=True
+2026-03-16 12:05:20 | INFO | MainThread | ADAUSDT | trend=BEAR | breakL=False | breakS=False | adx=15.70 | adx_ok=False | rising_ok=True | vol_ratio=0.78 | vol_up=False
+2026-03-16 12:05:20 | INFO | MainThread | PENGUUSDT | trend=BEAR | breakL=False | breakS=False | adx=16.44 | adx_ok=False | rising_ok=True | vol_ratio=1.02 | vol_up=True
+2026-03-16 12:10:03 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1773673799999
+2026-03-16 12:10:25 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1773673799999
+2026-03-16 12:10:26 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1773673799999
+2026-03-16 12:10:27 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1773673799999
+2026-03-16 12:10:28 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1773673799999
+2026-03-16 12:10:29 | INFO | MainThread | [CACHE] New closed candle 1000PEPEUSDT close_time=1773673799999
+2026-03-16 12:10:30 | INFO | MainThread | [CACHE] New closed candle AVAXUSDT close_time=1773673799999
+2026-03-16 12:10:32 | INFO | MainThread | [CACHE] New closed candle UNIUSDT close_time=1773673799999
+2026-03-16 12:10:33 | INFO | MainThread | [CACHE] New closed candle ARBUSDT close_time=1773673799999
+2026-03-16 12:10:35 | INFO | MainThread | [CACHE] New closed candle PENGUUSDT close_time=1773673799999
+2026-03-16 12:10:35 | INFO | MainThread | BTCUSDT | trend=BEAR | breakL=False | breakS=False | adx=31.76 | adx_ok=True | rising_ok=True | vol_ratio=0.40 | vol_up=False
+2026-03-16 12:10:35 | INFO | MainThread | SOLUSDT | trend=BEAR | breakL=False | breakS=False | adx=17.78 | adx_ok=False | rising_ok=True | vol_ratio=0.70 | vol_up=True
+2026-03-16 12:10:35 | INFO | MainThread | BNBUSDT | trend=NONE | breakL=False | breakS=False | adx=26.68 | adx_ok=True | rising_ok=True | vol_ratio=0.42 | vol_up=False
+2026-03-16 12:10:35 | INFO | MainThread | XRPUSDT | trend=BULL | breakL=False | breakS=False | adx=24.84 | adx_ok=True | rising_ok=True | vol_ratio=2.25 | vol_up=False
+2026-03-16 12:10:35 | INFO | MainThread | 1000PEPEUSDT | trend=BEAR | breakL=False | breakS=False | adx=12.52 | adx_ok=False | rising_ok=True | vol_ratio=0.72 | vol_up=False
+2026-03-16 12:10:35 | INFO | MainThread | AVAXUSDT | trend=BEAR | breakL=False | breakS=False | adx=21.67 | adx_ok=True | rising_ok=True | vol_ratio=0.61 | vol_up=False
+2026-03-16 12:10:35 | INFO | MainThread | UNIUSDT | trend=BULL | breakL=False | breakS=False | adx=30.03 | adx_ok=True | rising_ok=True | vol_ratio=0.36 | vol_up=False
+2026-03-16 12:10:35 | INFO | MainThread | ARBUSDT | trend=BEAR | breakL=False | breakS=False | adx=15.84 | adx_ok=False | rising_ok=True | vol_ratio=0.70 | vol_up=False
+2026-03-16 12:10:35 | INFO | MainThread | PENGUUSDT | trend=BEAR | breakL=False | breakS=False | adx=15.83 | adx_ok=False | rising_ok=True | vol_ratio=0.46 | vol_up=False
+2026-03-16 12:15:03 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1773674099999
+2026-03-16 12:15:05 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1773674099999
+2026-03-16 12:15:06 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1773674099999
+2026-03-16 12:15:08 | INFO | MainThread | [CACHE] New closed candle 1000PEPEUSDT close_time=1773674099999
+2026-03-16 12:15:09 | INFO | MainThread | [CACHE] New closed candle AVAXUSDT close_time=1773674099999
+2026-03-16 12:15:10 | INFO | MainThread | [CACHE] New closed candle UNIUSDT close_time=1773674099999
+2026-03-16 12:15:11 | INFO | MainThread | [CACHE] New closed candle ARBUSDT close_time=1773674099999
+2026-03-16 12:15:12 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1773674099999
+2026-03-16 12:15:13 | INFO | MainThread | [CACHE] New closed candle PENGUUSDT close_time=1773674099999
+2026-03-16 12:15:14 | INFO | MainThread | BNBUSDT | trend=NONE | breakL=False | breakS=False | adx=25.98 | adx_ok=True | rising_ok=True | vol_ratio=0.48 | vol_up=True
+2026-03-16 12:15:14 | INFO | MainThread | 1000PEPEUSDT | trend=BEAR | breakL=False | breakS=False | adx=12.61 | adx_ok=False | rising_ok=True | vol_ratio=1.18 | vol_up=True
+2026-03-16 12:15:14 | INFO | MainThread | AVAXUSDT | trend=BEAR | breakL=False | breakS=False | adx=20.57 | adx_ok=True | rising_ok=True | vol_ratio=0.50 | vol_up=False
+2026-03-16 12:15:14 | INFO | MainThread | UNIUSDT | trend=BULL | breakL=False | breakS=False | adx=29.19 | adx_ok=True | rising_ok=True | vol_ratio=0.49 | vol_up=True
+2026-03-16 12:15:14 | INFO | MainThread | ARBUSDT | trend=BEAR | breakL=False | breakS=False | adx=15.09 | adx_ok=False | rising_ok=True | vol_ratio=0.39 | vol_up=False
+2026-03-16 12:15:14 | INFO | MainThread | ADAUSDT | trend=BULL | breakL=False | breakS=False | adx=14.23 | adx_ok=False | rising_ok=True | vol_ratio=0.56 | vol_up=False
+2026-03-16 12:15:14 | INFO | MainThread | PENGUUSDT | trend=BEAR | breakL=False | breakS=False | adx=15.01 | adx_ok=False | rising_ok=True | vol_ratio=0.46 | vol_up=False
+2026-03-16 12:15:24 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1773674099999
+2026-03-16 12:15:31 | INFO | MainThread | SOLUSDT | trend=BEAR | breakL=False | breakS=False | adx=16.58 | adx_ok=False | rising_ok=True | vol_ratio=0.53 | vol_up=False
+2026-03-16 12:20:04 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1773674399999
+2026-03-16 12:20:06 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1773674399999
+2026-03-16 12:20:07 | INFO | MainThread | [CACHE] New closed candle 1000PEPEUSDT close_time=1773674399999
+2026-03-16 12:20:09 | INFO | MainThread | [CACHE] New closed candle UNIUSDT close_time=1773674399999
+2026-03-16 12:20:10 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1773674399999
+2026-03-16 12:20:12 | INFO | MainThread | [CACHE] New closed candle PENGUUSDT close_time=1773674399999
+2026-03-16 12:20:12 | INFO | MainThread | XRPUSDT | trend=BULL | breakL=False | breakS=False | adx=27.69 | adx_ok=True | rising_ok=True | vol_ratio=0.94 | vol_up=False
+2026-03-16 12:20:12 | INFO | MainThread | 1000PEPEUSDT | trend=BEAR | breakL=False | breakS=False | adx=13.21 | adx_ok=False | rising_ok=True | vol_ratio=1.31 | vol_up=True
+2026-03-16 12:20:12 | INFO | MainThread | UNIUSDT | trend=BULL | breakL=False | breakS=False | adx=28.05 | adx_ok=True | rising_ok=True | vol_ratio=0.39 | vol_up=False
+2026-03-16 12:20:12 | INFO | MainThread | ADAUSDT | trend=BULL | breakL=False | breakS=False | adx=13.55 | adx_ok=False | rising_ok=True | vol_ratio=0.54 | vol_up=False
+2026-03-16 12:20:12 | INFO | MainThread | PENGUUSDT | trend=BEAR | breakL=False | breakS=False | adx=14.54 | adx_ok=False | rising_ok=True | vol_ratio=0.46 | vol_up=False
+2026-03-16 12:20:26 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1773674399999
+2026-03-16 12:20:28 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1773674399999
+2026-03-16 12:20:30 | INFO | MainThread | [CACHE] New closed candle AVAXUSDT close_time=1773674399999
+2026-03-16 12:20:32 | INFO | MainThread | [CACHE] New closed candle ARBUSDT close_time=1773674399999
+2026-03-16 12:20:34 | INFO | MainThread | BTCUSDT | trend=BEAR | breakL=False | breakS=False | adx=27.66 | adx_ok=True | rising_ok=True | vol_ratio=0.53 | vol_up=False
+2026-03-16 12:20:34 | INFO | MainThread | BNBUSDT | trend=BEAR | breakL=False | breakS=False | adx=25.58 | adx_ok=True | rising_ok=True | vol_ratio=0.51 | vol_up=True
+2026-03-16 12:20:34 | INFO | MainThread | AVAXUSDT | trend=BEAR | breakL=False | breakS=False | adx=19.78 | adx_ok=False | rising_ok=True | vol_ratio=0.68 | vol_up=True
+2026-03-16 12:20:34 | INFO | MainThread | ARBUSDT | trend=BEAR | breakL=False | breakS=False | adx=14.89 | adx_ok=False | rising_ok=True | vol_ratio=0.61 | vol_up=True
+2026-03-16 12:25:07 | INFO | MainThread | [CACHE] New closed candle 1000PEPEUSDT close_time=1773674699999
+2026-03-16 12:25:10 | INFO | MainThread | [CACHE] New closed candle ARBUSDT close_time=1773674699999
+2026-03-16 12:25:11 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1773674699999
+2026-03-16 12:25:12 | INFO | MainThread | [CACHE] New closed candle PENGUUSDT close_time=1773674699999
+2026-03-16 12:25:13 | INFO | MainThread | ARBUSDT | trend=NONE | breakL=False | breakS=False | adx=14.70 | adx_ok=False | rising_ok=True | vol_ratio=0.32 | vol_up=False
+2026-03-16 12:25:13 | INFO | MainThread | ADAUSDT | trend=BULL | breakL=False | breakS=False | adx=13.00 | adx_ok=False | rising_ok=True | vol_ratio=0.69 | vol_up=True
+2026-03-16 12:25:13 | INFO | MainThread | PENGUUSDT | trend=BEAR | breakL=False | breakS=False | adx=14.05 | adx_ok=False | rising_ok=True | vol_ratio=0.75 | vol_up=True
+2026-03-16 12:25:26 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1773674699999
+2026-03-16 12:25:27 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1773674699999
+2026-03-16 12:25:29 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1773674699999
+2026-03-16 12:25:30 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1773674699999
+2026-03-16 12:25:32 | INFO | MainThread | [CACHE] New closed candle AVAXUSDT close_time=1773674699999
+2026-03-16 12:25:33 | INFO | MainThread | [CACHE] New closed candle UNIUSDT close_time=1773674699999
+2026-03-16 12:25:35 | INFO | MainThread | BTCUSDT | trend=BEAR | breakL=False | breakS=False | adx=25.96 | adx_ok=True | rising_ok=True | vol_ratio=0.64 | vol_up=True
+2026-03-16 12:25:35 | INFO | MainThread | SOLUSDT | trend=BULL | breakL=False | breakS=False | adx=14.57 | adx_ok=False | rising_ok=True | vol_ratio=0.51 | vol_up=True
+2026-03-16 12:25:35 | INFO | MainThread | BNBUSDT | trend=BEAR | breakL=False | breakS=False | adx=24.84 | adx_ok=True | rising_ok=True | vol_ratio=0.66 | vol_up=True
+2026-03-16 12:25:35 | INFO | MainThread | XRPUSDT | trend=BULL | breakL=False | breakS=False | adx=29.04 | adx_ok=True | rising_ok=True | vol_ratio=0.72 | vol_up=False
+2026-03-16 12:25:35 | INFO | MainThread | AVAXUSDT | trend=BEAR | breakL=False | breakS=False | adx=18.60 | adx_ok=False | rising_ok=True | vol_ratio=0.50 | vol_up=False
+2026-03-16 12:25:35 | INFO | MainThread | UNIUSDT | trend=BULL | breakL=False | breakS=False | adx=26.99 | adx_ok=True | rising_ok=True | vol_ratio=0.33 | vol_up=False
+2026-03-16 12:28:49 | WARNING | MainThread | [TG poll] error: HTTPSConnectionPool(host='api.telegram.org', port=443): Max retries exceeded with url: /bot8595800756:AAFOl0BFwrOQcy3tsjHD7uHYdCnuHPdftfE/getUpdates?timeout=0&offset=164713451 (Caused by ConnectTimeoutError(<HTTPSConnection(host='api.telegram.org', port=443) at 0x116b14550>, 'Connection to api.telegram.org timed out. (connect timeout=10)'))
+2026-03-16 12:30:08 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1773674999999
+2026-03-16 12:30:10 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1773674999999
+2026-03-16 12:30:11 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1773674999999
+2026-03-16 12:30:12 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1773674999999
+2026-03-16 12:30:13 | INFO | MainThread | [CACHE] New closed candle 1000PEPEUSDT close_time=1773674999999
+2026-03-16 12:30:14 | INFO | MainThread | [CACHE] New closed candle AVAXUSDT close_time=1773674999999
+2026-03-16 12:30:15 | INFO | MainThread | [CACHE] New closed candle UNIUSDT close_time=1773674999999
+2026-03-16 12:30:16 | INFO | MainThread | [CACHE] New closed candle ARBUSDT close_time=1773674999999
+2026-03-16 12:30:17 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1773674999999
+2026-03-16 12:30:18 | INFO | MainThread | [CACHE] New closed candle PENGUUSDT close_time=1773674999999
+2026-03-16 12:30:19 | INFO | MainThread | BTCUSDT | trend=BEAR | breakL=False | breakS=False | adx=24.33 | adx_ok=True | rising_ok=True | vol_ratio=0.44 | vol_up=False
+2026-03-16 12:30:19 | INFO | MainThread | SOLUSDT | trend=BULL | breakL=False | breakS=False | adx=13.70 | adx_ok=False | rising_ok=True | vol_ratio=0.48 | vol_up=False
+2026-03-16 12:30:19 | INFO | MainThread | BNBUSDT | trend=BEAR | breakL=False | breakS=False | adx=24.40 | adx_ok=True | rising_ok=True | vol_ratio=0.37 | vol_up=False
+2026-03-16 12:30:19 | INFO | MainThread | XRPUSDT | trend=BULL | breakL=False | breakS=False | adx=29.91 | adx_ok=True | rising_ok=True | vol_ratio=0.45 | vol_up=False
+2026-03-16 12:30:19 | INFO | MainThread | 1000PEPEUSDT | trend=BEAR | breakL=False | breakS=False | adx=14.35 | adx_ok=False | rising_ok=True | vol_ratio=0.46 | vol_up=False
+2026-03-16 12:30:19 | INFO | MainThread | AVAXUSDT | trend=BEAR | breakL=False | breakS=False | adx=18.31 | adx_ok=False | rising_ok=True | vol_ratio=2.11 | vol_up=True
+2026-03-16 12:30:19 | INFO | MainThread | UNIUSDT | trend=BULL | breakL=False | breakS=False | adx=26.00 | adx_ok=True | rising_ok=True | vol_ratio=0.33 | vol_up=False
+2026-03-16 12:30:19 | INFO | MainThread | ARBUSDT | trend=BEAR | breakL=False | breakS=False | adx=15.01 | adx_ok=False | rising_ok=True | vol_ratio=1.18 | vol_up=True
+2026-03-16 12:30:19 | INFO | MainThread | ADAUSDT | trend=BULL | breakL=False | breakS=False | adx=12.31 | adx_ok=False | rising_ok=True | vol_ratio=0.40 | vol_up=False
+2026-03-16 12:30:19 | INFO | MainThread | PENGUUSDT | trend=BEAR | breakL=False | breakS=False | adx=13.61 | adx_ok=False | rising_ok=True | vol_ratio=0.43 | vol_up=False
+2026-03-16 12:35:13 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1773675299999
+2026-03-16 12:35:14 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1773675299999
+2026-03-16 12:35:15 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1773675299999
+2026-03-16 12:35:16 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1773675299999
+2026-03-16 12:35:17 | INFO | MainThread | [CACHE] New closed candle 1000PEPEUSDT close_time=1773675299999
+2026-03-16 12:35:18 | INFO | MainThread | [CACHE] New closed candle AVAXUSDT close_time=1773675299999
+2026-03-16 12:35:19 | INFO | MainThread | [CACHE] New closed candle UNIUSDT close_time=1773675299999
+2026-03-16 12:35:20 | INFO | MainThread | [CACHE] New closed candle ARBUSDT close_time=1773675299999
+2026-03-16 12:35:22 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1773675299999
+2026-03-16 12:35:23 | INFO | MainThread | [CACHE] New closed candle PENGUUSDT close_time=1773675299999
+2026-03-16 12:35:23 | INFO | MainThread | BTCUSDT | trend=BEAR | breakL=False | breakS=False | adx=23.63 | adx_ok=True | rising_ok=True | vol_ratio=0.87 | vol_up=True
+2026-03-16 12:35:23 | INFO | MainThread | SOLUSDT | trend=BULL | breakL=False | breakS=False | adx=13.53 | adx_ok=False | rising_ok=True | vol_ratio=0.63 | vol_up=True
+2026-03-16 12:35:23 | INFO | MainThread | BNBUSDT | trend=BEAR | breakL=False | breakS=False | adx=22.95 | adx_ok=True | rising_ok=True | vol_ratio=0.80 | vol_up=True
+2026-03-16 12:35:23 | INFO | MainThread | XRPUSDT | trend=BULL | breakL=False | breakS=False | adx=31.18 | adx_ok=True | rising_ok=True | vol_ratio=0.79 | vol_up=True
+2026-03-16 12:35:23 | INFO | MainThread | 1000PEPEUSDT | trend=BEAR | breakL=False | breakS=False | adx=15.33 | adx_ok=False | rising_ok=True | vol_ratio=0.79 | vol_up=True
+2026-03-16 12:35:23 | INFO | MainThread | AVAXUSDT | trend=BEAR | breakL=False | breakS=False | adx=18.34 | adx_ok=False | rising_ok=True | vol_ratio=0.94 | vol_up=False
+2026-03-16 12:35:23 | INFO | MainThread | UNIUSDT | trend=BULL | breakL=False | breakS=False | adx=25.52 | adx_ok=True | rising_ok=True | vol_ratio=0.76 | vol_up=True
+2026-03-16 12:35:23 | INFO | MainThread | ARBUSDT | trend=BEAR | breakL=False | breakS=False | adx=15.30 | adx_ok=False | rising_ok=True | vol_ratio=0.85 | vol_up=False
+2026-03-16 12:35:23 | INFO | MainThread | ADAUSDT | trend=BULL | breakL=False | breakS=False | adx=12.29 | adx_ok=False | rising_ok=True | vol_ratio=0.75 | vol_up=True
+2026-03-16 12:35:23 | INFO | MainThread | PENGUUSDT | trend=BEAR | breakL=False | breakS=False | adx=12.76 | adx_ok=False | rising_ok=True | vol_ratio=0.99 | vol_up=True
+2026-03-16 12:39:49 | WARNING | MainThread | [TG poll] error: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=10)
+2026-03-16 12:40:12 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1773675599999
+2026-03-16 12:40:13 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1773675599999
+2026-03-16 12:40:14 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1773675599999
+2026-03-16 12:40:16 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1773675599999
+2026-03-16 12:40:17 | INFO | MainThread | [CACHE] New closed candle 1000PEPEUSDT close_time=1773675599999
+2026-03-16 12:40:18 | INFO | MainThread | [CACHE] New closed candle AVAXUSDT close_time=1773675599999
+2026-03-16 12:40:19 | INFO | MainThread | [CACHE] New closed candle UNIUSDT close_time=1773675599999
+2026-03-16 12:40:20 | INFO | MainThread | [CACHE] New closed candle ARBUSDT close_time=1773675599999
+2026-03-16 12:40:22 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1773675599999
+2026-03-16 12:40:23 | INFO | MainThread | [CACHE] New closed candle PENGUUSDT close_time=1773675599999
+2026-03-16 12:40:23 | INFO | MainThread | BTCUSDT | trend=NONE | breakL=False | breakS=False | adx=22.73 | adx_ok=True | rising_ok=True | vol_ratio=0.48 | vol_up=False
+2026-03-16 12:40:23 | INFO | MainThread | SOLUSDT | trend=BULL | breakL=False | breakS=False | adx=13.15 | adx_ok=False | rising_ok=True | vol_ratio=0.43 | vol_up=False
+2026-03-16 12:40:23 | INFO | MainThread | BNBUSDT | trend=BEAR | breakL=False | breakS=False | adx=21.96 | adx_ok=True | rising_ok=True | vol_ratio=0.60 | vol_up=False
+2026-03-16 12:40:23 | INFO | MainThread | XRPUSDT | trend=BULL | breakL=False | breakS=False | adx=31.63 | adx_ok=True | rising_ok=True | vol_ratio=0.59 | vol_up=False
+2026-03-16 12:40:23 | INFO | MainThread | 1000PEPEUSDT | trend=BEAR | breakL=False | breakS=False | adx=16.57 | adx_ok=False | rising_ok=True | vol_ratio=1.02 | vol_up=True
+2026-03-16 12:40:23 | INFO | MainThread | AVAXUSDT | trend=BEAR | breakL=False | breakS=False | adx=18.82 | adx_ok=False | rising_ok=True | vol_ratio=0.54 | vol_up=False
+2026-03-16 12:40:23 | INFO | MainThread | UNIUSDT | trend=BULL | breakL=False | breakS=False | adx=24.72 | adx_ok=True | rising_ok=True | vol_ratio=0.55 | vol_up=False
+2026-03-16 12:40:23 | INFO | MainThread | ARBUSDT | trend=BEAR | breakL=False | breakS=False | adx=15.82 | adx_ok=False | rising_ok=True | vol_ratio=0.42 | vol_up=False
+2026-03-16 12:40:23 | INFO | MainThread | ADAUSDT | trend=BULL | breakL=False | breakS=False | adx=11.49 | adx_ok=False | rising_ok=True | vol_ratio=0.48 | vol_up=False
+2026-03-16 12:40:23 | INFO | MainThread | PENGUUSDT | trend=BEAR | breakL=False | breakS=False | adx=12.16 | adx_ok=False | rising_ok=True | vol_ratio=0.43 | vol_up=False
+2026-03-16 12:45:13 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1773675899999
+2026-03-16 12:45:15 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1773675899999
+2026-03-16 12:45:16 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1773675899999
+2026-03-16 12:45:17 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1773675899999
+2026-03-16 12:45:18 | INFO | MainThread | [CACHE] New closed candle 1000PEPEUSDT close_time=1773675899999
+2026-03-16 12:45:19 | INFO | MainThread | [CACHE] New closed candle AVAXUSDT close_time=1773675899999
+2026-03-16 12:45:20 | INFO | MainThread | [CACHE] New closed candle UNIUSDT close_time=1773675899999
+2026-03-16 12:45:21 | INFO | MainThread | [CACHE] New closed candle ARBUSDT close_time=1773675899999
+2026-03-16 12:45:22 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1773675899999
+2026-03-16 12:45:23 | INFO | MainThread | [CACHE] New closed candle PENGUUSDT close_time=1773675899999
+2026-03-16 12:45:24 | INFO | MainThread | BTCUSDT | trend=BEAR | breakL=False | breakS=False | adx=21.22 | adx_ok=True | rising_ok=True | vol_ratio=0.67 | vol_up=True
+2026-03-16 12:45:24 | INFO | MainThread | SOLUSDT | trend=NONE | breakL=False | breakS=False | adx=12.55 | adx_ok=False | rising_ok=True | vol_ratio=0.49 | vol_up=True
+2026-03-16 12:45:24 | INFO | MainThread | BNBUSDT | trend=BEAR | breakL=False | breakS=False | adx=21.29 | adx_ok=True | rising_ok=True | vol_ratio=0.45 | vol_up=False
+2026-03-16 12:45:24 | INFO | MainThread | XRPUSDT | trend=BULL | breakL=False | breakS=False | adx=31.69 | adx_ok=True | rising_ok=True | vol_ratio=0.35 | vol_up=False
+2026-03-16 12:45:24 | INFO | MainThread | 1000PEPEUSDT | trend=BEAR | breakL=False | breakS=False | adx=17.71 | adx_ok=False | rising_ok=True | vol_ratio=0.43 | vol_up=False
+2026-03-16 12:45:24 | INFO | MainThread | AVAXUSDT | trend=BEAR | breakL=False | breakS=False | adx=19.32 | adx_ok=False | rising_ok=True | vol_ratio=0.40 | vol_up=False
+2026-03-16 12:45:24 | INFO | MainThread | UNIUSDT | trend=BULL | breakL=False | breakS=False | adx=23.32 | adx_ok=True | rising_ok=True | vol_ratio=0.97 | vol_up=True
+2026-03-16 12:45:24 | INFO | MainThread | ARBUSDT | trend=BEAR | breakL=False | breakS=False | adx=16.77 | adx_ok=False | rising_ok=True | vol_ratio=0.69 | vol_up=True
+2026-03-16 12:45:24 | INFO | MainThread | ADAUSDT | trend=BULL | breakL=False | breakS=False | adx=10.74 | adx_ok=False | rising_ok=True | vol_ratio=0.80 | vol_up=True
+2026-03-16 12:45:24 | INFO | MainThread | PENGUUSDT | trend=BEAR | breakL=False | breakS=False | adx=11.83 | adx_ok=False | rising_ok=True | vol_ratio=0.25 | vol_up=False
+2026-03-16 12:50:07 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1773676199999
+2026-03-16 12:50:08 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1773676199999
+2026-03-16 12:50:09 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1773676199999
+2026-03-16 12:50:11 | INFO | MainThread | [CACHE] New closed candle AVAXUSDT close_time=1773676199999
+2026-03-16 12:50:12 | INFO | MainThread | [CACHE] New closed candle UNIUSDT close_time=1773676199999
+2026-03-16 12:50:13 | INFO | MainThread | [CACHE] New closed candle ARBUSDT close_time=1773676199999
+2026-03-16 12:50:14 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1773676199999
+2026-03-16 12:50:16 | INFO | MainThread | [CACHE] New closed candle PENGUUSDT close_time=1773676199999
+2026-03-16 12:50:16 | INFO | MainThread | SOLUSDT | trend=BULL | breakL=False | breakS=False | adx=12.02 | adx_ok=False | rising_ok=True | vol_ratio=0.39 | vol_up=False
+2026-03-16 12:50:16 | INFO | MainThread | XRPUSDT | trend=BULL | breakL=False | breakS=False | adx=31.84 | adx_ok=True | rising_ok=True | vol_ratio=0.26 | vol_up=False
+2026-03-16 12:50:16 | INFO | MainThread | AVAXUSDT | trend=BEAR | breakL=False | breakS=False | adx=19.31 | adx_ok=False | rising_ok=True | vol_ratio=0.38 | vol_up=False
+2026-03-16 12:50:16 | INFO | MainThread | UNIUSDT | trend=BULL | breakL=False | breakS=False | adx=22.02 | adx_ok=True | rising_ok=True | vol_ratio=0.46 | vol_up=False
+2026-03-16 12:50:16 | INFO | MainThread | ARBUSDT | trend=BEAR | breakL=False | breakS=False | adx=17.65 | adx_ok=False | rising_ok=True | vol_ratio=0.61 | vol_up=False
+2026-03-16 12:50:16 | INFO | MainThread | ADAUSDT | trend=BEAR | breakL=False | breakS=False | adx=10.14 | adx_ok=False | rising_ok=True | vol_ratio=0.28 | vol_up=False
+2026-03-16 12:50:16 | INFO | MainThread | PENGUUSDT | trend=BEAR | breakL=False | breakS=False | adx=11.47 | adx_ok=False | rising_ok=True | vol_ratio=0.35 | vol_up=True
+2026-03-16 12:50:30 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1773676199999
+2026-03-16 12:50:33 | INFO | MainThread | [CACHE] New closed candle 1000PEPEUSDT close_time=1773676199999
+2026-03-16 12:50:37 | INFO | MainThread | BTCUSDT | trend=BEAR | breakL=False | breakS=False | adx=19.82 | adx_ok=False | rising_ok=True | vol_ratio=0.61 | vol_up=False
+2026-03-16 12:50:37 | INFO | MainThread | 1000PEPEUSDT | trend=BEAR | breakL=False | breakS=False | adx=19.09 | adx_ok=False | rising_ok=True | vol_ratio=0.65 | vol_up=True
+2026-03-16 12:55:11 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1773676499999
+2026-03-16 12:55:12 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1773676499999
+2026-03-16 12:55:13 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1773676499999
+2026-03-16 12:55:15 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1773676499999
+2026-03-16 12:55:16 | INFO | MainThread | [CACHE] New closed candle 1000PEPEUSDT close_time=1773676499999
+2026-03-16 12:55:17 | INFO | MainThread | [CACHE] New closed candle AVAXUSDT close_time=1773676499999
+2026-03-16 12:55:18 | INFO | MainThread | [CACHE] New closed candle UNIUSDT close_time=1773676499999
+2026-03-16 12:55:19 | INFO | MainThread | [CACHE] New closed candle ARBUSDT close_time=1773676499999
+2026-03-16 12:55:20 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1773676499999
+2026-03-16 12:55:22 | INFO | MainThread | [CACHE] New closed candle PENGUUSDT close_time=1773676499999
+2026-03-16 12:55:22 | INFO | MainThread | BTCUSDT | trend=BEAR | breakL=False | breakS=False | adx=19.31 | adx_ok=False | rising_ok=True | vol_ratio=1.03 | vol_up=True
+2026-03-16 12:55:22 | INFO | MainThread | SOLUSDT | trend=BEAR | breakL=False | breakS=False | adx=12.04 | adx_ok=False | rising_ok=True | vol_ratio=0.74 | vol_up=True
+2026-03-16 12:55:22 | INFO | MainThread | BNBUSDT | trend=BEAR | breakL=False | breakS=False | adx=21.30 | adx_ok=True | rising_ok=True | vol_ratio=0.60 | vol_up=True
+2026-03-16 12:55:22 | INFO | MainThread | XRPUSDT | trend=BULL | breakL=False | breakS=False | adx=30.91 | adx_ok=True | rising_ok=True | vol_ratio=0.47 | vol_up=True
+2026-03-16 12:55:22 | INFO | MainThread | 1000PEPEUSDT | trend=BEAR | breakL=False | breakS=False | adx=20.60 | adx_ok=True | rising_ok=True | vol_ratio=1.28 | vol_up=True
+2026-03-16 12:55:22 | INFO | MainThread | AVAXUSDT | trend=BEAR | breakL=False | breakS=False | adx=20.00 | adx_ok=False | rising_ok=True | vol_ratio=0.38 | vol_up=False
+2026-03-16 12:55:22 | INFO | MainThread | UNIUSDT | trend=BEAR | breakL=False | breakS=False | adx=21.33 | adx_ok=True | rising_ok=True | vol_ratio=0.71 | vol_up=True
+2026-03-16 12:55:22 | INFO | MainThread | ARBUSDT | trend=BEAR | breakL=False | breakS=False | adx=19.13 | adx_ok=False | rising_ok=True | vol_ratio=0.62 | vol_up=False
+2026-03-16 12:55:22 | INFO | MainThread | ADAUSDT | trend=BEAR | breakL=False | breakS=False | adx=10.59 | adx_ok=False | rising_ok=True | vol_ratio=0.83 | vol_up=True
+2026-03-16 12:55:22 | INFO | MainThread | PENGUUSDT | trend=BEAR | breakL=False | breakS=False | adx=12.01 | adx_ok=False | rising_ok=True | vol_ratio=0.69 | vol_up=True
+2026-03-16 13:00:16 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1773676799999
+2026-03-16 13:00:18 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1773676799999
+2026-03-16 13:00:19 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1773676799999
+2026-03-16 13:00:20 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1773676799999
+2026-03-16 13:00:21 | INFO | MainThread | [CACHE] New closed candle 1000PEPEUSDT close_time=1773676799999
+2026-03-16 13:00:22 | INFO | MainThread | [CACHE] New closed candle AVAXUSDT close_time=1773676799999
+2026-03-16 13:00:23 | INFO | MainThread | [CACHE] New closed candle UNIUSDT close_time=1773676799999
+2026-03-16 13:00:25 | INFO | MainThread | [CACHE] New closed candle ARBUSDT close_time=1773676799999
+2026-03-16 13:00:26 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1773676799999
+2026-03-16 13:00:27 | INFO | MainThread | [CACHE] New closed candle PENGUUSDT close_time=1773676799999
+2026-03-16 13:00:27 | INFO | MainThread | BTCUSDT | trend=BEAR | breakL=False | breakS=False | adx=19.31 | adx_ok=False | rising_ok=True | vol_ratio=0.58 | vol_up=False
+2026-03-16 13:00:27 | INFO | MainThread | SOLUSDT | trend=BEAR | breakL=False | breakS=False | adx=12.26 | adx_ok=False | rising_ok=True | vol_ratio=0.48 | vol_up=False
+2026-03-16 13:00:27 | INFO | MainThread | BNBUSDT | trend=BEAR | breakL=False | breakS=False | adx=22.02 | adx_ok=True | rising_ok=True | vol_ratio=0.45 | vol_up=False
+2026-03-16 13:00:27 | INFO | MainThread | XRPUSDT | trend=BULL | breakL=False | breakS=False | adx=29.76 | adx_ok=True | rising_ok=True | vol_ratio=0.48 | vol_up=True
+2026-03-16 13:00:27 | INFO | MainThread | 1000PEPEUSDT | trend=BEAR | breakL=False | breakS=False | adx=22.26 | adx_ok=True | rising_ok=True | vol_ratio=1.22 | vol_up=False
+2026-03-16 13:00:27 | INFO | MainThread | AVAXUSDT | trend=BEAR | breakL=False | breakS=False | adx=20.74 | adx_ok=True | rising_ok=True | vol_ratio=0.27 | vol_up=False
+2026-03-16 13:00:27 | INFO | MainThread | UNIUSDT | trend=BEAR | breakL=False | breakS=False | adx=20.95 | adx_ok=True | rising_ok=True | vol_ratio=0.67 | vol_up=False
+2026-03-16 13:00:27 | INFO | MainThread | ARBUSDT | trend=BEAR | breakL=False | breakS=False | adx=20.49 | adx_ok=True | rising_ok=True | vol_ratio=0.39 | vol_up=False
+2026-03-16 13:00:27 | INFO | MainThread | ADAUSDT | trend=BEAR | breakL=False | breakS=False | adx=11.00 | adx_ok=False | rising_ok=True | vol_ratio=0.38 | vol_up=False
+2026-03-16 13:00:27 | INFO | MainThread | PENGUUSDT | trend=BEAR | breakL=False | breakS=False | adx=12.58 | adx_ok=False | rising_ok=True | vol_ratio=0.61 | vol_up=False
+2026-03-16 13:05:11 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1773677099999
+2026-03-16 13:05:12 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1773677099999
+2026-03-16 13:05:13 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1773677099999
+2026-03-16 13:05:14 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1773677099999
+2026-03-16 13:05:16 | INFO | MainThread | [CACHE] New closed candle 1000PEPEUSDT close_time=1773677099999
+2026-03-16 13:05:17 | INFO | MainThread | [CACHE] New closed candle AVAXUSDT close_time=1773677099999
+2026-03-16 13:05:18 | INFO | MainThread | [CACHE] New closed candle UNIUSDT close_time=1773677099999
+2026-03-16 13:05:19 | INFO | MainThread | [CACHE] New closed candle ARBUSDT close_time=1773677099999
+2026-03-16 13:05:20 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1773677099999
+2026-03-16 13:05:21 | INFO | MainThread | [CACHE] New closed candle PENGUUSDT close_time=1773677099999
+2026-03-16 13:05:21 | INFO | MainThread | BTCUSDT | trend=BEAR | breakL=False | breakS=False | adx=19.39 | adx_ok=False | rising_ok=True | vol_ratio=0.56 | vol_up=False
+2026-03-16 13:05:21 | INFO | MainThread | SOLUSDT | trend=BEAR | breakL=False | breakS=False | adx=12.16 | adx_ok=False | rising_ok=True | vol_ratio=0.60 | vol_up=True
+2026-03-16 13:05:21 | INFO | MainThread | BNBUSDT | trend=BEAR | breakL=False | breakS=False | adx=22.35 | adx_ok=True | rising_ok=True | vol_ratio=1.07 | vol_up=True
+2026-03-16 13:05:21 | INFO | MainThread | XRPUSDT | trend=BULL | breakL=False | breakS=False | adx=28.60 | adx_ok=True | rising_ok=True | vol_ratio=0.56 | vol_up=True
+2026-03-16 13:05:21 | INFO | MainThread | 1000PEPEUSDT | trend=BEAR | breakL=False | breakS=False | adx=23.30 | adx_ok=True | rising_ok=True | vol_ratio=0.85 | vol_up=False
+2026-03-16 13:05:21 | INFO | MainThread | AVAXUSDT | trend=BEAR | breakL=False | breakS=False | adx=20.92 | adx_ok=True | rising_ok=True | vol_ratio=0.50 | vol_up=True
+2026-03-16 13:05:21 | INFO | MainThread | UNIUSDT | trend=BEAR | breakL=False | breakS=False | adx=19.85 | adx_ok=False | rising_ok=True | vol_ratio=1.45 | vol_up=True
+2026-03-16 13:05:21 | INFO | MainThread | ARBUSDT | trend=BEAR | breakL=False | breakS=False | adx=21.29 | adx_ok=True | rising_ok=True | vol_ratio=0.95 | vol_up=True
+2026-03-16 13:05:21 | INFO | MainThread | ADAUSDT | trend=BEAR | breakL=False | breakS=False | adx=11.29 | adx_ok=False | rising_ok=True | vol_ratio=0.94 | vol_up=True
+2026-03-16 13:05:21 | INFO | MainThread | PENGUUSDT | trend=BEAR | breakL=False | breakS=False | adx=12.84 | adx_ok=False | rising_ok=True | vol_ratio=1.05 | vol_up=True
+2026-03-16 13:10:12 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1773677399999
+2026-03-16 13:10:13 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1773677399999
+2026-03-16 13:10:14 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1773677399999
+2026-03-16 13:10:16 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1773677399999
+2026-03-16 13:10:17 | INFO | MainThread | [CACHE] New closed candle 1000PEPEUSDT close_time=1773677399999
+2026-03-16 13:10:18 | INFO | MainThread | [CACHE] New closed candle AVAXUSDT close_time=1773677399999
+2026-03-16 13:10:19 | INFO | MainThread | [CACHE] New closed candle UNIUSDT close_time=1773677399999
+2026-03-16 13:10:20 | INFO | MainThread | [CACHE] New closed candle ARBUSDT close_time=1773677399999
+2026-03-16 13:10:21 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1773677399999
+2026-03-16 13:10:22 | INFO | MainThread | [CACHE] New closed candle PENGUUSDT close_time=1773677399999
+2026-03-16 13:10:23 | INFO | MainThread | BTCUSDT | trend=BEAR | breakL=False | breakS=False | adx=18.43 | adx_ok=False | rising_ok=True | vol_ratio=0.64 | vol_up=True
+2026-03-16 13:10:23 | INFO | MainThread | SOLUSDT | trend=BEAR | breakL=False | breakS=False | adx=11.43 | adx_ok=False | rising_ok=True | vol_ratio=0.67 | vol_up=True
+2026-03-16 13:10:23 | INFO | MainThread | BNBUSDT | trend=BEAR | breakL=False | breakS=False | adx=21.66 | adx_ok=True | rising_ok=True | vol_ratio=0.47 | vol_up=False
+2026-03-16 13:10:23 | INFO | MainThread | XRPUSDT | trend=BULL | breakL=False | breakS=False | adx=28.16 | adx_ok=True | rising_ok=True | vol_ratio=0.36 | vol_up=False
+2026-03-16 13:10:23 | INFO | MainThread | 1000PEPEUSDT | trend=BEAR | breakL=False | breakS=False | adx=23.32 | adx_ok=True | rising_ok=True | vol_ratio=0.97 | vol_up=True
+2026-03-16 13:10:23 | INFO | MainThread | AVAXUSDT | trend=BEAR | breakL=False | breakS=False | adx=19.81 | adx_ok=False | rising_ok=True | vol_ratio=0.40 | vol_up=False
+2026-03-16 13:10:23 | INFO | MainThread | UNIUSDT | trend=NONE | breakL=False | breakS=False | adx=19.02 | adx_ok=False | rising_ok=True | vol_ratio=0.74 | vol_up=False
+2026-03-16 13:10:23 | INFO | MainThread | ARBUSDT | trend=BEAR | breakL=False | breakS=False | adx=21.17 | adx_ok=True | rising_ok=True | vol_ratio=0.68 | vol_up=False
+2026-03-16 13:10:23 | INFO | MainThread | ADAUSDT | trend=BEAR | breakL=False | breakS=False | adx=10.89 | adx_ok=False | rising_ok=True | vol_ratio=1.15 | vol_up=True
+2026-03-16 13:10:23 | INFO | MainThread | PENGUUSDT | trend=BEAR | breakL=False | breakS=False | adx=13.64 | adx_ok=False | rising_ok=True | vol_ratio=1.69 | vol_up=True
+2026-03-16 13:15:20 | WARNING | MainThread | [TG poll] error: HTTPSConnectionPool(host='api.telegram.org', port=443): Max retries exceeded with url: /bot8595800756:AAFOl0BFwrOQcy3tsjHD7uHYdCnuHPdftfE/getUpdates?timeout=0&offset=164713451 (Caused by ConnectTimeoutError(<HTTPSConnection(host='api.telegram.org', port=443) at 0x116b15590>, 'Connection to api.telegram.org timed out. (connect timeout=10)'))
+2026-03-16 13:15:22 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1773677699999
+2026-03-16 13:15:23 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1773677699999
+2026-03-16 13:15:24 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1773677699999
+2026-03-16 13:15:26 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1773677699999
+2026-03-16 13:15:27 | INFO | MainThread | [CACHE] New closed candle 1000PEPEUSDT close_time=1773677699999
+2026-03-16 13:15:28 | INFO | MainThread | [CACHE] New closed candle AVAXUSDT close_time=1773677699999
+2026-03-16 13:15:29 | INFO | MainThread | [CACHE] New closed candle UNIUSDT close_time=1773677699999
+2026-03-16 13:15:30 | INFO | MainThread | [CACHE] New closed candle ARBUSDT close_time=1773677699999
+2026-03-16 13:15:32 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1773677699999
+2026-03-16 13:15:33 | INFO | MainThread | [CACHE] New closed candle PENGUUSDT close_time=1773677699999
+2026-03-16 13:15:33 | INFO | MainThread | BTCUSDT | trend=BEAR | breakL=False | breakS=False | adx=17.53 | adx_ok=False | rising_ok=True | vol_ratio=0.27 | vol_up=False
+2026-03-16 13:15:33 | INFO | MainThread | SOLUSDT | trend=BEAR | breakL=False | breakS=False | adx=11.16 | adx_ok=False | rising_ok=True | vol_ratio=0.41 | vol_up=False
+2026-03-16 13:15:33 | INFO | MainThread | BNBUSDT | trend=BEAR | breakL=False | breakS=False | adx=21.05 | adx_ok=True | rising_ok=True | vol_ratio=0.31 | vol_up=False
+2026-03-16 13:15:33 | INFO | MainThread | XRPUSDT | trend=BULL | breakL=False | breakS=False | adx=27.40 | adx_ok=True | rising_ok=True | vol_ratio=0.83 | vol_up=True
+2026-03-16 13:15:33 | INFO | MainThread | 1000PEPEUSDT | trend=BEAR | breakL=False | breakS=False | adx=23.33 | adx_ok=True | rising_ok=True | vol_ratio=0.72 | vol_up=False
+2026-03-16 13:15:33 | INFO | MainThread | AVAXUSDT | trend=NONE | breakL=False | breakS=False | adx=18.78 | adx_ok=False | rising_ok=True | vol_ratio=0.42 | vol_up=False
+2026-03-16 13:15:33 | INFO | MainThread | UNIUSDT | trend=BEAR | breakL=False | breakS=False | adx=18.24 | adx_ok=False | rising_ok=True | vol_ratio=0.30 | vol_up=False
+2026-03-16 13:15:33 | INFO | MainThread | ARBUSDT | trend=BEAR | breakL=False | breakS=False | adx=20.64 | adx_ok=True | rising_ok=True | vol_ratio=1.12 | vol_up=True
+2026-03-16 13:15:33 | INFO | MainThread | ADAUSDT | trend=BEAR | breakL=False | breakS=False | adx=10.53 | adx_ok=False | rising_ok=True | vol_ratio=0.51 | vol_up=False
+2026-03-16 13:15:33 | INFO | MainThread | PENGUUSDT | trend=BEAR | breakL=False | breakS=False | adx=15.14 | adx_ok=False | rising_ok=True | vol_ratio=3.17 | vol_up=True
+2026-03-16 13:20:15 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1773677999999
+2026-03-16 13:20:16 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1773677999999
+2026-03-16 13:20:17 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1773677999999
+2026-03-16 13:20:19 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1773677999999
+2026-03-16 13:20:20 | INFO | MainThread | [CACHE] New closed candle 1000PEPEUSDT close_time=1773677999999
+2026-03-16 13:20:21 | INFO | MainThread | [CACHE] New closed candle AVAXUSDT close_time=1773677999999
+2026-03-16 13:20:22 | INFO | MainThread | [CACHE] New closed candle UNIUSDT close_time=1773677999999
+2026-03-16 13:20:23 | INFO | MainThread | [CACHE] New closed candle ARBUSDT close_time=1773677999999
+2026-03-16 13:20:25 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1773677999999
+2026-03-16 13:20:26 | INFO | MainThread | [CACHE] New closed candle PENGUUSDT close_time=1773677999999
+2026-03-16 13:20:26 | INFO | MainThread | BTCUSDT | trend=BEAR | breakL=False | breakS=False | adx=16.39 | adx_ok=False | rising_ok=True | vol_ratio=0.65 | vol_up=True
+2026-03-16 13:20:26 | INFO | MainThread | SOLUSDT | trend=BEAR | breakL=False | breakS=False | adx=10.79 | adx_ok=False | rising_ok=True | vol_ratio=0.56 | vol_up=True
+2026-03-16 13:20:26 | INFO | MainThread | BNBUSDT | trend=BEAR | breakL=False | breakS=False | adx=19.83 | adx_ok=False | rising_ok=True | vol_ratio=1.15 | vol_up=True
+2026-03-16 13:20:26 | INFO | MainThread | XRPUSDT | trend=BULL | breakL=False | breakS=False | adx=26.69 | adx_ok=True | rising_ok=True | vol_ratio=0.31 | vol_up=False
+2026-03-16 13:20:26 | INFO | MainThread | 1000PEPEUSDT | trend=BEAR | breakL=False | breakS=False | adx=23.35 | adx_ok=True | rising_ok=True | vol_ratio=0.56 | vol_up=False
+2026-03-16 13:20:26 | INFO | MainThread | AVAXUSDT | trend=BEAR | breakL=False | breakS=False | adx=17.73 | adx_ok=False | rising_ok=True | vol_ratio=0.48 | vol_up=True
+2026-03-16 13:20:26 | INFO | MainThread | UNIUSDT | trend=BULL | breakL=False | breakS=False | adx=18.10 | adx_ok=False | rising_ok=True | vol_ratio=0.89 | vol_up=True
+2026-03-16 13:20:26 | INFO | MainThread | ARBUSDT | trend=BEAR | breakL=False | breakS=False | adx=19.84 | adx_ok=False | rising_ok=True | vol_ratio=1.84 | vol_up=True
+2026-03-16 13:20:26 | INFO | MainThread | ADAUSDT | trend=BEAR | breakL=False | breakS=False | adx=10.45 | adx_ok=False | rising_ok=True | vol_ratio=0.56 | vol_up=True
+2026-03-16 13:20:26 | INFO | MainThread | PENGUUSDT | trend=BEAR | breakL=False | breakS=False | adx=16.15 | adx_ok=False | rising_ok=True | vol_ratio=0.76 | vol_up=False
+2026-03-16 13:25:02 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1773678299999
+2026-03-16 13:25:06 | INFO | MainThread | [CACHE] New closed candle AVAXUSDT close_time=1773678299999
+2026-03-16 13:25:07 | INFO | MainThread | [CACHE] New closed candle UNIUSDT close_time=1773678299999
+2026-03-16 13:25:08 | INFO | MainThread | [CACHE] New closed candle ARBUSDT close_time=1773678299999
+2026-03-16 13:25:09 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1773678299999
+2026-03-16 13:25:11 | INFO | MainThread | [CACHE] New closed candle PENGUUSDT close_time=1773678299999
+2026-03-16 13:25:11 | INFO | MainThread | AVAXUSDT | trend=BEAR | breakL=False | breakS=False | adx=17.39 | adx_ok=False | rising_ok=True | vol_ratio=0.87 | vol_up=True
+2026-03-16 13:25:11 | INFO | MainThread | ARBUSDT | trend=BULL | breakL=False | breakS=False | adx=19.84 | adx_ok=False | rising_ok=True | vol_ratio=0.85 | vol_up=False
+2026-03-16 13:25:11 | INFO | MainThread | ADAUSDT | trend=BEAR | breakL=False | breakS=False | adx=10.46 | adx_ok=False | rising_ok=True | vol_ratio=0.37 | vol_up=False
+2026-03-16 13:25:11 | INFO | MainThread | PENGUUSDT | trend=BEAR | breakL=False | breakS=False | adx=16.33 | adx_ok=False | rising_ok=True | vol_ratio=0.94 | vol_up=True
+2026-03-16 13:25:26 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1773678299999
+2026-03-16 13:25:28 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1773678299999
+2026-03-16 13:25:29 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1773678299999
+2026-03-16 13:25:31 | INFO | MainThread | [CACHE] New closed candle 1000PEPEUSDT close_time=1773678299999
+2026-03-16 13:25:35 | INFO | MainThread | BTCUSDT | trend=NONE | breakL=False | breakS=False | adx=15.34 | adx_ok=False | rising_ok=True | vol_ratio=0.58 | vol_up=False
+2026-03-16 13:25:35 | INFO | MainThread | BNBUSDT | trend=BEAR | breakL=False | breakS=False | adx=18.70 | adx_ok=False | rising_ok=True | vol_ratio=0.30 | vol_up=False
+2026-03-16 13:25:35 | INFO | MainThread | XRPUSDT | trend=BULL | breakL=False | breakS=False | adx=26.28 | adx_ok=True | rising_ok=True | vol_ratio=0.28 | vol_up=False
+2026-03-16 13:25:35 | INFO | MainThread | 1000PEPEUSDT | trend=BEAR | breakL=False | breakS=False | adx=23.45 | adx_ok=True | rising_ok=True | vol_ratio=0.54 | vol_up=False
+2026-03-16 13:29:32 | WARNING | MainThread | [TG poll] error: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=10)
+2026-03-16 13:30:08 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1773678599999
+2026-03-16 13:30:09 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1773678599999
+2026-03-16 13:30:10 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1773678599999
+2026-03-16 13:30:12 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1773678599999
+2026-03-16 13:30:13 | INFO | MainThread | [CACHE] New closed candle 1000PEPEUSDT close_time=1773678599999
+2026-03-16 13:30:15 | INFO | MainThread | [CACHE] New closed candle AVAXUSDT close_time=1773678599999
+2026-03-16 13:30:16 | INFO | MainThread | [CACHE] New closed candle UNIUSDT close_time=1773678599999
+2026-03-16 13:30:17 | INFO | MainThread | [CACHE] New closed candle ARBUSDT close_time=1773678599999
+2026-03-16 13:30:19 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1773678599999
+2026-03-16 13:30:21 | INFO | MainThread | [CACHE] New closed candle PENGUUSDT close_time=1773678599999
+2026-03-16 13:30:21 | INFO | MainThread | BTCUSDT | trend=NONE | breakL=False | breakS=False | adx=14.27 | adx_ok=False | rising_ok=True | vol_ratio=0.61 | vol_up=True
+2026-03-16 13:30:21 | INFO | MainThread | SOLUSDT | trend=BEAR | breakL=False | breakS=False | adx=10.29 | adx_ok=False | rising_ok=True | vol_ratio=0.54 | vol_up=True
+2026-03-16 13:30:21 | INFO | MainThread | BNBUSDT | trend=NONE | breakL=False | breakS=False | adx=17.84 | adx_ok=False | rising_ok=True | vol_ratio=0.74 | vol_up=True
+2026-03-16 13:30:21 | INFO | MainThread | XRPUSDT | trend=BULL | breakL=False | breakS=False | adx=25.55 | adx_ok=True | rising_ok=True | vol_ratio=0.28 | vol_up=False
+2026-03-16 13:30:21 | INFO | MainThread | 1000PEPEUSDT | trend=BEAR | breakL=False | breakS=False | adx=22.20 | adx_ok=True | rising_ok=True | vol_ratio=1.21 | vol_up=True
+2026-03-16 13:30:21 | INFO | MainThread | AVAXUSDT | trend=BEAR | breakL=False | breakS=False | adx=17.07 | adx_ok=False | rising_ok=True | vol_ratio=0.48 | vol_up=False
+2026-03-16 13:30:21 | INFO | MainThread | UNIUSDT | trend=BULL | breakL=False | breakS=False | adx=19.43 | adx_ok=False | rising_ok=True | vol_ratio=1.48 | vol_up=False
+2026-03-16 13:30:21 | INFO | MainThread | ARBUSDT | trend=BULL | breakL=False | breakS=False | adx=20.08 | adx_ok=True | rising_ok=True | vol_ratio=1.54 | vol_up=True
+2026-03-16 13:30:21 | INFO | MainThread | ADAUSDT | trend=BEAR | breakL=False | breakS=False | adx=10.47 | adx_ok=False | rising_ok=True | vol_ratio=0.31 | vol_up=False
+2026-03-16 13:30:21 | INFO | MainThread | PENGUUSDT | trend=BEAR | breakL=False | breakS=False | adx=16.44 | adx_ok=False | rising_ok=True | vol_ratio=0.41 | vol_up=False
+2026-03-16 13:35:14 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1773678899999
+2026-03-16 13:35:15 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1773678899999
+2026-03-16 13:35:16 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1773678899999
+2026-03-16 13:35:18 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1773678899999
+2026-03-16 13:35:19 | INFO | MainThread | [CACHE] New closed candle 1000PEPEUSDT close_time=1773678899999
+2026-03-16 13:35:20 | INFO | MainThread | [CACHE] New closed candle AVAXUSDT close_time=1773678899999
+2026-03-16 13:35:21 | INFO | MainThread | [CACHE] New closed candle UNIUSDT close_time=1773678899999
+2026-03-16 13:35:22 | INFO | MainThread | [CACHE] New closed candle ARBUSDT close_time=1773678899999
+2026-03-16 13:35:23 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1773678899999
+2026-03-16 13:35:25 | INFO | MainThread | [CACHE] New closed candle PENGUUSDT close_time=1773678899999
+2026-03-16 13:35:25 | INFO | MainThread | BTCUSDT | trend=NONE | breakL=False | breakS=False | adx=13.78 | adx_ok=False | rising_ok=True | vol_ratio=0.94 | vol_up=True
+2026-03-16 13:35:25 | INFO | MainThread | SOLUSDT | trend=BEAR | breakL=False | breakS=False | adx=9.56 | adx_ok=False | rising_ok=True | vol_ratio=0.47 | vol_up=False
+2026-03-16 13:35:25 | INFO | MainThread | BNBUSDT | trend=NONE | breakL=False | breakS=False | adx=16.71 | adx_ok=False | rising_ok=True | vol_ratio=0.55 | vol_up=False
+2026-03-16 13:35:25 | INFO | MainThread | XRPUSDT | trend=BULL | breakL=False | breakS=False | adx=25.57 | adx_ok=True | rising_ok=True | vol_ratio=0.44 | vol_up=True
+2026-03-16 13:35:25 | INFO | MainThread | 1000PEPEUSDT | trend=BEAR | breakL=False | breakS=False | adx=21.28 | adx_ok=True | rising_ok=True | vol_ratio=0.65 | vol_up=False
+2026-03-16 13:35:25 | INFO | MainThread | AVAXUSDT | trend=BULL | breakL=False | breakS=False | adx=17.62 | adx_ok=False | rising_ok=True | vol_ratio=1.54 | vol_up=True
+2026-03-16 13:35:25 | INFO | MainThread | UNIUSDT | trend=BULL | breakL=False | breakS=False | adx=20.28 | adx_ok=True | rising_ok=True | vol_ratio=0.70 | vol_up=False
+2026-03-16 13:35:25 | INFO | MainThread | ARBUSDT | trend=BULL | breakL=False | breakS=False | adx=20.93 | adx_ok=True | rising_ok=True | vol_ratio=1.86 | vol_up=True
+2026-03-16 13:35:25 | INFO | MainThread | ADAUSDT | trend=BEAR | breakL=False | breakS=False | adx=10.85 | adx_ok=False | rising_ok=True | vol_ratio=0.77 | vol_up=True
+2026-03-16 13:35:25 | INFO | MainThread | PENGUUSDT | trend=BEAR | breakL=False | breakS=False | adx=16.12 | adx_ok=False | rising_ok=True | vol_ratio=0.65 | vol_up=True
+2026-03-16 13:35:53 | WARNING | MainThread | [TG poll] error: HTTPSConnectionPool(host='api.telegram.org', port=443): Max retries exceeded with url: /bot8595800756:AAFOl0BFwrOQcy3tsjHD7uHYdCnuHPdftfE/getUpdates?timeout=0&offset=164713451 (Caused by ConnectTimeoutError(<HTTPSConnection(host='api.telegram.org', port=443) at 0x116b14e10>, 'Connection to api.telegram.org timed out. (connect timeout=10)'))
+2026-03-16 13:39:05 | WARNING | MainThread | [TG poll] error: HTTPSConnectionPool(host='api.telegram.org', port=443): Max retries exceeded with url: /bot8595800756:AAFOl0BFwrOQcy3tsjHD7uHYdCnuHPdftfE/getUpdates?timeout=0&offset=164713451 (Caused by ConnectTimeoutError(<HTTPSConnection(host='api.telegram.org', port=443) at 0x116b15bd0>, 'Connection to api.telegram.org timed out. (connect timeout=10)'))
+2026-03-16 13:40:09 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1773679199999
+2026-03-16 13:40:10 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1773679199999
+2026-03-16 13:40:11 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1773679199999
+2026-03-16 13:40:12 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1773679199999
+2026-03-16 13:40:13 | INFO | MainThread | [CACHE] New closed candle 1000PEPEUSDT close_time=1773679199999
+2026-03-16 13:40:14 | INFO | MainThread | [CACHE] New closed candle AVAXUSDT close_time=1773679199999
+2026-03-16 13:40:15 | INFO | MainThread | [CACHE] New closed candle UNIUSDT close_time=1773679199999
+2026-03-16 13:40:17 | INFO | MainThread | [CACHE] New closed candle ARBUSDT close_time=1773679199999
+2026-03-16 13:40:18 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1773679199999
+2026-03-16 13:40:19 | INFO | MainThread | [CACHE] New closed candle PENGUUSDT close_time=1773679199999
+2026-03-16 13:40:19 | INFO | MainThread | BTCUSDT | trend=NONE | breakL=False | breakS=False | adx=13.33 | adx_ok=False | rising_ok=True | vol_ratio=0.38 | vol_up=False
+2026-03-16 13:40:19 | INFO | MainThread | SOLUSDT | trend=BEAR | breakL=False | breakS=False | adx=8.88 | adx_ok=False | rising_ok=True | vol_ratio=0.34 | vol_up=False
+2026-03-16 13:40:19 | INFO | MainThread | BNBUSDT | trend=BEAR | breakL=False | breakS=False | adx=15.65 | adx_ok=False | rising_ok=True | vol_ratio=0.42 | vol_up=False
+2026-03-16 13:40:19 | INFO | MainThread | XRPUSDT | trend=BULL | breakL=False | breakS=False | adx=25.59 | adx_ok=True | rising_ok=True | vol_ratio=0.26 | vol_up=False
+2026-03-16 13:40:19 | INFO | MainThread | 1000PEPEUSDT | trend=BEAR | breakL=False | breakS=False | adx=20.73 | adx_ok=True | rising_ok=True | vol_ratio=0.41 | vol_up=False
+2026-03-16 13:40:19 | INFO | MainThread | AVAXUSDT | trend=BULL | breakL=False | breakS=False | adx=18.39 | adx_ok=False | rising_ok=True | vol_ratio=1.61 | vol_up=True
+2026-03-16 13:40:19 | INFO | MainThread | UNIUSDT | trend=BULL | breakL=False | breakS=False | adx=20.78 | adx_ok=True | rising_ok=True | vol_ratio=0.59 | vol_up=False
+2026-03-16 13:40:19 | INFO | MainThread | ARBUSDT | trend=BULL | breakL=False | breakS=False | adx=22.08 | adx_ok=True | rising_ok=True | vol_ratio=0.92 | vol_up=False
+2026-03-16 13:40:19 | INFO | MainThread | ADAUSDT | trend=BULL | breakL=False | breakS=False | adx=11.20 | adx_ok=False | rising_ok=True | vol_ratio=0.56 | vol_up=False
+2026-03-16 13:40:19 | INFO | MainThread | PENGUUSDT | trend=BEAR | breakL=False | breakS=False | adx=16.04 | adx_ok=False | rising_ok=True | vol_ratio=0.29 | vol_up=False
+2026-03-16 13:45:08 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1773679499999
+2026-03-16 13:45:09 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1773679499999
+2026-03-16 13:45:10 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1773679499999
+2026-03-16 13:45:11 | INFO | MainThread | [CACHE] New closed candle 1000PEPEUSDT close_time=1773679499999
+2026-03-16 13:45:12 | INFO | MainThread | [CACHE] New closed candle AVAXUSDT close_time=1773679499999
+2026-03-16 13:45:14 | INFO | MainThread | [CACHE] New closed candle UNIUSDT close_time=1773679499999
+2026-03-16 13:45:15 | INFO | MainThread | [CACHE] New closed candle ARBUSDT close_time=1773679499999
+2026-03-16 13:45:16 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1773679499999
+2026-03-16 13:45:17 | INFO | MainThread | [CACHE] New closed candle PENGUUSDT close_time=1773679499999
+2026-03-16 13:45:17 | INFO | MainThread | SOLUSDT | trend=BEAR | breakL=False | breakS=False | adx=9.45 | adx_ok=False | rising_ok=True | vol_ratio=1.00 | vol_up=True
+2026-03-16 13:45:17 | INFO | MainThread | BNBUSDT | trend=BEAR | breakL=False | breakS=False | adx=15.80 | adx_ok=False | rising_ok=True | vol_ratio=0.69 | vol_up=True
+2026-03-16 13:45:17 | INFO | MainThread | XRPUSDT | trend=BULL | breakL=False | breakS=False | adx=26.04 | adx_ok=True | rising_ok=True | vol_ratio=0.49 | vol_up=True
+2026-03-16 13:45:17 | INFO | MainThread | 1000PEPEUSDT | trend=BEAR | breakL=False | breakS=False | adx=19.79 | adx_ok=False | rising_ok=True | vol_ratio=0.58 | vol_up=True
+2026-03-16 13:45:17 | INFO | MainThread | AVAXUSDT | trend=BULL | breakL=False | breakS=False | adx=19.67 | adx_ok=False | rising_ok=True | vol_ratio=0.94 | vol_up=False
+2026-03-16 13:45:17 | INFO | MainThread | UNIUSDT | trend=BULL | breakL=False | breakS=False | adx=21.72 | adx_ok=True | rising_ok=True | vol_ratio=0.80 | vol_up=True
+2026-03-16 13:45:17 | INFO | MainThread | ARBUSDT | trend=BULL | breakL=False | breakS=False | adx=23.16 | adx_ok=True | rising_ok=True | vol_ratio=0.73 | vol_up=False
+2026-03-16 13:45:17 | INFO | MainThread | ADAUSDT | trend=BULL | breakL=False | breakS=False | adx=12.17 | adx_ok=False | rising_ok=True | vol_ratio=1.11 | vol_up=True
+2026-03-16 13:45:17 | INFO | MainThread | PENGUUSDT | trend=BEAR | breakL=False | breakS=False | adx=15.54 | adx_ok=False | rising_ok=True | vol_ratio=0.56 | vol_up=True
+2026-03-16 13:45:31 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1773679499999
+2026-03-16 13:45:38 | INFO | MainThread | BTCUSDT | trend=BEAR | breakL=False | breakS=False | adx=13.72 | adx_ok=False | rising_ok=True | vol_ratio=0.66 | vol_up=True
+2026-03-16 13:50:13 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1773679799999
+2026-03-16 13:50:14 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1773679799999
+2026-03-16 13:50:15 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1773679799999
+2026-03-16 13:50:16 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1773679799999
+2026-03-16 13:50:18 | INFO | MainThread | [CACHE] New closed candle 1000PEPEUSDT close_time=1773679799999
+2026-03-16 13:50:19 | INFO | MainThread | [CACHE] New closed candle AVAXUSDT close_time=1773679799999
+2026-03-16 13:50:20 | INFO | MainThread | [CACHE] New closed candle UNIUSDT close_time=1773679799999
+2026-03-16 13:50:21 | INFO | MainThread | [CACHE] New closed candle ARBUSDT close_time=1773679799999
+2026-03-16 13:50:22 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1773679799999
+2026-03-16 13:50:23 | INFO | MainThread | [CACHE] New closed candle PENGUUSDT close_time=1773679799999
+2026-03-16 13:50:24 | INFO | MainThread | BTCUSDT | trend=BEAR | breakL=False | breakS=False | adx=14.59 | adx_ok=False | rising_ok=True | vol_ratio=0.93 | vol_up=True
+2026-03-16 13:50:24 | INFO | MainThread | SOLUSDT | trend=BEAR | breakL=False | breakS=False | adx=9.99 | adx_ok=False | rising_ok=True | vol_ratio=0.75 | vol_up=False
+2026-03-16 13:50:24 | INFO | MainThread | BNBUSDT | trend=BEAR | breakL=False | breakS=False | adx=15.94 | adx_ok=False | rising_ok=True | vol_ratio=0.90 | vol_up=True
+2026-03-16 13:50:24 | INFO | MainThread | XRPUSDT | trend=BULL | breakL=False | breakS=False | adx=26.46 | adx_ok=True | rising_ok=True | vol_ratio=0.43 | vol_up=False
+2026-03-16 13:50:24 | INFO | MainThread | 1000PEPEUSDT | trend=BEAR | breakL=False | breakS=False | adx=19.12 | adx_ok=False | rising_ok=True | vol_ratio=0.45 | vol_up=False
+2026-03-16 13:50:24 | INFO | MainThread | AVAXUSDT | trend=BULL | breakL=False | breakS=False | adx=20.85 | adx_ok=True | rising_ok=True | vol_ratio=0.71 | vol_up=False
+2026-03-16 13:50:24 | INFO | MainThread | UNIUSDT | trend=BULL | breakL=False | breakS=False | adx=22.60 | adx_ok=True | rising_ok=True | vol_ratio=0.66 | vol_up=False
+2026-03-16 13:50:24 | INFO | MainThread | ARBUSDT | trend=BULL | breakL=False | breakS=False | adx=24.83 | adx_ok=True | rising_ok=True | vol_ratio=4.26 | vol_up=True
+2026-03-16 13:50:24 | INFO | MainThread | ADAUSDT | trend=BULL | breakL=False | breakS=False | adx=12.79 | adx_ok=False | rising_ok=True | vol_ratio=1.45 | vol_up=True
+2026-03-16 13:50:24 | INFO | MainThread | PENGUUSDT | trend=BEAR | breakL=False | breakS=False | adx=14.93 | adx_ok=False | rising_ok=True | vol_ratio=0.61 | vol_up=True
+2026-03-16 13:53:19 | WARNING | MainThread | [TG poll] error: HTTPSConnectionPool(host='api.telegram.org', port=443): Max retries exceeded with url: /bot8595800756:AAFOl0BFwrOQcy3tsjHD7uHYdCnuHPdftfE/getUpdates?timeout=0&offset=164713451 (Caused by ConnectTimeoutError(<HTTPSConnection(host='api.telegram.org', port=443) at 0x116b15090>, 'Connection to api.telegram.org timed out. (connect timeout=10)'))
+2026-03-16 13:55:10 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1773680099999
+2026-03-16 13:55:11 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1773680099999
+2026-03-16 13:55:12 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1773680099999
+2026-03-16 13:55:14 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1773680099999
+2026-03-16 13:55:15 | INFO | MainThread | [CACHE] New closed candle 1000PEPEUSDT close_time=1773680099999
+2026-03-16 13:55:16 | INFO | MainThread | [CACHE] New closed candle AVAXUSDT close_time=1773680099999
+2026-03-16 13:55:17 | INFO | MainThread | [CACHE] New closed candle UNIUSDT close_time=1773680099999
+2026-03-16 13:55:18 | INFO | MainThread | [CACHE] New closed candle ARBUSDT close_time=1773680099999
+2026-03-16 13:55:19 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1773680099999
+2026-03-16 13:55:20 | INFO | MainThread | [CACHE] New closed candle PENGUUSDT close_time=1773680099999
+2026-03-16 13:55:21 | INFO | MainThread | BTCUSDT | trend=BULL | breakL=False | breakS=False | adx=15.92 | adx_ok=False | rising_ok=True | vol_ratio=1.41 | vol_up=True
+2026-03-16 13:55:21 | INFO | MainThread | SOLUSDT | trend=BULL | breakL=False | breakS=False | adx=11.28 | adx_ok=False | rising_ok=True | vol_ratio=1.70 | vol_up=True
+2026-03-16 13:55:21 | INFO | MainThread | BNBUSDT | trend=BEAR | breakL=False | breakS=False | adx=16.65 | adx_ok=False | rising_ok=True | vol_ratio=0.91 | vol_up=True
+2026-03-16 13:55:21 | INFO | MainThread | XRPUSDT | trend=BULL | breakL=False | breakS=False | adx=27.33 | adx_ok=True | rising_ok=True | vol_ratio=0.92 | vol_up=True
+2026-03-16 13:55:21 | INFO | MainThread | 1000PEPEUSDT | trend=BEAR | breakL=False | breakS=False | adx=17.83 | adx_ok=False | rising_ok=True | vol_ratio=1.18 | vol_up=True
+2026-03-16 13:55:21 | INFO | MainThread | AVAXUSDT | trend=BULL | breakL=False | breakS=False | adx=22.36 | adx_ok=True | rising_ok=True | vol_ratio=1.05 | vol_up=True
+2026-03-16 13:55:21 | INFO | MainThread | UNIUSDT | trend=BULL | breakL=False | breakS=False | adx=23.82 | adx_ok=True | rising_ok=True | vol_ratio=2.03 | vol_up=True
+2026-03-16 13:55:21 | INFO | MainThread | ARBUSDT | trend=BULL | breakL=False | breakS=False | adx=26.38 | adx_ok=True | rising_ok=True | vol_ratio=1.12 | vol_up=False
+2026-03-16 13:55:21 | INFO | MainThread | ADAUSDT | trend=BULL | breakL=False | breakS=False | adx=13.96 | adx_ok=False | rising_ok=True | vol_ratio=2.84 | vol_up=True
+2026-03-16 13:55:21 | INFO | MainThread | PENGUUSDT | trend=BEAR | breakL=False | breakS=False | adx=14.33 | adx_ok=False | rising_ok=True | vol_ratio=0.63 | vol_up=True
+2026-03-16 14:00:10 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1773680399999
+2026-03-16 14:00:11 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1773680399999
+2026-03-16 14:00:12 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1773680399999
+2026-03-16 14:00:13 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1773680399999
+2026-03-16 14:00:14 | INFO | MainThread | [CACHE] New closed candle 1000PEPEUSDT close_time=1773680399999
+2026-03-16 14:00:15 | INFO | MainThread | [CACHE] New closed candle AVAXUSDT close_time=1773680399999
+2026-03-16 14:00:17 | INFO | MainThread | [CACHE] New closed candle UNIUSDT close_time=1773680399999
+2026-03-16 14:00:18 | INFO | MainThread | [CACHE] New closed candle ARBUSDT close_time=1773680399999
+2026-03-16 14:00:19 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1773680399999
+2026-03-16 14:00:20 | INFO | MainThread | [CACHE] New closed candle PENGUUSDT close_time=1773680399999
+2026-03-16 14:00:20 | INFO | MainThread | BTCUSDT | trend=BULL | breakL=False | breakS=False | adx=17.10 | adx_ok=False | rising_ok=True | vol_ratio=0.50 | vol_up=False
+2026-03-16 14:00:20 | INFO | MainThread | SOLUSDT | trend=BULL | breakL=False | breakS=False | adx=12.47 | adx_ok=False | rising_ok=True | vol_ratio=0.69 | vol_up=False
+2026-03-16 14:00:20 | INFO | MainThread | BNBUSDT | trend=BULL | breakL=False | breakS=False | adx=17.32 | adx_ok=False | rising_ok=True | vol_ratio=0.76 | vol_up=False
+2026-03-16 14:00:20 | INFO | MainThread | XRPUSDT | trend=BULL | breakL=False | breakS=False | adx=28.31 | adx_ok=True | rising_ok=True | vol_ratio=0.77 | vol_up=False
+2026-03-16 14:00:20 | INFO | MainThread | 1000PEPEUSDT | trend=BEAR | breakL=False | breakS=False | adx=16.64 | adx_ok=False | rising_ok=True | vol_ratio=0.50 | vol_up=False
+2026-03-16 14:00:20 | INFO | MainThread | AVAXUSDT | trend=BULL | breakL=False | breakS=False | adx=23.77 | adx_ok=True | rising_ok=True | vol_ratio=0.71 | vol_up=False
+2026-03-16 14:00:20 | INFO | MainThread | UNIUSDT | trend=BULL | breakL=False | breakS=False | adx=24.96 | adx_ok=True | rising_ok=True | vol_ratio=1.14 | vol_up=False
+2026-03-16 14:00:20 | INFO | MainThread | ARBUSDT | trend=BULL | breakL=False | breakS=False | adx=27.83 | adx_ok=True | rising_ok=True | vol_ratio=1.02 | vol_up=False
+2026-03-16 14:00:20 | INFO | MainThread | ADAUSDT | trend=BULL | breakL=False | breakS=False | adx=15.21 | adx_ok=False | rising_ok=True | vol_ratio=2.66 | vol_up=True
+2026-03-16 14:00:20 | INFO | MainThread | PENGUUSDT | trend=BEAR | breakL=False | breakS=False | adx=13.70 | adx_ok=False | rising_ok=True | vol_ratio=0.82 | vol_up=True
+2026-03-16 14:05:01 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1773680699999
+2026-03-16 14:05:05 | INFO | MainThread | [CACHE] New closed candle UNIUSDT close_time=1773680699999
+2026-03-16 14:05:07 | INFO | MainThread | [CACHE] New closed candle PENGUUSDT close_time=1773680699999
+2026-03-16 14:05:08 | INFO | MainThread | PENGUUSDT | trend=BEAR | breakL=False | breakS=False | adx=12.88 | adx_ok=False | rising_ok=True | vol_ratio=0.88 | vol_up=True
+2026-03-16 14:05:21 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1773680699999
+2026-03-16 14:05:23 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1773680699999
+2026-03-16 14:05:24 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1773680699999
+2026-03-16 14:05:25 | INFO | MainThread | [CACHE] New closed candle 1000PEPEUSDT close_time=1773680699999
+2026-03-16 14:05:26 | INFO | MainThread | [CACHE] New closed candle AVAXUSDT close_time=1773680699999
+2026-03-16 14:05:28 | INFO | MainThread | [CACHE] New closed candle ARBUSDT close_time=1773680699999
+2026-03-16 14:05:29 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1773680699999
+2026-03-16 14:05:30 | INFO | MainThread | BTCUSDT | trend=BULL | breakL=False | breakS=False | adx=18.58 | adx_ok=False | rising_ok=True | vol_ratio=0.96 | vol_up=True
+2026-03-16 14:05:30 | INFO | MainThread | BNBUSDT | trend=BULL | breakL=False | breakS=False | adx=17.48 | adx_ok=False | rising_ok=True | vol_ratio=0.77 | vol_up=False
+2026-03-16 14:05:30 | INFO | MainThread | XRPUSDT | trend=BULL | breakL=False | breakS=False | adx=28.43 | adx_ok=True | rising_ok=True | vol_ratio=0.98 | vol_up=True
+2026-03-16 14:05:30 | INFO | MainThread | 1000PEPEUSDT | trend=NONE | breakL=False | breakS=False | adx=15.54 | adx_ok=False | rising_ok=True | vol_ratio=0.48 | vol_up=False
+2026-03-16 14:05:30 | INFO | MainThread | AVAXUSDT | trend=BULL | breakL=False | breakS=False | adx=24.25 | adx_ok=True | rising_ok=True | vol_ratio=0.99 | vol_up=True
+2026-03-16 14:05:30 | INFO | MainThread | ARBUSDT | trend=BULL | breakL=False | breakS=False | adx=29.49 | adx_ok=True | rising_ok=True | vol_ratio=1.91 | vol_up=True
+2026-03-16 14:05:30 | INFO | MainThread | ADAUSDT | trend=BULL | breakL=False | breakS=False | adx=15.50 | adx_ok=False | rising_ok=True | vol_ratio=2.14 | vol_up=False
+2026-03-16 14:10:04 | INFO | MainThread | [CACHE] New closed candle 1000PEPEUSDT close_time=1773680999999
+2026-03-16 14:10:08 | INFO | MainThread | 1000PEPEUSDT | trend=BEAR | breakL=False | breakS=False | adx=15.03 | adx_ok=False | rising_ok=True | vol_ratio=0.56 | vol_up=True
+2026-03-16 14:10:22 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1773680999999
+2026-03-16 14:10:23 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1773680999999
+2026-03-16 14:10:24 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1773680999999
+2026-03-16 14:10:25 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1773680999999
+2026-03-16 14:10:27 | INFO | MainThread | [CACHE] New closed candle AVAXUSDT close_time=1773680999999
+2026-03-16 14:10:28 | INFO | MainThread | [CACHE] New closed candle UNIUSDT close_time=1773680999999
+2026-03-16 14:10:29 | INFO | MainThread | [CACHE] New closed candle ARBUSDT close_time=1773680999999
+2026-03-16 14:10:30 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1773680999999
+2026-03-16 14:10:31 | INFO | MainThread | [CACHE] New closed candle PENGUUSDT close_time=1773680999999
+2026-03-16 14:10:32 | INFO | MainThread | BTCUSDT | trend=BULL | breakL=False | breakS=False | adx=19.96 | adx_ok=False | rising_ok=True | vol_ratio=0.54 | vol_up=False
+2026-03-16 14:10:32 | INFO | MainThread | SOLUSDT | trend=BULL | breakL=False | breakS=False | adx=14.96 | adx_ok=False | rising_ok=True | vol_ratio=0.62 | vol_up=False
+2026-03-16 14:10:32 | INFO | MainThread | BNBUSDT | trend=BULL | breakL=False | breakS=False | adx=17.62 | adx_ok=False | rising_ok=True | vol_ratio=0.92 | vol_up=True
+2026-03-16 14:10:32 | INFO | MainThread | XRPUSDT | trend=BULL | breakL=False | breakS=False | adx=28.70 | adx_ok=True | rising_ok=True | vol_ratio=0.96 | vol_up=False
+2026-03-16 14:10:32 | INFO | MainThread | AVAXUSDT | trend=BULL | breakL=False | breakS=False | adx=24.70 | adx_ok=True | rising_ok=True | vol_ratio=0.56 | vol_up=False
+2026-03-16 14:10:32 | INFO | MainThread | UNIUSDT | trend=BULL | breakL=False | breakS=False | adx=28.10 | adx_ok=True | rising_ok=True | vol_ratio=1.48 | vol_up=False
+2026-03-16 14:10:32 | INFO | MainThread | ARBUSDT | trend=BULL | breakL=False | breakS=False | adx=31.33 | adx_ok=True | rising_ok=True | vol_ratio=1.05 | vol_up=False
+2026-03-16 14:10:32 | INFO | MainThread | ADAUSDT | trend=BULL | breakL=False | breakS=False | adx=15.63 | adx_ok=False | rising_ok=True | vol_ratio=0.98 | vol_up=False
+2026-03-16 14:10:32 | INFO | MainThread | PENGUUSDT | trend=BEAR | breakL=False | breakS=False | adx=12.12 | adx_ok=False | rising_ok=True | vol_ratio=0.38 | vol_up=False
+2026-03-16 14:15:11 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1773681299999
+2026-03-16 14:15:12 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1773681299999
+2026-03-16 14:15:13 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1773681299999
+2026-03-16 14:15:14 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1773681299999
+2026-03-16 14:15:15 | INFO | MainThread | [CACHE] New closed candle 1000PEPEUSDT close_time=1773681299999
+2026-03-16 14:15:17 | INFO | MainThread | [CACHE] New closed candle AVAXUSDT close_time=1773681299999
+2026-03-16 14:15:18 | INFO | MainThread | [CACHE] New closed candle UNIUSDT close_time=1773681299999
+2026-03-16 14:15:19 | INFO | MainThread | [CACHE] New closed candle ARBUSDT close_time=1773681299999
+2026-03-16 14:15:20 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1773681299999
+2026-03-16 14:15:21 | INFO | MainThread | [CACHE] New closed candle PENGUUSDT close_time=1773681299999
+2026-03-16 14:15:22 | INFO | MainThread | BTCUSDT | trend=BULL | breakL=False | breakS=False | adx=21.31 | adx_ok=True | rising_ok=True | vol_ratio=0.39 | vol_up=False
+2026-03-16 14:15:22 | INFO | MainThread | SOLUSDT | trend=BULL | breakL=False | breakS=False | adx=16.09 | adx_ok=False | rising_ok=True | vol_ratio=0.77 | vol_up=True
+2026-03-16 14:15:22 | INFO | MainThread | BNBUSDT | trend=BULL | breakL=False | breakS=False | adx=17.31 | adx_ok=False | rising_ok=True | vol_ratio=1.92 | vol_up=True
+2026-03-16 14:15:22 | INFO | MainThread | XRPUSDT | trend=BULL | breakL=False | breakS=False | adx=29.02 | adx_ok=True | rising_ok=True | vol_ratio=0.67 | vol_up=False
+2026-03-16 14:15:22 | INFO | MainThread | 1000PEPEUSDT | trend=BEAR | breakL=False | breakS=False | adx=14.56 | adx_ok=False | rising_ok=True | vol_ratio=0.54 | vol_up=False
+2026-03-16 14:15:22 | INFO | MainThread | AVAXUSDT | trend=BULL | breakL=False | breakS=False | adx=25.11 | adx_ok=True | rising_ok=True | vol_ratio=0.45 | vol_up=False
+2026-03-16 14:15:22 | INFO | MainThread | UNIUSDT | trend=BULL | breakL=False | breakS=False | adx=29.67 | adx_ok=True | rising_ok=True | vol_ratio=1.22 | vol_up=False
+2026-03-16 14:15:22 | INFO | MainThread | ARBUSDT | trend=BULL | breakL=False | breakS=False | adx=33.04 | adx_ok=True | rising_ok=True | vol_ratio=1.00 | vol_up=False
+2026-03-16 14:15:22 | INFO | MainThread | ADAUSDT | trend=BULL | breakL=False | breakS=False | adx=15.60 | adx_ok=False | rising_ok=True | vol_ratio=0.80 | vol_up=False
+2026-03-16 14:15:22 | INFO | MainThread | PENGUUSDT | trend=BEAR | breakL=False | breakS=False | adx=11.66 | adx_ok=False | rising_ok=True | vol_ratio=0.42 | vol_up=True
+2026-03-16 14:20:19 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1773681599999
+2026-03-16 14:20:20 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1773681599999
+2026-03-16 14:20:21 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1773681599999
+2026-03-16 14:20:22 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1773681599999
+2026-03-16 14:20:23 | INFO | MainThread | [CACHE] New closed candle 1000PEPEUSDT close_time=1773681599999
+2026-03-16 14:20:25 | INFO | MainThread | [CACHE] New closed candle AVAXUSDT close_time=1773681599999
+2026-03-16 14:20:26 | INFO | MainThread | [CACHE] New closed candle UNIUSDT close_time=1773681599999
+2026-03-16 14:20:27 | INFO | MainThread | [CACHE] New closed candle ARBUSDT close_time=1773681599999
+2026-03-16 14:20:28 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1773681599999
+2026-03-16 14:20:29 | INFO | MainThread | [CACHE] New closed candle PENGUUSDT close_time=1773681599999
+2026-03-16 14:20:29 | INFO | MainThread | BTCUSDT | trend=BULL | breakL=False | breakS=False | adx=22.57 | adx_ok=True | rising_ok=True | vol_ratio=0.49 | vol_up=True
+2026-03-16 14:20:29 | INFO | MainThread | SOLUSDT | trend=BULL | breakL=False | breakS=False | adx=16.57 | adx_ok=False | rising_ok=True | vol_ratio=0.70 | vol_up=False
+2026-03-16 14:20:29 | INFO | MainThread | BNBUSDT | trend=BULL | breakL=False | breakS=False | adx=17.03 | adx_ok=False | rising_ok=True | vol_ratio=0.36 | vol_up=False
+2026-03-16 14:20:29 | INFO | MainThread | XRPUSDT | trend=BULL | breakL=False | breakS=False | adx=28.73 | adx_ok=True | rising_ok=True | vol_ratio=0.84 | vol_up=True
+2026-03-16 14:20:29 | INFO | MainThread | 1000PEPEUSDT | trend=BEAR | breakL=False | breakS=False | adx=13.96 | adx_ok=False | rising_ok=True | vol_ratio=0.29 | vol_up=False
+2026-03-16 14:20:29 | INFO | MainThread | AVAXUSDT | trend=BULL | breakL=False | breakS=False | adx=24.96 | adx_ok=True | rising_ok=True | vol_ratio=0.91 | vol_up=True
+2026-03-16 14:20:30 | INFO | MainThread | UNIUSDT | trend=BULL | breakL=False | breakS=False | adx=30.24 | adx_ok=True | rising_ok=True | vol_ratio=0.44 | vol_up=False
+2026-03-16 14:20:30 | INFO | MainThread | ARBUSDT | trend=BULL | breakL=False | breakS=False | adx=33.64 | adx_ok=True | rising_ok=True | vol_ratio=0.77 | vol_up=False
+2026-03-16 14:20:30 | INFO | MainThread | ADAUSDT | trend=BULL | breakL=False | breakS=False | adx=14.62 | adx_ok=False | rising_ok=True | vol_ratio=0.56 | vol_up=False
+2026-03-16 14:20:30 | INFO | MainThread | PENGUUSDT | trend=BEAR | breakL=False | breakS=False | adx=10.88 | adx_ok=False | rising_ok=True | vol_ratio=0.23 | vol_up=False
+2026-03-16 14:25:09 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1773681899999
+2026-03-16 14:25:10 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1773681899999
+2026-03-16 14:25:11 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1773681899999
+2026-03-16 14:25:12 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1773681899999
+2026-03-16 14:25:13 | INFO | MainThread | [CACHE] New closed candle 1000PEPEUSDT close_time=1773681899999
+2026-03-16 14:25:14 | INFO | MainThread | [CACHE] New closed candle AVAXUSDT close_time=1773681899999
+2026-03-16 14:25:15 | INFO | MainThread | [CACHE] New closed candle UNIUSDT close_time=1773681899999
+2026-03-16 14:25:16 | INFO | MainThread | [CACHE] New closed candle ARBUSDT close_time=1773681899999
+2026-03-16 14:25:18 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1773681899999
+2026-03-16 14:25:19 | INFO | MainThread | [CACHE] New closed candle PENGUUSDT close_time=1773681899999
+2026-03-16 14:25:19 | INFO | MainThread | BTCUSDT | trend=BULL | breakL=False | breakS=False | adx=23.74 | adx_ok=True | rising_ok=True | vol_ratio=0.36 | vol_up=False
+2026-03-16 14:25:19 | INFO | MainThread | SOLUSDT | trend=BULL | breakL=False | breakS=False | adx=17.58 | adx_ok=False | rising_ok=True | vol_ratio=0.98 | vol_up=True
+2026-03-16 14:25:19 | INFO | MainThread | BNBUSDT | trend=BULL | breakL=False | breakS=False | adx=17.10 | adx_ok=False | rising_ok=True | vol_ratio=0.49 | vol_up=True
+2026-03-16 14:25:19 | INFO | MainThread | XRPUSDT | trend=BULL | breakL=False | breakS=False | adx=28.45 | adx_ok=True | rising_ok=True | vol_ratio=0.42 | vol_up=False
+2026-03-16 14:25:19 | INFO | MainThread | 1000PEPEUSDT | trend=BEAR | breakL=False | breakS=False | adx=13.07 | adx_ok=False | rising_ok=True | vol_ratio=0.37 | vol_up=True
+2026-03-16 14:25:19 | INFO | MainThread | AVAXUSDT | trend=BULL | breakL=False | breakS=False | adx=24.93 | adx_ok=True | rising_ok=True | vol_ratio=0.35 | vol_up=False
+2026-03-16 14:25:19 | INFO | MainThread | UNIUSDT | trend=BULL | breakL=False | breakS=False | adx=31.09 | adx_ok=True | rising_ok=True | vol_ratio=0.38 | vol_up=False
+2026-03-16 14:25:19 | INFO | MainThread | ARBUSDT | trend=BULL | breakL=False | breakS=False | adx=34.39 | adx_ok=True | rising_ok=True | vol_ratio=0.21 | vol_up=False
+2026-03-16 14:25:19 | INFO | MainThread | ADAUSDT | trend=BULL | breakL=False | breakS=False | adx=13.59 | adx_ok=False | rising_ok=True | vol_ratio=0.36 | vol_up=False
+2026-03-16 14:25:19 | INFO | MainThread | PENGUUSDT | trend=BEAR | breakL=False | breakS=False | adx=10.57 | adx_ok=False | rising_ok=True | vol_ratio=0.92 | vol_up=True
+2026-03-16 14:30:08 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1773682199999
+2026-03-16 14:30:09 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1773682199999
+2026-03-16 14:30:11 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1773682199999
+2026-03-16 14:30:12 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1773682199999
+2026-03-16 14:30:13 | INFO | MainThread | [CACHE] New closed candle 1000PEPEUSDT close_time=1773682199999
+2026-03-16 14:30:14 | INFO | MainThread | [CACHE] New closed candle AVAXUSDT close_time=1773682199999
+2026-03-16 14:30:15 | INFO | MainThread | [CACHE] New closed candle UNIUSDT close_time=1773682199999
+2026-03-16 14:30:16 | INFO | MainThread | [CACHE] New closed candle ARBUSDT close_time=1773682199999
+2026-03-16 14:30:17 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1773682199999
+2026-03-16 14:30:18 | INFO | MainThread | [CACHE] New closed candle PENGUUSDT close_time=1773682199999
+2026-03-16 14:30:19 | INFO | MainThread | BTCUSDT | trend=NONE | breakL=False | breakS=False | adx=23.90 | adx_ok=True | rising_ok=True | vol_ratio=0.54 | vol_up=True
+2026-03-16 14:30:19 | INFO | MainThread | SOLUSDT | trend=NONE | breakL=False | breakS=False | adx=17.45 | adx_ok=False | rising_ok=True | vol_ratio=0.85 | vol_up=False
+2026-03-16 14:30:19 | INFO | MainThread | BNBUSDT | trend=NONE | breakL=False | breakS=False | adx=16.85 | adx_ok=False | rising_ok=True | vol_ratio=0.69 | vol_up=True
+2026-03-16 14:30:19 | INFO | MainThread | XRPUSDT | trend=BULL | breakL=False | breakS=False | adx=28.21 | adx_ok=True | rising_ok=True | vol_ratio=0.49 | vol_up=True
+2026-03-16 14:30:19 | INFO | MainThread | 1000PEPEUSDT | trend=NONE | breakL=False | breakS=False | adx=12.38 | adx_ok=False | rising_ok=True | vol_ratio=0.39 | vol_up=True
+2026-03-16 14:30:19 | INFO | MainThread | AVAXUSDT | trend=NONE | breakL=False | breakS=False | adx=24.08 | adx_ok=True | rising_ok=True | vol_ratio=0.64 | vol_up=True
+2026-03-16 14:30:19 | INFO | MainThread | UNIUSDT | trend=BULL | breakL=False | breakS=False | adx=31.74 | adx_ok=True | rising_ok=True | vol_ratio=0.28 | vol_up=False
+2026-03-16 14:30:19 | INFO | MainThread | ARBUSDT | trend=BULL | breakL=False | breakS=False | adx=34.60 | adx_ok=True | rising_ok=True | vol_ratio=0.43 | vol_up=True
+2026-03-16 14:30:19 | INFO | MainThread | ADAUSDT | trend=BULL | breakL=False | breakS=False | adx=13.34 | adx_ok=False | rising_ok=True | vol_ratio=0.78 | vol_up=True
+2026-03-16 14:30:19 | INFO | MainThread | PENGUUSDT | trend=BEAR | breakL=False | breakS=False | adx=10.28 | adx_ok=False | rising_ok=True | vol_ratio=0.32 | vol_up=False
+2026-03-16 14:35:17 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1773682499999
+2026-03-16 14:35:18 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1773682499999
+2026-03-16 14:35:19 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1773682499999
+2026-03-16 14:35:20 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1773682499999
+2026-03-16 14:35:21 | INFO | MainThread | [CACHE] New closed candle 1000PEPEUSDT close_time=1773682499999
+2026-03-16 14:35:22 | INFO | MainThread | [CACHE] New closed candle AVAXUSDT close_time=1773682499999
+2026-03-16 14:35:24 | INFO | MainThread | [CACHE] New closed candle UNIUSDT close_time=1773682499999
+2026-03-16 14:35:25 | INFO | MainThread | [CACHE] New closed candle ARBUSDT close_time=1773682499999
+2026-03-16 14:35:26 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1773682499999
+2026-03-16 14:35:27 | INFO | MainThread | [CACHE] New closed candle PENGUUSDT close_time=1773682499999
+2026-03-16 14:35:28 | INFO | MainThread | BTCUSDT | trend=BULL | breakL=False | breakS=False | adx=24.31 | adx_ok=True | rising_ok=True | vol_ratio=0.56 | vol_up=False
+2026-03-16 14:35:28 | INFO | MainThread | SOLUSDT | trend=BULL | breakL=False | breakS=False | adx=17.56 | adx_ok=False | rising_ok=True | vol_ratio=1.06 | vol_up=True
+2026-03-16 14:35:28 | INFO | MainThread | BNBUSDT | trend=BULL | breakL=False | breakS=False | adx=17.93 | adx_ok=False | rising_ok=True | vol_ratio=1.94 | vol_up=True
+2026-03-16 14:35:28 | INFO | MainThread | XRPUSDT | trend=BULL | breakL=False | breakS=False | adx=28.56 | adx_ok=True | rising_ok=True | vol_ratio=1.04 | vol_up=True
+2026-03-16 14:35:28 | INFO | MainThread | 1000PEPEUSDT | trend=BEAR | breakL=False | breakS=False | adx=11.97 | adx_ok=False | rising_ok=True | vol_ratio=0.80 | vol_up=True
+2026-03-16 14:35:28 | INFO | MainThread | AVAXUSDT | trend=BULL | breakL=False | breakS=False | adx=23.98 | adx_ok=True | rising_ok=True | vol_ratio=0.90 | vol_up=True
+2026-03-16 14:35:28 | INFO | MainThread | UNIUSDT | trend=BULL | breakL=False | breakS=False | adx=33.27 | adx_ok=True | rising_ok=True | vol_ratio=1.78 | vol_up=True
+2026-03-16 14:35:28 | INFO | MainThread | ARBUSDT | trend=BULL | breakL=False | breakS=False | adx=35.20 | adx_ok=True | rising_ok=True | vol_ratio=1.02 | vol_up=True
+2026-03-16 14:35:28 | INFO | MainThread | ADAUSDT | trend=BEAR | breakL=False | breakS=False | adx=12.44 | adx_ok=False | rising_ok=True | vol_ratio=1.00 | vol_up=True
+2026-03-16 14:35:28 | INFO | MainThread | PENGUUSDT | trend=NONE | breakL=False | breakS=False | adx=10.47 | adx_ok=False | rising_ok=True | vol_ratio=0.70 | vol_up=True
+2026-03-16 14:40:16 | WARNING | MainThread | [TG poll] error: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=10)
+2026-03-16 14:40:18 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1773682799999
+2026-03-16 14:40:19 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1773682799999
+2026-03-16 14:40:20 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1773682799999
+2026-03-16 14:40:22 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1773682799999
+2026-03-16 14:40:23 | INFO | MainThread | [CACHE] New closed candle 1000PEPEUSDT close_time=1773682799999
+2026-03-16 14:40:24 | INFO | MainThread | [CACHE] New closed candle AVAXUSDT close_time=1773682799999
+2026-03-16 14:40:25 | INFO | MainThread | [CACHE] New closed candle UNIUSDT close_time=1773682799999
+2026-03-16 14:40:26 | INFO | MainThread | [CACHE] New closed candle ARBUSDT close_time=1773682799999
+2026-03-16 14:40:27 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1773682799999
+2026-03-16 14:40:28 | INFO | MainThread | [CACHE] New closed candle PENGUUSDT close_time=1773682799999
+2026-03-16 14:40:29 | INFO | MainThread | BTCUSDT | trend=BULL | breakL=False | breakS=False | adx=25.17 | adx_ok=True | rising_ok=True | vol_ratio=1.58 | vol_up=True
+2026-03-16 14:40:29 | INFO | MainThread | SOLUSDT | trend=BULL | breakL=False | breakS=False | adx=17.92 | adx_ok=False | rising_ok=True | vol_ratio=0.75 | vol_up=False
+2026-03-16 14:40:29 | INFO | MainThread | BNBUSDT | trend=BULL | breakL=False | breakS=False | adx=18.93 | adx_ok=False | rising_ok=True | vol_ratio=0.61 | vol_up=False
+2026-03-16 14:40:29 | INFO | MainThread | XRPUSDT | trend=BULL | breakL=False | breakS=False | adx=29.21 | adx_ok=True | rising_ok=True | vol_ratio=1.09 | vol_up=True
+2026-03-16 14:40:29 | INFO | MainThread | 1000PEPEUSDT | trend=BEAR | breakL=False | breakS=False | adx=12.08 | adx_ok=False | rising_ok=True | vol_ratio=1.48 | vol_up=True
+2026-03-16 14:40:29 | INFO | MainThread | AVAXUSDT | trend=BULL | breakL=False | breakS=False | adx=24.24 | adx_ok=True | rising_ok=True | vol_ratio=0.86 | vol_up=False
+2026-03-16 14:40:29 | INFO | MainThread | UNIUSDT | trend=BULL | breakL=False | breakS=False | adx=33.55 | adx_ok=True | rising_ok=True | vol_ratio=2.37 | vol_up=True
+2026-03-16 14:40:29 | INFO | MainThread | ARBUSDT | trend=BULL | breakL=False | breakS=False | adx=36.13 | adx_ok=True | rising_ok=True | vol_ratio=0.80 | vol_up=False
+2026-03-16 14:40:29 | INFO | MainThread | ADAUSDT | trend=NONE | breakL=False | breakS=False | adx=11.62 | adx_ok=False | rising_ok=True | vol_ratio=0.78 | vol_up=False
+2026-03-16 14:40:29 | INFO | MainThread | PENGUUSDT | trend=BULL | breakL=False | breakS=False | adx=10.90 | adx_ok=False | rising_ok=True | vol_ratio=0.55 | vol_up=False
+2026-03-16 14:45:21 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1773683099999
+2026-03-16 14:45:22 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1773683099999
+2026-03-16 14:45:23 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1773683099999
+2026-03-16 14:45:24 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1773683099999
+2026-03-16 14:45:25 | INFO | MainThread | [CACHE] New closed candle 1000PEPEUSDT close_time=1773683099999
+2026-03-16 14:45:26 | INFO | MainThread | [CACHE] New closed candle AVAXUSDT close_time=1773683099999
+2026-03-16 14:45:27 | INFO | MainThread | [CACHE] New closed candle UNIUSDT close_time=1773683099999
+2026-03-16 14:45:29 | INFO | MainThread | [CACHE] New closed candle ARBUSDT close_time=1773683099999
+2026-03-16 14:45:30 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1773683099999
+2026-03-16 14:45:31 | INFO | MainThread | [CACHE] New closed candle PENGUUSDT close_time=1773683099999
+2026-03-16 14:45:31 | INFO | MainThread | BTCUSDT | trend=BULL | breakL=False | breakS=False | adx=25.98 | adx_ok=True | rising_ok=True | vol_ratio=1.29 | vol_up=False
+2026-03-16 14:45:31 | INFO | MainThread | SOLUSDT | trend=BULL | breakL=False | breakS=False | adx=18.38 | adx_ok=False | rising_ok=True | vol_ratio=0.91 | vol_up=True
+2026-03-16 14:45:31 | INFO | MainThread | BNBUSDT | trend=BULL | breakL=False | breakS=False | adx=20.01 | adx_ok=True | rising_ok=True | vol_ratio=0.64 | vol_up=False
+2026-03-16 14:45:31 | INFO | MainThread | XRPUSDT | trend=BULL | breakL=False | breakS=False | adx=30.31 | adx_ok=True | rising_ok=True | vol_ratio=1.32 | vol_up=True
+2026-03-16 14:45:31 | INFO | MainThread | 1000PEPEUSDT | trend=BEAR | breakL=False | breakS=False | adx=12.69 | adx_ok=False | rising_ok=True | vol_ratio=1.11 | vol_up=False
+2026-03-16 14:45:31 | INFO | MainThread | AVAXUSDT | trend=BULL | breakL=False | breakS=False | adx=24.57 | adx_ok=True | rising_ok=True | vol_ratio=0.60 | vol_up=False
+2026-03-16 14:45:31 | INFO | MainThread | UNIUSDT | trend=BULL | breakL=False | breakS=False | adx=33.81 | adx_ok=True | rising_ok=True | vol_ratio=0.56 | vol_up=False
+2026-03-16 14:45:31 | INFO | MainThread | ARBUSDT | trend=BULL | breakL=False | breakS=False | adx=37.17 | adx_ok=True | rising_ok=True | vol_ratio=0.27 | vol_up=False
+2026-03-16 14:45:31 | INFO | MainThread | ADAUSDT | trend=BULL | breakL=False | breakS=False | adx=11.12 | adx_ok=False | rising_ok=True | vol_ratio=0.63 | vol_up=False
+2026-03-16 14:45:31 | INFO | MainThread | PENGUUSDT | trend=BULL | breakL=False | breakS=False | adx=11.34 | adx_ok=False | rising_ok=True | vol_ratio=0.61 | vol_up=True
+2026-03-16 14:50:06 | INFO | MainThread | [CACHE] New closed candle ARBUSDT close_time=1773683399999
+2026-03-16 14:50:08 | INFO | MainThread | [CACHE] New closed candle PENGUUSDT close_time=1773683399999
+2026-03-16 14:50:08 | INFO | MainThread | ARBUSDT | trend=BULL | breakL=False | breakS=False | adx=38.13 | adx_ok=True | rising_ok=True | vol_ratio=1.06 | vol_up=True
+2026-03-16 14:50:08 | INFO | MainThread | PENGUUSDT | trend=BULL | breakL=False | breakS=False | adx=12.16 | adx_ok=False | rising_ok=True | vol_ratio=0.65 | vol_up=False
+2026-03-16 14:50:22 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1773683399999
+2026-03-16 14:50:23 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1773683399999
+2026-03-16 14:50:24 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1773683399999
+2026-03-16 14:50:25 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1773683399999
+2026-03-16 14:50:26 | INFO | MainThread | [CACHE] New closed candle 1000PEPEUSDT close_time=1773683399999
+2026-03-16 14:50:27 | INFO | MainThread | [CACHE] New closed candle AVAXUSDT close_time=1773683399999
+2026-03-16 14:50:28 | INFO | MainThread | [CACHE] New closed candle UNIUSDT close_time=1773683399999
+2026-03-16 14:50:30 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1773683399999
+2026-03-16 14:50:31 | INFO | MainThread | BTCUSDT | trend=BULL | breakL=False | breakS=False | adx=27.37 | adx_ok=True | rising_ok=True | vol_ratio=1.88 | vol_up=True
+2026-03-16 14:50:31 | INFO | MainThread | SOLUSDT | trend=BULL | breakL=False | breakS=False | adx=19.46 | adx_ok=False | rising_ok=True | vol_ratio=2.04 | vol_up=True
+2026-03-16 14:50:31 | INFO | MainThread | BNBUSDT | trend=BULL | breakL=False | breakS=False | adx=21.73 | adx_ok=True | rising_ok=True | vol_ratio=1.22 | vol_up=True
+2026-03-16 14:50:31 | INFO | MainThread | XRPUSDT | trend=BULL | breakL=False | breakS=False | adx=31.50 | adx_ok=True | rising_ok=True | vol_ratio=1.54 | vol_up=True
+2026-03-16 14:50:31 | INFO | MainThread | 1000PEPEUSDT | trend=BULL | breakL=False | breakS=False | adx=13.25 | adx_ok=False | rising_ok=True | vol_ratio=1.11 | vol_up=False
+2026-03-16 14:50:31 | INFO | MainThread | AVAXUSDT | trend=BULL | breakL=False | breakS=False | adx=25.45 | adx_ok=True | rising_ok=True | vol_ratio=1.30 | vol_up=True
+2026-03-16 14:50:31 | INFO | MainThread | UNIUSDT | trend=BULL | breakL=False | breakS=False | adx=33.61 | adx_ok=True | rising_ok=True | vol_ratio=0.64 | vol_up=True
+2026-03-16 14:50:31 | INFO | MainThread | ADAUSDT | trend=BULL | breakL=False | breakS=False | adx=11.26 | adx_ok=False | rising_ok=True | vol_ratio=0.69 | vol_up=True
+2026-03-16 14:55:11 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1773683699999
+2026-03-16 14:55:12 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1773683699999
+2026-03-16 14:55:13 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1773683699999
+2026-03-16 14:55:14 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1773683699999
+2026-03-16 14:55:15 | INFO | MainThread | [CACHE] New closed candle 1000PEPEUSDT close_time=1773683699999
+2026-03-16 14:55:17 | INFO | MainThread | [CACHE] New closed candle AVAXUSDT close_time=1773683699999
+2026-03-16 14:55:18 | INFO | MainThread | [CACHE] New closed candle UNIUSDT close_time=1773683699999
+2026-03-16 14:55:19 | INFO | MainThread | [CACHE] New closed candle ARBUSDT close_time=1773683699999
+2026-03-16 14:55:20 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1773683699999
+2026-03-16 14:55:21 | INFO | MainThread | [CACHE] New closed candle PENGUUSDT close_time=1773683699999
+2026-03-16 14:55:22 | INFO | MainThread | BTCUSDT | trend=BULL | breakL=False | breakS=False | adx=27.58 | adx_ok=True | rising_ok=True | vol_ratio=0.87 | vol_up=False
+2026-03-16 14:55:22 | INFO | MainThread | SOLUSDT | trend=BULL | breakL=False | breakS=False | adx=19.41 | adx_ok=False | rising_ok=True | vol_ratio=0.88 | vol_up=False
+2026-03-16 14:55:22 | INFO | MainThread | BNBUSDT | trend=BULL | breakL=False | breakS=False | adx=22.92 | adx_ok=True | rising_ok=True | vol_ratio=0.57 | vol_up=False
+2026-03-16 14:55:22 | INFO | MainThread | XRPUSDT | trend=BULL | breakL=False | breakS=False | adx=32.56 | adx_ok=True | rising_ok=True | vol_ratio=0.82 | vol_up=False
+2026-03-16 14:55:22 | INFO | MainThread | 1000PEPEUSDT | trend=BULL | breakL=False | breakS=False | adx=13.02 | adx_ok=False | rising_ok=True | vol_ratio=0.81 | vol_up=False
+2026-03-16 14:55:22 | INFO | MainThread | AVAXUSDT | trend=BULL | breakL=False | breakS=False | adx=25.26 | adx_ok=True | rising_ok=True | vol_ratio=1.19 | vol_up=False
+2026-03-16 14:55:22 | INFO | MainThread | UNIUSDT | trend=BULL | breakL=False | breakS=False | adx=32.67 | adx_ok=True | rising_ok=True | vol_ratio=0.68 | vol_up=True
+2026-03-16 14:55:22 | INFO | MainThread | ARBUSDT | trend=BULL | breakL=False | breakS=False | adx=37.98 | adx_ok=True | rising_ok=True | vol_ratio=0.41 | vol_up=False
+2026-03-16 14:55:22 | INFO | MainThread | ADAUSDT | trend=BULL | breakL=False | breakS=False | adx=10.82 | adx_ok=False | rising_ok=True | vol_ratio=0.45 | vol_up=False
+2026-03-16 14:55:22 | INFO | MainThread | PENGUUSDT | trend=BULL | breakL=False | breakS=False | adx=11.87 | adx_ok=False | rising_ok=True | vol_ratio=0.63 | vol_up=False
+2026-03-16 15:00:10 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1773683999999
+2026-03-16 15:00:12 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1773683999999
+2026-03-16 15:00:13 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1773683999999
+2026-03-16 15:00:14 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1773683999999
+2026-03-16 15:00:15 | INFO | MainThread | [CACHE] New closed candle 1000PEPEUSDT close_time=1773683999999
+2026-03-16 15:00:16 | INFO | MainThread | [CACHE] New closed candle AVAXUSDT close_time=1773683999999
+2026-03-16 15:00:17 | INFO | MainThread | [CACHE] New closed candle UNIUSDT close_time=1773683999999
+2026-03-16 15:00:18 | INFO | MainThread | [CACHE] New closed candle ARBUSDT close_time=1773683999999
+2026-03-16 15:00:20 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1773683999999
+2026-03-16 15:00:21 | INFO | MainThread | [CACHE] New closed candle PENGUUSDT close_time=1773683999999
+2026-03-16 15:00:21 | INFO | MainThread | BTCUSDT | trend=BULL | breakL=False | breakS=False | adx=27.84 | adx_ok=True | rising_ok=True | vol_ratio=0.41 | vol_up=False
+2026-03-16 15:00:21 | INFO | MainThread | SOLUSDT | trend=BULL | breakL=False | breakS=False | adx=19.36 | adx_ok=False | rising_ok=True | vol_ratio=0.40 | vol_up=False
+2026-03-16 15:00:21 | INFO | MainThread | BNBUSDT | trend=BULL | breakL=False | breakS=False | adx=24.11 | adx_ok=True | rising_ok=True | vol_ratio=0.44 | vol_up=False
+2026-03-16 15:00:21 | INFO | MainThread | XRPUSDT | trend=BULL | breakL=False | breakS=False | adx=33.74 | adx_ok=True | rising_ok=True | vol_ratio=0.65 | vol_up=False
+2026-03-16 15:00:21 | INFO | MainThread | 1000PEPEUSDT | trend=BULL | breakL=False | breakS=False | adx=12.80 | adx_ok=False | rising_ok=True | vol_ratio=0.51 | vol_up=False
+2026-03-16 15:00:21 | INFO | MainThread | AVAXUSDT | trend=BULL | breakL=False | breakS=False | adx=25.09 | adx_ok=True | rising_ok=True | vol_ratio=0.37 | vol_up=False
+2026-03-16 15:00:21 | INFO | MainThread | UNIUSDT | trend=BULL | breakL=False | breakS=False | adx=31.81 | adx_ok=True | rising_ok=True | vol_ratio=0.22 | vol_up=False
+2026-03-16 15:00:21 | INFO | MainThread | ARBUSDT | trend=NONE | breakL=False | breakS=False | adx=38.06 | adx_ok=True | rising_ok=True | vol_ratio=0.30 | vol_up=False
+2026-03-16 15:00:21 | INFO | MainThread | ADAUSDT | trend=BULL | breakL=False | breakS=False | adx=10.66 | adx_ok=False | rising_ok=True | vol_ratio=0.29 | vol_up=False
+2026-03-16 15:00:21 | INFO | MainThread | PENGUUSDT | trend=BULL | breakL=False | breakS=False | adx=11.60 | adx_ok=False | rising_ok=True | vol_ratio=0.25 | vol_up=False
+2026-03-16 15:05:11 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1773684299999
+2026-03-16 15:05:12 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1773684299999
+2026-03-16 15:05:13 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1773684299999
+2026-03-16 15:05:14 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1773684299999
+2026-03-16 15:05:15 | INFO | MainThread | [CACHE] New closed candle 1000PEPEUSDT close_time=1773684299999
+2026-03-16 15:05:16 | INFO | MainThread | [CACHE] New closed candle AVAXUSDT close_time=1773684299999
+2026-03-16 15:05:17 | INFO | MainThread | [CACHE] New closed candle UNIUSDT close_time=1773684299999
+2026-03-16 15:05:19 | INFO | MainThread | [CACHE] New closed candle ARBUSDT close_time=1773684299999
+2026-03-16 15:05:20 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1773684299999
+2026-03-16 15:05:21 | INFO | MainThread | [CACHE] New closed candle PENGUUSDT close_time=1773684299999
+2026-03-16 15:05:21 | INFO | MainThread | BTCUSDT | trend=BULL | breakL=False | breakS=False | adx=28.22 | adx_ok=True | rising_ok=True | vol_ratio=0.80 | vol_up=True
+2026-03-16 15:05:21 | INFO | MainThread | SOLUSDT | trend=BULL | breakL=False | breakS=False | adx=19.98 | adx_ok=False | rising_ok=True | vol_ratio=1.17 | vol_up=True
+2026-03-16 15:05:21 | INFO | MainThread | BNBUSDT | trend=BULL | breakL=False | breakS=False | adx=25.35 | adx_ok=True | rising_ok=True | vol_ratio=0.80 | vol_up=True
+2026-03-16 15:05:21 | INFO | MainThread | XRPUSDT | trend=BULL | breakL=False | breakS=False | adx=34.98 | adx_ok=True | rising_ok=True | vol_ratio=1.23 | vol_up=True
+2026-03-16 15:05:21 | INFO | MainThread | 1000PEPEUSDT | trend=BULL | breakL=False | breakS=False | adx=12.98 | adx_ok=False | rising_ok=True | vol_ratio=1.63 | vol_up=True
+2026-03-16 15:05:21 | INFO | MainThread | AVAXUSDT | trend=NONE | breakL=False | breakS=False | adx=24.53 | adx_ok=True | rising_ok=True | vol_ratio=1.07 | vol_up=True
+2026-03-16 15:05:21 | INFO | MainThread | UNIUSDT | trend=BULL | breakL=False | breakS=False | adx=30.67 | adx_ok=True | rising_ok=True | vol_ratio=0.66 | vol_up=True
+2026-03-16 15:05:21 | INFO | MainThread | ARBUSDT | trend=NONE | breakL=False | breakS=False | adx=37.64 | adx_ok=True | rising_ok=True | vol_ratio=1.08 | vol_up=True
+2026-03-16 15:05:21 | INFO | MainThread | ADAUSDT | trend=BULL | breakL=False | breakS=False | adx=10.35 | adx_ok=False | rising_ok=True | vol_ratio=0.74 | vol_up=True
+2026-03-16 15:05:21 | INFO | MainThread | PENGUUSDT | trend=NONE | breakL=False | breakS=False | adx=11.37 | adx_ok=False | rising_ok=True | vol_ratio=0.95 | vol_up=True
+2026-03-16 15:10:04 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1773684599999
+2026-03-16 15:10:05 | INFO | MainThread | [CACHE] New closed candle 1000PEPEUSDT close_time=1773684599999
+2026-03-16 15:10:07 | INFO | MainThread | [CACHE] New closed candle UNIUSDT close_time=1773684599999
+2026-03-16 15:10:08 | INFO | MainThread | [CACHE] New closed candle ARBUSDT close_time=1773684599999
+2026-03-16 15:10:08 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1773684599999
+2026-03-16 15:10:09 | INFO | MainThread | [CACHE] New closed candle PENGUUSDT close_time=1773684599999
+2026-03-16 15:10:10 | INFO | MainThread | XRPUSDT | trend=BULL | breakL=False | breakS=False | adx=37.14 | adx_ok=True | rising_ok=True | vol_ratio=3.94 | vol_up=True
+2026-03-16 15:10:10 | INFO | MainThread | 1000PEPEUSDT | trend=BULL | breakL=False | breakS=False | adx=13.04 | adx_ok=False | rising_ok=True | vol_ratio=1.16 | vol_up=False
+2026-03-16 15:10:10 | INFO | MainThread | ARBUSDT | trend=BULL | breakL=False | breakS=False | adx=38.44 | adx_ok=True | rising_ok=True | vol_ratio=1.73 | vol_up=True
+2026-03-16 15:10:10 | INFO | MainThread | ADAUSDT | trend=BULL | breakL=False | breakS=False | adx=11.68 | adx_ok=False | rising_ok=True | vol_ratio=1.70 | vol_up=True
+2026-03-16 15:10:10 | INFO | MainThread | PENGUUSDT | trend=BULL | breakL=False | breakS=False | adx=11.62 | adx_ok=False | rising_ok=True | vol_ratio=1.99 | vol_up=True
+2026-03-16 15:10:23 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1773684599999
+2026-03-16 15:10:24 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1773684599999
+2026-03-16 15:10:25 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1773684599999
+2026-03-16 15:10:27 | INFO | MainThread | [CACHE] New closed candle AVAXUSDT close_time=1773684599999
+2026-03-16 15:10:30 | INFO | MainThread | BTCUSDT | trend=BULL | breakL=False | breakS=False | adx=29.96 | adx_ok=True | rising_ok=True | vol_ratio=2.63 | vol_up=True
+2026-03-16 15:10:30 | INFO | MainThread | SOLUSDT | trend=BULL | breakL=False | breakS=False | adx=21.80 | adx_ok=True | rising_ok=True | vol_ratio=3.27 | vol_up=True
+2026-03-16 15:10:30 | INFO | MainThread | BNBUSDT | trend=BULL | breakL=False | breakS=False | adx=27.44 | adx_ok=True | rising_ok=True | vol_ratio=2.24 | vol_up=True
+2026-03-16 15:10:30 | INFO | MainThread | AVAXUSDT | trend=BULL | breakL=False | breakS=False | adx=25.18 | adx_ok=True | rising_ok=True | vol_ratio=1.43 | vol_up=True
+2026-03-16 15:15:14 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1773684899999
+2026-03-16 15:15:16 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1773684899999
+2026-03-16 15:15:17 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1773684899999
+2026-03-16 15:15:18 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1773684899999
+2026-03-16 15:15:19 | INFO | MainThread | [CACHE] New closed candle 1000PEPEUSDT close_time=1773684899999
+2026-03-16 15:15:20 | INFO | MainThread | [CACHE] New closed candle AVAXUSDT close_time=1773684899999
+2026-03-16 15:15:21 | INFO | MainThread | [CACHE] New closed candle UNIUSDT close_time=1773684899999
+2026-03-16 15:15:22 | INFO | MainThread | [CACHE] New closed candle ARBUSDT close_time=1773684899999
+2026-03-16 15:15:23 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1773684899999
+2026-03-16 15:15:24 | INFO | MainThread | [CACHE] New closed candle PENGUUSDT close_time=1773684899999
+2026-03-16 15:15:25 | INFO | MainThread | BTCUSDT | trend=BULL | breakL=False | breakS=False | adx=31.61 | adx_ok=True | rising_ok=True | vol_ratio=1.71 | vol_up=False
+2026-03-16 15:15:25 | INFO | MainThread | SOLUSDT | trend=BULL | breakL=False | breakS=False | adx=23.50 | adx_ok=True | rising_ok=True | vol_ratio=1.46 | vol_up=False
+2026-03-16 15:15:25 | INFO | MainThread | BNBUSDT | trend=BULL | breakL=False | breakS=False | adx=29.37 | adx_ok=True | rising_ok=True | vol_ratio=2.65 | vol_up=True
+2026-03-16 15:15:25 | INFO | MainThread | XRPUSDT | trend=BULL | breakL=False | breakS=False | adx=39.16 | adx_ok=True | rising_ok=True | vol_ratio=1.59 | vol_up=False
+2026-03-16 15:15:25 | INFO | MainThread | 1000PEPEUSDT | trend=BULL | breakL=False | breakS=False | adx=13.09 | adx_ok=False | rising_ok=True | vol_ratio=0.96 | vol_up=False
+2026-03-16 15:15:25 | INFO | MainThread | AVAXUSDT | trend=BULL | breakL=False | breakS=False | adx=25.79 | adx_ok=True | rising_ok=True | vol_ratio=1.38 | vol_up=False
+2026-03-16 15:15:25 | INFO | MainThread | UNIUSDT | trend=BULL | breakL=False | breakS=False | adx=31.32 | adx_ok=True | rising_ok=True | vol_ratio=1.10 | vol_up=True
+2026-03-16 15:15:25 | INFO | MainThread | ARBUSDT | trend=BULL | breakL=False | breakS=False | adx=39.19 | adx_ok=True | rising_ok=True | vol_ratio=0.55 | vol_up=False
+2026-03-16 15:15:25 | INFO | MainThread | ADAUSDT | trend=BULL | breakL=False | breakS=False | adx=12.92 | adx_ok=False | rising_ok=True | vol_ratio=1.20 | vol_up=False
+2026-03-16 15:15:25 | INFO | MainThread | PENGUUSDT | trend=BULL | breakL=False | breakS=False | adx=11.84 | adx_ok=False | rising_ok=True | vol_ratio=1.16 | vol_up=False
+2026-03-16 15:20:06 | INFO | MainThread | [CACHE] New closed candle BNBUSDT close_time=1773685199999
+2026-03-16 15:20:08 | INFO | MainThread | [CACHE] New closed candle XRPUSDT close_time=1773685199999
+2026-03-16 15:20:09 | INFO | MainThread | [CACHE] New closed candle 1000PEPEUSDT close_time=1773685199999
+2026-03-16 15:20:10 | INFO | MainThread | [CACHE] New closed candle AVAXUSDT close_time=1773685199999
+2026-03-16 15:20:10 | INFO | MainThread | [CACHE] New closed candle UNIUSDT close_time=1773685199999
+2026-03-16 15:20:11 | INFO | MainThread | [CACHE] New closed candle ARBUSDT close_time=1773685199999
+2026-03-16 15:20:12 | INFO | MainThread | [CACHE] New closed candle ADAUSDT close_time=1773685199999
+2026-03-16 15:20:13 | INFO | MainThread | [CACHE] New closed candle PENGUUSDT close_time=1773685199999
+2026-03-16 15:20:14 | INFO | MainThread | XRPUSDT | trend=BULL | breakL=False | breakS=False | adx=41.62 | adx_ok=True | rising_ok=True | vol_ratio=4.67 | vol_up=True
+2026-03-16 15:20:14 | INFO | MainThread | 1000PEPEUSDT | trend=BULL | breakL=False | breakS=False | adx=12.35 | adx_ok=False | rising_ok=True | vol_ratio=0.94 | vol_up=False
+2026-03-16 15:20:14 | INFO | MainThread | AVAXUSDT | trend=BULL | breakL=False | breakS=False | adx=27.00 | adx_ok=True | rising_ok=True | vol_ratio=2.79 | vol_up=True
+2026-03-16 15:20:14 | INFO | MainThread | UNIUSDT | trend=BULL | breakL=False | breakS=False | adx=31.87 | adx_ok=True | rising_ok=True | vol_ratio=0.51 | vol_up=False
+2026-03-16 15:20:14 | INFO | MainThread | ARBUSDT | trend=BULL | breakL=False | breakS=False | adx=40.20 | adx_ok=True | rising_ok=True | vol_ratio=1.15 | vol_up=True
+2026-03-16 15:20:14 | INFO | MainThread | ADAUSDT | trend=BULL | breakL=False | breakS=False | adx=14.07 | adx_ok=False | rising_ok=True | vol_ratio=0.84 | vol_up=False
+2026-03-16 15:20:14 | INFO | MainThread | PENGUUSDT | trend=BULL | breakL=False | breakS=False | adx=12.48 | adx_ok=False | rising_ok=True | vol_ratio=0.81 | vol_up=False
+2026-03-16 15:20:27 | INFO | MainThread | [CACHE] New closed candle BTCUSDT close_time=1773685199999
+2026-03-16 15:20:28 | INFO | MainThread | [CACHE] New closed candle SOLUSDT close_time=1773685199999
+2026-03-16 15:20:34 | INFO | MainThread | BTCUSDT | trend=BULL | breakL=False | breakS=False | adx=33.13 | adx_ok=True | rising_ok=True | vol_ratio=1.10 | vol_up=False
+2026-03-16 15:20:34 | INFO | MainThread | SOLUSDT | trend=BULL | breakL=False | breakS=False | adx=25.40 | adx_ok=True | rising_ok=True | vol_ratio=2.17 | vol_up=True
