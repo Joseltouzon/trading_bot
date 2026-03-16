@@ -47,7 +47,7 @@ MARGIN_SAFETY_BUFFER = 0.03     # 3% buffer extra para evitar -2019 en Binance, 
 TRAILING_PCT = 0.5              # Solo usa si TRAILING_USE_ATR = False
 TRAILING_ACTIVATION_PCT = 0.5
 TRAILING_USE_ATR = True         # ✅ Activo: Usa volatilidad
-TRAILING_ATR_MULT = 1.5
+TRAILING_ATR_MULT = 2.0
 MIN_INITIAL_SL_PCT = 0.35       # Mínimo SL inicial
 INITIAL_SL_ATR_MULT = 0.7
 
@@ -83,11 +83,11 @@ USE_TAKE_PROFIT = False
 
 # Niveles de TP: [R:R, % a cerrar, ¿mover SL a Breakeven?]
 TP_LEVELS = [
-    {"ratio": 3.5, "close_pct": 50, "move_sl_to_be": True},   # 50% en 1.5R → SL a Entry
-    {"ratio": 5.0, "close_pct": 30, "move_sl_to_be": False},  # 30% en 2.5R → dejar correr
-    {"ratio": 6.0, "close_pct": 20, "move_sl_to_be": False},  # 20% en 4.0R → moonbag
+    {"ratio": 5.0, "close_pct": 30, "move_sl_to_be": True},   # 50% en 1.5R → SL a Entry
+    {"ratio": 8.0, "close_pct": 30, "move_sl_to_be": False},  # 30% en 2.5R → dejar correr
+    {"ratio": 12.0, "close_pct": 40, "move_sl_to_be": False},  # 20% en 4.0R → moonbag
 ]
 
-MIN_R_FOR_FIRST_TP = 2.2      # No activar TP si R:R < 1.2 (evitar ruido)
+MIN_R_FOR_FIRST_TP = 4.8      # No activar TP si R:R < 1.2 (evitar ruido)
 TP_THROTTLE_SECONDS = 10      # Mínimo tiempo entre ejecuciones de TP por símbolo
 TP_USE_MARK_PRICE = True      # Usar Mark Price (no last) para evaluar TP

@@ -384,6 +384,8 @@
         setInterval(() => {
             updateStats();
             updateUnrealizedPnL();
+            updateTrailingStatus();
+            updateSymbolsStatus();
         }, 5000);
     </script>
 
@@ -502,6 +504,101 @@
             const toast = new bootstrap.Toast(toastEl);
             toast.show();
         }
+
+        // ============================================================
+        // TRAILING STATUS
+        // ============================================================
+        async function updateTrailingStatus() {
+            try {
+                const res = await fetch("/api/trailing-status");
+                if (!res.ok) return;
+                const data = await res.json();
+                
+                if (!data.trailing) return;
+                
+                Object.entries(data.trailing).forEach(([symbol, info]) => {
+                    const el = document.getElementById(`trailing-${symbol}`);
+                    if (!el) return;
+                    
+                    if (info.activated) {
+                        const best = info.best ? parseFloat(info.best).toFixed(2) : 'N/A';
+                        const sl = info.sl ? parseFloat(info.sl).toFixed(2) : 'N/A';
+                        el.innerHTML = `<span class="badge bg-success" title="Best: ${best}">🔒 ON</span>`;
+                    } else {
+                        el.innerHTML = `<span class="badge bg-secondary">OFF</span>`;
+                    }
+                });
+            } catch (e) {
+                console.error("Trailing status update failed", e);
+            }
+        }
+
+        // ============================================================
+        // SYMBOLS STATUS
+        // ============================================================
+        async function updateSymbolsStatus() {
+            try {
+                const res = await fetch("/api/symbols-status");
+                if (!res.ok) return;
+                const data = await res.json();
+                
+                // Ocultar loading, mostrar contenido
+                const loading = document.getElementById('symbols-status-loading');
+                const content = document.getElementById('symbols-status-content');
+                if (loading) loading.style.display = 'none';
+                if (content) content.style.display = 'block';
+                
+                const tableBody = document.getElementById('symbols-status-table');
+                if (!tableBody) return;
+                
+                tableBody.innerHTML = data.symbols.map(sym => {
+                    // Estado
+                    let estado = '<span class="badge bg-secondary">Libre</span>';
+                    if (sym.has_position) {
+                        estado = '<span class="badge bg-success">Abierta</span>';
+                    } else if (sym.in_cooldown) {
+                        estado = '<span class="badge bg-warning">Cooldown</span>';
+                    }
+                    
+                    // Posición
+                    let posicion = '-';
+                    if (sym.has_position) {
+                        posicion = `<span class="badge bg-info">${sym.trail_sl ? 'SL: ' + parseFloat(sym.trail_sl).toFixed(2) : 'Sin SL'}</span>`;
+                    }
+                    
+                    // Trailing
+                    let trailing = '-';
+                    if (sym.has_trailing) {
+                        trailing = `<span class="badge bg-success">ON</span>`;
+                    }
+                    
+                    // Cooldown
+                    let cooldown = '-';
+                    if (sym.in_cooldown && sym.remaining_cooldown > 0) {
+                        cooldown = `<span class="badge bg-warning">${Math.ceil(sym.remaining_cooldown)}s</span>`;
+                    }
+                    
+                    return `
+                        <tr>
+                            <td><strong>${sym.symbol}</strong></td>
+                            <td>${estado}</td>
+                            <td>${posicion}</td>
+                            <td>${trailing}</td>
+                            <td>${cooldown}</td>
+                        </tr>
+                    `;
+                }).join('');
+                
+            } catch (e) {
+                console.error("Symbols status update failed", e);
+            }
+        }
+
+        // Inicializar status de símbolos al cargar
+        document.addEventListener('DOMContentLoaded', () => {
+            updateTrailingStatus();
+            updateSymbolsStatus();
+        });
 
         // Opcional: Limpiar filtros al cerrar modal
         document.getElementById('exportFiltersModal')?.addEventListener('hidden.bs.modal', () => {

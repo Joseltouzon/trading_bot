@@ -1,8 +1,10 @@
-from fastapi import APIRouter, Depends, Response, Query
+from fastapi import APIRouter, Depends, Response, Query, HTTPException
 from dashboard.dependencies import get_db, get_exchange, get_exchange_cache
 import csv
 import io
+import time
 from datetime import datetime
+import config as CFG
 
 router = APIRouter(prefix="/api")
 
@@ -354,3 +356,101 @@ def api_daily_pnl(
             "worst_day": min(daily_pnl, key=lambda x: x["pnl_usdt"]) if daily_pnl else None
         }
     }
+
+
+@router.get("/trailing-status")
+def api_trailing_status(db = Depends(get_db)):
+    """
+    Devuelve el estado del trailing para cada símbolo con posición abierta.
+    """
+    state = db.load_state() or {}
+    trail = state.get("trail", {})
+    
+    result = {}
+    for symbol, data in trail.items():
+        result[symbol] = {
+            "direction": data.get("direction"),
+            "entry": data.get("entry"),
+            "best": data.get("best"),
+            "sl": data.get("sl"),
+            "activated": data.get("activated", False)
+        }
+    
+    return {"trailing": result}
+
+
+@router.get("/cooldowns")
+def api_cooldowns(db = Depends(get_db)):
+    """
+    Devuelve los símbolos en cooldown.
+    """
+    state = db.load_state() or {}
+    cooldown = state.get("cooldown", {})
+    symbols = state.get("symbols", [])
+    
+    result = []
+    now_ms = int(datetime.now().timestamp() * 1000)
+    
+    for symbol in symbols:
+        if symbol in cooldown:
+            cd = cooldown[symbol]
+            until_ms = cd.get("until_ms", 0)
+            is_active = now_ms < until_ms
+            result.append({
+                "symbol": symbol,
+                "bars": cd.get("bars", 0),
+                "until_ms": until_ms,
+                "is_active": is_active,
+                "remaining_seconds": max(0, (until_ms - now_ms) / 1000) if is_active else 0
+            })
+    
+    return {"cooldowns": result}
+
+
+@router.get("/tp-status")
+def api_tp_status(db = Depends(get_db)):
+    """
+    Devuelve el estado del Take Profit y niveles configurados.
+    """
+    use_tp = getattr(CFG, "USE_TAKE_PROFIT", False)
+    tp_levels = getattr(CFG, "TP_LEVELS", [])
+    
+    return {
+        "enabled": use_tp,
+        "levels": tp_levels,
+        "config": {
+            "min_r_for_first_tp": getattr(CFG, "MIN_R_FOR_FIRST_TP", 2.2),
+            "tp_throttle_seconds": getattr(CFG, "TP_THROTTLE_SECONDS", 10),
+        }
+    }
+
+
+@router.get("/symbols-status")
+def api_symbols_status(db = Depends(get_db)):
+    """
+    Devuelve el estado de todos los símbolos monitoreados.
+    """
+    state = db.load_state() or {}
+    symbols = state.get("symbols", [])
+    cooldown = state.get("cooldown", {})
+    trail = state.get("trail", {})
+    position_ids = state.get("position_ids", {})
+    
+    now_ms = int(datetime.now().timestamp() * 1000)
+    
+    result = []
+    for symbol in symbols:
+        in_cooldown = symbol in cooldown and now_ms < cooldown[symbol].get("until_ms", 0)
+        has_position = symbol in position_ids
+        has_trailing = symbol in trail and trail[symbol].get("activated", False)
+        
+        result.append({
+            "symbol": symbol,
+            "in_cooldown": in_cooldown,
+            "has_position": has_position,
+            "has_trailing": has_trailing,
+            "trail_sl": trail.get(symbol, {}).get("sl"),
+            "remaining_cooldown": max(0, (cooldown[symbol].get("until_ms", 0) - now_ms) / 1000) if in_cooldown else 0
+        })
+    
+    return {"symbols": result}
