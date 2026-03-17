@@ -489,19 +489,23 @@ class EventLoop:
         symbol = ev.symbol
         bar_close_ms = int(ev.kline_close_time_ms)
 
+        # Detectar tipo de estrategia desde la señal
+        strategy_type = ev.signal.get("strategy", "ema_breakout")
+
         # ── GUARDS SECUENCIALES ──
         
-        # 1) ADX min
-        adx_val = float(ev.signal.get("adx", 0.0))
-        if adx_val < float(st.adx_min):
-            self.log.info(f"{symbol} BLOCKED: adx {adx_val:.2f} < min {st.adx_min}")
-            return True
-
-        # 2) ADX rising
-        if bool(getattr(CFG, "REQUIRE_ADX_RISING", True)):
-            if not bool(ev.signal.get("adx_increasing", False)):
-                self.log.info(f"{symbol} BLOCKED: adx not rising")
+        # 1) ADX min (solo para EMA breakout, stop_hunt no usa ADX)
+        if strategy_type == "ema_breakout":
+            adx_val = float(ev.signal.get("adx", 0.0))
+            if adx_val < float(st.adx_min):
+                self.log.info(f"{symbol} BLOCKED: adx {adx_val:.2f} < min {st.adx_min}")
                 return True
+
+            # 2) ADX rising (solo para EMA breakout)
+            if bool(getattr(CFG, "REQUIRE_ADX_RISING", True)):
+                if not bool(ev.signal.get("adx_increasing", False)):
+                    self.log.info(f"{symbol} BLOCKED: adx not rising")
+                    return True
 
         # 3) Cooldown
         if self._cooldown_blocked(st, symbol, bar_close_ms):

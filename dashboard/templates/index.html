@@ -830,6 +830,20 @@
                     <div class="invalid-feedback">Seleccione un timeframe válido.</div>
                 </div>
 
+                <div class="col-md-6">
+                    <label class="form-label" style="color: aquamarine;">
+                        Estrategia
+                        <span class="badge bg-warning text-dark" id="current-strategy-badge">
+                            Actual: {{ 'EMA Breakout' if state.strategy_mode=='ema_breakout' else 'Stop Hunt' }}
+                        </span>
+                    </label>
+                    <select class="form-select" name="strategy_mode" required>
+                        <option value="ema_breakout" {% if state.strategy_mode=='ema_breakout' %}selected{% endif %}>EMA Breakout</option>
+                        <option value="stop_hunt" {% if state.strategy_mode=='stop_hunt' %}selected{% endif %}>Stop Hunt</option>
+                    </select>
+                    <small class="text-muted" style="color: #fff !important;">EMA: breakout de pivots | Stop Hunt: busca liquidez</small>
+                </div>
+
                 <div class="col-12">
                     <label class="form-label" style="color: aquamarine;">Symbols (comma separated)</label>
                     <input type="text" class="form-control" name="symbols" value="{{ state.symbols | join(',') }}"

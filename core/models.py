@@ -34,6 +34,7 @@ class BotState:
     paper_trading: bool = False
     trailing_automatico: bool = True
     adx_rising: bool = False
+    strategy_mode: str = "ema_breakout"  # "ema_breakout" | "stop_hunt"
 
     def copy(self):
         return copy.deepcopy(self)

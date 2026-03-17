@@ -26,6 +26,7 @@ async def update_config(payload: dict = Body(...), db = Depends(get_db)):
         "adx_rising",
         "vol_min_ratio",
         "trailing_active",
+        "strategy_mode",
     ]
     for key in allowed_keys:
         if key in payload:
@@ -36,6 +37,15 @@ async def update_config(payload: dict = Body(...), db = Depends(get_db)):
                     raise HTTPException(
                         status_code=400, 
                         detail=f"Timeframe inválido. Opciones: {', '.join(valid_timeframes)}"
+                    )
+
+            # Validación para strategy_mode
+            if key == "strategy_mode":
+                valid_strategies = ["ema_breakout", "stop_hunt"]
+                if payload["strategy_mode"] not in valid_strategies:
+                    raise HTTPException(
+                        status_code=400,
+                        detail=f"Estrategia inválida. Opciones: {', '.join(valid_strategies)}"
                     )
 
             if key == "pivot_len":

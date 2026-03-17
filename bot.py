@@ -72,6 +72,7 @@ def main():
         ema_fast=CFG.EMA_FAST,
         vol_min_ratio=CFG.VOLUME_MIN_RATIO,
         trailing_active=CFG.TRAILING_ACTIVATION_PCT,
+        strategy_mode="ema_breakout",
     )
     state_dict = db.load_state() or {}
     # merge base
@@ -121,11 +122,13 @@ def main():
     event_loop = EventLoop(bus, market, exchange, om, telegram.send, db, log)
     risk_monitor = RiskMonitor(st, exchange, telegram, log)
     # Motor de señales
-    signal_engine = SignalEngine(market, bus, log)
+    signal_engine = SignalEngine(market, bus, log, st.strategy_mode)
 
     mode = "PAPER" if st.paper_trading else "PRODUCCIÓN"
+    strategy_label = "EMA Breakout" if st.strategy_mode == "ema_breakout" else "Stop Hunt"
     telegram.send(
         f"🚀 Bot activo ({mode})\n"
+        f"Strategy: {strategy_label}\n"
         f"Symbols: {', '.join(st.symbols)}\n"
         f"TF: {CFG.INTERVAL}\n"
         f"Risk: {st.risk_pct}%\n"
@@ -176,6 +179,13 @@ def main():
                     # Actualizar leverage en nuevos símbolos
                     for s in new_st.symbols:
                         exchange.set_margin_and_leverage(s, new_st.leverage, CFG.MARGIN_TYPE)
+                
+                # Detectar cambio de estrategia
+                if new_st.strategy_mode != st.strategy_mode:
+                    log.info(f"[STRATEGY] Cambio detectado: {st.strategy_mode} -> {new_st.strategy_mode}")
+                    signal_engine.set_strategy_mode(new_st.strategy_mode)
+                    strategy_label = "EMA Breakout" if new_st.strategy_mode == "ema_breakout" else "Stop Hunt"
+                    telegram.send(f"🔄 Estrategia cambiada a: <b>{strategy_label}</b>")
                 
                 st = new_st
                 last_state_reload = now    
