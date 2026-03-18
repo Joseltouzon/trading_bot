@@ -263,9 +263,16 @@ def main():
             # 1) Market update
             market.update_all(st.symbols)
 
-            # 2) Generate signals
+            # 2) Check max positions (avoid unnecessary signal processing)
+            max_pos_reached = event_loop._max_positions_reached(st)
+
+            # 3) Regime check (once per cycle, not per symbol)
+            if st.symbols and not max_pos_reached:
+                signal_engine.check_and_switch_regime(st.symbols[0])
+
+            # 4) Generate signals
             for sym in st.symbols:
-                signal_engine.process_symbol(sym)
+                signal_engine.process_symbol(sym, max_pos_reached)
 
             # 3) Execute signals
             event_loop.loop_once(st)

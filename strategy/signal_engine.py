@@ -5,6 +5,7 @@ from strategy.ema_adx_breakout import compute_signals
 from strategy.stop_hunt import compute_stop_hunt_signals
 from strategy.vwap_refresh import compute_vwap_refresh_signals
 from strategy.market_regime import should_switch_strategy, get_regime_confidence
+from strategy.indicators import ema, atr, adx
 
 
 class SignalEngine:
@@ -15,46 +16,62 @@ class SignalEngine:
         self.log = log
         self.strategy_mode = strategy_mode
         self._last_processed = {}
+        self._effective_mode = strategy_mode if strategy_mode != "auto" else None
         self._regime_check_counter = 0
         self._regime_check_interval = 5
+        self._last_regime_check = None
+        self._indicator_cache = {}
+        self._cache_symbol = None
+
+    def _get_cached_indicators(self, df, force_refresh=False):
+        if not force_refresh and self._cache_symbol and self._cache_symbol == id(df):
+            return self._indicator_cache
+
+        close = df["close"]
+        high = df["high"]
+        low = df["low"]
+        volume = df["volume"]
+
+        self._indicator_cache = {
+            "ema_fast": ema(close, CFG.EMA_FAST),
+            "ema_slow": ema(close, CFG.EMA_SLOW),
+            "atr": atr(df, CFG.ATR_PERIOD),
+            "adx": adx(df, CFG.ADX_PERIOD),
+            "volume_ma": volume.rolling(20).mean(),
+            "close": close,
+            "high": high,
+            "low": low,
+            "volume": volume,
+        }
+        self._cache_symbol = id(df)
+        return self._indicator_cache
 
     def set_strategy_mode(self, mode: str):
         if mode in ["ema_breakout", "stop_hunt", "vwap_refresh", "auto"]:
             old_mode = self.strategy_mode
             self.strategy_mode = mode
+            self._effective_mode = mode if mode != "auto" else None
+            self._indicator_cache = {}
+            self._cache_symbol = None
             if old_mode != mode:
                 self.log.info(f"[SIGNAL] Strategy mode changed to: {mode}")
         else:
             self.log.warning(f"[SIGNAL] Unknown strategy mode: {mode}, keeping {self.strategy_mode}")
 
-    def _evaluate_regime_and_switch(self, symbol: str, df):
-        self._regime_check_counter += 1
-
-        if self._regime_check_counter < self._regime_check_interval:
-            return
-
-        self._regime_check_counter = 0
-
+    def _get_effective_mode(self, df) -> str:
         if self.strategy_mode != "auto":
-            return
+            return self.strategy_mode
 
-        new_strategy, should_switch, regime_info = should_switch_strategy(
-            df, self.strategy_mode, threshold_confidence=0.75
+        if self._effective_mode is not None:
+            return self._effective_mode
+
+        _, should_switch, regime_info = should_switch_strategy(
+            df, "ema_breakout", threshold_confidence=0.75
         )
+        self._effective_mode = regime_info.get("recommended_strategy", "ema_breakout")
+        return self._effective_mode
 
-        self.log.info(
-            f"[REGIME] {symbol} | detected={regime_info.get('recommended_strategy', 'unknown')} | "
-            f"confidence={regime_info.get('confidence', 0):.2f} | "
-            f"adx={regime_info.get('adx', 0):.1f} | "
-            f"range_bound={regime_info.get('range_bound', False)}"
-        )
-
-        if should_switch and new_strategy != self.strategy_mode:
-            self.set_strategy_mode(new_strategy)
-            self.log.info(f"[REGIME] Switched to strategy: {new_strategy}")
-
-    def process_symbol(self, symbol: str):
-
+    def process_symbol(self, symbol: str, max_positions_reached: bool = False):
         df = self.market.get_df_copy(symbol)
         if df is None or len(df) < 50:
             return
@@ -66,36 +83,50 @@ class SignalEngine:
 
         self._last_processed[symbol] = last_close_time
 
-        if self.strategy_mode == "auto":
-            self._evaluate_regime_and_switch(symbol, df)
+        if max_positions_reached:
+            return
 
-        if self.strategy_mode in ["stop_hunt", "auto"]:
-            effective_mode = "stop_hunt" if self.strategy_mode != "auto" else self._get_effective_mode()
-            if effective_mode == "stop_hunt":
-                self._process_stop_hunt(symbol, df, last_close_time)
-                return
+        effective_mode = self._get_effective_mode(df)
 
-        if self.strategy_mode in ["vwap_refresh", "auto"]:
-            effective_mode = "vwap_refresh" if self.strategy_mode == "vwap_refresh" else self._get_effective_mode()
-            if effective_mode == "vwap_refresh":
-                self._process_vwap_refresh(symbol, df, last_close_time)
-                return
-
-        if self.strategy_mode in ["ema_breakout", "auto"]:
+        if effective_mode == "stop_hunt":
+            self._process_stop_hunt(symbol, df, last_close_time)
+        elif effective_mode == "vwap_refresh":
+            self._process_vwap_refresh(symbol, df, last_close_time)
+        else:
             self._process_ema_breakout(symbol, df, last_close_time)
 
-    def _get_effective_mode(self) -> str:
-        df = None
-        for symbol in self.market._data.keys():
-            df = self.market.get_df_copy(symbol)
-            if df is not None and len(df) >= 50:
-                break
+    def check_and_switch_regime(self, symbol: str):
+        if self.strategy_mode != "auto":
+            return
 
-        if df is None:
-            return self.strategy_mode if self.strategy_mode != "auto" else "ema_breakout"
+        self._regime_check_counter += 1
+        if self._regime_check_counter < self._regime_check_interval:
+            return
 
-        _, should_switch, regime_info = should_switch_strategy(df, "ema_breakout", threshold_confidence=0.0)
-        return regime_info.get("recommended_strategy", "ema_breakout")
+        self._regime_check_counter = 0
+
+        df = self.market.get_df_copy(symbol)
+        if df is None or len(df) < 50:
+            return
+
+        new_strategy, should_switch, regime_info = should_switch_strategy(
+            df, self._effective_mode or "ema_breakout", threshold_confidence=0.75
+        )
+
+        if self._last_regime_check != self._effective_mode:
+            self.log.info(
+                f"[REGIME] {symbol} | regime={regime_info.get('recommended_strategy', 'unknown')} | "
+                f"conf={regime_info.get('confidence', 0):.2f} | "
+                f"adx={regime_info.get('adx', 0):.1f} | "
+                f"range={regime_info.get('range_bound', False)}"
+            )
+            self._last_regime_check = self._effective_mode
+
+        if should_switch and new_strategy != self._effective_mode:
+            self._effective_mode = new_strategy
+            self._indicator_cache = {}
+            self._cache_symbol = None
+            self.log.info(f"[REGIME] Switched to: {new_strategy}")
 
     def _process_ema_breakout(self, symbol: str, df, last_close_time):
         sig = compute_signals(df)
