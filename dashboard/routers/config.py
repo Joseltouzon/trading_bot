@@ -18,7 +18,7 @@ async def update_config(payload: dict = Body(...), db = Depends(get_db)):
         "cooldown_bars",
         "symbols",
         "timeframe",
-        "pivot_len",      
+        "pivot_len",
         "paper_trading",
         "ema_slow",
         "ema_fast",
@@ -27,6 +27,29 @@ async def update_config(payload: dict = Body(...), db = Depends(get_db)):
         "vol_min_ratio",
         "trailing_active",
         "strategy_mode",
+        # Trailing runtime
+        "trailing_activation_pct",
+        "trailing_use_atr",
+        "trailing_atr_mult",
+        # Take Profit
+        "use_take_profit",
+        "tp_by_pct",
+        "tp_activation_pct",
+        "tp_close_pct",
+        "tp_sl_mode",
+        # Stop Hunt
+        "stop_hunt_wick_pct",
+        "stop_hunt_rejection_ratio",
+        "stop_hunt_min_zones",
+        "stop_hunt_max_zone_distance_pct",
+        "stop_hunt_sl_pct",
+        "stop_hunt_min_volume_ratio",
+        "stop_hunt_use_ema_filter",
+        "stop_hunt_min_break_candles",
+        "stop_hunt_atr_mult_sl",
+        "stop_hunt_momentum_bars",
+        "stop_hunt_min_atr_pct",
+        "order_block_lookback",
     ]
     for key in allowed_keys:
         if key in payload:
@@ -71,7 +94,17 @@ async def update_config(payload: dict = Body(...), db = Depends(get_db)):
             if key == "leverage":
                 if payload["leverage"] < 1 or payload["leverage"] > 50:
                     raise HTTPException(status_code=400, detail="leverage inválido (1-50)")
-            
+
+            if key in ("paper_trading", "trailing_automatico", "adx_rising",
+                        "trailing_use_atr", "use_take_profit", "tp_by_pct",
+                        "stop_hunt_use_ema_filter"):
+                payload[key] = bool(payload[key])
+
+            if key == "tp_sl_mode":
+                valid = ["trailing", "entry"]
+                if payload["tp_sl_mode"] not in valid:
+                    raise HTTPException(status_code=400, detail="tp_sl_mode inválido")
+
             state[key] = payload[key]
     
     db.save_state(state)

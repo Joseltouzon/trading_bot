@@ -492,7 +492,7 @@ class EventLoop:
             return False
 
         # Evaluar Take Profit (antes de nuevas entradas)
-        if getattr(CFG, "USE_TAKE_PROFIT", False):
+        if getattr(st, "use_take_profit", False):
             self.tp_manager.loop_once(st)    
 
         # Pop signal

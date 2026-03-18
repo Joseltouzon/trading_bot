@@ -189,11 +189,25 @@
                             data[key] = document.getElementById("trailing_automatico").checked
                         } else if (key === "adx_rising") {
                             data[key] = document.getElementById("adx_rising").checked
+                        } else if (key === "trailing_use_atr") {
+                            data[key] = document.getElementById("trailing_use_atr").checked
+                        } else if (key === "use_take_profit") {
+                            data[key] = document.getElementById("use_take_profit").checked
+                        } else if (key === "tp_by_pct") {
+                            data[key] = document.getElementById("tp_by_pct").checked
+                        } else if (key === "stop_hunt_use_ema_filter") {
+                            data[key] = document.getElementById("stop_hunt_use_ema_filter").checked
                         } else if (key === "timeframe") {
                             data[key] = value
                         } else if (key === "strategy_mode") {
                             data[key] = value
-                        } else if (key === "pivot_len") {
+                        } else if (key === "tp_sl_mode") {
+                            data[key] = value
+                        } else if (key === "pivot_len" || key === "ema_fast" || key === "ema_slow" ||
+                                    key === "cooldown_bars" || key === "max_positions" ||
+                                    key === "leverage" || key === "order_block_lookback" ||
+                                    key === "stop_hunt_min_zones" || key === "stop_hunt_min_break_candles" ||
+                                    key === "stop_hunt_momentum_bars") {
                             data[key] = parseInt(value, 10)
                         } else {
                             data[key] = Number(value)

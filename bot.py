@@ -19,6 +19,7 @@ from execution.event_loop import EventLoop
 from strategy.signal_engine import SignalEngine
 from core.risk_monitor import RiskMonitor
 
+
 def validate_config():
     if CFG.EMA_FAST >= CFG.EMA_SLOW:
         raise RuntimeError("EMA_FAST debe ser menor que EMA_SLOW")
@@ -26,6 +27,32 @@ def validate_config():
         raise RuntimeError("DEFAULT_RISK_PCT inválido")
     if CFG.MAX_OPEN_POSITIONS < 1:
         raise RuntimeError("MAX_OPEN_POSITIONS inválido")
+
+
+def sync_cfg_from_state(st):
+    """Sincronizar config.py (runtime) con valores de BotState (DB/dashboard)."""
+    CFG.TRAILING_ACTIVATION_PCT = float(getattr(st, "trailing_activation_pct", CFG.TRAILING_ACTIVATION_PCT))
+    CFG.TRAILING_USE_ATR = bool(getattr(st, "trailing_use_atr", CFG.TRAILING_USE_ATR))
+    CFG.TRAILING_ATR_MULT = float(getattr(st, "trailing_atr_mult", CFG.TRAILING_ATR_MULT))
+    CFG.USE_TAKE_PROFIT = bool(getattr(st, "use_take_profit", CFG.USE_TAKE_PROFIT))
+    CFG.TP_BY_PCT = bool(getattr(st, "tp_by_pct", CFG.TP_BY_PCT))
+    CFG.TP_ACTIVATION_PCT = float(getattr(st, "tp_activation_pct", CFG.TP_ACTIVATION_PCT))
+    CFG.TP_CLOSE_PCT = float(getattr(st, "tp_close_pct", CFG.TP_CLOSE_PCT))
+    CFG.TP_SL_MODE = str(getattr(st, "tp_sl_mode", CFG.TP_SL_MODE))
+    CFG.TP_USE_MARK_PRICE = bool(getattr(st, "tp_use_mark", CFG.TP_USE_MARK_PRICE))
+    CFG.STOP_HUNT_WICK_PCT = float(getattr(st, "stop_hunt_wick_pct", CFG.STOP_HUNT_WICK_PCT))
+    CFG.STOP_HUNT_REJECTION_RATIO = float(getattr(st, "stop_hunt_rejection_ratio", CFG.STOP_HUNT_REJECTION_RATIO))
+    CFG.STOP_HUNT_MIN_ZONES = int(getattr(st, "stop_hunt_min_zones", CFG.STOP_HUNT_MIN_ZONES))
+    CFG.STOP_HUNT_MAX_ZONE_DISTANCE_PCT = float(getattr(st, "stop_hunt_max_zone_distance_pct", CFG.STOP_HUNT_MAX_ZONE_DISTANCE_PCT))
+    CFG.STOP_HUNT_SL_PCT = float(getattr(st, "stop_hunt_sl_pct", CFG.STOP_HUNT_SL_PCT))
+    CFG.STOP_HUNT_MIN_VOLUME_RATIO = float(getattr(st, "stop_hunt_min_volume_ratio", CFG.STOP_HUNT_MIN_VOLUME_RATIO))
+    CFG.STOP_HUNT_USE_EMA_FILTER = bool(getattr(st, "stop_hunt_use_ema_filter", CFG.STOP_HUNT_USE_EMA_FILTER))
+    CFG.STOP_HUNT_MIN_BREAK_CANDLES = int(getattr(st, "stop_hunt_min_break_candles", CFG.STOP_HUNT_MIN_BREAK_CANDLES))
+    CFG.STOP_HUNT_ATR_MULT_SL = float(getattr(st, "stop_hunt_atr_mult_sl", CFG.STOP_HUNT_ATR_MULT_SL))
+    CFG.STOP_HUNT_MOMENTUM_BARS = int(getattr(st, "stop_hunt_momentum_bars", CFG.STOP_HUNT_MOMENTUM_BARS))
+    CFG.STOP_HUNT_MIN_ATR_PCT = float(getattr(st, "stop_hunt_min_atr_pct", CFG.STOP_HUNT_MIN_ATR_PCT))
+    CFG.ORDER_BLOCK_LOOKBACK = int(getattr(st, "order_block_lookback", CFG.ORDER_BLOCK_LOOKBACK))
+
 
 def main():
     validate_config()
@@ -73,35 +100,55 @@ def main():
         vol_min_ratio=CFG.VOLUME_MIN_RATIO,
         trailing_active=CFG.TRAILING_ACTIVATION_PCT,
         strategy_mode="ema_breakout",
+        # Trailing runtime
+        trailing_activation_pct=CFG.TRAILING_ACTIVATION_PCT,
+        trailing_use_atr=CFG.TRAILING_USE_ATR,
+        trailing_atr_mult=CFG.TRAILING_ATR_MULT,
+        # Take Profit
+        use_take_profit=CFG.USE_TAKE_PROFIT,
+        tp_by_pct=CFG.TP_BY_PCT,
+        tp_activation_pct=CFG.TP_ACTIVATION_PCT,
+        tp_close_pct=CFG.TP_CLOSE_PCT,
+        tp_sl_mode=CFG.TP_SL_MODE,
+        tp_use_mark=CFG.TP_USE_MARK_PRICE,
+        # Stop Hunt
+        stop_hunt_wick_pct=CFG.STOP_HUNT_WICK_PCT,
+        stop_hunt_rejection_ratio=CFG.STOP_HUNT_REJECTION_RATIO,
+        stop_hunt_min_zones=CFG.STOP_HUNT_MIN_ZONES,
+        stop_hunt_max_zone_distance_pct=CFG.STOP_HUNT_MAX_ZONE_DISTANCE_PCT,
+        stop_hunt_sl_pct=CFG.STOP_HUNT_SL_PCT,
+        stop_hunt_min_volume_ratio=CFG.STOP_HUNT_MIN_VOLUME_RATIO,
+        stop_hunt_use_ema_filter=CFG.STOP_HUNT_USE_EMA_FILTER,
+        stop_hunt_min_break_candles=CFG.STOP_HUNT_MIN_BREAK_CANDLES,
+        stop_hunt_atr_mult_sl=CFG.STOP_HUNT_ATR_MULT_SL,
+        stop_hunt_momentum_bars=CFG.STOP_HUNT_MOMENTUM_BARS,
+        stop_hunt_min_atr_pct=CFG.STOP_HUNT_MIN_ATR_PCT,
+        order_block_lookback=CFG.ORDER_BLOCK_LOOKBACK,
     )
     state_dict = db.load_state() or {}
-    # merge base
-    merged_data = {
-        **defaults.to_dict(),
-        **state_dict
-    }
+    defaults_dict = defaults.to_dict()
+    for k, v in defaults_dict.items():
+        if k not in state_dict:
+            state_dict[k] = v
+    merged_data = {**defaults_dict, **state_dict}
     st = BotState(**merged_data)
     db.save_state(st.to_dict())
 
     # ================= CONFIG SYNC =================
-    # La DB es la fuente de verdad. config.py solo sirve para defaults iniciales.
-    # Si querés cambiar algo, usá el dashboard. No sobrescribas la DB al iniciar.
     updated = False
-    # Solo validar que los valores cargados sean razonables (sanity check)
     if st.risk_pct <= 0 or st.risk_pct > CFG.MAX_RISK_PCT_ALLOWED:
         log.warning(f"[CONFIG] risk_pct inválido ({st.risk_pct}), usando default {CFG.DEFAULT_RISK_PCT}")
         st.risk_pct = CFG.DEFAULT_RISK_PCT
         updated = True
-
     if st.leverage < 1 or st.leverage > 50:
         log.warning(f"[CONFIG] leverage inválido ({st.leverage}), usando default {CFG.DEFAULT_LEVERAGE}")
         st.leverage = CFG.DEFAULT_LEVERAGE
         updated = True
-
-    # Guardar si hubo correcciones
     if updated:
         db.save_state(st.to_dict())
         log.info("[CONFIG] Valores corregidos y guardados en DB")
+
+    sync_cfg_from_state(st)
 
     # ================= DAY INIT =================
     if not st.day_key:
@@ -121,7 +168,6 @@ def main():
     trailing = TrailingManager(exchange, market, om, db, telegram.send, log)
     event_loop = EventLoop(bus, market, exchange, om, telegram.send, db, log)
     risk_monitor = RiskMonitor(st, exchange, telegram, log)
-    # Motor de señales
     signal_engine = SignalEngine(market, bus, log, st.strategy_mode)
 
     mode = "PAPER" if st.paper_trading else "PRODUCCIÓN"
@@ -136,90 +182,76 @@ def main():
         f"Trailing: {st.trailing_pct}%"
     )
 
-    # para no guardar a cada rato en la base el snapshot
+    # ================= LOOP VARS =================
     last_account_snapshot = 0
-    ACCOUNT_SNAPSHOT_INTERVAL = 15  # segundos
+    ACCOUNT_SNAPSHOT_INTERVAL = 15
     last_equity_snapshot = 0
-    EQUITY_SNAPSHOT_INTERVAL = 60  # segundos
-
-    # ================= MEJORA 1: CACHE DE ESTADO DB =================
+    EQUITY_SNAPSHOT_INTERVAL = 60
     last_state_reload = 0
-    STATE_RELOAD_INTERVAL = 30  # Segundos - Solo recargar config cada 30s
-
-    # ================= MEJORA 2: SYNC HORA BINANCE =================
+    STATE_RELOAD_INTERVAL = 30
     last_server_time_check = 0
-    SERVER_TIME_CHECK_INTERVAL = 60  # Segundos
+    SERVER_TIME_CHECK_INTERVAL = 60
 
-    # ================= MASTER LOOP (REST) =================
+    # ================= MASTER LOOP =================
     while True:
         try:
-            # ========== MEJORA 1: Carga de estado optimizada ==========
             now = time.time()
-            # Solo recargar configuración desde DB cada 30 segundos
+
+            # === State reload cada 30s ===
             if now - last_state_reload > STATE_RELOAD_INTERVAL:
                 state_dict = db.load_state() or {}
-                merged_data = { **st.to_dict(), **state_dict }
-                new_st = BotState(**merged_data)
+                for k, v in defaults_dict.items():
+                    if k not in state_dict:
+                        state_dict[k] = v
+                new_st = BotState(**{**defaults_dict, **state_dict})
 
-                # Detectar cambio de paper_trading
                 if new_st.paper_trading != st.paper_trading:
                     mode = "PAPER" if new_st.paper_trading else "PRODUCCIÓN"
                     log.info(f"[MODE] Cambio detectado: {mode}")
                     telegram.send(f"🔄 Modo cambiado a: <b>{mode}</b>")
-                
-                # Detectar cambio de pivot_len (si tu estrategia lo usa dinámicamente)
                 if new_st.pivot_len != st.pivot_len:
                     log.info(f"[PIVOT] Cambio detectado: {st.pivot_len} → {new_st.pivot_len}")
-                
-                # Detectar cambio de símbolos
                 if set(new_st.symbols) != set(st.symbols):
                     log.info(f"[SYMBOLS] Cambio detectado: {st.symbols} -> {new_st.symbols}")
-                    # Reinicializar cache con nuevos símbolos
                     market.init_cache(new_st.symbols)
-                    # Actualizar leverage en nuevos símbolos
                     for s in new_st.symbols:
                         exchange.set_margin_and_leverage(s, new_st.leverage, CFG.MARGIN_TYPE)
-                
-                # Detectar cambio de estrategia
                 if new_st.strategy_mode != st.strategy_mode:
                     log.info(f"[STRATEGY] Cambio detectado: {st.strategy_mode} -> {new_st.strategy_mode}")
                     signal_engine.set_strategy_mode(new_st.strategy_mode)
                     strategy_label = "EMA Breakout" if new_st.strategy_mode == "ema_breakout" else "Stop Hunt"
                     telegram.send(f"🔄 Estrategia cambiada a: <b>{strategy_label}</b>")
-                
-                st = new_st
-                last_state_reload = now    
 
-            # ========== MEJORA 2: Sync hora Binance para daily loss ==========
+                st = new_st
+                last_state_reload = now
+                sync_cfg_from_state(st)
+
+            # === Sync hora Binance para daily loss ===
             if now - last_server_time_check > SERVER_TIME_CHECK_INTERVAL:
                 try:
-                    server_time_ms = exchange.client.futures_time()['serverTime']
+                    server_time_ms = exchange.client.futures_time()["serverTime"]
                     server_day_key = time.strftime("%Y-%m-%d", time.gmtime(server_time_ms / 1000))
-                    
-                    # Verificar cambio de día en Binance
                     if st.day_key != server_day_key:
                         log.info(f"[DAY ROLL] Cambio de día detectado (Binance): {server_day_key}")
                         st.day_key = server_day_key
                         st.day_start_equity = max(exchange.get_equity(), 0.0)
                         db.save_state(st.__dict__)
-                    
                     last_server_time_check = now
                 except Exception as e:
                     log.warning(f"[TIME SYNC] Error obteniendo hora Binance: {e}")
-                    # Fallback a hora local si falla API
                     local_day = utc_day_key()
                     if st.day_key != local_day:
                         st.day_key = local_day
                         st.day_start_equity = max(exchange.get_equity(), 0.0)
 
-            # 1) Actualizar velas/market (REST polling)
+            # 1) Market update
             market.update_all(st.symbols)
 
-            # 2) Generar señales (1 vez por vela cerrada)
+            # 2) Generate signals
             for sym in st.symbols:
                 signal_engine.process_symbol(sym)
 
-            # 3) Ejecutar señales del bus
+            # 3) Execute signals
             event_loop.loop_once(st)
 
             # 4) Trailing
@@ -231,11 +263,10 @@ def main():
             # 6) Control de Riesgo
             # risk_monitor.check()     va pero es media jedienta
 
-            # 7) SNAPSHOT DE CUENTA
+            # 7) Account snapshot
             try:
                 acc = exchange.get_account_info()
                 now = time.time()
-                # ================= ACCOUNT SNAPSHOT (optimizado) =================
                 if now - last_account_snapshot > ACCOUNT_SNAPSHOT_INTERVAL:
                     db.save_account_snapshot(
                         equity=acc["equity"],
@@ -243,14 +274,8 @@ def main():
                         available=acc["available"]
                     )
                     last_account_snapshot = now
-
-                # ================= EQUITY SNAPSHOT (histórico) =================
                 if now - last_equity_snapshot > EQUITY_SNAPSHOT_INTERVAL:
-                    unrealized_pnl = (
-                        acc["equity"]
-                        - acc["available"]
-                        - acc["used_margin"]
-                    )
+                    unrealized_pnl = acc["equity"] - acc["available"] - acc["used_margin"]
                     db.save_equity_snapshot(
                         total_balance=acc["equity"],
                         available_balance=acc["available"],
@@ -265,6 +290,7 @@ def main():
         except Exception as e:
             telegram.send(f"⚠️ Bot error: {type(e).__name__}: {str(e)[:120]}")
             time.sleep(5)
+
 
 if __name__ == "__main__":
     main()

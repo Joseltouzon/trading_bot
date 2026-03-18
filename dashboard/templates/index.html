@@ -3,34 +3,44 @@
 {% block content %}
 <!-- NAV TABS -->
 <ul class="nav nav-pills mb-4">
-    <li class="nav-item">
+    <li class="nav-item" style="margin-bottom: 20px;">
         <button class="nav-link active" data-bs-toggle="pill" data-bs-target="#overview">
             <i class="bi bi-speedometer2"></i> Overview
         </button>
     </li>
-    <li class="nav-item">
+    <li class="nav-item" style="margin-bottom: 20px;">
         <button class="nav-link" data-bs-toggle="pill" data-bs-target="#performance">
             <i class="bi bi-speedometer2"></i> Performance
         </button>
     </li>
-    <li class="nav-item">
+    <li class="nav-item" style="margin-bottom: 20px;">
         <button class="nav-link" data-bs-toggle="pill" data-bs-target="#advanced-stats">
             <i class="bi bi-bar-chart-line"></i> Stats Avanzadas
         </button>
     </li>
-    <li class="nav-item">
+    <li class="nav-item" style="margin-bottom: 20px;">
         <button class="nav-link" data-bs-toggle="pill" data-bs-target="#analytics">
             <i class="bi bi-graph-up"></i> Analytics
         </button>
     </li>
-    <li class="nav-item">
+    <li class="nav-item" style="margin-bottom: 20px;">
         <button class="nav-link" data-bs-toggle="pill" data-bs-target="#calendar">
             <i class="bi bi-calendar-week"></i> Calendario Pnl
         </button>
     </li>
-    <li class="nav-item">
-        <button class="nav-link" data-bs-toggle="pill" data-bs-target="#config">
-            <i class="bi bi-sliders"></i> Configuración
+    <li class="nav-item" style="margin-bottom: 20px;">
+        <button class="nav-link" data-bs-toggle="pill" data-bs-target="#config-generales">
+            <i class="bi bi-sliders"></i> Config Generales
+        </button>
+    </li>
+    <li class="nav-item" style="margin-bottom: 20px;">
+        <button class="nav-link" data-bs-toggle="pill" data-bs-target="#config-breakout">
+            <i class="bi bi-graph-up-arrow"></i> Config Breakout
+        </button>
+    </li>
+    <li class="nav-item" style="margin-bottom: 20px;">
+        <button class="nav-link" data-bs-toggle="pill" data-bs-target="#config-stophunt">
+            <i class="bi bi-shield-exclamation"></i> Config Stop Hunt
         </button>
     </li>
 </ul>
@@ -666,198 +676,316 @@
 
     </div>
 
-    <!-- ========================= CONFIG TAB ========================= -->
-    <div class="tab-pane fade" id="config">
-
-        <div class="card p-4">
-
-            <h5 class="mb-4" style="color: #f3f7f3;">CONFIGURACION DEL BOT</h5>
+    <!-- ========================= CONFIG GENERALES TAB ========================= -->
+    <div class="tab-pane fade" id="config-generales">
+        <div class="card p-4 mt-3">
+            <h5 class="mb-4" style="color: #f3f7f3;">CONFIG GENERALES</h5>
 
             <form id="configForm" class="row g-3 needs-validation" novalidate>
-                <div class="form-check form-switch mt-4 col-md-2">
-                    <input class="form-check-input" type="checkbox" id="paused" name="paused" {% if state.paused
-                        %}checked{% endif %}>
-                    <label class="form-check-label fw-bold" style="color: aquamarine;" for="paused">
-                        Bot Pausado
-                    </label>
-                    <small class="text-muted" style="color: #fff !important; display: block; margin-top: 5px;">
-                        Activar para pausar
-                    </small>
+
+                <h6 class="mb-3" style="color: #f3f7f3;">CONTROL</h6>
+                <div class="row g-3 mb-3">
+                    <div class="col-md-6">
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="paused" name="paused" {% if state.paused %}checked{% endif %}>
+                            <label class="form-check-label fw-bold" style="color: aquamarine;" for="paused">Bot Pausado</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="paper_trading" name="paper_trading" {% if state.paper_trading %}checked{% endif %}>
+                            <label class="form-check-label fw-bold" style="color: aquamarine;" for="paper_trading">Paper Trading</label>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="form-check form-switch mt-4 col-md-4">
-                    <input class="form-check-input" type="checkbox" id="trailing_automatico" name="trailing_automatico"
-                        {% if state.trailing_automatico %}checked{% endif %}>
-                    <label class="form-check-label fw-bold" style="color: aquamarine;" for="trailing_automatico">
-                        Trialing Automatico
-                    </label>
-                    <small class="text-muted" style="color: #fff !important; display: block; margin-top: 5px;">
-                        Al desactivarlo se utiliza el % de trailing de abajo
-                    </small>
+                <h6 class="mb-3" style="color: #f3f7f3;">RIESGO</h6>
+                <div class="row g-3 mb-3">
+                    <div class="col-md-3">
+                        <label class="form-label" style="color: aquamarine;">Risk %</label>
+                        <input type="number" step="0.1" class="form-control" name="risk_pct" value="{{ state.risk_pct }}" required min="0.1" max="10">
+                        <div class="invalid-feedback">0.1 - 10</div>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label" style="color: aquamarine;">Leverage x</label>
+                        <input type="number" class="form-control" name="leverage" value="{{ state.leverage }}" required min="1" max="50">
+                        <div class="invalid-feedback">1 - 50</div>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label" style="color: aquamarine;">Max Positions</label>
+                        <input type="number" class="form-control" name="max_positions" value="{{ state.max_positions }}" required min="1" max="20">
+                        <div class="invalid-feedback">1 - 20</div>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label" style="color: aquamarine;">Daily Loss Limit %</label>
+                        <input type="number" step="0.1" class="form-control" name="daily_loss_limit_pct" value="{{ state.daily_loss_limit_pct }}" required min="0.1" max="20">
+                        <div class="invalid-feedback">0.1 - 20</div>
+                    </div>
                 </div>
 
-                <div class="form-check form-switch mt-4 col-md-4">
-                    <input class="form-check-input" type="checkbox" id="adx_rising" name="adx_rising" {% if
-                        state.adx_rising %}checked{% endif %}>
-                    <label class="form-check-label fw-bold" style="color: aquamarine;" for="adx_rising">
-                        ADX Rising
-                    </label>
-                    <small class="text-muted" style="color: #fff !important; display: block; margin-top: 5px;">
-                        Al activarlo se incrementa la rigurosidad al generar la señal
-                    </small>
+                <h6 class="mb-3" style="color: #f3f7f3;">EJECUCION</h6>
+                <div class="row g-3 mb-3">
+                    <div class="col-12">
+                        <label class="form-label" style="color: aquamarine;">Symbols (comma sep)</label>
+                        <input type="text" class="form-control" name="symbols" value="{{ state.symbols | join(',') }}" required>
+                        <div class="invalid-feedback">Al menos un símbolo</div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label" style="color: aquamarine;">
+                            Timeframe
+                            <span class="badge bg-info text-dark" id="current-timeframe-badge">Actual: {{ state.timeframe_display or '5m' }}</span>
+                        </label>
+                        <select class="form-select" name="timeframe" required>
+                            <option value="1m" {% if state.timeframe=='1m' %}selected{% endif %}>1m</option>
+                            <option value="3m" {% if state.timeframe=='3m' %}selected{% endif %}>3m</option>
+                            <option value="5m" {% if state.timeframe=='5m' %}selected{% endif %}>5m</option>
+                            <option value="15m" {% if state.timeframe=='15m' %}selected{% endif %}>15m</option>
+                            <option value="30m" {% if state.timeframe=='30m' %}selected{% endif %}>30m</option>
+                            <option value="1h" {% if state.timeframe=='1h' %}selected{% endif %}>1h</option>
+                            <option value="2h" {% if state.timeframe=='2h' %}selected{% endif %}>2h</option>
+                            <option value="4h" {% if state.timeframe=='4h' %}selected{% endif %}>4h</option>
+                            <option value="6h" {% if state.timeframe=='6h' %}selected{% endif %}>6h</option>
+                            <option value="12h" {% if state.timeframe=='12h' %}selected{% endif %}>12h</option>
+                            <option value="1d" {% if state.timeframe=='1d' %}selected{% endif %}>1d</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label" style="color: aquamarine;">Cooldown Bars</label>
+                        <input type="number" class="form-control" name="cooldown_bars" value="{{ state.cooldown_bars }}" required min="1" max="50">
+                        <div class="invalid-feedback">1 - 50</div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label" style="color: aquamarine;">
+                            Estrategia
+                            <span class="badge bg-warning text-dark" id="current-strategy-badge">{{ 'EMA Breakout' if state.strategy_mode=='ema_breakout' else 'Stop Hunt' }}</span>
+                        </label>
+                        <select class="form-select" name="strategy_mode" required>
+                            <option value="ema_breakout" {% if state.strategy_mode=='ema_breakout' %}selected{% endif %}>EMA Breakout</option>
+                            <option value="stop_hunt" {% if state.strategy_mode=='stop_hunt' %}selected{% endif %}>Stop Hunt</option>
+                        </select>
+                    </div>
                 </div>
 
-                <div class="form-check form-switch mt-4 col-md-2">
-                    <input class="form-check-input" type="checkbox" id="paper_trading" name="paper_trading" {% if
-                        state.paper_trading %}checked{% endif %}>
-                    <label class="form-check-label fw-bold" style="color: aquamarine;" for="paper_trading">
-                        Paper Trading Mode
-                    </label>
-                    <small class="text-muted" style="color: #fff !important; display: block; margin-top: 5px;">
-                        Simula operaciones. Modo Test
-                    </small>
+                <h6 class="mb-3" style="color: #f3f7f3;">TRAILING</h6>
+                <div class="row g-3 mb-3">
+                    <div class="col-md-3">
+                        <label class="form-label" style="color: aquamarine;">Trailing Activation %</label>
+                        <input type="number" step="0.1" class="form-control" name="trailing_activation_pct" value="{{ state.trailing_activation_pct }}" required min="0.1" max="10">
+                        <small class="text-muted" style="color: #fff !important;">PnL % para activar trailing</small>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label" style="color: aquamarine;">ATR Multiplier</label>
+                        <input type="number" step="0.1" class="form-control" name="trailing_atr_mult" value="{{ state.trailing_atr_mult }}" required min="0.1" max="10">
+                        <small class="text-muted" style="color: #fff !important;">Si ATR está activo</small>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label" style="color: aquamarine;">Trailing % (no ATR)</label>
+                        <input type="number" step="0.1" class="form-control" name="trailing_pct" value="{{ state.trailing_pct }}" required min="0.1" max="10">
+                        <small class="text-muted" style="color: #fff !important;">Si ATR está desactivado</small>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label" style="color: aquamarine;">Trailing Active % (Breakout)</label>
+                        <input type="number" step="0.1" class="form-control" name="trailing_active" value="{{ state.trailing_active }}" required min="0.1" max="10">
+                        <small class="text-muted" style="color: #fff !important;">PnL % para activar</small>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-check form-switch mt-4">
+                            <input class="form-check-input" type="checkbox" id="trailing_use_atr" name="trailing_use_atr" {% if state.trailing_use_atr %}checked{% endif %}>
+                            <label class="form-check-label fw-bold" style="color: aquamarine;" for="trailing_use_atr">Usar ATR (vs %)</label>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-check form-switch mt-4">
+                            <input class="form-check-input" type="checkbox" id="trailing_automatico" name="trailing_automatico" {% if state.trailing_automatico %}checked{% endif %}>
+                            <label class="form-check-label fw-bold" style="color: aquamarine;" for="trailing_automatico">Trailing Automático (ATR)</label>
+                        </div>
+                    </div>
                 </div>
 
-                <h6 class="mb-4" style="color: #f3f7f3;">RISK</h6>
-
-                <div class="col-md-6">
-                    <label class="form-label" style="color: aquamarine;">Risk %</label>
-                    <input type="number" step="0.1" class="form-control" name="risk_pct" value="{{ state.risk_pct }}"
-                        required min="0.1" max="10">
-                    <div class="invalid-feedback">Ingrese un valor válido (0.1 - 10).</div>
-                </div>
-
-                <div class="col-md-6">
-                    <label class="form-label" style="color: aquamarine;">Leverage x</label>
-                    <input type="number" class="form-control" name="leverage" value="{{ state.leverage }}" required
-                        min="1" max="50">
-                    <div class="invalid-feedback">Leverage inválido.</div>
-                </div>
-
-                <div class="col-md-6">
-                    <label class="form-label" style="color: aquamarine;">Max Positions</label>
-                    <input type="number" class="form-control" name="max_positions" value="{{ state.max_positions }}"
-                        required min="1" max="20">
-                    <div class="invalid-feedback">Debe ser entre 1 y 20.</div>
-                </div>
-
-                <div class="col-md-6">
-                    <label class="form-label" style="color: aquamarine;">Daily Loss Limit USDT</label>
-                    <input type="number" step="0.1" class="form-control" name="daily_loss_limit_pct"
-                        value="{{ state.daily_loss_limit_pct }}" required min="0.1" max="20">
-                    <div class="invalid-feedback">Valor inválido.</div>
-                </div>
-
-                <h6 class="mb-4 mt-4" style="color: #f3f7f3;">STRATEGY</h6>
-
-                <div class="col-md-6">
-                    <label class="form-label" style="color: aquamarine;">EMA Fast</label>
-                    <input type="number" class="form-control" name="ema_fast" value="{{ state.ema_fast }}" required
-                        min="1" max="200">
-                    <div class="invalid-feedback">Debe ser entre 1 y 200.</div>
-                </div>
-
-                <div class="col-md-6">
-                    <label class="form-label" style="color: aquamarine;">EMA Slow</label>
-                    <input type="number" class="form-control" name="ema_slow" value="{{ state.ema_slow }}" required
-                        min="1" max="200">
-                    <div class="invalid-feedback">Debe ser entre 1 y 200.</div>
-                </div>
-
-                <div class="col-md-6">
-                    <label class="form-label" style="color: aquamarine;">Activación del Trailing - Pnl %</label>
-                    <input type="number" step="0.1" class="form-control" name="trailing_active"
-                        value="{{ state.trailing_active }}" required min="0.1" max="10">
-                    <div class="invalid-feedback">Valor inválido.</div>
-                </div>
-
-                <div class="col-md-6">
-                    <label class="form-label" style="color: aquamarine;">Trailing %</label>
-                    <input type="number" step="0.1" class="form-control" name="trailing_pct"
-                        value="{{ state.trailing_pct }}" required min="0.1" max="10">
-                    <div class="invalid-feedback">Valor inválido.</div>
-                </div>
-
-                <div class="col-md-6">
-                    <label class="form-label" style="color: aquamarine;">Volume Min Ratio %</label>
-                    <input type="number" step="0.1" class="form-control" name="vol_min_ratio"
-                        value="{{ state.vol_min_ratio }}" required min="0.1" max="10">
-                    <div class="invalid-feedback">Valor inválido.</div>
-                </div>
-
-                <div class="col-md-6">
-                    <label class="form-label" style="color: aquamarine;">ADX Min</label>
-                    <input type="number" class="form-control" name="adx_min" value="{{ state.adx_min }}" required
-                        min="5" max="50">
-                    <div class="invalid-feedback">ADX inválido.</div>
-                </div>
-
-                <div class="col-md-6">
-                    <label class="form-label" style="color: aquamarine;">Cooldown Bars</label>
-                    <input type="number" class="form-control" name="cooldown_bars" value="{{ state.cooldown_bars }}"
-                        required min="1" max="50">
-                    <div class="invalid-feedback">Valor inválido.</div>
-                </div>
-
-                <div class="col-md-6">
-                    <label class="form-label" style="color: aquamarine;">Pivot Length</label>
-                    <input type="number" class="form-control" name="pivot_len" value="{{ state.pivot_len }}" required
-                        min="5" max="50">
-                    <div class="invalid-feedback">Debe ser entre 5 y 50.</div>
-                    <small class="text-muted" style="color: #fff !important;">Período para detección de pivotes</small>
-                </div>
-
-                <div class="col-md-6">
-                    <label class="form-label" style="color: aquamarine;">
-                        Timeframe
-                        <span class="badge bg-info text-dark" id="current-timeframe-badge">
-                            Actual: {{ state.timeframe_display or '5 minutos' }}
-                        </span>
-                    </label>
-                    <select class="form-select" name="timeframe" required>
-                        <option value="1m" {% if state.timeframe=='1m' %}selected{% endif %}>1 minuto</option>
-                        <option value="3m" {% if state.timeframe=='3m' %}selected{% endif %}>3 minutos</option>
-                        <option value="5m" {% if state.timeframe=='5m' %}selected{% endif %}>5 minutos</option>
-                        <option value="15m" {% if state.timeframe=='15m' %}selected{% endif %}>15 minutos</option>
-                        <option value="30m" {% if state.timeframe=='30m' %}selected{% endif %}>30 minutos</option>
-                        <option value="1h" {% if state.timeframe=='1h' %}selected{% endif %}>1 hora</option>
-                        <option value="2h" {% if state.timeframe=='2h' %}selected{% endif %}>2 horas</option>
-                        <option value="4h" {% if state.timeframe=='4h' %}selected{% endif %}>4 horas</option>
-                        <option value="6h" {% if state.timeframe=='6h' %}selected{% endif %}>6 horas</option>
-                        <option value="12h" {% if state.timeframe=='12h' %}selected{% endif %}>12 horas</option>
-                        <option value="1d" {% if state.timeframe=='1d' %}selected{% endif %}>1 día</option>
-                    </select>
-                    <div class="invalid-feedback">Seleccione un timeframe válido.</div>
-                </div>
-
-                <div class="col-md-6">
-                    <label class="form-label" style="color: aquamarine;">
-                        Estrategia
-                        <span class="badge bg-warning text-dark" id="current-strategy-badge">
-                            Actual: {{ 'EMA Breakout' if state.strategy_mode=='ema_breakout' else 'Stop Hunt' }}
-                        </span>
-                    </label>
-                    <select class="form-select" name="strategy_mode" required>
-                        <option value="ema_breakout" {% if state.strategy_mode=='ema_breakout' %}selected{% endif %}>EMA Breakout</option>
-                        <option value="stop_hunt" {% if state.strategy_mode=='stop_hunt' %}selected{% endif %}>Stop Hunt</option>
-                    </select>
-                    <small class="text-muted" style="color: #fff !important;">EMA: breakout de pivots | Stop Hunt: busca liquidez</small>
-                </div>
-
-                <div class="col-12">
-                    <label class="form-label" style="color: aquamarine;">Symbols (comma separated)</label>
-                    <input type="text" class="form-control" name="symbols" value="{{ state.symbols | join(',') }}"
-                        required>
-                    <div class="invalid-feedback">Ingrese al menos un símbolo.</div>
+                <h6 class="mb-3" style="color: #f3f7f3;">TAKE PROFIT</h6>
+                <div class="row g-3 mb-3">
+                    <div class="col-md-3">
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="use_take_profit" name="use_take_profit" {% if state.use_take_profit %}checked{% endif %}>
+                            <label class="form-check-label fw-bold" style="color: aquamarine;" for="use_take_profit">Activar Take Profit</label>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="tp_by_pct" name="tp_by_pct" {% if state.tp_by_pct %}checked{% endif %}>
+                            <label class="form-check-label fw-bold" style="color: aquamarine;" for="tp_by_pct">Modo % (vs R:R)</label>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label" style="color: aquamarine;">TP Activation %</label>
+                        <input type="number" step="0.1" class="form-control" name="tp_activation_pct" value="{{ state.tp_activation_pct }}" required min="0.1" max="20">
+                        <small class="text-muted" style="color: #fff !important;">Profit % para activar TP</small>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label" style="color: aquamarine;">TP Close %</label>
+                        <input type="number" step="1" class="form-control" name="tp_close_pct" value="{{ state.tp_close_pct }}" required min="1" max="100">
+                        <small class="text-muted" style="color: #fff !important;">% de posición a cerrar</small>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label" style="color: aquamarine;">TP SL Mode (resto)</label>
+                        <select class="form-select" name="tp_sl_mode" required>
+                            <option value="trailing" {% if state.tp_sl_mode=='trailing' %}selected{% endif %}>Trailing (recomendado)</option>
+                            <option value="entry" {% if state.tp_sl_mode=='entry' %}selected{% endif %}>Entry Price</option>
+                        </select>
+                        <small class="text-muted" style="color: #fff !important;">SL del % restante tras TP</small>
+                    </div>
                 </div>
 
                 <div class="col-12 mt-3">
                     <button type="button" class="btn btn-primary" id="openConfirm">
-                        Guardar Configuración
+                        <i class="bi bi-save"></i> Guardar Configuración
                     </button>
                 </div>
 
             </form>
+        </div>
+    </div>
+
+    <!-- ========================= CONFIG BREAKOUT TAB ========================= -->
+    <div class="tab-pane fade" id="config-breakout">
+        <div class="card p-4 mt-3">
+
+            <h5 class="mb-4" style="color: #f3f7f3;">CONFIG BREAKOUT (EMA)</h5>
+
+            <div class="row g-3 mb-3">
+                <div class="col-md-4">
+                    <label class="form-label" style="color: aquamarine;">EMA Fast</label>
+                    <input type="number" class="form-control" name="ema_fast" value="{{ state.ema_fast }}" required min="1" max="200">
+                    <small class="text-muted" style="color: #fff !important;">ej: 9, 12, 21</small>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label" style="color: aquamarine;">EMA Slow</label>
+                    <input type="number" class="form-control" name="ema_slow" value="{{ state.ema_slow }}" required min="1" max="200">
+                    <small class="text-muted" style="color: #fff !important;">ej: 21, 50, 200</small>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label" style="color: aquamarine;">Volume Min Ratio %</label>
+                    <input type="number" step="0.1" class="form-control" name="vol_min_ratio" value="{{ state.vol_min_ratio }}" required min="0.1" max="10">
+                    <small class="text-muted" style="color: #fff !important;">Mínimo volumen vs media</small>
+                </div>
+            </div>
+
+            <div class="row g-3 mb-3">
+                <div class="col-md-4">
+                    <label class="form-label" style="color: aquamarine;">ADX Min</label>
+                    <input type="number" class="form-control" name="adx_min" value="{{ state.adx_min }}" required min="5" max="50">
+                    <small class="text-muted" style="color: #fff !important;">Mínimo ADX para operar</small>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label" style="color: aquamarine;">Pivot Length</label>
+                    <input type="number" class="form-control" name="pivot_len" value="{{ state.pivot_len }}" required min="5" max="50">
+                    <small class="text-muted" style="color: #fff !important;">Período detección de pivotes</small>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label" style="color: aquamarine;">Trailing Active %</label>
+                    <input type="number" step="0.1" class="form-control" name="trailing_active" value="{{ state.trailing_active }}" required min="0.1" max="10">
+                    <small class="text-muted" style="color: #fff !important;">PnL % para activar</small>
+                </div>
+            </div>
+
+            <div class="row g-3">
+                <div class="col-md-4">
+                    <label class="form-label" style="color: aquamarine;">Trailing % (no ATR)</label>
+                    <input type="number" step="0.1" class="form-control" name="trailing_pct" value="{{ state.trailing_pct }}" required min="0.1" max="10">
+                    <small class="text-muted" style="color: #fff !important;">Si ATR está desactivado</small>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" id="adx_rising" name="adx_rising" {% if state.adx_rising %}checked{% endif %}>
+                        <label class="form-check-label fw-bold" style="color: aquamarine;" for="adx_rising">ADX Rising</label>
+                    </div>
+                    <small class="text-muted" style="color: #fff !important;">Filtro ADX en ascenso</small>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" id="trailing_automatico" name="trailing_automatico" {% if state.trailing_automatico %}checked{% endif %}>
+                        <label class="form-check-label fw-bold" style="color: aquamarine;" for="trailing_automatico">Trailing Automático (ATR)</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================= CONFIG STOP HUNT TAB ========================= -->
+    <div class="tab-pane fade" id="config-stophunt">
+        <div class="card p-4 mt-3">
+            <h5 class="mb-4" style="color: #f3f7f3;">CONFIG STOP HUNT</h5>
+
+            <div class="row g-3 mb-3">
+                <div class="col-md-3">
+                    <label class="form-label" style="color: aquamarine;">Wick %</label>
+                    <input type="number" step="0.01" class="form-control" name="stop_hunt_wick_pct" value="{{ state.stop_hunt_wick_pct }}" required min="0.01" max="2">
+                    <small class="text-muted" style="color: #fff !important;">Mecha mínima para detectar hunt</small>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label" style="color: aquamarine;">Rejection Ratio</label>
+                    <input type="number" step="0.01" class="form-control" name="stop_hunt_rejection_ratio" value="{{ state.stop_hunt_rejection_ratio }}" required min="0.1" max="1">
+                    <small class="text-muted" style="color: #fff !important;">Body/wick ratio mínimo</small>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label" style="color: aquamarine;">Min Zones</label>
+                    <input type="number" class="form-control" name="stop_hunt_min_zones" value="{{ state.stop_hunt_min_zones }}" required min="1" max="10">
+                    <small class="text-muted" style="color: #fff !important;">Zonas de liquidez mínimas</small>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label" style="color: aquamarine;">Max Zone Distance %</label>
+                    <input type="number" step="0.01" class="form-control" name="stop_hunt_max_zone_distance_pct" value="{{ state.stop_hunt_max_zone_distance_pct }}" required min="0.1" max="5">
+                    <small class="text-muted" style="color: #fff !important;">Distancia máx precio-zona</small>
+                </div>
+            </div>
+
+            <div class="row g-3 mb-3">
+                <div class="col-md-3">
+                    <label class="form-label" style="color: aquamarine;">SL %</label>
+                    <input type="number" step="0.01" class="form-control" name="stop_hunt_sl_pct" value="{{ state.stop_hunt_sl_pct }}" required min="0.1" max="5">
+                    <small class="text-muted" style="color: #fff !important;">SL como % del precio</small>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label" style="color: aquamarine;">Volume Min Ratio</label>
+                    <input type="number" step="0.1" class="form-control" name="stop_hunt_min_volume_ratio" value="{{ state.stop_hunt_min_volume_ratio }}" required min="0.5" max="5">
+                    <small class="text-muted" style="color: #fff !important;">Volumen mínimo vs media</small>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" id="stop_hunt_use_ema_filter" name="stop_hunt_use_ema_filter" {% if state.stop_hunt_use_ema_filter %}checked{% endif %}>
+                        <label class="form-check-label fw-bold" style="color: aquamarine;" for="stop_hunt_use_ema_filter">EMA Filter</label>
+                    </div>
+                    <small class="text-muted" style="color: #fff !important;">Filtrar por tendencia EMA</small>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label" style="color: aquamarine;">Min Break Candles</label>
+                    <input type="number" class="form-control" name="stop_hunt_min_break_candles" value="{{ state.stop_hunt_min_break_candles }}" required min="1" max="10">
+                    <small class="text-muted" style="color: #fff !important;">Velas que rompen zona</small>
+                </div>
+            </div>
+
+            <div class="row g-3">
+                <div class="col-md-3">
+                    <label class="form-label" style="color: aquamarine;">ATR Mult SL</label>
+                    <input type="number" step="0.1" class="form-control" name="stop_hunt_atr_mult_sl" value="{{ state.stop_hunt_atr_mult_sl }}" required min="0.5" max="5">
+                    <small class="text-muted" style="color: #fff !important;">Multiplicador ATR para SL</small>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label" style="color: aquamarine;">Momentum Bars</label>
+                    <input type="number" class="form-control" name="stop_hunt_momentum_bars" value="{{ state.stop_hunt_momentum_bars }}" required min="1" max="10">
+                    <small class="text-muted" style="color: #fff !important;">Velas de momentum</small>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label" style="color: aquamarine;">Min ATR %</label>
+                    <input type="number" step="0.01" class="form-control" name="stop_hunt_min_atr_pct" value="{{ state.stop_hunt_min_atr_pct }}" required min="0.05" max="2">
+                    <small class="text-muted" style="color: #fff !important;">Volatilidad mínima (ATR%)</small>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label" style="color: aquamarine;">Order Block Lookback</label>
+                    <input type="number" class="form-control" name="order_block_lookback" value="{{ state.order_block_lookback }}" required min="2" max="20">
+                    <small class="text-muted" style="color: #fff !important;">Velas para buscar OBs</small>
+                </div>
+            </div>
         </div>
     </div>
 </div>

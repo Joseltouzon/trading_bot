@@ -292,3 +292,66 @@ bot_state               -- estado completo del bot (serializado JSON)
 account_snapshots       -- equity/margin/available cada 15s
 equity_snapshots        -- equity histórico cada 60s
 ```
+
+---
+
+## 11. Dashboard — Tabs de Configuración
+
+**Archivos:**
+- `dashboard/templates/index.html` — tabs HTML
+- `dashboard/templates/base.html` — JS para guardar (serialización de checkboxes)
+- `dashboard/routers/config.py` — endpoint `/update-config`
+
+### Tabs
+
+| Tab | ID | Contenido |
+|-----|----|-----------|
+| Config Generales | `#config-generales` | Control, Riesgo, Ejecución, Trailing, Take Profit |
+| Config Breakout | `#config-breakout` | EMA Fast/Slow, Volume, ADX, Pivot, Trailing % |
+| Config Stop Hunt | `#config-stophunt` | 12 parámetros de Stop Hunt |
+| ~~Configuración~~ | `#config` | Desambiguado — muestra aviso de redirección |
+
+### Formato de campos en el JS de save (base.html)
+
+| Tipo | Cómo se serializa |
+|------|-----------------|
+| Checkbox | `document.getElementById("id").checked` |
+| Números (float) | `Number(value)` |
+| Integers | `parseInt(value, 10)` |
+| Strings | Valor directo |
+| symbols | `value.split(",").map(s => s.trim())` |
+
+**Checkboxes manejados explicitamente:** `paused`, `paper_trading`, `adx_rising`, `trailing_automatico`, `trailing_use_atr`, `use_take_profit`, `tp_by_pct`, `stop_hunt_use_ema_filter`
+
+### Pipeline de guardado
+
+```
+Formulario → JS serializa → POST /update-config
+                                      ↓
+                           dashboard/routers/config.py
+                           allowed_keys valida
+                           db.save_state(state)
+                                      ↓
+                           bot.py reload (30s)
+                           sync_cfg_from_state(st)
+                                      ↓
+                    execution files leen CFG runtime
+```
+
+### BotState ↔ Dashboard ↔ DB
+
+- **DB** (`bot_state.state_json`): JSON plano con todos los campos de BotState
+- **Startup**: `db.load_state()` → merge con defaults de BotState → fill missing keys → `BotState(**merged)` → `db.save_state()` al inicio
+- **Sync runtime**: `sync_cfg_from_state(st)` corre cada 30s al reloadear estado desde DB y actualiza `config.py` runtime para que los strategy files lo lean. No recibe `db` — solo lee de `st` y escribe en `CFG`.
+
+### Campos nuevos en BotState (46 total)
+
+**Trailing runtime:**
+- `trailing_activation_pct`, `trailing_use_atr`, `trailing_atr_mult`
+
+**Take Profit:**
+- `use_take_profit`, `tp_by_pct`, `tp_activation_pct`, `tp_close_pct`, `tp_sl_mode`, `tp_use_mark`
+
+**Stop Hunt (12):**
+- `stop_hunt_wick_pct`, `stop_hunt_rejection_ratio`, `stop_hunt_min_zones`, `stop_hunt_max_zone_distance_pct`, `stop_hunt_sl_pct`, `stop_hunt_min_volume_ratio`, `stop_hunt_use_ema_filter`, `stop_hunt_min_break_candles`, `stop_hunt_atr_mult_sl`, `stop_hunt_momentum_bars`, `stop_hunt_min_atr_pct`, `order_block_lookback`
+

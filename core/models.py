@@ -34,7 +34,34 @@ class BotState:
     paper_trading: bool = False
     trailing_automatico: bool = True
     adx_rising: bool = False
-    strategy_mode: str = "ema_breakout"  # "ema_breakout" | "stop_hunt"
+    strategy_mode: str = "ema_breakout"
+
+    # Trailing (runtime)
+    trailing_activation_pct: float = 0.5
+    trailing_use_atr: bool = True
+    trailing_atr_mult: float = 2.0
+
+    # Take Profit
+    use_take_profit: bool = True
+    tp_by_pct: bool = True
+    tp_activation_pct: float = 1.2
+    tp_close_pct: float = 70
+    tp_sl_mode: str = "trailing"
+    tp_use_mark: bool = True
+
+    # Stop Hunt
+    stop_hunt_wick_pct: float = 0.20
+    stop_hunt_rejection_ratio: float = 0.7
+    stop_hunt_min_zones: int = 2
+    stop_hunt_max_zone_distance_pct: float = 0.8
+    stop_hunt_sl_pct: float = 0.35
+    stop_hunt_min_volume_ratio: float = 1.5
+    stop_hunt_use_ema_filter: bool = True
+    stop_hunt_min_break_candles: int = 2
+    stop_hunt_atr_mult_sl: float = 2.0
+    stop_hunt_momentum_bars: int = 3
+    stop_hunt_min_atr_pct: float = 0.12
+    order_block_lookback: int = 5
 
     def copy(self):
         return copy.deepcopy(self)

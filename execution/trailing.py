@@ -65,7 +65,7 @@ class TrailingManager:
         tr["qty"] = qty
 
         # --- Verificar Activación ---
-        if pnl_pct < CFG.TRAILING_ACTIVATION_PCT:
+        if pnl_pct < st.trailing_activation_pct:
             tr["activated"] = False
             # Actualizamos best aunque no esté activado, para tener el dato listo
             if direction == "LONG":
@@ -85,8 +85,8 @@ class TrailingManager:
         if now - last_update < 5.0:  # Solo actualizar cada 5 segundos
             return
 
-        use_atr = bool(getattr(CFG, "TRAILING_USE_ATR", False))
-        atr_mult = float(getattr(CFG, "TRAILING_ATR_MULT", 0.7))
+        use_atr = bool(getattr(st, "trailing_use_atr", True))
+        atr_mult = float(getattr(st, "trailing_atr_mult", 2.0))
         old_sl = tr.get("sl")
 
         # Calcular Nuevo SL

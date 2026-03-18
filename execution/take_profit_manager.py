@@ -42,7 +42,7 @@ class TakeProfitManager:
                 if self._is_throttled(symbol):
                     continue
                 
-                if bool(getattr(CFG, "TP_BY_PCT", False)):
+                if bool(getattr(st, "tp_by_pct", False)):
                     self._evaluate_tp_by_pct(st, symbol, p)
                 else:
                     self._evaluate_tps(st, symbol, p)
@@ -137,7 +137,7 @@ class TakeProfitManager:
     
     def _evaluate_tp_by_pct(self, st, symbol: str, position: dict):
         """Evaluar TP por porcentaje de ganancia (nuevo modo simple)."""
-        if not bool(getattr(CFG, "TP_BY_PCT", False)):
+        if not bool(getattr(st, "tp_by_pct", False)):
             return
         
         if self._tp_by_pct_executed.get(symbol, False):
@@ -151,7 +151,7 @@ class TakeProfitManager:
         if entry <= 0 or total_qty <= 0 or not position_id:
             return
 
-        use_mark = bool(getattr(CFG, "TP_USE_MARK_PRICE", True))
+        use_mark = bool(getattr(st, "tp_use_mark", True))
         if use_mark:
             mp = float(self.market.get_mark_price_cached(symbol) or 0)
             if mp <= 0:
@@ -162,9 +162,9 @@ class TakeProfitManager:
         if mp <= 0:
             return
 
-        activation_pct = float(getattr(CFG, "TP_ACTIVATION_PCT", 1.2))
-        close_pct = float(getattr(CFG, "TP_CLOSE_PCT", 70))
-        sl_mode = str(getattr(CFG, "TP_SL_MODE", "entry"))
+        activation_pct = float(getattr(st, "tp_activation_pct", 1.2))
+        close_pct = float(getattr(st, "tp_close_pct", 70))
+        sl_mode = str(getattr(st, "tp_sl_mode", "trailing"))
 
         if side == "LONG":
             profit_pct = (mp - entry) / entry * 100.0
