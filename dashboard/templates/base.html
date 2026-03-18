@@ -271,7 +271,7 @@
         const equityGradient = equityCtx.createLinearGradient(0, 0, 0, 300);
         equityGradient.addColorStop(0, "rgba(0,255,0,0.35)");
         equityGradient.addColorStop(1, "rgba(0,255,0,0)");
-        new Chart(equityCtx, { type: "line", data: { labels: labels, datasets: [{ data: equityValues, borderColor: "lime", backgroundColor: equityGradient, fill: true, tension: 0.35, pointRadius: 0, borderWidth: 2 }] }, options: { animation: { duration: 1200, easing: 'easeOutQuart' }, plugins: { legend: { display: false }, tooltip: { backgroundColor: "#111", borderColor: "lime", borderWidth: 1, callbacks: { label: ctx => "$" + ctx.parsed.y.toFixed(2) } } }, scales: { x: { ticks: { color: "#888" }, grid: { display: false } }, y: { ticks: { color: "#888", callback: value => "$" + value }, grid: { color: "rgba(255,255,255,0.04)" } } } } });
+        window.equityChart = new Chart(equityCtx, { type: "line", data: { labels: labels, datasets: [{ data: equityValues, borderColor: "lime", backgroundColor: equityGradient, fill: true, tension: 0.35, pointRadius: 0, borderWidth: 2 }] }, options: { animation: { duration: 1200, easing: 'easeOutQuart' }, plugins: { legend: { display: false }, tooltip: { backgroundColor: "#111", borderColor: "lime", borderWidth: 1, callbacks: { label: ctx => "$" + ctx.parsed.y.toFixed(2) } } }, scales: { x: { ticks: { color: "#888" }, grid: { display: false } }, y: { ticks: { color: "#888", callback: value => "$" + value }, grid: { color: "rgba(255,255,255,0.04)" } } } } });
 
         // ---------- DRAWDOWN CHART ---------- //
         const drawdownCtx = document.getElementById("drawdownChart").getContext("2d");
@@ -1162,6 +1162,267 @@
         setTimeout(() => {
             location.reload();
         }, 150000);
+    </script>
+
+    <!-- ========================= TRAILING + SPARKLINES + BENCHMARK + SORT ========================= -->
+    <script>
+    // ---------- BENCHMARK BTC OVERLAY EN EQUITY CHART ----------
+    async function loadBenchmark() {
+        try {
+            const res = await fetch("/api/benchmark-btc");
+            const data = await res.json();
+            if (!data.benchmark || !data.benchmark.length) return;
+            const benchmark = data.benchmark;
+            const startEquity = equityValues.length ? equityValues[0] : benchmark[0];
+            const benchmarkNorm = benchmark.map(v => startEquity * (v / benchmark[0]));
+            const minLen = Math.min(labels.length, benchmarkNorm.length);
+            const benchVals = benchmarkNorm.slice(0, minLen);
+            if (window.equityChart) {
+                window.equityChart.data.datasets.push({
+                    label: "BTC (Buy&Hold)",
+                    data: benchVals,
+                    borderColor: "rgba(255,200,0,0.7)",
+                    backgroundColor: "transparent",
+                    borderWidth: 2,
+                    borderDash: [4, 4],
+                    tension: 0.35,
+                    pointRadius: 0,
+                    fill: false
+                });
+                window.equityChart.update();
+            }
+        } catch (e) { console.warn("Benchmark BTC no disponible:", e); }
+    }
+
+    // ---------- TRAILING STATUS ----------
+    async function loadTrailingStatus() {
+        try {
+            const res = await fetch("/api/trailing-status");
+            const data = await res.json();
+            const tbody = document.getElementById("trailingTableBody");
+            if (!tbody) return;
+            const trailing = data.trailing || {};
+            const symbols = Object.keys(trailing);
+            if (!symbols.length) {
+                tbody.innerHTML = '<tr><td colspan="9" class="text-center text-muted">Sin posiciones activas</td></tr>';
+                return;
+            }
+            tbody.innerHTML = "";
+            for (const sym of symbols) {
+                const t = trailing[sym];
+                const pnlClass = t.pnl_pct >= 0 ? "text-success" : "text-danger";
+                const badgeClass = t.activated ? "bg-success" : "bg-secondary";
+                const activatedText = t.activated ? "Si" : "No";
+                const distSl = t.dist_sl_pct !== null ? t.dist_sl_pct.toFixed(2) + "%" : "-";
+                tbody.innerHTML += `<tr>
+                    <td><strong>${sym}</strong></td>
+                    <td>${t.direction}</td>
+                    <td>${t.entry.toFixed(4)}</td>
+                    <td class="text-success">${t.best.toFixed(4)}</td>
+                    <td>${t.mark_price.toFixed(4)}</td>
+                    <td class="${pnlClass}"><strong>${t.pnl_pct.toFixed(2)}%</strong></td>
+                    <td>${distSl}</td>
+                    <td>${t.sl ? t.sl.toFixed(4) : "-"}</td>
+                    <td><span class="badge ${badgeClass}">${activatedText}</span></td>
+                </tr>`;
+                const el = document.getElementById("trailing-" + sym);
+                if (el) {
+                    el.innerHTML = `<span class="badge ${t.activated ? "bg-success" : "bg-warning"}">${t.activated ? "Activo (" + t.pnl_pct.toFixed(1) + "%)" : "Wait (" + t.pnl_pct.toFixed(1) + "%)"}</span>`;
+                }
+            }
+        } catch (e) { console.warn("Trailing status error:", e); }
+    }
+
+    // ---------- SPARKLINES ----------
+    const sparklineCache = {};
+    async function loadSparklines() {
+        const canvases = document.querySelectorAll("canvas[data-symbol]");
+        await Promise.all(Array.from(canvases).map(async (canvas) => {
+            const sym = canvas.dataset.symbol;
+            try {
+                if (!sparklineCache[sym]) {
+                    const res = await fetch("/api/sparkline/" + sym);
+                    const d = await res.json();
+                    sparklineCache[sym] = d.closes || [];
+                }
+                const closes = sparklineCache[sym];
+                if (!closes.length) return;
+                const ctx = canvas.getContext("2d");
+                const w = canvas.width, h = canvas.height;
+                const min = Math.min(...closes), max = Math.max(...closes);
+                const range = max - min || 1;
+                const color = closes[closes.length - 1] >= closes[0] ? "lime" : "#ff4444";
+                ctx.clearRect(0, 0, w, h);
+                ctx.beginPath();
+                ctx.strokeStyle = color;
+                ctx.lineWidth = 1.5;
+                closes.forEach((v, i) => {
+                    const x = (i / (closes.length - 1)) * w;
+                    const y = h - ((v - min) / range) * (h - 4) - 2;
+                    i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+                });
+                ctx.stroke();
+            } catch (e) { console.warn("Sparkline error " + sym + ":", e); }
+        }));
+    }
+
+    // ---------- SORT HELPERS ----------
+    function updateSortIcons(tableId, col, asc) {
+        document.querySelectorAll("#" + tableId + " .sort-icon").forEach(el => {
+            const c = parseInt(el.dataset.col);
+            el.textContent = c === col ? (asc ? "↑" : "↓") : "⇅";
+        });
+    }
+
+    function sortNumeric(a, b, asc) {
+        if (a < b) return asc ? -1 : 1;
+        if (a > b) return asc ? 1 : -1;
+        return 0;
+    }
+
+    // ---------- SORT: PERFORMANCE (closed trades) ----------
+    let perfSortCol = -1, perfSortAsc = true;
+    function sortPerformance(col) {
+        if (perfSortCol === col) perfSortAsc = !perfSortAsc; else { perfSortCol = col; perfSortAsc = true; }
+        updateSortIcons("closedPositionsTable", col, perfSortAsc);
+        renderSortedPerformance();
+    }
+    function renderSortedPerformance() {
+        const rows = window._perfData || [];
+        const col = perfSortCol, asc = perfSortAsc;
+        rows.sort((a, b) => {
+            const va = Object.values(a)[col], vb = Object.values(b)[col];
+            const na = typeof va === "number" ? va : String(va).toLowerCase();
+            const nb = typeof vb === "number" ? vb : String(vb).toLowerCase();
+            return sortNumeric(na, nb, asc);
+        });
+        const tbody = document.getElementById("closedPositionsTableBody");
+        if (!tbody) return;
+        tbody.innerHTML = rows.map(t => `<tr>
+            <td>${t.symbol}</td><td>${t.side}</td><td>${t.entry_price}</td><td>${t.exit_price}</td>
+            <td class="${t.realized_pnl > 0 ? "text-success" : "text-danger"}">${t.realized_pnl}</td>
+            <td class="text-warning">-$${(t.commission || 0).toFixed(4)}</td>
+        </tr>`).join("");
+    }
+
+    // ---------- SORT: ANALYTICS ----------
+    let analytSortCol = -1, analytSortAsc = true;
+    function sortAnalytics(col) {
+        if (analytSortCol === col) analytSortAsc = !analytSortAsc; else { analytSortCol = col; analytSortAsc = true; }
+        updateSortIcons("analyticsTable", col, analytSortAsc);
+        renderSortedAnalytics();
+    }
+    function renderSortedAnalytics() {
+        const rows = window._analytData || [];
+        const col = analytSortCol, asc = analytSortAsc;
+        rows.sort((a, b) => {
+            const va = Object.values(a)[col], vb = Object.values(b)[col];
+            const na = typeof va === "number" ? va : String(va).toLowerCase();
+            const nb = typeof vb === "number" ? vb : String(vb).toLowerCase();
+            return sortNumeric(na, nb, asc);
+        });
+        const tbody = document.getElementById("analyticsTableBody");
+        if (!tbody) return;
+        tbody.innerHTML = rows.map(r => `<tr>
+            <td>${r.symbol}</td><td>${r.total_trades}</td>
+            <td class="${r.total_pnl >= 0 ? "text-success" : "text-danger"}">${r.total_pnl.toFixed(2)}</td>
+            <td class="${r.best_trade >= 0 ? "text-success" : "text-danger"}">${r.best_trade.toFixed(2)}</td>
+            <td class="${r.worst_trade >= 0 ? "text-success" : "text-danger"}">${r.worst_trade.toFixed(2)}</td>
+            <td>${r.avg_hold_hours.toFixed(2)}</td>
+        </tr>`).join("");
+    }
+
+    // ---------- SORT: TRAILING ----------
+    let trailSortCol = -1, trailSortAsc = false;
+    function sortTrailing(col) {
+        if (trailSortCol === col) trailSortAsc = !trailSortAsc; else { trailSortCol = col; trailSortAsc = false; }
+        const rows = Array.from(document.querySelectorAll("#trailingTableBody tr"));
+        rows.sort((a, b) => {
+            const va = a.cells[col]?.textContent.trim() || "";
+            const vb = b.cells[col]?.textContent.trim() || "";
+            const na = isNaN(va) ? va.toLowerCase() : parseFloat(va);
+            const nb = isNaN(vb) ? vb.toLowerCase() : parseFloat(vb);
+            return sortNumeric(na, nb, trailSortAsc);
+        });
+        const tbody = document.getElementById("trailingTableBody");
+        rows.forEach(r => tbody.appendChild(r));
+    }
+
+    // ---------- INIT ----------
+    function initNewFeatures() {
+        const perfRows = document.querySelectorAll("#closedPositionsTableBody tr");
+        window._perfData = Array.from(perfRows).map(row => {
+            const cells = row.cells;
+            return {
+                symbol: cells[0]?.textContent.trim() || "",
+                side: cells[1]?.textContent.trim() || "",
+                entry_price: parseFloat(cells[2]?.textContent.trim()) || 0,
+                exit_price: parseFloat(cells[3]?.textContent.trim()) || 0,
+                realized_pnl: parseFloat(cells[4]?.textContent.trim()) || 0,
+                commission: parseFloat((cells[5]?.textContent.trim() || "0").replace(/[^0-9.]/g, "")) || 0
+            };
+        });
+        const analytRows = document.querySelectorAll("#analyticsTableBody tr");
+        window._analytData = Array.from(analytRows).map(row => {
+            const cells = row.cells;
+            return {
+                symbol: cells[0]?.textContent.trim() || "",
+                total_trades: parseInt(cells[1]?.textContent.trim()) || 0,
+                total_pnl: parseFloat(cells[2]?.textContent.trim()) || 0,
+                best_trade: parseFloat(cells[3]?.textContent.trim()) || 0,
+                worst_trade: parseFloat(cells[4]?.textContent.trim()) || 0,
+                avg_hold_hours: parseFloat(cells[5]?.textContent.trim()) || 0
+            };
+        });
+    }
+
+    // ---------- EQUITY CHART CON BENCHMARK ----------
+    if (typeof Chart !== "undefined") {
+        const equityCtx = document.getElementById("equityChart").getContext("2d");
+        const equityGradient = equityCtx.createLinearGradient(0, 0, 0, 300);
+        equityGradient.addColorStop(0, "rgba(0,255,0,0.35)");
+        equityGradient.addColorStop(1, "rgba(0,255,0,0)");
+        window.equityChart = new Chart(equityCtx, {
+            type: "line",
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: "Equity",
+                    data: equityValues,
+                    borderColor: "lime",
+                    backgroundColor: equityGradient,
+                    fill: true,
+                    tension: 0.35,
+                    pointRadius: 0,
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                animation: { duration: 1200, easing: "easeOutQuart" },
+                plugins: {
+                    legend: { display: true, labels: { color: "#aaa", boxWidth: 20 } },
+                    tooltip: {
+                        backgroundColor: "#111",
+                        borderColor: "lime",
+                        borderWidth: 1,
+                        callbacks: { label: ctx => ctx.dataset.label + ": $" + ctx.parsed.y.toFixed(2) }
+                    }
+                },
+                scales: {
+                    x: { ticks: { color: "#888" }, grid: { display: false } },
+                    y: { ticks: { color: "#888", callback: v => "$" + v }, grid: { color: "rgba(255,255,255,0.04)" } }
+                }
+            }
+        });
+    }
+
+    // ---------- POLLING ----------
+    initNewFeatures();
+    loadTrailingStatus();
+    loadSparklines();
+    loadBenchmark();
+    setInterval(loadTrailingStatus, 5000);
+    setInterval(loadSparklines, 15000);
     </script>
 
 </body>

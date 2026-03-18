@@ -52,6 +52,7 @@ Dependencies
 | Stats Avanzadas | `#advanced-stats` | Sharpe, recovery, expectancy, streaks |
 | Analytics | `#analytics` | Per-symbol analytics, commissions |
 | Calendario PnL | `#calendar` | Daily PnL calendar, summary stats |
+| Trailing | `#trailing-tab` | Estado trailing en tiempo real, tabla ordenable |
 | Config Generales | `#config-generales` | Control, Riesgo, Ejecución, Trailing, Take Profit |
 | Config Breakout | `#config-breakout` | EMA, Volume, ADX, Pivot, Trailing (Breakout) |
 | Config Stop Hunt | `#config-stophunt` | 12 parámetros Stop Hunt |
@@ -105,6 +106,9 @@ Formulario → JS serializa → POST /update-config
 | GET | `/api/daily-pnl` | Calendario diario con summary | manual |
 | GET | `/api/export/trades` | CSV de trades con filtros | manual |
 | POST | `/api/positions/{symbol}/close` | Cerrar posición al mercado | manual |
+| GET | `/api/trailing-status` | **Enriquecido**: incluye mark_price, pnl_pct, dist_sl_pct | 5s |
+| GET | `/api/sparkline/{symbol}` | Últimos 50 closes de 5m para sparkline | manual |
+| GET | `/api/benchmark-btc` | BTCUSDT normalizado al equity inicial | manual |
 
 ### `/api/stats` — fuente de verdad
 
@@ -171,88 +175,51 @@ daily_pnl_db = stats["daily_pnl"]
 | Stats, PnL, bot status | `/api/stats` | 5s |
 | Unrealized PnL, Mark Price | `/api/open-positions/pnl` | 5s |
 | Trailing y symbols status | `/api/trailing-status`, `/api/symbols-status` | 5s |
+| Trailing tab | `/api/trailing-status` | 5s (carga completa) |
 | Exchange health | `/api/health` | 20s |
 | Timeframe display | `/api/timeframe` | 30s |
+| Sparklines | `/api/sparkline/{symbol}` | 15s (cacheado) |
 | **Reload completo** | — | **150s (2.5 min)** |
 
 ---
 
-## db.py — Métodos usados por el dashboard
+## Features implementadas
 
-| Método | Usado por | Retorna |
-|--------|-----------|---------|
-| `get_dashboard_stats()` | `DashboardService` | stats globales |
-| `get_equity_curve()` | `DashboardService` | historial equity con timestamps |
-| `get_drawdown_curve()` | `DashboardService` | drawdown % por timestamp |
-| `calculate_drawdown()` | `DashboardService` | max drawdown % |
-| `get_open_positions_with_stops()` | `api.py`, `DashboardService` | posiciones abiertas con SL/TP |
-| `get_recent_closed_positions()` | `DashboardService`, `api.py` | trades cerrados recientes |
-| `get_closed_positions_filtered()` | `api.py` | trades con filtros fecha/símbolo |
-| `get_performance_metrics()` | `DashboardService` | win rate, profit factor, etc. |
-| `get_trade_analytics()` | `DashboardService` | stats por símbolo |
-| `get_advanced_metrics()` | `DashboardService` | sharpe, recovery, expectancy |
-| `get_risk_reward_stats()` | `DashboardService` | R:R stats |
-| `get_time_in_market()` | `DashboardService` | % tiempo en posición |
-| `get_total_commissions()` | `DashboardService` | comisiones totales |
-| `get_latest_account_snapshot()` | `DashboardService` | equity/margin/available |
-| `get_daily_pnl_calendar()` | `api.py` | PnL diario + summary |
-| `load_state()` | `DashboardService`, `config.py` | BotState completo |
-| `save_state()` | `config.py` | persiste BotState |
-| `get_bot_status()` | `DashboardService`, `api.py` | RUNNING/PAUSED/UNKNOWN |
+### Tab Trailing Activo
 
----
+Nuevo tab con tabla de estado trailing en tiempo real. Columnas: Symbol, Side, Entry, Best, Mark, PnL %, Dist SL %, SL, Activo.
 
-## Cómo agregar un nuevo endpoint API
+- Polling cada 5s via `/api/trailing-status` (enriquecido con mark_price y pnl_pct)
+- También actualiza los badges de trailing en la tabla de posiciones abiertas
+- Tabla ordenable por cualquier columna (click en header)
 
-1. **Agregar endpoint en `dashboard/routers/api.py`**
-2. **Agregar polling en `base.html`** si necesita refresh automático
-3. **Agregar función JS en `base.html`** para actualizar el DOM
-4. **Si es un nuevo dato**, puede requerir agregar método en `db.py` o usar `exchange_cache`
+### Sparklines en posiciones abiertas
 
-### Ejemplo: nuevo endpoint `/api/tp-status`
+Canvas de 100x40px por símbolo en la columna "Sparkline" de la tabla de posiciones abiertas.
 
-```python
-# dashboard/routers/api.py
-@router.get("/tp-status")
-async def tp_status(db=Depends(get_db)):
-    state = db.load_state()
-    return {
-        "use_take_profit": state.get("use_take_profit", False),
-        "tp_by_pct": state.get("tp_by_pct", False),
-        "tp_activation_pct": state.get("tp_activation_pct", 1.2),
-        "tp_close_pct": state.get("tp_close_pct", 70),
-    }
-```
+- Fetch via `/api/sparkline/{symbol}` (50 velas de 5m)
+- Cacheado en `sparklineCache` para no repetir requests
+- Color: lime si el último close >= primer close, rojo si baja
+- Polling cada 15s
 
-```javascript
-// dashboard/templates/base.html (en el script de polling)
-async function updateTpStatus() {
-    const res = await fetch("/api/tp-status");
-    // actualizar DOM
-}
-setInterval(updateTpStatus, 30000);
-```
+### Equity vs Benchmark BTC
 
----
+Overlay de BTCUSDT (Buy & Hold) en el equity chart.
 
-## Cómo agregar un nuevo campo de config
+- Fetch via `/api/benchmark-btc`: obtiene BTCUSDT hourly desde la hora de inicio del equity
+- Normalizado: `equity_inicial * (btc_precio / btc_inicial)`
+- Se agrega como segunda dataset al equity Chart.js con línea dorada punteada
+- Leyenda visible en el chart
 
-1. **Agregar a `core/models.py`** → `BotState` dataclass
-2. **Agregar default en `bot.py`** → `defaults = BotState(...)` y en `sync_cfg_from_state()`
-3. **Agregar a `dashboard/routers/config.py`** → `allowed_keys` + validaciones si corresponde
-4. **Agregar input en `index.html`** → el tab que corresponda (generales/breakout/stophunt)
-5. **Agregar checkbox handling en `base.html`** → si es bool, en el JS de serialización
-6. **Sincronizar en `bot.py` reload** → ya lo hace `sync_cfg_from_state()` automáticamente
+### Tablas ordenables
 
----
+Click en header de columna para ordenar (asc/desc). Indicador visual: ⇅ (neutral), ↑ (asc), ↓ (desc).
 
-## Cómo agregar un nuevo tab de config
+- **Performance → Closed Trades**: 6 columnas ordenables
+- **Analytics**: 6 columnas ordenables
+- **Trailing** (nuevo tab): 9 columnas ordenables
 
-1. **Agregar `<li>` en `index.html`** → dentro del `<ul class="nav nav-pills mb-4 mt-4">`
-2. **Agregar `<div class="tab-pane fade" id="nuevo-tab">`**
-3. **Crear el contenido del tab** → con sus inputs
-4. **Verificar que el form `<form id="configForm">`** cubra el tab (el save es único para todo el form)
-5. **El tab persistirá automáticamente** en `localStorage` gracias al script de tab persistence en `base.html`
+Ordenamiento 100% client-side (JavaScript). Los datos se guardan en `window._perfData` y `window._analytData` al init desde el HTML renderizado por Jinja.
 
 ---
 

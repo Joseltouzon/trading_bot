@@ -29,6 +29,11 @@
         </button>
     </li>
     <li class="nav-item" style="margin-bottom: 20px;">
+        <button class="nav-link" data-bs-toggle="pill" data-bs-target="#trailing-tab">
+            <i class="bi bi-arrow-up-right"></i> Trailing
+        </button>
+    </li>
+    <li class="nav-item" style="margin-bottom: 20px;">
         <button class="nav-link" data-bs-toggle="pill" data-bs-target="#config-generales">
             <i class="bi bi-sliders"></i> Config Generales
         </button>
@@ -169,6 +174,7 @@
                 <tr>
                     <th>Symbol</th>
                     <th>Side</th>
+                    <th>Sparkline</th>
                     <th>Qty</th>
                     <th>Entry</th>
                     <th>Mark Price</th>
@@ -184,6 +190,10 @@
                 <tr id="row-{{ pos.symbol }}">
                     <td>{{ pos.symbol }}</td>
                     <td>{{ pos.side }}</td>
+                    <td>
+                        <canvas id="spark-{{ pos.symbol }}" width="100" height="40"
+                            data-symbol="{{ pos.symbol }}"></canvas>
+                    </td>
                     <td>{{ pos.qty }}</td>
                     <td>{{ pos.entry_price }}</td>
                     <td id="mark-{{ pos.symbol }}">
@@ -279,33 +289,18 @@
         </div>
 
         <!-- Tabla de Closed Trades -->
-        <table class="table table-dark table-striped">
+        <table class="table table-dark table-striped" id="closedPositionsTable">
             <thead>
                 <tr>
-                    <th>Symbol</th>
-                    <th>Side</th>
-                    <th>Entry</th>
-                    <th>Exit</th>
-                    <th>PnL</th>
-                    <th>Commission</th>
+                    <th onclick="sortPerformance(0)" style="cursor:pointer">Symbol <span class="sort-icon" data-col="0">⇅</span></th>
+                    <th onclick="sortPerformance(1)" style="cursor:pointer">Side <span class="sort-icon" data-col="1">⇅</span></th>
+                    <th onclick="sortPerformance(2)" style="cursor:pointer">Entry <span class="sort-icon" data-col="2">⇅</span></th>
+                    <th onclick="sortPerformance(3)" style="cursor:pointer">Exit <span class="sort-icon" data-col="3">⇅</span></th>
+                    <th onclick="sortPerformance(4)" style="cursor:pointer">PnL <span class="sort-icon" data-col="4">⇅</span></th>
+                    <th onclick="sortPerformance(5)" style="cursor:pointer">Commission <span class="sort-icon" data-col="5">⇅</span></th>
                 </tr>
             </thead>
-            <tbody id="closedPositionsTableBody">
-                {% for t in closed_positions %}
-                <tr>
-                    <td>{{ t.symbol }}</td>
-                    <td>{{ t.side }}</td>
-                    <td>{{ t.entry_price }}</td>
-                    <td>{{ t.exit_price }}</td>
-                    <td class="{% if t.realized_pnl > 0 %}text-success{% else %}text-danger{% endif %}">
-                        {{ t.realized_pnl }}
-                    </td>
-                    <td class="text-warning">
-                        -${{ "%.4f"|format(t.commission or 0) }}
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
+            <tbody id="closedPositionsTableBody"></tbody>
         </table>
 
         <!-- Mensaje cuando no hay resultados -->
@@ -551,32 +546,15 @@
             <table class="table table-dark table-sm" id="analyticsTable">
                 <thead>
                     <tr>
-                        <th>Symbol</th>
-                        <th>Trades</th>
-                        <th>Total PnL</th>
-                        <th>Best</th>
-                        <th>Worst</th>
-                        <th>Avg Hold (h)</th>
+                        <th onclick="sortAnalytics(0)" style="cursor:pointer">Symbol <span class="sort-icon" data-col="0">⇅</span></th>
+                        <th onclick="sortAnalytics(1)" style="cursor:pointer">Trades <span class="sort-icon" data-col="1">⇅</span></th>
+                        <th onclick="sortAnalytics(2)" style="cursor:pointer">Total PnL <span class="sort-icon" data-col="2">⇅</span></th>
+                        <th onclick="sortAnalytics(3)" style="cursor:pointer">Best <span class="sort-icon" data-col="3">⇅</span></th>
+                        <th onclick="sortAnalytics(4)" style="cursor:pointer">Worst <span class="sort-icon" data-col="4">⇅</span></th>
+                        <th onclick="sortAnalytics(5)" style="cursor:pointer">Avg Hold (h) <span class="sort-icon" data-col="5">⇅</span></th>
                     </tr>
                 </thead>
-                <tbody id="analyticsTableBody">
-                    {% for row in analytics %}
-                    <tr>
-                        <td>{{ row.symbol }}</td>
-                        <td>{{ row.total_trades }}</td>
-                        <td class="{% if row.total_pnl >= 0 %}text-success{% else %}text-danger{% endif %}">
-                            {{ "%.2f"|format(row.total_pnl) }}
-                        </td>
-                        <td class="{% if row.best_trade >= 0 %}text-success{% else %}text-danger{% endif %}">
-                            {{ "%.2f"|format(row.best_trade) }}
-                        </td>
-                        <td class="{% if row.worst_trade >= 0 %}text-success{% else %}text-danger{% endif %}">
-                            {{ "%.2f"|format(row.worst_trade) }}
-                        </td>
-                        <td>{{ "%.2f"|format(row.avg_hold_hours) }}</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
+                <tbody id="analyticsTableBody"></tbody>
             </table>
         </div>
         <!-- Mensaje cuando no hay resultados -->
@@ -674,6 +652,37 @@
             <i class="bi bi-info-circle"></i> No hay trades cerrados en este período.
         </div>
 
+    </div>
+
+    <!-- ========================= TRAILING TAB ========================= -->
+    <div class="tab-pane fade" id="trailing-tab">
+        <div class="card p-4 mt-3">
+            <h5 class="mb-4" style="color: #f3f7f3;">
+                <i class="bi bi-arrow-up-right"></i> Trailing Activo
+            </h5>
+            <p class="text-muted mb-4">Estado en tiempo real del trailing stop para cada posición abierta.</p>
+
+            <table class="table table-dark table-striped" id="trailingTable">
+                <thead>
+                    <tr>
+                        <th onclick="sortTrailing(0)" style="cursor:pointer">Symbol <span class="sort-icon" data-col="0">⇅</span></th>
+                        <th onclick="sortTrailing(1)" style="cursor:pointer">Side <span class="sort-icon" data-col="1">⇅</span></th>
+                        <th onclick="sortTrailing(2)" style="cursor:pointer">Entry <span class="sort-icon" data-col="2">⇅</span></th>
+                        <th onclick="sortTrailing(3)" style="cursor:pointer">Best <span class="sort-icon" data-col="3">⇅</span></th>
+                        <th onclick="sortTrailing(4)" style="cursor:pointer">Mark <span class="sort-icon" data-col="4">⇅</span></th>
+                        <th onclick="sortTrailing(5)" style="cursor:pointer">PnL % <span class="sort-icon" data-col="5">⇅</span></th>
+                        <th onclick="sortTrailing(6)" style="cursor:pointer">Dist SL % <span class="sort-icon" data-col="6">⇅</span></th>
+                        <th onclick="sortTrailing(7)" style="cursor:pointer">SL <span class="sort-icon" data-col="7">⇅</span></th>
+                        <th onclick="sortTrailing(8)" style="cursor:pointer">Activo <span class="sort-icon" data-col="8">⇅</span></th>
+                    </tr>
+                </thead>
+                <tbody id="trailingTableBody">
+                    <tr>
+                        <td colspan="9" class="text-center text-muted">Cargando...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 
     <!-- ========================= CONFIG GENERALES TAB ========================= -->

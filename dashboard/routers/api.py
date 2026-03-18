@@ -359,24 +359,102 @@ def api_daily_pnl(
 
 
 @router.get("/trailing-status")
-def api_trailing_status(db = Depends(get_db)):
+def api_trailing_status(
+    db = Depends(get_db),
+    exchange = Depends(get_exchange)
+):
     """
     Devuelve el estado del trailing para cada símbolo con posición abierta.
+    Incluye mark price, distancia al SL, profit % y candlestick sparkline.
     """
     state = db.load_state() or {}
     trail = state.get("trail", {})
-    
+
     result = {}
     for symbol, data in trail.items():
+        entry = float(data.get("entry") or 0)
+        best = float(data.get("best") or 0)
+        sl = float(data.get("sl") or 0)
+        direction = data.get("direction", "LONG")
+
+        mark_price = 0.0
+        try:
+            mark_price = float(exchange.get_mark_price(symbol))
+        except Exception:
+            pass
+
+        if mark_price > 0 and entry > 0:
+            if direction == "LONG":
+                pnl_pct = (mark_price - entry) / entry * 100
+                dist_sl = ((mark_price - sl) / mark_price * 100) if sl > 0 else None
+            else:
+                pnl_pct = (entry - mark_price) / entry * 100
+                dist_sl = ((sl - mark_price) / mark_price * 100) if sl > 0 else None
+        else:
+            pnl_pct = 0.0
+            dist_sl = None
+
         result[symbol] = {
-            "direction": data.get("direction"),
-            "entry": data.get("entry"),
-            "best": data.get("best"),
-            "sl": data.get("sl"),
+            "direction": direction,
+            "entry": entry,
+            "best": best,
+            "sl": sl,
+            "mark_price": mark_price,
+            "pnl_pct": round(pnl_pct, 3),
+            "dist_sl_pct": round(dist_sl, 3) if dist_sl is not None else None,
             "activated": data.get("activated", False)
         }
-    
+
     return {"trailing": result}
+
+
+@router.get("/sparkline/{symbol}")
+def api_sparkline(
+    symbol: str,
+    exchange = Depends(get_exchange)
+):
+    """
+    Devuelve los últimos 50 closes de velas de 5m para graficar sparkline.
+    """
+    try:
+        kl = exchange.get_klines_rest(symbol, "5m", limit=50)
+        closes = [float(k[4]) for k in kl]
+        return {"symbol": symbol, "closes": closes}
+    except Exception:
+        return {"symbol": symbol, "closes": []}
+
+
+@router.get("/benchmark-btc")
+def api_benchmark_btc(
+    db = Depends(get_db),
+    exchange = Depends(get_exchange)
+):
+    """
+    Devuelve el precio de BTCUSDT normalizado al equity inicial del bot.
+    Para comparar performance vs buy & hold BTC.
+    """
+    try:
+        equity_curve = db.get_equity_curve()
+        if not equity_curve:
+            return {"benchmark": [], "labels": []}
+
+        start_time = equity_curve[0]["created_at"]
+        start_equity = float(equity_curve[0]["total_balance"])
+
+        kl = exchange.get_klines_rest("BTCUSDT", "1h", limit=500)
+        filtered = [float(k[4]) for k in kl if k[0] >= start_time]
+
+        if not filtered:
+            return {"benchmark": [], "labels": []}
+
+        start_btc = filtered[0]
+        benchmark = [start_equity * (btc / start_btc) for btc in filtered]
+
+        labels = [str(k[0]) for k in kl if k[0] >= start_time]
+
+        return {"benchmark": benchmark, "labels": labels}
+    except Exception as e:
+        return {"benchmark": [], "labels": []}
 
 
 @router.get("/cooldowns")
