@@ -850,15 +850,12 @@
                         <i class="bi bi-save"></i> Guardar Configuración
                     </button>
                 </div>
-
-            </form>
         </div>
     </div>
 
     <!-- ========================= CONFIG BREAKOUT TAB ========================= -->
     <div class="tab-pane fade" id="config-breakout">
         <div class="card p-4 mt-3">
-
             <h5 class="mb-4" style="color: #f3f7f3;">CONFIG BREAKOUT (EMA)</h5>
 
             <div class="row g-3 mb-3">
@@ -897,7 +894,7 @@
                 </div>
             </div>
 
-            <div class="row g-3">
+            <div class="row g-3 mb-3">
                 <div class="col-md-4">
                     <label class="form-label" style="color: aquamarine;">Trailing % (no ATR)</label>
                     <input type="number" step="0.1" class="form-control" name="trailing_pct" value="{{ state.trailing_pct }}" required min="0.1" max="10">
@@ -916,6 +913,12 @@
                         <label class="form-check-label fw-bold" style="color: aquamarine;" for="trailing_automatico">Trailing Automático (ATR)</label>
                     </div>
                 </div>
+            </div>
+
+            <div class="col-12 mt-3">
+                <button type="button" class="btn btn-primary" id="openConfirmBreakout">
+                    <i class="bi bi-save"></i> Guardar Configuración
+                </button>
             </div>
         </div>
     </div>
@@ -973,7 +976,7 @@
                 </div>
             </div>
 
-            <div class="row g-3">
+            <div class="row g-3 mb-3">
                 <div class="col-md-3">
                     <label class="form-label" style="color: aquamarine;">ATR Mult SL</label>
                     <input type="number" step="0.1" class="form-control" name="stop_hunt_atr_mult_sl" value="{{ state.stop_hunt_atr_mult_sl }}" required min="0.5" max="5">
@@ -995,8 +998,16 @@
                     <small class="text-muted" style="color: #fff !important;">Velas para buscar OBs</small>
                 </div>
             </div>
+
+            <div class="col-12 mt-3">
+                <button type="button" class="btn btn-primary" id="openConfirmStophunt">
+                    <i class="bi bi-save"></i> Guardar Configuración
+                </button>
+            </div>
         </div>
     </div>
+
+    </form>
 </div>
 
 <!-- ================= CONFIRM MODAL ================= -->
