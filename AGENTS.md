@@ -309,6 +309,7 @@ equity_snapshots        -- equity histórico cada 60s
 | Config Generales | `#config-generales` | Control, Riesgo, Ejecución, Trailing, Take Profit |
 | Config Breakout | `#config-breakout` | EMA Fast/Slow, Volume, ADX, Pivot, Trailing % |
 | Config Stop Hunt | `#config-stophunt` | 12 parámetros de Stop Hunt |
+| Config VWAP | `#config-vwap` | VWAP bands, Volumen, SL, y parámetros Auto |
 | ~~Configuración~~ | `#config` | Desambiguado — muestra aviso de redirección |
 
 ### Formato de campos en el JS de save (base.html)
@@ -344,14 +345,113 @@ Formulario → JS serializa → POST /update-config
 - **Startup**: `db.load_state()` → merge con defaults de BotState → fill missing keys → `BotState(**merged)` → `db.save_state()` al inicio
 - **Sync runtime**: `sync_cfg_from_state(st)` corre cada 30s al reloadear estado desde DB y actualiza `config.py` runtime para que los strategy files lo lean. No recibe `db` — solo lee de `st` y escribe en `CFG`.
 
-### Campos nuevos en BotState (46 total)
+---
 
-**Trailing runtime:**
-- `trailing_activation_pct`, `trailing_use_atr`, `trailing_atr_mult`
+## 12. Estrategias Disponibles
 
-**Take Profit:**
-- `use_take_profit`, `tp_by_pct`, `tp_activation_pct`, `tp_close_pct`, `tp_sl_mode`, `tp_use_mark`
+**Archivos:**
+- `strategy/ema_adx_breakout.py` — EMA Breakout (trend-following)
+- `strategy/stop_hunt.py` — Stop Hunt (mean-reversion)
+- `strategy/vwap_refresh.py` — VWAP Refresh (range-bound)
+- `strategy/market_regime.py` — Market Regime Detector
+- `strategy/signal_engine.py` — Motor de selección
 
-**Stop Hunt (12):**
-- `stop_hunt_wick_pct`, `stop_hunt_rejection_ratio`, `stop_hunt_min_zones`, `stop_hunt_max_zone_distance_pct`, `stop_hunt_sl_pct`, `stop_hunt_min_volume_ratio`, `stop_hunt_use_ema_filter`, `stop_hunt_min_break_candles`, `stop_hunt_atr_mult_sl`, `stop_hunt_momentum_bars`, `stop_hunt_min_atr_pct`, `order_block_lookback`
+### Estrategia Actual
+
+| strategy_mode | Descripción |
+|---------------|-------------|
+| `ema_breakout` | Trend-following, opera en mercados con tendencia |
+| `stop_hunt` | Mean-reversion, opera cuando detecta liquidity grabs |
+| `vwap_refresh` | Range-bound, opera cuando precio rechaza del VWAP |
+| `auto` | Detecta automáticamente el régimen y cambia estrategia |
+
+### Stop Hunt — Mejoras recientes
+
+- `STOP_HUNT_MIN_BREAK_CANDLES`: Verifica velas consecutivas rompiendo zona
+- `STOP_HUNT_ADX_MIN`: Filtro ADX para momentum (default 18.0)
+- Usa vela actual (sin lag de 1 vela)
+
+---
+
+## 13. Market Regime Detection
+
+**Archivo:** `strategy/market_regime.py`
+
+### Detección de Régimen
+
+| Condición | Régimen | Estrategia |
+|-----------|---------|------------|
+| ADX >= 25 y no range-bound | TRENDING | EMA Breakout |
+| ADX <= 18, range-bound, vol >= 1.3 | RANGING + VOL | Stop Hunt |
+| ADX <= 18, range-bound, vol < 1.3 | RANGING + LOW VOL | VWAP Refresh |
+
+### Parámetros (config.py)
+
+```python
+REGIME_TRENDING_ADX_MIN = 25.0    # ADX para considerar trending
+REGIME_RANGING_ADX_MAX = 18.0     # ADX máximo para ranging
+REGIME_HUNT_VOL_RATIO_MIN = 1.3   # Volumen para hunts
+```
+
+### Métricas Calculadas
+
+- `adx`: ADX actual
+- `atr_pct`: Volatilidad como %
+- `vol_ratio`: Volumen vs MA(20)
+- `ema_spread_pct`: Diferencia EMAs normalizada
+- `range_bound`: True si rango < 5% y slopes EMAs < 0.3%
+- `high_low_range_pct`: Rango alto-bajo de últimas 20 velas
+
+### Switch Automático
+
+- Evalúa cada 5 ciclos en `signal_engine._evaluate_regime_and_switch()`
+- Requiere confianza >= 75% para cambiar
+- Solo cambia si no hay posiciones abiertas
+
+### Logs
+
+```bash
+tail -f logs/bot.log | grep "\[REGIME\]"
+```
+
+---
+
+## 14. Campos BotState (actualizados)
+
+```python
+@dataclass
+class BotState:
+    paused: bool
+    risk_pct: float
+    leverage: int
+    symbols: List[str]
+    strategy_mode: str           # "ema_breakout" | "stop_hunt" | "vwap_refresh" | "auto"
+    # ... otros campos ...
+
+    # Stop Hunt
+    stop_hunt_wick_pct: float
+    stop_hunt_rejection_ratio: float
+    stop_hunt_min_zones: int
+    stop_hunt_max_zone_distance_pct: float
+    stop_hunt_sl_pct: float
+    stop_hunt_min_volume_ratio: float
+    stop_hunt_use_ema_filter: bool
+    stop_hunt_min_break_candles: int
+    stop_hunt_atr_mult_sl: float
+    stop_hunt_momentum_bars: int
+    stop_hunt_min_atr_pct: float
+    stop_hunt_adx_min: float
+    order_block_lookback: int
+
+    # VWAP Refresh
+    vwap_std_mult: float
+    vwap_min_volume_ratio: float
+    vwap_sl_atr_mult: float
+    vwap_max_deviation_pct: float
+
+    # Market Regime (Auto)
+    regime_trending_adx_min: float
+    regime_ranging_adx_max: float
+    regime_hunt_vol_ratio_min: float
+```
 

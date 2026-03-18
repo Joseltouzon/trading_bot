@@ -157,6 +157,7 @@
             const openConfirm = document.getElementById('openConfirm')
             const openConfirmBreakout = document.getElementById('openConfirmBreakout')
             const openConfirmStophunt = document.getElementById('openConfirmStophunt')
+            const openConfirmVwap = document.getElementById('openConfirmVwap')
             const confirmSave = document.getElementById('confirmSave')
             const modal = new bootstrap.Modal(document.getElementById('confirmModal'))
             const toastEl = document.getElementById('mainToast')
@@ -186,6 +187,16 @@
                 }
                 modal.show()
             })
+
+            if (openConfirmVwap) {
+                openConfirmVwap.addEventListener('click', () => {
+                    if (!form.checkValidity()) {
+                        form.classList.add('was-validated')
+                        return
+                    }
+                    modal.show()
+                })
+            }
 
             confirmSave.addEventListener('click', async () => {
 

@@ -100,8 +100,20 @@ TP_THROTTLE_SECONDS = 10      # Mínimo tiempo entre ejecuciones de TP por símb
 TP_USE_MARK_PRICE = True      # Usar Mark Price (no last) para evaluar TP
 
 # ============================================================
-# STOP HUNT STRATEGY
+# VWAP REFRESH STRATEGY
 # ============================================================
+VWAP_STD_MULT = 1.5
+VWAP_MIN_VOLUME_RATIO = 1.5
+VWAP_SL_ATR_MULT = 2.0
+VWAP_MAX_DEVIATION_PCT = 2.0
+
+# ============================================================
+# MARKET REGIME DETECTION
+# ============================================================
+REGIME_TRENDING_ADX_MIN = 25.0
+REGIME_RANGING_ADX_MAX = 18.0
+REGIME_HUNT_VOL_RATIO_MIN = 1.3
+
 STOP_HUNT_WICK_PCT = 0.20           # Aumentado de 0.15 a 0.20 - mecha más grande
 STOP_HUNT_REJECTION_RATIO = 0.7    # Aumentado de 0.5 a 0.7 - rechazo más fuerte
 STOP_HUNT_MIN_ZONES = 2             # Reducido de 3 a 2 - menos zonas pero más relevantes
@@ -114,3 +126,4 @@ ORDER_BLOCK_LOOKBACK = 5            # Velas hacia atrás para buscar order block
 STOP_HUNT_ATR_MULT_SL = 2.0         # Aumentado de 1.5 a 2.0 - SL más seguro
 STOP_HUNT_MOMENTUM_BARS = 3        # Aumentado de 2 a 3 - momentum más fuerte
 STOP_HUNT_MIN_ATR_PCT = 0.12        # NUEVO: volatilidad mínima
+STOP_HUNT_ADX_MIN = 18.0            # ADX mínimo para operar (filtro de momentum)

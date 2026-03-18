@@ -4,7 +4,7 @@ import pandas as pd
 import numpy as np
 import config as CFG
 from strategy.pivots import pivot_high_vectorized, pivot_low_vectorized
-from strategy.indicators import ema, atr
+from strategy.indicators import ema, atr, adx
 
 
 def find_swing_levels(df: pd.DataFrame, lookback: int = 5):
@@ -81,6 +81,28 @@ def detect_stop_hunt(df: pd.DataFrame, zone_price: float, direction: str):
 
     wick_pct = CFG.STOP_HUNT_WICK_PCT / 100
     wick_threshold = zone_price * wick_pct
+    min_break_candles = CFG.STOP_HUNT_MIN_BREAK_CANDLES
+
+    def count_consecutive_breaks( candles_df, zone_price, direction, min_count):
+        count = 0
+        lookback = min(5, len(candles_df))
+        for i in range(-lookback, 0):
+            row = candles_df.iloc[i]
+            if direction == "LONG":
+                wick_bottom = row["low"]
+                if wick_bottom < zone_price:
+                    count += 1
+                else:
+                    break
+            else:
+                wick_top = row["high"]
+                if wick_top > zone_price:
+                    count += 1
+                else:
+                    break
+        return count >= min_count
+
+    consecutive_ok = count_consecutive_breaks(df, zone_price, direction, min_break_candles)
 
     if direction == "LONG":
         wick_bottom = last["low"]
@@ -97,12 +119,13 @@ def detect_stop_hunt(df: pd.DataFrame, zone_price: float, direction: str):
 
             rejection_ok = body_to_wick >= CFG.STOP_HUNT_REJECTION_RATIO
 
-            if rejection_ok:
+            if rejection_ok and consecutive_ok:
                 return True, {
                     "zone_price": zone_price,
                     "wick_size_pct": (wick_size / zone_price) * 100,
                     "body_ratio": body_to_wick,
-                    "rejection_strength": body_to_wick
+                    "rejection_strength": body_to_wick,
+                    "consecutive_breaks": min_break_candles
                 }
 
     elif direction == "SHORT":
@@ -120,12 +143,13 @@ def detect_stop_hunt(df: pd.DataFrame, zone_price: float, direction: str):
 
             rejection_ok = body_to_wick >= CFG.STOP_HUNT_REJECTION_RATIO
 
-            if rejection_ok:
+            if rejection_ok and consecutive_ok:
                 return True, {
                     "zone_price": zone_price,
                     "wick_size_pct": (wick_size / zone_price) * 100,
                     "body_ratio": body_to_wick,
-                    "rejection_strength": body_to_wick
+                    "rejection_strength": body_to_wick,
+                    "consecutive_breaks": min_break_candles
                 }
 
     return False, {}
@@ -165,6 +189,7 @@ def compute_stop_hunt_signals(df: pd.DataFrame) -> dict:
             "breakout_long": False,
             "breakout_short": False,
             "adx": 0.0,
+            "adx_increasing": False,
             "atr": 0.0,
             "vol_ratio": 0.0,
             "close": 0.0,
@@ -175,17 +200,22 @@ def compute_stop_hunt_signals(df: pd.DataFrame) -> dict:
             "hunt_detected": False,
         }
 
-    df_calc = df.iloc[:-1].copy()
-    if len(df_calc) < 30:
-        df_calc = df.copy()
+    df_calc = df.copy()
 
     close = df_calc["close"]
 
     df_calc["atr"] = atr(df_calc, CFG.ATR_PERIOD)
+    df_calc["adx_val"] = adx(df_calc, CFG.ADX_PERIOD)
+
     last = df_calc.iloc[-1]
+    prev = df_calc.iloc[-2]
     current_price = float(last["close"])
     atr_val = float(last["atr"])
     atr_pct = (atr_val / current_price) * 100 if current_price > 0 else 0
+
+    adx_val = float(last["adx_val"])
+    adx_prev = float(prev["adx_val"]) if "adx_val" in prev else adx_val
+    adx_increasing = adx_val > adx_prev
 
     swing_highs, swing_lows = find_swing_levels(df_calc)
     ob_bull = find_order_blocks(df_calc, "LONG")
@@ -197,6 +227,9 @@ def compute_stop_hunt_signals(df: pd.DataFrame) -> dict:
     max_dist_pct = CFG.STOP_HUNT_MAX_ZONE_DISTANCE_PCT / 100
     min_atr_pct = getattr(CFG, "STOP_HUNT_MIN_ATR_PCT", 0.10)
     volatility_ok = atr_pct >= min_atr_pct
+
+    adx_min = getattr(CFG, "STOP_HUNT_ADX_MIN", 15.0)
+    adx_ok = adx_val >= adx_min
 
     ema_fast = ema(close, CFG.EMA_FAST)
     ema_slow = ema(close, CFG.EMA_SLOW)
@@ -219,7 +252,7 @@ def compute_stop_hunt_signals(df: pd.DataFrame) -> dict:
         if dist_pct <= max_dist_pct:
             hunt_detected, info = detect_stop_hunt(df_calc, zone, "LONG")
             ema_ok = not use_ema_filter or ema_trend == "BULL"
-            if hunt_detected and vol_ok and momentum_long and volatility_ok and ema_ok:
+            if hunt_detected and vol_ok and momentum_long and volatility_ok and ema_ok and adx_ok:
                 breakout_long = True
                 hunt_info = info
                 signal_price = zone
@@ -230,7 +263,7 @@ def compute_stop_hunt_signals(df: pd.DataFrame) -> dict:
         if dist_pct <= max_dist_pct:
             hunt_detected, info = detect_stop_hunt(df_calc, zone, "SHORT")
             ema_ok = not use_ema_filter or ema_trend == "BEAR"
-            if hunt_detected and vol_ok and momentum_short and volatility_ok and ema_ok:
+            if hunt_detected and vol_ok and momentum_short and volatility_ok and ema_ok and adx_ok:
                 breakout_short = True
                 hunt_info = info
                 signal_price = zone
@@ -255,12 +288,12 @@ def compute_stop_hunt_signals(df: pd.DataFrame) -> dict:
         "last_pl": swing_lows[-1] if swing_lows else None,
         "breakout_long": breakout_long,
         "breakout_short": breakout_short,
-        "adx": 0.0,
-        "adx_increasing": False,
+        "adx": adx_val,
+        "adx_increasing": adx_increasing,
         "atr": atr_val,
         "atr_pct": atr_pct,
         "vol_ratio": vol_ratio,
-        "vol_increasing": last["volume"] > df_calc["volume"].iloc[-2],
+        "vol_increasing": last["volume"] > prev["volume"],
         "close": current_price,
         "signal_price": signal_price,
         "stop_hunt_zones": {
@@ -276,6 +309,8 @@ def compute_stop_hunt_signals(df: pd.DataFrame) -> dict:
             "vol_ok": bool(vol_ok),
             "ema_trend": ema_trend,
             "volatility_ok": volatility_ok,
+            "adx_ok": adx_ok,
+            "adx_increasing": adx_increasing,
             "swing_highs": swing_highs,
             "swing_lows": swing_lows,
             "order_blocks_bull": len(ob_bull),
