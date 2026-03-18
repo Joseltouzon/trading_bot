@@ -242,6 +242,28 @@ class EventLoop:
                     continue
                 exchange_map[symbol] = float(p.get("size") or 0)
 
+            # 🆕 Limpiar estados huérfanos: símbolos en trail/stop_orders pero sin posición abierta en Binance
+            orphaned = []
+            if hasattr(st, "trail"):
+                for sym in list(st.trail.keys()):
+                    if sym not in exchange_map:
+                        orphaned.append(sym)
+            if hasattr(st, "stop_orders"):
+                for sym in list(st.stop_orders.keys()):
+                    if sym not in exchange_map:
+                        orphaned.append(sym)
+            if hasattr(self, "tp_manager"):
+                for sym in list(self.tp_manager._tp_by_pct_executed.keys()):
+                    if sym not in exchange_map:
+                        orphaned.append(sym)
+            if orphaned:
+                for sym in orphaned:
+                    self.log.info(f"[RECONCILE] Limpiando estado huérfano: {sym}")
+                    if hasattr(st, "trail"): st.trail.pop(sym, None)
+                    if hasattr(st, "stop_orders"): st.stop_orders.pop(sym, None)
+                    if hasattr(self, "tp_manager"): self.tp_manager._tp_by_pct_executed.pop(sym, None)
+                self.db.save_state(st.__dict__)
+
             # 🆕 Paso 1: Detectar y adoptar posiciones manuales
             db_open = self.db.get_open_positions()
             db_symbols = {p["symbol"] for p in db_open}
@@ -268,16 +290,26 @@ class EventLoop:
                 # 🔴 POSICIÓN TOTALMENTE CERRADA
                 # ==================================================
                 if ex_qty == 0.0:
-                    open_time_ms = int(pos["opened_at"].timestamp() * 1000)
-                    
                     # 🆕 1️⃣ Obtener trades desde la apertura para calcular comisiones
+                    open_time_ms = int(pos["opened_at"].timestamp() * 1000)
                     trades = self.exchange.client.futures_account_trades(
                         symbol=symbol,
                         startTime=open_time_ms
                     )
+
+                    if not trades:
+                        self.log.warning(f"[RECONCILE] No trades found for {symbol} desde open_time")
+                        # 🔧 Fallback: buscar en los últimos 10 minutos por si el cierre es muy reciente
+                        recent_time_ms = int(time.time() * 1000) - 600_000
+                        trades = self.exchange.client.futures_account_trades(
+                            symbol=symbol,
+                            startTime=recent_time_ms
+                        )
+                        if trades:
+                            self.log.info(f"[RECONCILE] {symbol} found {len(trades)} trades en fallback (ultimos 10min)")
                     
                     if not trades:
-                        self.log.warning(f"[RECONCILE] No trades found for {symbol}")
+                        self.log.warning(f"[RECONCILE] Still no trades for {symbol} — skipping")
                         continue
                     
                     # 🆕 2️⃣ Filtrar trades de cierre y sumar comisiones

@@ -1164,7 +1164,7 @@
         }, 150000);
     </script>
 
-    <!-- ========================= TRAILING + SPARKLINES + BENCHMARK + SORT ========================= -->
+    <!-- ========================= TRAILING + BENCHMARK + SORT (runs after DOM ready) ========================= -->
     <script>
     // ---------- BENCHMARK BTC OVERLAY EN EQUITY CHART ----------
     async function loadBenchmark() {
@@ -1181,17 +1181,17 @@
                 window.equityChart.data.datasets.push({
                     label: "BTC (Buy&Hold)",
                     data: benchVals,
-                    borderColor: "rgba(255,200,0,0.7)",
+                    borderColor: "rgba(255,215,0,0.8)",
                     backgroundColor: "transparent",
                     borderWidth: 2,
-                    borderDash: [4, 4],
+                    borderDash: [5, 5],
                     tension: 0.35,
                     pointRadius: 0,
                     fill: false
                 });
                 window.equityChart.update();
             }
-        } catch (e) { console.warn("Benchmark BTC no disponible:", e); }
+        } catch (e) { console.warn("Benchmark BTC:", e); }
     }
 
     // ---------- TRAILING STATUS ----------
@@ -1204,66 +1204,65 @@
             const trailing = data.trailing || {};
             const symbols = Object.keys(trailing);
             if (!symbols.length) {
-                tbody.innerHTML = '<tr><td colspan="9" class="text-center text-muted">Sin posiciones activas</td></tr>';
+                tbody.innerHTML = '<tr><td colspan="9" class="text-center text-secondary">Sin posiciones activas</td></tr>';
                 return;
             }
             tbody.innerHTML = "";
             for (const sym of symbols) {
                 const t = trailing[sym];
-                const pnlClass = t.pnl_pct >= 0 ? "text-success" : "text-danger";
+                const pnlColor = t.pnl_pct >= 0 ? "#00ff88" : "#ff4444";
                 const badgeClass = t.activated ? "bg-success" : "bg-secondary";
-                const activatedText = t.activated ? "Si" : "No";
                 const distSl = t.dist_sl_pct !== null ? t.dist_sl_pct.toFixed(2) + "%" : "-";
                 tbody.innerHTML += `<tr>
-                    <td><strong>${sym}</strong></td>
-                    <td>${t.direction}</td>
-                    <td>${t.entry.toFixed(4)}</td>
-                    <td class="text-success">${t.best.toFixed(4)}</td>
-                    <td>${t.mark_price.toFixed(4)}</td>
-                    <td class="${pnlClass}"><strong>${t.pnl_pct.toFixed(2)}%</strong></td>
-                    <td>${distSl}</td>
-                    <td>${t.sl ? t.sl.toFixed(4) : "-"}</td>
-                    <td><span class="badge ${badgeClass}">${activatedText}</span></td>
+                    <td><strong style="color:#fff">${sym}</strong></td>
+                    <td style="color:#fff">${t.direction}</td>
+                    <td style="color:#fff">${t.entry.toFixed(4)}</td>
+                    <td style="color:#00ff88">${t.best.toFixed(4)}</td>
+                    <td style="color:#fff">${t.mark_price.toFixed(4)}</td>
+                    <td style="color:${pnlColor}"><strong>${t.pnl_pct.toFixed(2)}%</strong></td>
+                    <td style="color:#fff">${distSl}</td>
+                    <td style="color:#fff">${t.sl ? t.sl.toFixed(4) : "-"}</td>
+                    <td><span class="badge ${badgeClass}">${t.activated ? "Si" : "No"}</span></td>
                 </tr>`;
                 const el = document.getElementById("trailing-" + sym);
                 if (el) {
-                    el.innerHTML = `<span class="badge ${t.activated ? "bg-success" : "bg-warning"}">${t.activated ? "Activo (" + t.pnl_pct.toFixed(1) + "%)" : "Wait (" + t.pnl_pct.toFixed(1) + "%)"}</span>`;
+                    el.innerHTML = `<span class="badge ${t.activated ? "bg-success" : "bg-warning"}" style="font-size:0.75em">${t.activated ? "Activo" : "Wait"}</span>`;
                 }
             }
-        } catch (e) { console.warn("Trailing status error:", e); }
+        } catch (e) { console.warn("Trailing status:", e); }
     }
 
-    // ---------- SPARKLINES ----------
+    // ---------- SPARKLINES (lazy, on tab show) ----------
     const sparklineCache = {};
-    async function loadSparklines() {
+    function loadSparklines() {
         const canvases = document.querySelectorAll("canvas[data-symbol]");
-        await Promise.all(Array.from(canvases).map(async (canvas) => {
+        if (!canvases.length) return;
+        Array.from(canvases).forEach(canvas => {
             const sym = canvas.dataset.symbol;
-            try {
-                if (!sparklineCache[sym]) {
-                    const res = await fetch("/api/sparkline/" + sym);
-                    const d = await res.json();
-                    sparklineCache[sym] = d.closes || [];
-                }
-                const closes = sparklineCache[sym];
-                if (!closes.length) return;
-                const ctx = canvas.getContext("2d");
-                const w = canvas.width, h = canvas.height;
-                const min = Math.min(...closes), max = Math.max(...closes);
-                const range = max - min || 1;
-                const color = closes[closes.length - 1] >= closes[0] ? "lime" : "#ff4444";
-                ctx.clearRect(0, 0, w, h);
-                ctx.beginPath();
-                ctx.strokeStyle = color;
-                ctx.lineWidth = 1.5;
-                closes.forEach((v, i) => {
-                    const x = (i / (closes.length - 1)) * w;
-                    const y = h - ((v - min) / range) * (h - 4) - 2;
-                    i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
-                });
-                ctx.stroke();
-            } catch (e) { console.warn("Sparkline error " + sym + ":", e); }
-        }));
+            if (sparklineCache[sym]) { drawSparkline(canvas, sparklineCache[sym]); return; }
+            fetch("/api/sparkline/" + sym)
+                .then(r => r.json())
+                .then(d => { sparklineCache[sym] = d.closes || []; drawSparkline(canvas, sparklineCache[sym]); })
+                .catch(() => {});
+        });
+    }
+    function drawSparkline(canvas, closes) {
+        if (!closes.length) return;
+        const ctx = canvas.getContext("2d");
+        const w = canvas.width, h = canvas.height;
+        const min = Math.min(...closes), max = Math.max(...closes);
+        const range = max - min || 1;
+        const color = closes[closes.length - 1] >= closes[0] ? "#00ff88" : "#ff4444";
+        ctx.clearRect(0, 0, w, h);
+        ctx.beginPath();
+        ctx.strokeStyle = color;
+        ctx.lineWidth = 1.5;
+        closes.forEach((v, i) => {
+            const x = (i / (closes.length - 1)) * w;
+            const y = h - ((v - min) / range) * (h - 4) - 2;
+            i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+        });
+        ctx.stroke();
     }
 
     // ---------- SORT HELPERS ----------
@@ -1273,14 +1272,11 @@
             el.textContent = c === col ? (asc ? "↑" : "↓") : "⇅";
         });
     }
-
     function sortNumeric(a, b, asc) {
-        if (a < b) return asc ? -1 : 1;
-        if (a > b) return asc ? 1 : -1;
-        return 0;
+        return a < b ? (asc ? -1 : 1) : a > b ? (asc ? 1 : -1) : 0;
     }
 
-    // ---------- SORT: PERFORMANCE (closed trades) ----------
+    // ---------- SORT: PERFORMANCE ----------
     let perfSortCol = -1, perfSortAsc = true;
     function sortPerformance(col) {
         if (perfSortCol === col) perfSortAsc = !perfSortAsc; else { perfSortCol = col; perfSortAsc = true; }
@@ -1288,7 +1284,25 @@
         renderSortedPerformance();
     }
     function renderSortedPerformance() {
-        const rows = window._perfData || [];
+        const tbody = document.getElementById("closedPositionsTableBody");
+        if (!tbody) return;
+        let rows;
+        if ((window._perfData || []).length > 0) {
+            rows = (window._perfData || []).slice();
+        } else {
+            // Fallback: leer directo del DOM si el array no se populó
+            rows = Array.from(tbody.querySelectorAll("tr")).map(row => {
+                const c = row.cells;
+                return {
+                    symbol: c[0]?.textContent.trim() || "",
+                    side: c[1]?.textContent.trim() || "",
+                    entry_price: parseFloat(c[2]?.textContent.trim()) || 0,
+                    exit_price: parseFloat(c[3]?.textContent.trim()) || 0,
+                    realized_pnl: parseFloat(c[4]?.textContent.trim()) || 0,
+                    commission: parseFloat((c[5]?.textContent.trim() || "0").replace(/[^0-9.]/g, "")) || 0
+                };
+            });
+        }
         const col = perfSortCol, asc = perfSortAsc;
         rows.sort((a, b) => {
             const va = Object.values(a)[col], vb = Object.values(b)[col];
@@ -1296,12 +1310,13 @@
             const nb = typeof vb === "number" ? vb : String(vb).toLowerCase();
             return sortNumeric(na, nb, asc);
         });
-        const tbody = document.getElementById("closedPositionsTableBody");
-        if (!tbody) return;
         tbody.innerHTML = rows.map(t => `<tr>
-            <td>${t.symbol}</td><td>${t.side}</td><td>${t.entry_price}</td><td>${t.exit_price}</td>
-            <td class="${t.realized_pnl > 0 ? "text-success" : "text-danger"}">${t.realized_pnl}</td>
-            <td class="text-warning">-$${(t.commission || 0).toFixed(4)}</td>
+            <td style="color:#fff">${t.symbol}</td>
+            <td style="color:#fff">${t.side}</td>
+            <td style="color:#fff">${t.entry_price}</td>
+            <td style="color:#fff">${t.exit_price}</td>
+            <td style="color:${t.realized_pnl > 0 ? "#00ff88" : "#ff4444"}">${t.realized_pnl}</td>
+            <td style="color:#ffcc00">-$${(t.commission || 0).toFixed(4)}</td>
         </tr>`).join("");
     }
 
@@ -1313,7 +1328,24 @@
         renderSortedAnalytics();
     }
     function renderSortedAnalytics() {
-        const rows = window._analytData || [];
+        const tbody = document.getElementById("analyticsTableBody");
+        if (!tbody) return;
+        let rows;
+        if ((window._analytData || []).length > 0) {
+            rows = (window._analytData || []).slice();
+        } else {
+            rows = Array.from(tbody.querySelectorAll("tr")).map(row => {
+                const c = row.cells;
+                return {
+                    symbol: c[0]?.textContent.trim() || "",
+                    total_trades: parseInt(c[1]?.textContent.trim()) || 0,
+                    total_pnl: parseFloat(c[2]?.textContent.trim()) || 0,
+                    best_trade: parseFloat(c[3]?.textContent.trim()) || 0,
+                    worst_trade: parseFloat(c[4]?.textContent.trim()) || 0,
+                    avg_hold_hours: parseFloat(c[5]?.textContent.trim()) || 0
+                };
+            });
+        }
         const col = analytSortCol, asc = analytSortAsc;
         rows.sort((a, b) => {
             const va = Object.values(a)[col], vb = Object.values(b)[col];
@@ -1321,14 +1353,13 @@
             const nb = typeof vb === "number" ? vb : String(vb).toLowerCase();
             return sortNumeric(na, nb, asc);
         });
-        const tbody = document.getElementById("analyticsTableBody");
-        if (!tbody) return;
         tbody.innerHTML = rows.map(r => `<tr>
-            <td>${r.symbol}</td><td>${r.total_trades}</td>
-            <td class="${r.total_pnl >= 0 ? "text-success" : "text-danger"}">${r.total_pnl.toFixed(2)}</td>
-            <td class="${r.best_trade >= 0 ? "text-success" : "text-danger"}">${r.best_trade.toFixed(2)}</td>
-            <td class="${r.worst_trade >= 0 ? "text-success" : "text-danger"}">${r.worst_trade.toFixed(2)}</td>
-            <td>${r.avg_hold_hours.toFixed(2)}</td>
+            <td style="color:#fff">${r.symbol}</td>
+            <td style="color:#fff">${r.total_trades}</td>
+            <td style="color:${r.total_pnl >= 0 ? "#00ff88" : "#ff4444"}">${r.total_pnl.toFixed(2)}</td>
+            <td style="color:${r.best_trade >= 0 ? "#00ff88" : "#ff4444"}">${r.best_trade.toFixed(2)}</td>
+            <td style="color:${r.worst_trade >= 0 ? "#00ff88" : "#ff4444"}">${r.worst_trade.toFixed(2)}</td>
+            <td style="color:#fff">${r.avg_hold_hours.toFixed(2)}</td>
         </tr>`).join("");
     }
 
@@ -1348,20 +1379,44 @@
         rows.forEach(r => tbody.appendChild(r));
     }
 
-    // ---------- INIT ----------
-    function initNewFeatures() {
-        const perfRows = document.querySelectorAll("#closedPositionsTableBody tr");
-        window._perfData = Array.from(perfRows).map(row => {
-            const cells = row.cells;
-            return {
-                symbol: cells[0]?.textContent.trim() || "",
-                side: cells[1]?.textContent.trim() || "",
-                entry_price: parseFloat(cells[2]?.textContent.trim()) || 0,
-                exit_price: parseFloat(cells[3]?.textContent.trim()) || 0,
-                realized_pnl: parseFloat(cells[4]?.textContent.trim()) || 0,
-                commission: parseFloat((cells[5]?.textContent.trim() || "0").replace(/[^0-9.]/g, "")) || 0
-            };
-        });
+    // ---------- INIT (post-DOM + post-polling) ----------
+    let _initDone = false;
+    async function initNewFeatures() {
+        if (_initDone) return;
+        _initDone = true;
+
+        // Performance table: fetch directly from API (tabla se llena con polling async)
+        try {
+            const res = await fetch("/api/closed-positions");
+            const data = await res.json();
+            const trades = data.trades || data || [];
+            window._perfData = trades.map(t => ({
+                symbol: t.symbol || "",
+                side: t.side || "",
+                entry_price: parseFloat(t.entry_price) || 0,
+                exit_price: parseFloat(t.exit_price) || 0,
+                realized_pnl: parseFloat(t.realized_pnl) || 0,
+                commission: parseFloat(t.commission) || 0
+            }));
+            renderSortedPerformance();
+        } catch (e) {
+            // Fallback: leer del HTML ya renderizado
+            const perfRows = document.querySelectorAll("#closedPositionsTableBody tr");
+            window._perfData = Array.from(perfRows).map(row => {
+                const cells = row.cells;
+                return {
+                    symbol: cells[0]?.textContent.trim() || "",
+                    side: cells[1]?.textContent.trim() || "",
+                    entry_price: parseFloat(cells[2]?.textContent.trim()) || 0,
+                    exit_price: parseFloat(cells[3]?.textContent.trim()) || 0,
+                    realized_pnl: parseFloat(cells[4]?.textContent.trim()) || 0,
+                    commission: parseFloat((cells[5]?.textContent.trim() || "0").replace(/[^0-9.]/g, "")) || 0
+                };
+            });
+            renderSortedPerformance();
+        }
+
+        // Analytics table: leer del HTML (Jinja lo renderiza con datos iniciales)
         const analytRows = document.querySelectorAll("#analyticsTableBody tr");
         window._analytData = Array.from(analytRows).map(row => {
             const cells = row.cells;
@@ -1374,57 +1429,31 @@
                 avg_hold_hours: parseFloat(cells[5]?.textContent.trim()) || 0
             };
         });
+        if (window._analytData.length) renderSortedAnalytics();
+
+        // Sparklines cuando el tab de performance este visible
+        loadSparklines();
     }
 
-    // ---------- EQUITY CHART CON BENCHMARK ----------
-    if (typeof Chart !== "undefined") {
-        const equityCtx = document.getElementById("equityChart").getContext("2d");
-        const equityGradient = equityCtx.createLinearGradient(0, 0, 0, 300);
-        equityGradient.addColorStop(0, "rgba(0,255,0,0.35)");
-        equityGradient.addColorStop(1, "rgba(0,255,0,0)");
-        window.equityChart = new Chart(equityCtx, {
-            type: "line",
-            data: {
-                labels: labels,
-                datasets: [{
-                    label: "Equity",
-                    data: equityValues,
-                    borderColor: "lime",
-                    backgroundColor: equityGradient,
-                    fill: true,
-                    tension: 0.35,
-                    pointRadius: 0,
-                    borderWidth: 2
-                }]
-            },
-            options: {
-                animation: { duration: 1200, easing: "easeOutQuart" },
-                plugins: {
-                    legend: { display: true, labels: { color: "#aaa", boxWidth: 20 } },
-                    tooltip: {
-                        backgroundColor: "#111",
-                        borderColor: "lime",
-                        borderWidth: 1,
-                        callbacks: { label: ctx => ctx.dataset.label + ": $" + ctx.parsed.y.toFixed(2) }
-                    }
-                },
-                scales: {
-                    x: { ticks: { color: "#888" }, grid: { display: false } },
-                    y: { ticks: { color: "#888", callback: v => "$" + v }, grid: { color: "rgba(255,255,255,0.04)" } }
-                }
-            }
-        });
+    // Run when DOM is ready
+    if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", initNewFeatures);
+    } else {
+        setTimeout(initNewFeatures, 200);
     }
 
-    // ---------- POLLING ----------
-    initNewFeatures();
+    // Load sparklines when performance tab becomes visible
+    document.addEventListener("shown.bs.tab", e => {
+        if (e.target.dataset?.bsTarget === "#performance" ||
+            e.target.dataset?.bsTarget === "#overview") {
+            setTimeout(loadSparklines, 100);
+        }
+    });
+
     loadTrailingStatus();
-    loadSparklines();
     loadBenchmark();
     setInterval(loadTrailingStatus, 5000);
-    setInterval(loadSparklines, 15000);
     </script>
 
 </body>
-
 </html>
