@@ -33,7 +33,8 @@ def export_training_data(output_file: str = "ml_training_data.csv"):
     # Convertir a DataFrame
     data = []
     for row in rows:
-        features = json.loads(row["signal_features"]) if row["signal_features"] else {}
+        raw = row["signal_features"]
+        features = dict(raw) if isinstance(raw, dict) else json.loads(raw) if raw else {}
         
         # Target binario: ¿fue ganadora la operación?
         pnl = float(row["realized_pnl"] or 0)
