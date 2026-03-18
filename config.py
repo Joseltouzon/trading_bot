@@ -79,8 +79,15 @@ EXCHANGE_INFO_TTL_SECONDS = 60
 # ============================================================
 # TAKE PROFIT ESCALONADO
 # ============================================================
-USE_TAKE_PROFIT = False
+USE_TAKE_PROFIT = True
 
+# --- Modo: porcentaje de ganancia (recomendado) ---
+TP_BY_PCT = True                    # Usar TP por % de ganancia en vez de R:R
+TP_ACTIVATION_PCT = 1.2            # Activar cuando la ganancia llegue a este %
+TP_CLOSE_PCT = 70                   # Cerrar este % de la posición al activar
+TP_SL_MODE = "trailing"            # SL del resto: "entry" (precio entrada) o "trailing" (TrailingManager lo maneja)
+
+# --- Modo legacy: R:R multiples ---
 # Niveles de TP: [R:R, % a cerrar, ¿mover SL a Breakeven?]
 TP_LEVELS = [
     {"ratio": 5.0, "close_pct": 30, "move_sl_to_be": True},   # 50% en 1.5R → SL a Entry

@@ -107,6 +107,12 @@ class TrailingManager:
             else:
                 new_sl = tr["best"] * (1 + st.trailing_pct / 100.0)
 
+        # Garantizar SL >= Entry Price (proteger ganancia mínima)
+        if direction == "LONG":
+            new_sl = max(float(new_sl), entry)
+        else:
+            new_sl = min(float(new_sl), entry)
+
         # Ejecutar Movimiento
         should_update = False
         if old_sl is None:

@@ -24,6 +24,8 @@ class TakeProfitManager:
         
         # Trackear niveles ya ejecutados por símbolo: {symbol: {tp_index: timestamp}}
         self._tp_executed = {}
+        # Trackear si el TP por % ya fue ejecutado por símbolo
+        self._tp_by_pct_executed = {}
         # Throttle por símbolo para evitar spam de API
         self._last_tp_action = {}
         
@@ -39,8 +41,11 @@ class TakeProfitManager:
                 # Saltar si está en cooldown de TP
                 if self._is_throttled(symbol):
                     continue
-                    
-                self._evaluate_tps(st, symbol, p)
+                
+                if bool(getattr(CFG, "TP_BY_PCT", False)):
+                    self._evaluate_tp_by_pct(st, symbol, p)
+                else:
+                    self._evaluate_tps(st, symbol, p)
                 
         except Exception as e:
             self.log.error(f"[TP MANAGER] loop error: {e}")
@@ -59,8 +64,11 @@ class TakeProfitManager:
         self._last_tp_action[symbol] = time.time()
     
     def _evaluate_tps(self, st, symbol: str, position: dict):
-        """Calcular R:R actual y ejecutar cierres parciales si corresponde"""
+        """Calcular R:R actual y ejecutar cierres parciales si corresponde (modo R:R legacy)"""
         
+        if bool(getattr(CFG, "TP_BY_PCT", False)):
+            return  # Modo % ya se maneja en _evaluate_tp_by_pct
+
         # === Datos de la posición ===
         side = position.get("side")  # "LONG" | "SHORT"
         entry = float(position.get("entry_price", 0))
@@ -126,6 +134,158 @@ class TakeProfitManager:
                 self._mark_tp_executed(symbol, i)
                 self._update_throttle(symbol)
                 break  # Ejecutar solo un nivel por ciclo (evitar múltiples órdenes)
+    
+    def _evaluate_tp_by_pct(self, st, symbol: str, position: dict):
+        """Evaluar TP por porcentaje de ganancia (nuevo modo simple)."""
+        if not bool(getattr(CFG, "TP_BY_PCT", False)):
+            return
+        
+        if self._tp_by_pct_executed.get(symbol, False):
+            return
+
+        side = position.get("side")
+        entry = float(position.get("entry_price", 0))
+        total_qty = float(position.get("size", 0))
+        position_id = st.position_ids.get(symbol)
+
+        if entry <= 0 or total_qty <= 0 or not position_id:
+            return
+
+        use_mark = bool(getattr(CFG, "TP_USE_MARK_PRICE", True))
+        if use_mark:
+            mp = float(self.market.get_mark_price_cached(symbol) or 0)
+            if mp <= 0:
+                mp = float(self.exchange.get_mark_price(symbol) or 0)
+        else:
+            mp = float(self.exchange.get_ticker_price(symbol) or 0)
+
+        if mp <= 0:
+            return
+
+        activation_pct = float(getattr(CFG, "TP_ACTIVATION_PCT", 1.2))
+        close_pct = float(getattr(CFG, "TP_CLOSE_PCT", 70))
+        sl_mode = str(getattr(CFG, "TP_SL_MODE", "entry"))
+
+        if side == "LONG":
+            profit_pct = (mp - entry) / entry * 100.0
+        else:
+            profit_pct = (entry - mp) / entry * 100.0
+
+        if profit_pct < activation_pct:
+            return
+
+        close_qty = total_qty * (close_pct / 100.0)
+        close_qty = self.exchange.normalize_qty(symbol, close_qty)
+        SAFETY_BUFFER = 0.999
+        close_qty = close_qty * SAFETY_BUFFER
+        close_qty = self.exchange.normalize_qty(symbol, close_qty)
+
+        if close_qty <= 0:
+            self.log.warning(f"[TP%] {symbol} close_qty = 0 after normalization. Skipping.")
+            return
+
+        remaining_qty = total_qty - close_qty
+        min_notional = float(getattr(CFG, "MIN_NOTIONAL_USDT", 20))
+        if mp * close_qty < min_notional:
+            self.log.warning(f"[TP%] {symbol} partial qty too small for Binance min_notional")
+            return
+
+        if self._is_throttled(symbol):
+            return
+
+        try:
+            order_side = "SELL" if side == "LONG" else "BUY"
+            close_order = self.exchange.place_market_order(
+                symbol=symbol,
+                side=order_side,
+                quantity=close_qty,
+                reduce_only=True
+            )
+
+            if not close_order:
+                self.log.error(f"[TP%] {symbol} partial close order failed")
+                return
+
+            self._update_throttle(symbol)
+            self._tp_by_pct_executed[symbol] = True
+
+            realized = (mp - entry) * close_qty if side == "LONG" else (entry - mp) * close_qty
+            self.log.info(
+                f"[TP% EXEC] {symbol} {side} | "
+                f"Profit: {profit_pct:.2f}% | "
+                f"Closed: {close_pct}% ({close_qty:.6f}) | "
+                f"Remaining: {remaining_qty:.6f} | "
+                f"PnL: {realized:+.2f} USDT"
+            )
+
+            if position_id:
+                self.db.update_position_qty(position_id, remaining_qty)
+                self.db.create_position_event(
+                    position_id=position_id,
+                    event_type="TAKE_PROFIT_PCT",
+                    payload={
+                        "profit_pct": round(profit_pct, 3),
+                        "activation_pct": activation_pct,
+                        "close_pct": close_pct,
+                        "closed_qty": close_qty,
+                        "remaining_qty": remaining_qty,
+                        "price": mp,
+                        "realized_pnl": round(realized, 4)
+                    }
+                )
+
+                if remaining_qty > 0 and sl_mode == "entry":
+                    self._move_sl_to_entry(st, symbol, position_id, side, remaining_qty, entry)
+
+                self.db.save_state(st.__dict__)
+
+            if self.tg_send:
+                self.tg_send(
+                    f"🎯 <b>TP by % Hit</b> {symbol} {side}\n"
+                    f"Profit: {profit_pct:.2f}% (target: {activation_pct}%)\n"
+                    f"Cerrado: {close_pct}% ({close_qty:.6f})\n"
+                    f"Restante: {remaining_qty:.6f}\n"
+                    f"PnL realizado: {realized:+.2f} USDT"
+                )
+
+        except Exception as e:
+            self.log.exception(f"[TP% EXEC] Error {symbol}: {e}")
+            if self.tg_send:
+                self.tg_send(f"⚠️ TP% error {symbol}: {str(e)[:80]}")
+
+    def _move_sl_to_entry(self, st, symbol: str, position_id: int,
+                         side: str, qty: float, entry: float):
+        """Mover SL del remanente al precio de entrada."""
+        try:
+            current_sl = None
+            if hasattr(st, "trail") and symbol in st.trail:
+                current_sl = st.trail[symbol].get("sl")
+            if current_sl is None and hasattr(st, "stop_orders"):
+                current_sl = st.stop_orders.get(symbol, {}).get("stop_price")
+
+            buffer_pct = float(getattr(CFG, "SL_BUFFER_PCT", 0.0012))
+            if side == "LONG":
+                new_sl = entry * (1 + buffer_pct)
+                if current_sl and new_sl <= current_sl:
+                    return
+            else:
+                new_sl = entry * (1 - buffer_pct)
+                if current_sl and new_sl >= current_sl:
+                    return
+
+            result = self.om.replace_stop_order(st, symbol, side, qty, new_sl)
+            if result:
+                self.log.info(f"[TP% ENTRY SL] {symbol} SL -> entry: {new_sl:.4f}")
+                if hasattr(st, "trail") and symbol in st.trail:
+                    st.trail[symbol]["sl"] = new_sl
+                if self.tg_send:
+                    self.tg_send(
+                        f"🛡️ <b>SL protegido</b> {symbol}\n"
+                        f"Restante: {qty:.6f}\n"
+                        f"SL: {new_sl:.4f} (entry)"
+                    )
+        except Exception as e:
+            self.log.warning(f"[TP% ENTRY SL] Error {symbol}: {e}")
     
     def _get_initial_sl(self, st, symbol: str, position_id: int) -> float:
         """
@@ -350,5 +510,7 @@ class TakeProfitManager:
         """Limpiar estado de TP para un símbolo (útil al cerrar posición)"""
         if symbol in self._tp_executed:
             del self._tp_executed[symbol]
+        if symbol in self._tp_by_pct_executed:
+            del self._tp_by_pct_executed[symbol]
         if symbol in self._last_tp_action:
             del self._last_tp_action[symbol]

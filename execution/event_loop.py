@@ -475,6 +475,20 @@ class EventLoop:
         # Daily loss guard
         if self._daily_loss_exceeded(st):
             self.log.warning("[DAILY LOSS] limit exceeded. Blocking entries.")
+            if self.tg_send:
+                try:
+                    eq = float(self.exchange.get_equity())
+                    start = float(st.day_start_equity)
+                    dd_pct = ((start - eq) / start) * 100.0 if start > 0 else 0
+                    self.tg_send(
+                        f"🛑 <b>DAILY LOSS LIMIT</b>\n"
+                        f"Equity: {eq:.2f} USDT\n"
+                        f"Start: {start:.2f} USDT\n"
+                        f"Drawdown: {dd_pct:.2f}%\n"
+                        f"<i>Bloqueando nuevas entradas</i>"
+                    )
+                except Exception:
+                    pass
             return False
 
         # Evaluar Take Profit (antes de nuevas entradas)
