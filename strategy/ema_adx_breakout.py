@@ -54,7 +54,7 @@ def compute_signals(df: pd.DataFrame) -> dict:
     ema_diff = last["ema_fast"] - last["ema_slow"]
     slope = last["ema_fast"] - df_closed["ema_fast"].iloc[-3]
 
-    slope_pct = (slope / last["close"]) * 100 if last["close"] > 0 else 0
+    slope_pct = (slope / last["ema_fast"]) * 100 if last["ema_fast"] > 0 else 0
     min_slope_pct = getattr(CFG, "MIN_EMA_SLOPE_PCT", 0.01)
 
     if abs(slope_pct) < min_slope_pct:

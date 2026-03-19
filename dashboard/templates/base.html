@@ -207,25 +207,22 @@
                     const formData = new FormData(form)
                     const data = {}
 
+                    // Inicializar TODOS los checkboxes (unchecked no aparecen en FormData)
+                    const checkboxIds = [
+                        'paused', 'paper_trading', 'trailing_automatico', 'adx_rising',
+                        'trailing_use_atr', 'use_take_profit', 'tp_by_pct',
+                        'stop_hunt_use_ema_filter'
+                    ];
+                    checkboxIds.forEach(id => {
+                        const el = document.getElementById(id);
+                        if (el) data[id] = el.checked;
+                    });
+
                     formData.forEach((value, key) => {
                         if (key === "symbols") {
                             data[key] = value.split(",").map(s => s.trim())
-                        } else if (key === "paused") {
-                            data[key] = document.getElementById("paused").checked
-                        } else if (key === "paper_trading") {
-                            data[key] = document.getElementById("paper_trading").checked
-                        } else if (key === "trailing_automatico") {
-                            data[key] = document.getElementById("trailing_automatico").checked
-                        } else if (key === "adx_rising") {
-                            data[key] = document.getElementById("adx_rising").checked
-                        } else if (key === "trailing_use_atr") {
-                            data[key] = document.getElementById("trailing_use_atr").checked
-                        } else if (key === "use_take_profit") {
-                            data[key] = document.getElementById("use_take_profit").checked
-                        } else if (key === "tp_by_pct") {
-                            data[key] = document.getElementById("tp_by_pct").checked
-                        } else if (key === "stop_hunt_use_ema_filter") {
-                            data[key] = document.getElementById("stop_hunt_use_ema_filter").checked
+                        } else if (checkboxIds.includes(key)) {
+                            // Ya se manejó arriba, no sobreescribir
                         } else if (key === "timeframe") {
                             data[key] = value
                         } else if (key === "strategy_mode") {

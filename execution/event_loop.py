@@ -563,18 +563,7 @@ class EventLoop:
             self.log.info(f"{symbol} BLOCKED: max positions")
             return True
 
-        # 5) Spread filter
-        try:
-            max_spread = float(getattr(CFG, "MAX_SPREAD_PCT", 0.10))
-            cache_s = int(getattr(CFG, "SPREAD_CACHE_SECONDS", 3))
-            if hasattr(self.exchange, "get_spread_pct"):
-                sp = float(self.exchange.get_spread_pct(symbol, cache_seconds=cache_s))
-                if sp > max_spread:
-                    self.log.info(f"[SPREAD] blocked {symbol}: {sp:.3f}% > {max_spread}%")
-                    return True
-        except Exception as e:
-            self.log.warning(f"[SPREAD] check failed {symbol}: {e}")
-            return True
+        # 5) Spread filter — manejado por OrderManager (spread dinámico)
 
         # Construir y ejecutar señal
         signal = self._build_signal_dict(ev, st)

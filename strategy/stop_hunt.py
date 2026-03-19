@@ -221,8 +221,12 @@ def compute_stop_hunt_signals(df: pd.DataFrame) -> dict:
     ob_bull = find_order_blocks(df_calc, "LONG")
     ob_bear = find_order_blocks(df_calc, "SHORT")
 
-    all_long_zones = swing_lows + [ob["low"] for ob in ob_bull]
-    all_short_zones = swing_highs + [ob["high"] for ob in ob_bear]
+    # Swing levels son las zonas donde se acumulan stops (hunt targets)
+    # Order blocks son zonas institucionales (usadas como filtro de confirmación)
+    hunt_long_zones = swing_lows
+    hunt_short_zones = swing_highs
+    ob_long_prices = [ob["low"] for ob in ob_bull]
+    ob_short_prices = [ob["high"] for ob in ob_bear]
 
     max_dist_pct = CFG.STOP_HUNT_MAX_ZONE_DISTANCE_PCT / 100
     min_atr_pct = getattr(CFG, "STOP_HUNT_MIN_ATR_PCT", 0.10)
@@ -247,23 +251,30 @@ def compute_stop_hunt_signals(df: pd.DataFrame) -> dict:
     momentum_long = check_momentum(df_calc, "LONG")
     momentum_short = check_momentum(df_calc, "SHORT")
 
-    for zone in all_long_zones:
+    for zone in hunt_long_zones:
         dist_pct = abs(current_price - zone) / zone
         if dist_pct <= max_dist_pct:
             hunt_detected, info = detect_stop_hunt(df_calc, zone, "LONG")
             ema_ok = not use_ema_filter or ema_trend == "BULL"
             if hunt_detected and vol_ok and momentum_long and volatility_ok and ema_ok and adx_ok:
+                # Boost: si hay un order block cerca de la zona, es más confiable
+                ob_nearby = any(abs(zone - ob_p) / zone < 0.005 for ob_p in ob_long_prices)
+                if ob_nearby:
+                    info["ob_confirmation"] = True
                 breakout_long = True
                 hunt_info = info
                 signal_price = zone
                 break
 
-    for zone in all_short_zones:
+    for zone in hunt_short_zones:
         dist_pct = abs(current_price - zone) / zone
         if dist_pct <= max_dist_pct:
             hunt_detected, info = detect_stop_hunt(df_calc, zone, "SHORT")
             ema_ok = not use_ema_filter or ema_trend == "BEAR"
             if hunt_detected and vol_ok and momentum_short and volatility_ok and ema_ok and adx_ok:
+                ob_nearby = any(abs(zone - ob_p) / zone < 0.005 for ob_p in ob_short_prices)
+                if ob_nearby:
+                    info["ob_confirmation"] = True
                 breakout_short = True
                 hunt_info = info
                 signal_price = zone
@@ -297,8 +308,8 @@ def compute_stop_hunt_signals(df: pd.DataFrame) -> dict:
         "close": current_price,
         "signal_price": signal_price,
         "stop_hunt_zones": {
-            "long": all_long_zones,
-            "short": all_short_zones
+            "long": hunt_long_zones,
+            "short": hunt_short_zones
         },
         "hunt_detected": breakout_long or breakout_short,
         "hunt_info": hunt_info,
@@ -320,8 +331,8 @@ def compute_stop_hunt_signals(df: pd.DataFrame) -> dict:
 
 
 def build_stop_hunt_sl(df: pd.DataFrame, direction: str, entry_price: float) -> float:
-    atr_val = atr(df, CFG.ATR_PERIOD)
-    last = df.iloc[-1]
+    atr_series = atr(df, CFG.ATR_PERIOD)
+    atr_val = float(atr_series.iloc[-1]) if len(atr_series) > 0 else 0
 
     if direction == "LONG":
         swing_lows, _ = find_swing_levels(df)

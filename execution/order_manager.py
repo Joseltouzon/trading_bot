@@ -164,15 +164,17 @@ class OrderManager:
             self.logger.warning(f"[MARK] {symbol} mark price error: {e}")
             return False
 
+        # ===== ATR % (calcular una vez, reusar) =====
+        try:
+            atr_pct = float(self.exchange.get_atr_pct(symbol)) if hasattr(self.exchange, "get_atr_pct") else 0.2
+        except Exception:
+            atr_pct = 0.2
+
         # ===== Spread Filter Dinámico =====
         try:
             base_spread = float(getattr(CFG, "MAX_SPREAD_PCT", 0.10))
-            # Obtener volatilidad actual (ATR %)
-            atr_pct = self.exchange.get_atr_pct(symbol) # Usa la función que ya tienes en binance_futures.py
-            
-            # Si la volatilidad es alta, permitimos más spread (ej. 0.10% + 50% del ATR)
-            dynamic_max_spread = base_spread + (atr_pct * 0.5) 
-            
+            dynamic_max_spread = base_spread + (atr_pct * 0.5)
+
             cache_s = int(getattr(CFG, "SPREAD_CACHE_SECONDS", 3))
             if hasattr(self.exchange, "get_spread_pct"):
                 sp = float(self.exchange.get_spread_pct(symbol, cache_seconds=cache_s))
@@ -181,8 +183,6 @@ class OrderManager:
                     return False
         except Exception as e:
             self.logger.warning(f"[SPREAD] could not validate spread {symbol}: {e}")
-            # No bloquear si falla el cálculo, ser permisivo
-            # return False 
 
         # ===== Funding Filter =====
         try:
@@ -197,7 +197,6 @@ class OrderManager:
         # ===== Slippage Guard Dinámico =====
         base_slippage = float(getattr(CFG, "MAX_SLIPPAGE_RATIO", 0.003))
         # Si hay alta volatilidad (ATR > 0.3%), permitimos más slippage
-        atr_pct = self.exchange.get_atr_pct(symbol) if hasattr(self.exchange, "get_atr_pct") else 0.2
         dynamic_slippage = base_slippage + min(atr_pct * 0.5, 0.002)  # Máximo +0.2%
         
         # LOG PARA DEBUG

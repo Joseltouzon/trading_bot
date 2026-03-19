@@ -49,7 +49,13 @@ async def update_config(payload: dict = Body(...), db = Depends(get_db)):
         "stop_hunt_atr_mult_sl",
         "stop_hunt_momentum_bars",
         "stop_hunt_min_atr_pct",
+        "stop_hunt_adx_min",
         "order_block_lookback",
+        # VWAP
+        "vwap_std_mult",
+        "vwap_min_volume_ratio",
+        "vwap_sl_atr_mult",
+        "vwap_max_deviation_pct",
     ]
     for key in allowed_keys:
         if key in payload:

@@ -6,23 +6,65 @@ import config as CFG
 from strategy.indicators import ema, atr, adx
 
 
+def _get_session_start_idx(df: pd.DataFrame) -> int:
+    """Encuentra el índice donde empieza la sesión del día actual (00:00 UTC).
+    
+    Busca el último cambio de día en las velas y devuelve ese índice.
+    Si no hay cambio de día (todo es del mismo día), devuelve 0.
+    """
+    if "close_time" in df.columns:
+        timestamps = pd.to_datetime(df["close_time"], unit="ms", utc=True)
+    elif df.index.dtype.kind in ("M", "datetime64"):
+        timestamps = df.index.tz_localize("UTC") if df.index.tz is None else df.index
+    else:
+        return 0
+
+    dates = timestamps.date
+    date_changes = dates != np.roll(dates, 1)
+    change_indices = np.where(date_changes)[0]
+
+    if len(change_indices) > 1:
+        return int(change_indices[-1])
+    return 0
+
+
 def calculate_vwap(df: pd.DataFrame) -> pd.Series:
-    typical_price = (df["high"] + df["low"] + df["close"]) / 3
-    cumulative_tp_vol = (typical_price * df["volume"]).cumsum()
-    cumulative_vol = df["volume"].cumsum()
-    vwap = cumulative_tp_vol / cumulative_vol
-    return vwap
+    """VWAP reseteado por sesión (día UTC).
+    
+    El VWAP acumula solo desde el inicio de la sesión actual.
+    Fuera de la sesión, el VWAP se mantiene en el último valor válido.
+    """
+    start_idx = _get_session_start_idx(df)
+    session_df = df.iloc[start_idx:]
+
+    typical_price = (session_df["high"] + session_df["low"] + session_df["close"]) / 3
+    cumulative_tp_vol = (typical_price * session_df["volume"]).cumsum()
+    cumulative_vol = session_df["volume"].cumsum()
+    session_vwap = cumulative_tp_vol / cumulative_vol
+
+    vwap = pd.Series(np.nan, index=df.index)
+    vwap.iloc[start_idx:] = session_vwap.values
+    return vwap.ffill().bfill()
 
 
 def calculate_vwap_bands(df: pd.DataFrame, multiplier: float = 1.5) -> dict:
+    """Bandas VWAP usando desviación estándar de la sesión actual."""
+    start_idx = _get_session_start_idx(df)
+    session_df = df.iloc[start_idx:]
+
     vwap = calculate_vwap(df)
+
+    session_std = session_df["close"].rolling(20, min_periods=1).std()
+    full_std = pd.Series(np.nan, index=df.index)
+    full_std.iloc[start_idx:] = session_std.values
+    full_std = full_std.ffill().bfill()
+
     atr_val = atr(df, CFG.ATR_PERIOD)
-    std_dev = df["close"].rolling(20).std()
 
     return {
         "vwap": vwap,
-        "upper_band": vwap + (std_dev * multiplier),
-        "lower_band": vwap - (std_dev * multiplier),
+        "upper_band": vwap + (full_std * multiplier),
+        "lower_band": vwap - (full_std * multiplier),
         "atr": atr_val,
     }
 
@@ -217,7 +259,8 @@ def compute_vwap_refresh_signals(df: pd.DataFrame) -> dict:
 
 
 def build_vwap_refresh_sl(df: pd.DataFrame, direction: str, entry_price: float) -> float:
-    atr_val = float(atr(df, CFG.ATR_PERIOD).iloc[-1])
+    atr_series = atr(df, CFG.ATR_PERIOD)
+    atr_val = float(atr_series.iloc[-1]) if len(atr_series) > 0 else 0
     bands = calculate_vwap_bands(df)
 
     if direction == "LONG":
