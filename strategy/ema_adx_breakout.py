@@ -154,9 +154,6 @@ def compute_signals(df: pd.DataFrame) -> dict:
     min_body_ratio = getattr(CFG, "MIN_BODY_RATIO", 0.55)
     strong_body = body_ratio >= min_body_ratio
 
-    prev_range = prev["high"] - prev["low"]
-    range_expansion = range_size > prev_range * 1.2
-
     # Pre-calcular distancias
     if last_ph is not None and last["close"] > 0:
         break_distance_pct_long = ((last["close"] - last_ph) / last_ph) * 100
