@@ -249,6 +249,11 @@ class TakeProfitManager:
                 )
 
         except Exception as e:
+            error_str = str(e)
+            if "-4118" in error_str or "ReduceOnly Order Failed" in error_str:
+                self.log.warning(f"[TP%] {symbol} position already closed (reduce-only failed)")
+                self._tp_by_pct_executed[symbol] = True
+                return
             self.log.exception(f"[TP% EXEC] Error {symbol}: {e}")
             if self.tg_send:
                 self.tg_send(f"⚠️ TP% error {symbol}: {str(e)[:80]}")
