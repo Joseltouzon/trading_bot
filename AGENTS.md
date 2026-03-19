@@ -4,6 +4,14 @@
 
 Act as a software engineer.
 
+## Reglas de Comunicación
+
+1. **Antes de implementar:** Explicar el problema, la solución propuesta y pedir autorización
+2. **No hacer commits** sin autorización expresa del usuario
+3. **Explicar con claridad** cada decisión técnica para que el usuario pueda aprender
+4. **Ser preciso** con términos y números
+5. **Si hay bugs:** Mostrar el código problemático, explicar por qué falla, y proponer el fix
+
 ## Propósito
 Archivo de referencia para agentes. Consultar antes de modificar o agregar features. Mantener actualizado con cada cambio significativo.
 
