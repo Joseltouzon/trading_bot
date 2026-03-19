@@ -14,12 +14,13 @@ def _get_session_start_idx(df: pd.DataFrame) -> int:
     """
     if "close_time" in df.columns:
         timestamps = pd.to_datetime(df["close_time"], unit="ms", utc=True)
+        dates = timestamps.dt.date
     elif df.index.dtype.kind in ("M", "datetime64"):
-        timestamps = df.index.tz_localize("UTC") if df.index.tz is None else df.index
+        idx = df.index.tz_localize("UTC") if df.index.tz is None else df.index
+        dates = idx.date
     else:
         return 0
 
-    dates = timestamps.date
     date_changes = dates != np.roll(dates, 1)
     change_indices = np.where(date_changes)[0]
 

@@ -109,6 +109,9 @@ def fetch_klines(symbol: str, interval: str, days: int) -> pd.DataFrame:
 
     df["close_time"] = df["close_time"].astype(int)
     print(f"{len(df)} velas")
+    
+    # Rate limit: esperar entre descargas
+    time.sleep(0.5)
     return df
 
 
@@ -580,6 +583,7 @@ class BacktestEngine:
 def main():
     parser = argparse.ArgumentParser(description="Backtest Beast Money Maker")
     parser.add_argument("--symbol", type=str, help="Símbolo único (ej: BTCUSDT)")
+    parser.add_argument("--symbols", type=str, help="Símbolos separados por coma (ej: ETHUSDT,BNBUSDT)")
     parser.add_argument("--strategy", type=str, default="ema_breakout",
                         choices=["ema_breakout", "stop_hunt", "vwap_refresh"],
                         help="Estrategia a testear")
@@ -594,7 +598,12 @@ def main():
     args = parser.parse_args()
 
     # Configurar símbolos
-    symbols = [args.symbol.upper()] if args.symbol else CFG.SYMBOLS.copy()
+    if args.symbol:
+        symbols = [args.symbol.upper()]
+    elif args.symbols:
+        symbols = [s.strip().upper() for s in args.symbols.split(",")]
+    else:
+        symbols = CFG.SYMBOLS.copy()
 
     # Descargar datos
     print(f"\n📥 Descargando datos ({args.days}d, {args.interval})...\n")

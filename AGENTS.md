@@ -1,4 +1,4 @@
-# AGENTS.md — Referencia Rápida para el Bot Trading
+# AGENTS.md — Referencia Completa Beast Money Maker
 
 ## Role
 
@@ -11,536 +11,656 @@ Act as a software engineer.
 3. **Explicar con claridad** cada decisión técnica para que el usuario pueda aprender
 4. **Ser preciso** con términos y números
 5. **Si hay bugs:** Mostrar el código problemático, explicar por qué falla, y proponer el fix
+6. **No agregar imports que no existan** — verificar que el método/clase esté en el archivo antes de usarlo
+7. **Verificar contra código real** — leer el archivo antes de asumir que un método existe
 
 ## Propósito
-Archivo de referencia para agentes. Consultar antes de modificar o agregar features. Mantener actualizado con cada cambio significativo.
+
+Archivo de referencia único para agentes. Contiene la arquitectura, flujo de ejecución, archivos clave y sus relaciones. Consultar ANTES de modificar cualquier archivo. Mantener actualizado con cada cambio significativo.
 
 ---
 
-## 1. Trailing Stop
+## Índice
 
-**Archivo:** `execution/trailing.py` — `TrailingManager`
+1. [Arquitectura General](#1-arquitectura-general)
+2. [Flujo de Ejecución (bot.py)](#2-flujo-de-ejecución)
+3. [Estrategias](#3-estrategias)
+4. [Market Regime (Auto)](#4-market-regime)
+5. [Signal Engine](#5-signal-engine)
+6. [Event Loop y Guards](#6-event-loop-y-guards)
+7. [Order Manager](#7-order-manager)
+8. [Trailing Stop](#8-trailing-stop)
+9. [Take Profit](#9-take-profit)
+10. [Daily Loss Guard](#10-daily-loss-guard)
+11. [Reconciliation](#11-reconciliation)
+12. [Datafeed y Market Cache](#12-datafeed-y-market-cache)
+13. [Exchange (Binance)](#13-exchange-binance)
+14. [Infra (API Cache)](#14-infra)
+15. [Notifications (Telegram)](#15-notifications-telegram)
+16. [Base de Datos](#16-base-de-datos)
+17. [Estado Persistente (BotState)](#17-estado-persistente)
+18. [Config ↔ Dashboard ↔ DB Pipeline](#18-config-dashboard-db)
+19. [Dashboard](#19-dashboard)
+20. [Backtesting](#20-backtesting)
+21. [Risk Monitor](#21-risk-monitor)
+22. [Mapa de Archivos](#22-mapa-de-archivos)
+23. [Logs y Debug](#23-logs-y-debug)
 
-### Comportamiento
+---
 
-1. **Evaluación por ciclo** (`loop_once`): itera todas las posiciones abiertas y llama a `update_trailing`.
-2. **Inicialización segura post-restart**: si `symbol` no está en `st.trail`, inicializa `best = entry` para no perder tracking del mejor precio.
-3. **Activación**: cuando `pnl_pct >= TRAILING_ACTIVATION_PCT` (default 0.5%).
-4. **Cálculo del nuevo SL**:
-   - Si `TRAILING_USE_ATR = True`: `new_sl = best - (atr * TRAILING_ATR_MULT)` (LONG)
-   - Si `TRAILING_USE_ATR = False`: `new_sl = best * (1 - trailing_pct/100)` (LONG)
-5. **Protección SL >= Entry Price**: `new_sl = max(new_sl, entry)` (LONG). Garantiza que el SL nunca quede por debajo del precio de entrada.
-6. **Solo mejora en dirección favorable**: solo actualiza si `new_sl > old_sl` (LONG) o `new_sl < old_sl` (SHORT).
-7. **Throttle API**: máximo 1 actualización cada 5 segundos por símbolo.
-8. **Persistencia**: `st.trail[symbol]` guarda `direction`, `entry`, `best`, `qty`, `sl`, `activated`.
+## 1. Arquitectura General
 
-### Estado en memoria
+```
+┌─────────────────────────────────────────────────────────┐
+│                      bot.py (Main)                       │
+│  Init → State → Components → While True: loop           │
+└──────────┬──────────────────────────────────────────────┘
+           │
+    ┌──────┴──────┐
+    │  Components  │
+    └──────┬──────┘
+           │
+    ┌──────┴──────────────────────────────────────────┐
+    │                                                  │
+    ▼                    ▼                             ▼
+┌──────────┐     ┌──────────────┐            ┌──────────────┐
+│ DataFeed  │     │   Strategy   │            │  Execution   │
+│──────────│     │──────────────│            │──────────────│
+│MarketCache│    │SignalEngine  │            │EventLoop     │
+│          │     │EMA Breakout  │            │OrderManager  │
+│          │     │Stop Hunt     │            │TrailingMgr   │
+│          │     │VWAP Refresh  │            │TakeProfitMgr │
+│          │     │Market Regime │            │              │
+└────┬─────┘     └──────┬───────┘            └──────┬───────┘
+     │                  │                           │
+     └──────────────────┴───────────────────────────┘
+                        │
+              ┌─────────┴─────────┐
+              │                    │
+              ▼                    ▼
+       ┌─────────────┐     ┌─────────────┐
+       │  Exchange    │     │     DB       │
+       │ (Binance)    │     │ (PostgreSQL) │
+       └─────────────┘     └─────────────┘
+              │
+              ▼
+       ┌─────────────┐     ┌─────────────┐
+       │  Infra       │     │ Telegram     │
+       │ (APICache)   │     │ (Notify)     │
+       └─────────────┘     └─────────────┘
+```
+
+### Dependencias entre módulos
+
+| Módulo | Lee de | Escribe a |
+|--------|--------|-----------|
+| `strategy/*` | `config.CFG`, DataFrames | `SignalBus` (via SignalEvent) |
+| `execution/event_loop.py` | `SignalBus`, `exchange`, `db`, `config.CFG` | `OrderManager`, `TakeProfitManager` |
+| `execution/order_manager.py` | `exchange`, `db`, `config.CFG` | Binance (órdenes), DB (positions) |
+| `execution/trailing.py` | `exchange`, `market`, `db` | Binance (SL orders), DB (position_stops) |
+| `execution/take_profit_manager.py` | `exchange`, `market`, `db` | Binance (market orders), DB (position_events) |
+| `datafeed/market_cache.py` | `exchange` | cache interno, DataFrames |
+| `exchange/binance_futures.py` | Binance REST API | cache interno (`APICache`) |
+
+---
+
+## 2. Flujo de Ejecución
+
+**Archivo:** `bot.py`
+
+### Startup (fuera del loop)
+
+```
+1. validate_config()
+2. Setup: logging, telegram, exchange, db
+3. BotState defaults + merge con DB
+4. sync_cfg_from_state(st)        ← copia st → CFG runtime
+5. Day init (day_start_equity)
+6. Leverage setup (por símbolo)
+7. market.init_cache(symbols)      ← descarga 500 velas por símbolo
+8. Componentes: bus, om, trailing, event_loop, signal_engine
+9. telegram.send("Bot activo")
+```
+
+### Main Loop (while True)
+
+```
+1. State reload (cada 30s)
+   └─ db.load_state() → BotState → sync_cfg_from_state()
+   └─ Si cambian symbols: market.init_cache() + leverage
+   └─ Si cambia strategy_mode: signal_engine.set_strategy_mode()
+
+2. Server time sync (cada 60s)
+   └─ Detecta cambio de día UTC → reset daily_loss
+
+3. market.update_all(st.symbols)
+   └─ Poll klines cada 15s, mark price cada 3s
+   └─ Si nueva vela cerrada: re-descarga DF completo
+
+4. max_pos_reached = event_loop._max_positions_reached(st)
+   └─ Si True: SKIPPED regime check + signal processing
+
+5. Signal generation (si no max_positions)
+   └─ Por cada símbolo:
+      ├─ check_and_switch_regime()    ← cada 3 ciclos, solo en mode="auto"
+      └─ process_symbol()             ← genera señal si hay nueva vela
+
+6. event_loop.loop_once(st)
+   └─ Guards → ejecuta señal del bus
+
+7. trailing.loop_once(st)
+   └─ Actualiza SL de posiciones abiertas
+
+8. telegram.poll_once()
+   └─ Procesa comandos del usuario
+
+9. Account snapshot (cada 15s / 60s)
+```
+
+### Manejo de errores
 
 ```python
-st.trail[symbol] = {
-    "direction": "LONG",       # o "SHORT"
-    "entry": 100000.0,         # precio de entrada
-    "qty": 0.333,              # cantidad actual
-    "best": 102000.0,          # mejor precio alcanzado (para LONG = max)
-    "sl": 101000.0,            # stop loss actual (None si no se colocó aún)
-    "activated": True          # True una vez que pnl_pct >= TRAILING_ACTIVATION_PCT
+# En el main loop:
+try:
+    # ... todo el loop ...
+except Exception as e:
+    log.error(f"Bot error: {type(e).__name__}: {e}", exc_info=True)  # traceback completo
+    telegram.send(f"⚠️ Bot error: ...")  # notificación
+    time.sleep(5)
+```
+
+**Nota:** El bot NUNCA debe crashear permanentemente. Si algo falla, log + telegram + sleep 5s + reintento.
+
+---
+
+## 3. Estrategias
+
+**Archivos:**
+- `strategy/ema_adx_breakout.py` — Trend-following
+- `strategy/stop_hunt.py` — Mean-reversion / Liquidity
+- `strategy/vwap_refresh.py` — Range-bound / VWAP
+- `strategy/signal_engine.py` — Motor de selección
+- `strategy/indicators.py` — EMA, ATR, ADX, RSI helpers
+- `strategy/pivots.py` — Pivot highs/lows vectorizados
+
+### Señales de salida (todas las estrategias)
+
+Cada estrategia devuelve un dict con:
+```python
+{
+    "strategy": "ema_breakout",  # nombre de la estrategia
+    "trend": "BULL",             # BULL | BEAR | NONE
+    "breakout_long": True,       # señal LONG
+    "breakout_short": False,     # señal SHORT
+    "adx": 25.3,                 # ADX actual
+    "adx_increasing": True,      # ADX subiendo
+    "atr": 150.0,                # ATR actual
+    "close": 60000.0,            # precio de cierre
+    "signal_price": 60100.0,     # precio para la señal
+    "vol_ratio": 1.5,            # volumen / media
+    "vol_increasing": True,      # volumen subiendo
+    "last_ph": 60200.0,          # último pivot high
+    "last_pl": 59800.0,          # último pivot low
+    # ... campos específicos de cada estrategia
 }
 ```
 
-### Config (config.py)
+### EMA Breakout
 
-```python
-TRAILING_ACTIVATION_PCT = 0.5    # % de profit requerido para activar
-TRAILING_USE_ATR = True          # True = usa ATR, False = usa trailing_pct %
-TRAILING_ATR_MULT = 2.0          # multiplicador ATR para distancia del SL
-TRAILING_PCT = 0.5              # solo si TRAILING_USE_ATR = False (% por vela)
-```
+| Parámetro | Default | Descripción |
+|-----------|---------|-------------|
+| EMA_FAST / EMA_SLOW | 9 / 21 | EMAs para tendencia |
+| DEFAULT_ADX_MIN | 20.0 | ADX mínimo |
+| MIN_PIVOT_DISTANCE_PCT | 0.15 | Distancia mínima al pivot (%) |
+| MIN_ATR_PCT | 0.15 | Volatilidad mínima |
+| VOLUME_MIN_RATIO / MAX_VOLUME_RATIO | 1.20 / 3.5 | Rango de volumen |
+| MIN_MOMENTUM_PCT | 0.12 | Momentum mínimo |
+| MAX_PIVOT_AGE | 15 | Antigüedad máxima del pivot (velas) |
 
-### Flujo de ejecución en bot.py
+**Filtros:** tendencia EMA slope → volumen → ATR → momentum → breakout de pivot → ADX en event_loop
 
-```
-bot.py loop:
-  1. market.update_all()
-  2. signal_engine.process_symbol()
-  3. event_loop.loop_once()     ← nuevas entradas, guards
-  4. trailing.loop_once()       ← trailing stop
-  5. telegram.poll_once()
-  6. account snapshot
-```
+### Stop Hunt
 
-### Notas importantes
-- El trailing solo maneja SL. El precio de entrada (`entry`) se usa solo para la protección `SL >= entry`.
-- Si el bot se reinicia, `best` se reinicia a `entry` (comportamiento seguro, no pierde más de lo inicial).
-- Si `atr <= 0`, retorna sin actualizar (evita SL con ATR inválido).
-- Compatible con TakeProfitManager: no compiten por el mismo SL ya que TP cierra qty parcial y trailing sigue con el remanente.
+| Parámetro | Default | Descripción |
+|-----------|---------|-------------|
+| STOP_HUNT_WICK_PCT | 0.20 | Mecha mínima hunt (%) |
+| STOP_HUNT_REJECTION_RATIO | 0.7 | Body/wick rechazo |
+| STOP_HUNT_MIN_ZONES | 2 | Mínimo zonas de liquidez |
+| STOP_HUNT_MAX_ZONE_DISTANCE_PCT | 0.8 | Distancia máxima a zona |
+| STOP_HUNT_MIN_VOLUME_RATIO | 1.5 | Volumen mínimo |
+| STOP_HUNT_USE_EMA_FILTER | True | Filtrar por EMA trend |
+| STOP_HUNT_ADX_MIN | 18.0 | ADX mínimo |
+| STOP_HUNT_ATR_MULT_SL | 2.0 | ATR multiplier para SL |
+| ORDER_BLOCK_LOOKBACK | 5 | Velas para buscar OBs |
 
----
+**Zonas:** Swing levels (pivots) son targets de hunt. Order blocks son confirmación de proximidad (boost de confianza).
 
-## 2. Take Profit
+### VWAP Refresh
 
-**Archivo:** `execution/take_profit_manager.py` — `TakeProfitManager`
+| Parámetro | Default | Descripción |
+|-----------|---------|-------------|
+| VWAP_STD_MULT | 1.5 | StdDev multiplier bandas |
+| VWAP_MIN_VOLUME_RATIO | 1.5 | Volumen mínimo |
+| VWAP_SL_ATR_MULT | 2.0 | ATR multiplier SL |
+| VWAP_MAX_DEVIATION_PCT | 2.0 | Máxima desviación VWAP |
 
-### Dos modos de operación
-
-Determinado por `TP_BY_PCT` en config:
-
-| Modo | Config | Lógica | Archivo método |
-|------|--------|--------|----------------|
-| **Por %** (recomendado) | `TP_BY_PCT = True` | Evalúa profit % vs `TP_ACTIVATION_PCT` | `_evaluate_tp_by_pct` |
-| **Por R:R** (legacy) | `TP_BY_PCT = False` | Evalúa R:R vs niveles en `TP_LEVELS` | `_evaluate_tps` |
-
-### Modo por % de ganancia (actual default)
-
-```python
-TP_BY_PCT = True
-TP_ACTIVATION_PCT = 1.2    # activa cuando profit llega a 1.2%
-TP_CLOSE_PCT = 70          # cierra 70% de la posición
-TP_SL_MODE = "trailing"    # "trailing" = TrailingManager maneja SL restante
-                           # "entry" = mover SL del resto al precio de entrada
-```
-
-**Flujo:**
-1. Evalúa `profit_pct = (mp - entry) / entry * 100` (LONG)
-2. Si `profit_pct >= TP_ACTIVATION_PCT` y aún no se ejecutó → continúa
-3. Normaliza `close_qty = total_qty * TP_CLOSE_PCT / 100` con safety buffer 0.999
-4. Valida `min_notional` de Binance (20 USDT)
-5. Ejecuta market order `reduce_only=True` por `close_qty`
-6. Actualiza `remaining_qty` en DB
-7. Si `TP_SL_MODE = "trailing"`: NO toca el SL → `TrailingManager` sigue manejando el 30% restante
-8. Si `TP_SL_MODE = "entry"`: llama `_move_sl_to_entry` para mover SL del remanente al entry
-9. Limpia tracking: `_tp_by_pct_executed[symbol] = True` (solo se ejecuta 1 vez por símbolo)
-
-**Al cerrar posición completamente:** `reset_symbol()` limpia `_tp_by_pct_executed` para permitir nuevo ciclo.
-
-### Modo legacy: R:R múltiple (config original)
-
-```python
-TP_LEVELS = [
-    {"ratio": 5.0, "close_pct": 30, "move_sl_to_be": True},   # 30% en 5R
-    {"ratio": 8.0, "close_pct": 30, "move_sl_to_be": False},  # 30% en 8R
-    {"ratio": 12.0, "close_pct": 40, "move_sl_to_be": False}, # 40% en 12R
-]
-```
-
-- Calcula R:R actual: `current_r = (mp - entry) / risk` donde `risk = |entry - initial_sl|`
-- Obtiene `initial_sl` de DB (`position_stops`) o de `st.trail`
-- Ejecuta un nivel por ciclo (break after first hit)
-- Si `move_sl_to_be = True`: llama `_move_sl_to_breakeven` para el remanente
-
-### SL Breakeven (ambos modos)
-
-`_move_sl_to_breakeven`: mueve SL del remanente a `entry * (1 + buffer_pct)` para LONG.
-- **Solo mueve si el nuevo SL es mejor** que el actual (protección dual con trailing).
-- `SL_BUFFER_PCT = 0.0012` (0.12% de buffer sobre entry).
-
-### Estado en memoria
-
-```python
-# TakeProfitManager instance fields:
-_tp_executed = {}              # {symbol: {tp_index: timestamp}}  — modo R:R
-_tp_by_pct_executed = {}       # {symbol: True}                  — modo %
-_last_tp_action = {}           # {symbol: timestamp}            — throttle API
-```
-
-### Throttle
-
-`TP_THROTTLE_SECONDS = 10` — mínimo 10 segundos entre acciones de TP por símbolo.
-
-### Notas importantes
-- TP y Trailing **no compiten**: TP cierra qty parcial, trailing sigue con el remanente.
-- El `position_id` debe existir en `st.position_ids` para que TP funcione.
-- Si `_tp_by_pct_executed[symbol] = True`, no vuelve a ejecutar (protección contra doble cierre).
-- `reset_symbol()` se llama desde `event_loop.reconcile_filled_orders()` cuando la posición se cierra completamente.
+**VWAP se resetea por sesión** (00:00 UTC). `_get_session_start_idx()` detecta el último cambio de día.
 
 ---
 
-## 3. Daily Loss Guard
+## 4. Market Regime
 
-**Archivos:** `execution/event_loop.py` (líneas 39-50, 469-493)
+**Archivo:** `strategy/market_regime.py`
 
-### Comportamiento
+- Solo activo cuando `strategy_mode = "auto"`
+- Evalúa **POR SÍMBOLO** (cada uno puede tener estrategia diferente)
+- Se evalúa cada 3 ciclos en `signal_engine.check_and_switch_regime()`
+- Requiere confianza >= 70% para cambiar
 
-1. **Reset diario UTC**: al cambiar el día (UTC), `day_start_equity = equity` y `day_key = nuevo día`.
-2. **Verificación**: `dd_pct = ((start - equity) / start) * 100`. Si `dd_pct >= daily_loss_limit_pct` → bloquea nuevas entradas.
-3. **Solo bloquea entradas**: NO cierra posiciones existentes, NO detiene trailing ni TP.
-4. **Notificación Telegram**: al bloquear, envía mensaje con equity actual, equity inicial y drawdown %.
+| Condición | Régimen | Estrategia |
+|-----------|---------|------------|
+| ADX >= 25, no range-bound | TRENDING | EMA Breakout |
+| ADX 18-25 | TRANSITIONAL | Stop Hunt |
+| ADX <= 18, range-bound, vol >= 1.3 | RANGING + VOL | Stop Hunt |
+| ADX <= 18, range-bound, vol < 1.3 | RANGING + LOW VOL | VWAP Refresh |
 
-### Config
-
+**Config:**
 ```python
-DEFAULT_DAILY_LOSS_LIMIT_PCT = 10.0  # config.py
-daily_loss_limit_pct = st.daily_loss_limit_pct  # configurable por DB
+REGIME_TRENDING_ADX_MIN = 25.0
+REGIME_RANGING_ADX_MAX = 18.0
+REGIME_HUNT_VOL_RATIO_MIN = 1.3
 ```
-
-### Notas importantes
-- **No está en OrderManager** — siempre estuvo solo en EventLoop como guard global.
-- Si se superó el límite y ya hay posiciones abiertas, estas siguen corriendo con trailing/tp activos.
-- Para debuggear: buscar `[DAILY LOSS]` en los logs.
 
 ---
 
-## 4. Order Manager
+## 5. Signal Engine
 
-**Archivo:** `execution/order_manager.py`
+**Archivo:** `strategy/signal_engine.py`
 
 ### Métodos clave
 
 | Método | Propósito |
 |--------|-----------|
-| `execute(st, signal)` | Entry principal: valida, ejecuta market order, coloca SL inicial |
-| `replace_stop_order(st, symbol, direction, qty, new_sl)` | Reemplaza/cancela SL anterior y coloca nuevo. Compatible con trailing. |
+| `process_symbol(symbol, max_positions_reached)` | Procesa un símbolo, genera señal si hay nueva vela |
+| `check_and_switch_regime(symbol)` | Evalúa régimen y cambia estrategia (cada 3 ciclos) |
+| `set_strategy_mode(mode)` | Cambia modo global (`ema_breakout`, `stop_hunt`, `vwap_refresh`, `auto`) |
 
-### replace_stop_order
+### Early exits (optimización)
 
-1. Cancela stop anterior (maneja `-2011 Unknown order` gracefully).
-2. Crea `STOP_MARKET` con `reduceOnly=True`, `closePosition=False`.
-3. Extrae `algoId` (no `orderId`).
-4. Actualiza `st.stop_orders[symbol]` con `order_id`, `is_algo=True`, `stop_price`.
-5. Desactiva stops anteriores en DB, crea nuevo registro.
+1. `df is None or len(df) < 50` → return
+2. `last_close_time == _last_processed[symbol]` → return (ya procesado)
+3. `max_positions_reached` → return (no generar nuevas señales)
+
+### Cache
+
+- `_last_processed`: {symbol: close_time_ms} — evita reprocesar misma vela
+- `_effective_mode`: {symbol: "ema_breakout"} — estrategia efectiva por símbolo (auto mode)
+- `_indicator_cache`: comparte indicadores entre estrategias
 
 ---
 
-## 5. Event Loop — Guards en orden
+## 6. Event Loop y Guards
 
-`event_loop.py` → `loop_once()`:
+**Archivo:** `execution/event_loop.py`
+
+### Orden de guards en `loop_once()`
 
 ```
-1. reconcile_filled_orders()     — sync DB ↔ Binance, detecta posiciones manuales
+1. reconcile_filled_orders()     ← sync DB ↔ Binance
 2. paused? → return
 3. reset diario UTC
 4. daily_loss_exceeded? → block + telegram
-5. TP loop_once()                — evalúa take profit
+5. tp_manager.loop_once()        ← evalúa take profit
 6. pop signal del bus
-7. adx_min filter (solo ema_breakout)
-8. adx_rising filter (solo ema_breakout)
-9. cooldown_blocked?
-10. max_positions_reached?
-11. spread filter?
+7. strategy_type detectado desde señal
+8. adx_min filter (solo ema_breakout)
+9. adx_rising filter (solo ema_breakout)
+10. cooldown_blocked?
+11. max_positions_reached?       ← (re-check por seguridad)
 12. build_signal_dict()
 13. om.execute()
 14. set_cooldown()
 ```
 
-**Nota**: El régimen se evalúa ANTES del event_loop en `signal_engine.check_and_switch_regime()`, no dentro del loop.
+### Métodos clave
+
+| Método | Propósito |
+|--------|-----------|
+| `loop_once(st)` | Un ciclo completo del event loop |
+| `reconcile_filled_orders(st)` | Sync posiciones DB ↔ Binance |
+| `_max_positions_reached(st)` | ¿Hay max_positions abiertas? |
+| `_daily_loss_exceeded(st)` | ¿Se superó el daily loss? |
+| `_cooldown_blocked(st, symbol, bar_ms)` | ¿Símbolo en cooldown? |
+
+### Spread filter
+
+El spread filter dinámico está en `OrderManager.execute()`, NO en event_loop. Usa:
+```python
+dynamic_max_spread = base_spread + (atr_pct * 0.5)
+```
 
 ---
 
-## 6. Estado persistente (BotState)
+## 7. Order Manager
 
-**Archivo:** `core/models.py`
+**Archivo:** `execution/order_manager.py`
 
-Campos clave relacionados con risk/trail/tp:
+### Métodos
+
+| Método | Propósito |
+|--------|-----------|
+| `execute(st, signal)` | Entry: valida → market order → coloca SL inicial |
+| `replace_stop_order(st, symbol, direction, qty, new_sl)` | Reemplaza SL (trailing, TP) |
+
+### Flujo de `execute()`
+
+```
+1. Verificar qty > 0 y notional >= mínimo
+2. Set leverage (si no está seteado)
+3. Market price check
+4. ATR % (calcular una vez, reusar)
+5. Spread filter dinámico (atr_pct * 0.5)
+6. Slippage guard dinámico
+7. Ejecutar market order (BUY/SELL)
+8. Calcular qty real de fills
+9. Verificar reduce-only si ya hay posición
+10. Calcular SL inicial
+11. Colocar STOP_MARKET order
+12. Guardar en DB (positions + position_stops)
+13. Set position_id, trail, stop_orders en state
+14. Notificar Telegram
+```
+
+---
+
+## 8. Trailing Stop
+
+**Archivo:** `execution/trailing.py` — `TrailingManager`
+
+### Comportamiento
+
+1. Evalúa cada ciclo (`loop_once`) para todas las posiciones abiertas
+2. **Activación**: cuando `pnl_pct >= TRAILING_ACTIVATION_PCT` (default 0.5%)
+3. **Cálculo SL**:
+   - `TRAILING_USE_ATR = True`: `new_sl = best - (atr * TRAILING_ATR_MULT)` (LONG)
+   - `TRAILING_USE_ATR = False`: `new_sl = best * (1 - trailing_pct/100)` (LONG)
+4. **Protección**: `new_sl = max(new_sl, entry)` — nunca por debajo del entry
+5. **Solo mejora**: solo actualiza si `new_sl > old_sl` (LONG)
+6. **Throttle API**: máximo 1 actualización cada 5s por símbolo
+7. **Post-restart**: `best = entry` (comportamiento seguro)
+
+### Estado
 
 ```python
-@dataclass
-class BotState:
-    paused: bool
-    risk_pct: float
-    leverage: int
-    symbols: List[str]
-    strategy_mode: str           # "ema_breakout" | "stop_hunt" | "vwap_refresh" | "auto"
-    trailing_pct: float          # para modo % del trailing
-    max_positions: int
-    adx_min: float
-    cooldown_bars: int
-    cooldown: dict               # {symbol: {"until_ms": int, "bars": int}}
-    daily_loss_limit_pct: float
-    day_key: str                 # UTC "YYYY-MM-DD"
-    day_start_equity: float
-    trail: dict                  # {symbol: {...}} — ver Trailing Stop
-    position_ids: dict           # {symbol: position_id}
-    stop_orders: dict           # {symbol: {order_id, is_algo, stop_price}}
-    paper_trading: bool
+st.trail[symbol] = {
+    "direction": "LONG"|"SHORT",
+    "entry": 60000.0,
+    "qty": 0.001,
+    "best": 61000.0,      # mejor precio alcanzado
+    "sl": 60500.0,        # SL actual
+    "activated": True      # pnl >= activation
+}
 ```
 
-**DB como fuente de verdad**: al iniciar, `db.load_state()` sobrescribe defaults de `config.py` (excepto sanity checks en `bot.py`).
+### Config
+
+```python
+TRAILING_ACTIVATION_PCT = 0.5   # % profit para activar
+TRAILING_USE_ATR = True         # ATR vs % fijo
+TRAILING_ATR_MULT = 2.0         # multiplicador ATR
+TRAILING_PCT = 0.5              # solo si USE_ATR=False
+```
 
 ---
 
-## 6b. Performance — Signal Engine
+## 9. Take Profit
 
-**Archivo:** `strategy/signal_engine.py`
+**Archivo:** `execution/take_profit_manager.py` — `TakeProfitManager`
 
-### Optimizaciones implementadas
+### Modo por % (default)
 
-1. **Regime check por símbolo**: Cada símbolo tiene su `_effective_mode` cacheado
-2. **Early exit**: Si `max_positions_reached = True`, saltea todo el procesamiento
-3. **Throttle regime check**: Evalúa cada 3 ciclos, no por ciclo
-4. **Cached indicators**: `_indicator_cache` comparte EMA/ATR/ADX entre estrategias
-
-### Flujo optimizado
-
-```
-bot.py loop:
-  1. market.update_all()
-  2. event_loop._max_positions_reached()  ← solo 1 llamada
-  3. Para cada símbolo:
-       check_and_switch_regime()  ← cada 3 ciclos
-       process_symbol()           ← usa estrategia cacheada
-  4. event_loop.loop_once()
-  5. trailing.loop_once()
+```python
+TP_BY_PCT = True
+TP_ACTIVATION_PCT = 1.2    # activa a 1.2% profit
+TP_CLOSE_PCT = 70          # cierra 70% de la posición
+TP_SL_MODE = "trailing"    # trailing maneja el 30% restante
 ```
 
-### Tiempo estimado (15 símbolos)
+**Flujo:**
+1. `profit_pct >= TP_ACTIVATION_PCT` → cierra `TP_CLOSE_PCT` %
+2. Market order `reduce_only=True`
+3. Si `TP_SL_MODE = "trailing"`: NO toca SL, TrailingManager sigue
+4. `_tp_by_pct_executed[symbol] = True` (1 ejecución por símbolo)
 
-| Modo | Tiempo |
-|------|--------|
-| Fijo (1 estrategia) | ~400ms |
-| Auto | ~450ms |
+### Métodos clave
+
+| Método | Propósito |
+|--------|-----------|
+| `loop_once(st)` | Evalúa TP para todas las posiciones |
+| `reset_symbol(symbol)` | Limpia tracking al cerrar posición |
+| `_evaluate_tp_by_pct(...)` | Evalúa TP por porcentaje |
+| `_move_sl_to_entry(...)` | Mueve SL al entry (si SL_MODE = "entry") |
+
+### Importante
+
+- **Obtiene qty real de Binance** via `exchange.get_open_positions(symbol=symbol)` (NO `get_position_info` — no existe)
+- TP y Trailing **no compiten**: TP cierra parcial, trailing sigue con restante
+- Throttle: 10s mínimo entre acciones por símbolo
 
 ---
 
-## 7. Reconciliation
+## 10. Daily Loss Guard
+
+**Archivo:** `execution/event_loop.py` → `_daily_loss_exceeded()`
+
+- Reset diario UTC: `day_start_equity = equity`
+- `dd_pct = ((start - equity) / start) * 100`
+- Si `dd_pct >= daily_loss_limit_pct` → **bloquea nuevas entradas**
+- **NO cierra posiciones existentes**, trailing/TP siguen activos
+- Notifica por Telegram
+- Log: `[DAILY LOSS]`
+
+---
+
+## 11. Reconciliation
 
 **Archivo:** `execution/event_loop.py` → `reconcile_filled_orders()`
 
-1. Detecta posiciones abiertas en Binance pero no en DB → `_adopt_manual_position()`
-2. Detecta posiciones cerradas en Binance → calcula PnL real de Binance, cierra en DB
-3. Detecta reducciones parciales → actualiza `qty` en DB
+1. Posiciones abiertas en Binance pero no en DB → `_adopt_manual_position()`
+2. Posiciones cerradas en Binance → calcula PnL real, cierra en DB
+3. Reducciones parciales → actualiza `qty` en DB
 
-Al cerrar posición: limpia `position_ids`, `trail`, `stop_orders` de state y llama `tp_manager.reset_symbol()`.
-
----
-
-## 8. Flags de feature on/off
-
-| Feature | Flag | Ubicación |
-|---------|------|-----------|
-| Take Profit | `USE_TAKE_PROFIT` | `config.py` |
-| TP modo % | `TP_BY_PCT` | `config.py` |
-| Trailing | `st.trailing_active` | `BotState` (no tiene flag global, siempre corre) |
+Al cerrar: limpia `position_ids`, `trail`, `stop_orders` de state + `tp_manager.reset_symbol()`
 
 ---
 
-## 9. Llamado desde bot.py
+## 12. Datafeed y Market Cache
+
+**Archivo:** `datafeed/market_cache.py` — `MarketCache`
+
+### Funcionamiento
+
+- `init_cache(symbols)`: descarga 500 velas REST por símbolo, crea `MarketData` objects
+- `update_all(symbols)`: poll cada `KLINE_POLL_SECONDS` (15s)
+  - Si nueva vela cerrada: re-descarga DF completo
+  - Mark price: poll cada `MARK_POLL_SECONDS` (3s)
+- `get_df_copy(symbol)`: devuelve copia del DF cacheado
+- `get_mark_price_cached(symbol)`: precio mark cacheado
+
+### Timeframe
+
+- Lee de DB en cada `_get_current_timeframe()`
+- Si cambia el timeframe entre llamadas: log CRITICAL, no actualiza (requiere restart)
+
+### Throttles
 
 ```python
-signal_engine = SignalEngine(market, bus, log, st.strategy_mode)
-event_loop = EventLoop(bus, market, exchange, om, telegram.send, db, log)
-trailing = TrailingManager(exchange, market, om, db, telegram.send, log)
-
-# dentro del while:
-market.update_all(st.symbols)                    # 1
-max_pos_reached = event_loop._max_positions_reached(st)  # 2
-
-for sym in st.symbols:                           # 3
-    signal_engine.check_and_switch_regime(sym)   # 3a - régimen
-    signal_engine.process_symbol(sym, max_pos_reached)  # 3b - signals
-
-event_loop.loop_once(st)   # 4
-trailing.loop_once(st)     # 5
-# TP se llama dentro de event_loop.loop_once (paso 5)
+KLINE_POLL_SECONDS = 15    # cada cuánto revisa velas nuevas
+MARK_POLL_SECONDS = 3      # cada cuánto actualiza mark price
 ```
 
 ---
 
-## 10. DB — Tablas relevantes
+## 13. Exchange (Binance)
+
+**Archivo:** `exchange/binance_futures.py` — `BinanceFutures`
+
+### Métodos disponibles
+
+| Método | Propósito |
+|--------|-----------|
+| `get_klines_rest(symbol, interval, limit)` | Descarga velas |
+| `get_mark_price(symbol)` | Precio mark |
+| `get_open_positions(symbol=None)` | Posiciones abiertas (lista de dicts) |
+| `get_position_history(symbol, open_time)` | Info de cierre de posición |
+| `get_position_close_info(symbol, open_time_ms)` | Info de cierre |
+| `get_equity()` | Equity total |
+| `get_account_info()` | Account snapshot |
+| `get_atr_pct(symbol)` | ATR como % del precio |
+| `get_spread_pct(symbol, cache_seconds)` | Spread bid/ask |
+| `market_buy / market_sell(symbol, qty)` | Órdenes market |
+| `place_stop_market(...)` | Stop market order |
+| `cancel_order(symbol, order_id)` | Cancelar orden |
+| `set_margin_and_leverage(symbol, leverage, margin_type)` | Set leverage |
+| `symbol_exists_in_futures(symbol)` | Verificar símbolo |
+| `get_symbol_filters(symbol)` | Filtros (step, min qty, tick) |
+
+### NO existe
+
+- ~~`get_position_info(symbol)`~~ — usar `get_open_positions(symbol=symbol)` y tomar `[0]`
+
+### Cache
+
+- ExchangeInfo: `APICache(ttl=60s)`
+- Account/spread: `APICache(ttl=2s)` — configurable via `API_CACHE_TTL_SECONDS`
+
+---
+
+## 14. Infra
+
+**Archivo:** `infra/api_cache.py` — `APICache`
+
+Cache genérico con TTL para llamadas REST. Usado por `BinanceFutures` para exchange info y account data.
+
+```python
+cache = APICache(ttl=5)
+result = cache.get("key", fetch_function)  # devuelve cacheado si < 5s
+```
+
+---
+
+## 15. Notifications (Telegram)
+
+**Archivo:** `notifications/telegram.py` — `Telegram`
+
+### Métodos
+
+| Método | Propósito |
+|--------|-----------|
+| `send(message)` | Envía mensaje al chat |
+| `poll_once(st, exchange, db)` | Procesa comandos entrantes |
+
+### Comandos disponibles
+
+| Comando | Acción |
+|---------|--------|
+| `/dashboard` | Resumen de cuenta y posiciones |
+| `/pause` / `/resume` | Control del bot |
+| `/set_risk N` | Cambiar riesgo % |
+| `/set_leverage N` | Cambiar apalancamiento |
+| `/close SYMBOL` | Cerrar posición manual |
+| `/help` | Lista completa |
+
+### Errores comunes
+
+- Token/chat_id `None` → `send()` falla silenciosamente o crashea
+- Fix: try/except alrededor de `send()` en startup
+
+---
+
+## 16. Base de Datos
+
+**Archivo:** `db.py` — `Database`
+
+### Tablas
 
 ```sql
-positions               -- abierta/cerrada, entry/exit, pnl
+positions               -- trades abiertos/cerrados, entry/exit, pnl
 position_stops          -- historial de SL por posición
 position_events         -- eventos: TAKE_PROFIT, TAKE_PROFIT_PCT, PARTIAL_CLOSE
-bot_state               -- estado completo del bot (serializado JSON)
+bot_state               -- estado del bot (JSON serializado)
 account_snapshots       -- equity/margin/available cada 15s
 equity_snapshots        -- equity histórico cada 60s
+signals                 -- señales generadas (para análisis)
 ```
+
+### Métodos clave
+
+| Método | Propósito |
+|--------|-----------|
+| `load_state()` | Carga estado del bot desde DB |
+| `save_state(state_dict)` | Guarda estado |
+| `save_position(...)` | Crea/actualiza posición |
+| `close_position(...)` | Cierra posición con PnL |
+| `save_account_snapshot(...)` | Snapshot de cuenta |
+| `save_equity_snapshot(...)` | Snapshot de equity |
+
+### Fuente de verdad
+
+- **DB es la fuente de verdad** para el estado del bot
+- `config.py` tiene defaults, DB los sobrescribe
+- Al startup: `db.load_state()` → merge con defaults → `BotState(**merged)`
+- Dashboard modifica DB → bot reloadea cada 30s
 
 ---
 
-## 11. Dashboard — Tabs de Configuración
+## 17. Estado Persistente
 
-**Archivos:**
-- `dashboard/templates/index.html` — tabs HTML
-- `dashboard/templates/base.html` — JS para guardar (serialización de checkboxes)
-- `dashboard/routers/config.py` — endpoint `/update-config`
+**Archivo:** `core/models.py` — `BotState`
 
-### Tabs
-
-| Tab | ID | Contenido |
-|-----|----|-----------|
-| Config Generales | `#config-generales` | Control, Riesgo, Ejecución, Trailing, Take Profit |
-| Config Breakout | `#config-breakout` | EMA Fast/Slow, Volume, ADX, Pivot, Trailing % |
-| Config Stop Hunt | `#config-stophunt` | 12 parámetros de Stop Hunt |
-| Config VWAP | `#config-vwap` | VWAP bands, Volumen, SL, y parámetros Auto |
-| ~~Configuración~~ | `#config` | Desambiguado — muestra aviso de redirección |
-
-### Formato de campos en el JS de save (base.html)
-
-| Tipo | Cómo se serializa |
-|------|-----------------|
-| Checkbox | `document.getElementById("id").checked` |
-| Números (float) | `Number(value)` |
-| Integers | `parseInt(value, 10)` |
-| Strings | Valor directo |
-| symbols | `value.split(",").map(s => s.trim())` |
-
-**Checkboxes manejados explicitamente:** `paused`, `paper_trading`, `adx_rising`, `trailing_automatico`, `trailing_use_atr`, `use_take_profit`, `tp_by_pct`, `stop_hunt_use_ema_filter`
-
-### Pipeline de guardado
-
-```
-Formulario → JS serializa → POST /update-config
-                                      ↓
-                           dashboard/routers/config.py
-                           allowed_keys valida
-                           db.save_state(state)
-                                      ↓
-                           bot.py reload (30s)
-                           sync_cfg_from_state(st)
-                                      ↓
-                    execution files leen CFG runtime
-```
-
-### BotState ↔ Dashboard ↔ DB
-
-- **DB** (`bot_state.state_json`): JSON plano con todos los campos de BotState
-- **Startup**: `db.load_state()` → merge con defaults de BotState → fill missing keys → `BotState(**merged)` → `db.save_state()` al inicio
-- **Sync runtime**: `sync_cfg_from_state(st)` corre cada 30s al reloadear estado desde DB y actualiza `config.py` runtime para que los strategy files lo lean. No recibe `db` — solo lee de `st` y escribe en `CFG`.
-
----
-
-## 12. Estrategias Disponibles
-
-**Archivos:**
-- `strategy/ema_adx_breakout.py` — EMA Breakout (trend-following)
-- `strategy/stop_hunt.py` — Stop Hunt (mean-reversion)
-- `strategy/vwap_refresh.py` — VWAP Refresh (range-bound)
-- `strategy/market_regime.py` — Market Regime Detector
-- `strategy/signal_engine.py` — Motor de selección
-
-### Estrategias Fijas
-
-| strategy_mode | Descripción | Cuándo usar |
-|---------------|-------------|-------------|
-| `ema_breakout` | Trend-following | Mercados con tendencia clara (ADX >= 25) |
-| `stop_hunt` | Mean-reversion / Liquidity | Mercados laterales con volumen |
-| `vwap_refresh` | Range-bound / VWAP | Mercados laterales sin volumen |
-
-### Modo Auto
-
-| strategy_mode | Descripción |
-|---------------|-------------|
-| `auto` | Evalúa régimen por símbolo y asigna estrategia automáticamente |
-
-### Cómo opera Auto
-
-1. Evalúa ADX, volumen, rango para cada símbolo
-2. Asigna estrategia según condiciones
-3. Puede tener BTC en EMA mientras ETH en Stop Hunt
-4. Cambia si las condiciones del mercado cambian (confianza >= 70%)
-
----
-
-## 13. Market Regime Detection
-
-**Archivo:** `strategy/market_regime.py`
-
-### Cómo funciona
-
-El régimen se evalúa **POR SÍMBOLO**, no globalmente. Cada mercado puede tener una estrategia diferente según sus condiciones.
-
-- Solo aplica cuando `strategy_mode = "auto"` en el dashboard
-- Se evalúa cada 3 ciclos (no por ciclo, para no sobrecargar)
-- Cada símbolo tiene su propia estrategia efectiva guardada en `_effective_mode[symbol]`
-
-### Detección de Régimen
-
-| Condición | Régimen | Estrategia |
-|-----------|---------|------------|
-| ADX >= 25 y no range-bound | TRENDING | EMA Breakout |
-| ADX 18-25 | TRANSITIONAL | Stop Hunt |
-| ADX <= 18, range-bound, vol >= 1.3 | RANGING + VOL | Stop Hunt |
-| ADX <= 18, range-bound, vol < 1.3 | RANGING + LOW VOL | VWAP Refresh |
-
-### Parámetros (config.py)
-
-```python
-REGIME_TRENDING_ADX_MIN = 25.0    # ADX para considerar trending
-REGIME_RANGING_ADX_MAX = 18.0     # ADX máximo para ranging
-REGIME_HUNT_VOL_RATIO_MIN = 1.3   # Volumen mínimo para hunts
-```
-
-### Métricas Calculadas
-
-- `adx`: ADX actual
-- `atr_pct`: Volatilidad como %
-- `vol_ratio`: Volumen vs MA(20)
-- `ema_spread_pct`: Diferencia EMAs normalizada
-- `range_bound`: True si rango < 5% y slopes EMAs < 0.3%
-- `high_low_range_pct`: Rango alto-bajo de últimas 20 velas
-- `confidence`: 0.5 a 0.95 (basado en qué tan clara es la condición)
-
-### Switch Automático
-
-- Evalúa cada 3 ciclos en `signal_engine.check_and_switch_regime()`
-- Requiere confianza >= 70% para cambiar
-- Mantiene `_effective_mode` por símbolo en cache
-- Si cambia estrategia, limpia el cache de indicadores
-
-### Flujo en bot.py
-
-```
-bot.py loop:
-  1. market.update_all()
-  2. event_loop._max_positions_reached()  ← check rápido
-  3. signal_engine.check_and_switch_regime()  ← régimen POR SÍMBOLO
-  4. Para cada símbolo:
-       signal_engine.process_symbol()  ← usa estrategia efectiva
-  5. event_loop.loop_once()
-  6. trailing.loop_once()
-  7. telegram.poll_once()
-```
-
-### Logs
-
-```bash
-# Ver régimen de cada símbolo
-tail -f logs/bot.log | grep "\[REGIME\]"
-
-# Ver estrategia por símbolo
-tail -f logs/bot.log | grep "strategy=ema_breakout\|strategy=stop_hunt\|strategy=vwap_refresh"
-```
-
-### Cuándo NO cambia
-
-- Si confianza < 70%
-- Si estrategia actual = estrategia recomendada
-- Si mode != "auto" (usa estrategia fija)
-
-### Métricas Calculadas
-
-- `adx`: ADX actual
-- `atr_pct`: Volatilidad como %
-- `vol_ratio`: Volumen vs MA(20)
-- `ema_spread_pct`: Diferencia EMAs normalizada
-- `range_bound`: True si rango < 5% y slopes EMAs < 0.3%
-- `high_low_range_pct`: Rango alto-bajo de últimas 20 velas
-
-### Switch Automático
-
-- Evalúa cada 5 ciclos en `signal_engine._evaluate_regime_and_switch()`
-- Requiere confianza >= 75% para cambiar
-- Solo cambia si no hay posiciones abiertas
-
-### Logs
-
-```bash
-tail -f logs/bot.log | grep "\[REGIME\]"
-```
-
----
-
-## 14. Campos BotState (actualizados)
+### Todos los campos
 
 ```python
 @dataclass
 class BotState:
+    # Control
     paused: bool
-    risk_pct: float
-    leverage: int
+    paper_trading: bool
+
+    # Riesgo
+    risk_pct: float                    # % del equity por trade
+    leverage: int                      # apalancamiento
+    max_positions: int                 # máximo de posiciones simultáneas
+    daily_loss_limit_pct: float        # límite de pérdida diaria (%)
+
+    # Símbolos y estrategia
     symbols: List[str]
-    strategy_mode: str           # "ema_breakout" | "stop_hunt" | "vwap_refresh" | "auto"
-    # ... otros campos ...
+    strategy_mode: str                 # "ema_breakout"|"stop_hunt"|"vwap_refresh"|"auto"
+    timeframe: str                     # "5m", "15m", etc.
+
+    # Trailing
+    trailing_pct: float
+    trailing_automatico: bool          # alias de trailing_use_atr
+    trailing_activation_pct: float
+    trailing_use_atr: bool
+    trailing_atr_mult: float
+
+    # Take Profit
+    use_take_profit: bool
+    tp_by_pct: bool
+    tp_activation_pct: float
+    tp_close_pct: float
+    tp_sl_mode: str                    # "trailing"|"entry"
+    tp_use_mark: bool
+
+    # EMA Breakout
+    ema_fast: int
+    ema_slow: int
+    pivot_len: int
+    adx_min: float
+    adx_rising: bool
+    cooldown_bars: int
+    vol_min_ratio: float
 
     # Stop Hunt
     stop_hunt_wick_pct: float
@@ -557,7 +677,7 @@ class BotState:
     stop_hunt_adx_min: float
     order_block_lookback: int
 
-    # VWAP Refresh
+    # VWAP
     vwap_std_mult: float
     vwap_min_volume_ratio: float
     vwap_sl_atr_mult: float
@@ -567,5 +687,267 @@ class BotState:
     regime_trending_adx_min: float
     regime_ranging_adx_max: float
     regime_hunt_vol_ratio_min: float
+
+    # Runtime state (NO se exponen en dashboard)
+    trail: dict                        # trailing stops activos
+    position_ids: dict                 # symbol → position_id
+    stop_orders: dict                  # symbol → {order_id, is_algo, stop_price}
+    cooldown: dict                     # symbol → {until_ms, bars}
+    day_key: str                       # "YYYY-MM-DD" UTC
+    day_start_equity: float
 ```
 
+### sync_cfg_from_state(st)
+
+Corre cada 30s. Copia valores de `st` a `config.CFG` runtime para que los strategy files lean sin pasar `st` por parámetro. Ver `bot.py:32-64`.
+
+---
+
+## 18. Config ↔ Dashboard ↔ DB
+
+### Pipeline de guardado
+
+```
+Dashboard Form → JS serializa → POST /update-config
+                                        ↓
+                             dashboard/routers/config.py
+                             allowed_keys valida
+                             db.save_state(state)
+                                        ↓
+                             bot.py reload (30s)
+                             sync_cfg_from_state(st)
+                                        ↓
+                          strategy files leen CFG runtime
+```
+
+### Checkbox handling (base.html)
+
+Los checkboxes NO aparecen en FormData si están unchecked. Fix: inicializar TODOS los checkboxes con `.checked` ANTES del forEach loop.
+
+```javascript
+const checkboxIds = ['paused', 'paper_trading', 'trailing_automatico', ...];
+checkboxIds.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) data[id] = el.checked;  // siempre envía true o false
+});
+```
+
+### allowed_keys (dashboard/routers/config.py)
+
+Lista blanca de campos que el dashboard puede modificar. Si un campo no está aquí, el dashboard NO puede cambiarlo.
+
+---
+
+## 19. Dashboard
+
+**Archivos:**
+- `dashboard/app.py` — FastAPI app
+- `dashboard/templates/index.html` — UI principal
+- `dashboard/templates/base.html` — JS serialización
+- `dashboard/routers/config.py` — endpoint `/update-config`
+- `dashboard/routers/positions.py` — endpoints de posiciones
+- `dashboard/routers/trades.py` — endpoints de trades
+- `dashboard/services/dashboard_service.py` — lógica de negocio
+
+### Tabs
+
+| Tab | Contenido |
+|-----|-----------|
+| Config Generales | Control, Riesgo, Ejecución, Trailing, Take Profit |
+| Config Breakout | EMA, Volume, ADX, Pivot |
+| Config Stop Hunt | 13 parámetros de Stop Hunt |
+| Config VWAP | VWAP bands, parámetros Auto |
+
+### Autenticación
+
+`DASHBOARD_PASSWORD` en `.env`. Session cookie después de login.
+
+---
+
+## 20. Backtesting
+
+**Archivo:** `backtest.py`
+
+### Uso
+
+```bash
+python backtest.py --strategy ema_breakout --days 30 --capital 170
+python backtest.py --symbol BTCUSDT --strategy stop_hunt
+python backtest.py --symbols "ETHUSDT,BNBUSDT,SOLUSDT" --strategy ema_breakout
+python backtest.py --all  # prueba las 3 estrategias
+```
+
+### Qué incluye
+
+- Fetch de datos históricos de Binance Futures (con rate limiting 0.5s entre descargas)
+- Simulación bar-a-bar reutilizando estrategias del bot
+- Trailing stop, take profit escalonado
+- Comisiones reales (0.04%)
+- Reporte: win rate, profit factor, Sharpe, max DD, por símbolo, por razón de salida
+
+### Arquitectura
+
+```
+backtest.py
+├── BacktestConfig      ← parámetros del backtest
+├── BacktestEngine      ← simulador
+│   ├── run(data)       ← loop principal
+│   ├── _check_signal() ← genera señal
+│   ├── _update_position() ← trailing, TP, SL
+│   └── _close_position()  ← cierra trade
+├── fetch_klines()      ← descarga de Binance
+└── main()              ← CLI
+```
+
+---
+
+## 21. Risk Monitor
+
+**Archivo:** `core/risk_monitor.py` — `RiskMonitor`
+
+Módulo de monitoreo de riesgo. Actualmente comentado en `bot.py` (línea 288: `# risk_monitor.check()`). Está disponible pero no se ejecuta automáticamente.
+
+---
+
+## 22. Mapa de Archivos
+
+### Raíz
+
+| Archivo | Propósito |
+|---------|-----------|
+| `bot.py` | Entry point, main loop, component wiring |
+| `config.py` | Todos los parámetros (defaults + runtime) |
+| `db.py` | PostgreSQL connection y queries |
+| `backtest.py` | Backtesting engine |
+| `beast-db.sql` | Schema de la DB |
+
+### `strategy/`
+
+| Archivo | Propósito |
+|---------|-----------|
+| `ema_adx_breakout.py` | Estrategia EMA Breakout |
+| `stop_hunt.py` | Estrategia Stop Hunt |
+| `vwap_refresh.py` | Estrategia VWAP Refresh |
+| `market_regime.py` | Detección de régimen de mercado |
+| `signal_engine.py` | Motor de señales (dispatch a estrategias) |
+| `indicators.py` | EMA, ATR, ADX, RSI helpers |
+| `pivots.py` | Pivot highs/lows vectorizados |
+
+### `execution/`
+
+| Archivo | Propósito |
+|---------|-----------|
+| `event_loop.py` | Guards, reconciliation, loop principal |
+| `order_manager.py` | Ejecución de órdenes, SL management |
+| `trailing.py` | Trailing stop manager |
+| `take_profit_manager.py` | Take profit manager |
+| `signal_bus.py` | Cola de señales entre strategy y execution |
+
+### `exchange/`
+
+| Archivo | Propósito |
+|---------|-----------|
+| `binance_futures.py` | Wrapper REST Binance Futures |
+
+### `datafeed/`
+
+| Archivo | Propósito |
+|---------|-----------|
+| `market_cache.py` | Cache de velas y mark prices |
+
+### `core/`
+
+| Archivo | Propósito |
+|---------|-----------|
+| `models.py` | BotState, SignalEvent, MarketData dataclasses |
+| `logging_setup.py` | Configuración de logging |
+| `utils.py` | Utilidades (utc_day_key, etc.) |
+| `risk_monitor.py` | Monitor de riesgo (desactivado) |
+
+### `infra/`
+
+| Archivo | Propósito |
+|---------|-----------|
+| `api_cache.py` | Cache genérico con TTL |
+
+### `notifications/`
+
+| Archivo | Propósito |
+|---------|-----------|
+| `telegram.py` | Bot de Telegram (envío + comandos) |
+
+### `dashboard/`
+
+| Archivo | Propósito |
+|---------|-----------|
+| `app.py` | FastAPI application |
+| `templates/index.html` | UI principal |
+| `templates/base.html` | JS serialización forms |
+| `routers/config.py` | Endpoint update-config |
+| `routers/positions.py` | Endpoints de posiciones |
+| `routers/trades.py` | Endpoints de trades |
+| `services/dashboard_service.py` | Lógica de negocio dashboard |
+
+---
+
+## 23. Logs y Debug
+
+### Tags de log
+
+| Tag | Significado |
+|-----|-------------|
+| `[CACHE INIT]` | Carga inicial de velas |
+| `[CACHE]` | Actualización de cache (nueva vela) |
+| `[STARTUP]` | Bot listo para operar |
+| `[LOOP]` | Main loop iniciado |
+| `[REGIME]` | Cambio de régimen de mercado |
+| `[DAILY LOSS]` | Límite de pérdida diaria |
+| `[SPREAD]` | Filtro de spread |
+| `[SLIPPAGE]` | Guard de slippage |
+| `[TRAIL]` | Trailing stop update |
+| `[TP%]` | Take profit por porcentaje |
+| `[RECONCILE]` | Reconciliation DB ↔ Binance |
+| `[MANUAL POS]` | Posición manual adoptada |
+| `[COOLDOWN]` | Símbolo en cooldown |
+| `[STRATEGY]` | Cambio de estrategia |
+| `[SYMBOLS]` | Cambio de símbolos |
+
+### Comandos útiles
+
+```bash
+# Ver señales en tiempo real
+tail -f logs/bot.log | grep "trend="
+
+# Ver régimen de mercado
+tail -f logs/bot.log | grep "\[REGIME\]"
+
+# Ver bloqueos
+tail -f logs/bot.log | grep "BLOCKED"
+
+# Ver entradas/salidas
+tail -f logs/bot.log | grep "ENTRY\|EXIT\|CLOSE"
+
+# Ver trailing
+tail -f logs/bot.log | grep "\[TRAIL\]"
+
+# Ver take profit
+tail -f logs/bot.log | grep "\[TP"
+
+# Ver errores
+tail -f logs/bot.log | grep "ERROR\|WARNING\|Bot error"
+
+# Ver reconciliation
+tail -f logs/bot.log | grep "\[RECONCILE\]"
+```
+
+---
+
+## Reglas de Oro
+
+1. **No cambiar varios parámetros a la vez** — uno a la vez, evaluar resultados
+2. **Probar en backtest antes de producción** — `python backtest.py --all`
+3. **No agregar imports que no existan** — verificar contra código real
+4. **Métricas > intuición** — win rate, profit factor, max DD
+5. **El bot debe ser resiliente** — nunca crashear permanentemente
+6. **DB es fuente de verdad** — no confiar solo en config.py
+7. **sync_cfg_from_state** — cada cambio de BotState debe reflejarse en CFG
