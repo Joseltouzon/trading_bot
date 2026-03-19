@@ -17,6 +17,7 @@ def calculate_regime_metrics(df: pd.DataFrame) -> dict:
             "ema_spread_pct": 0.0,
             "range_bound": False,
             "high_low_range_pct": 0.0,
+            "recommended_strategy": "auto",
         }
 
     close = df["close"]
@@ -37,7 +38,7 @@ def calculate_regime_metrics(df: pd.DataFrame) -> dict:
 
     ema_fast = float(last["ema_fast"])
     ema_slow = float(last["ema_slow"])
-    ema_spread_pct = ((ema_fast - ema_slow) / ema_slow) * 100
+    ema_spread_pct = ((ema_fast - ema_slow) / ema_slow) * 100 if ema_slow > 0 else 0
 
     vol_ma = df["volume"].iloc[-20:].mean()
     vol_ratio = float(last["volume"]) / vol_ma if vol_ma > 0 else 1.0
@@ -53,7 +54,33 @@ def calculate_regime_metrics(df: pd.DataFrame) -> dict:
 
     range_bound = high_low_range < 5.0 and abs(ema_slope_fast) < 0.3
 
+    trending_threshold = CFG.REGIME_TRENDING_ADX_MIN
+    ranging_threshold = CFG.REGIME_RANGING_ADX_MAX
+
+    if adx_val >= trending_threshold and not range_bound:
+        recommended_strategy = "ema_breakout"
+        regime = "TRENDING"
+        confidence = min((adx_val - trending_threshold) / 10 + 0.5, 0.95)
+    elif adx_val <= ranging_threshold and range_bound and vol_ratio >= CFG.REGIME_HUNT_VOL_RATIO_MIN:
+        recommended_strategy = "stop_hunt"
+        regime = "RANGING"
+        confidence = 0.7 + (0.3 * min(vol_ratio / 2.0, 1.0))
+    elif adx_val <= ranging_threshold and range_bound:
+        recommended_strategy = "vwap_refresh"
+        regime = "RANGING"
+        confidence = 0.7 + (0.3 * min(vol_ratio / 2.0, 1.0))
+    elif adx_val > ranging_threshold and adx_val < trending_threshold:
+        recommended_strategy = "stop_hunt"
+        regime = "TRANSITIONAL"
+        confidence = 0.6
+    else:
+        recommended_strategy = "auto"
+        regime = "TRANSITIONAL"
+        confidence = 0.5
+
     return {
+        "regime": regime,
+        "confidence": confidence,
         "adx": adx_val,
         "adx_trend": adx_trend,
         "atr_pct": atr_pct,
@@ -62,68 +89,17 @@ def calculate_regime_metrics(df: pd.DataFrame) -> dict:
         "range_bound": range_bound,
         "high_low_range_pct": high_low_range,
         "ema_trend": "BULL" if ema_spread_pct > 0 else "BEAR",
+        "recommended_strategy": recommended_strategy,
     }
 
 
 def detect_market_regime(df: pd.DataFrame) -> str:
     metrics = calculate_regime_metrics(df)
-
-    if metrics["regime"] == "UNKNOWN":
-        return "auto"
-
-    adx = metrics["adx"]
-    range_bound = metrics["range_bound"]
-    vol_ratio = metrics["vol_ratio"]
-    high_low_range = metrics["high_low_range_pct"]
-
-    trending_threshold = CFG.REGIME_TRENDING_ADX_MIN
-    ranging_threshold = CFG.REGIME_RANGING_ADX_MAX
-
-    if adx >= trending_threshold and not range_bound:
-        return "ema_breakout"
-
-    if adx <= ranging_threshold and range_bound and vol_ratio >= CFG.REGIME_HUNT_VOL_RATIO_MIN:
-        return "stop_hunt"
-
-    if adx <= ranging_threshold and range_bound and vol_ratio < CFG.REGIME_HUNT_VOL_RATIO_MIN:
-        return "vwap_refresh"
-
-    if adx > ranging_threshold and adx < trending_threshold:
-        return "stop_hunt"
-
-    return "auto"
+    return metrics.get("recommended_strategy", "auto")
 
 
 def get_regime_confidence(df: pd.DataFrame) -> dict:
-    metrics = calculate_regime_metrics(df)
-
-    adx = metrics["adx"]
-    range_bound = metrics["range_bound"]
-    vol_ratio = metrics["vol_ratio"]
-    high_low_range = metrics["high_low_range_pct"]
-
-    trending_threshold = CFG.REGIME_TRENDING_ADX_MIN
-    ranging_threshold = CFG.REGIME_RANGING_ADX_MAX
-
-    if adx >= trending_threshold:
-        confidence = min((adx - trending_threshold) / 10 + 0.5, 0.95)
-        regime = "TRENDING"
-    elif adx <= ranging_threshold and range_bound:
-        confidence = 0.7 + (0.3 * min(vol_ratio / 2.0, 1.0))
-        regime = "RANGING"
-    elif high_low_range < 3.0:
-        confidence = 0.6
-        regime = "LOW_VOLATILITY"
-    else:
-        confidence = 0.5
-        regime = "TRANSITIONAL"
-
-    return {
-        "regime": regime,
-        "confidence": confidence,
-        "recommended_strategy": detect_market_regime(df),
-        **metrics,
-    }
+    return calculate_regime_metrics(df)
 
 
 def should_switch_strategy(df: pd.DataFrame, current_strategy: str, threshold_confidence: float = 0.75) -> tuple:
