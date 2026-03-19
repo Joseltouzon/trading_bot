@@ -3,6 +3,7 @@
 import time
 import config as CFG
 from core.utils import utc_day_key
+from typing import Optional
 from execution.take_profit_manager import TakeProfitManager
 
 
@@ -94,7 +95,7 @@ class EventLoop:
         Crea registro en DB e inicializa estado para trailing/stops.
         """
         try:
-            side = ex_pos.get("side")
+            side = ex_pos.get("side") or ""
             qty = float(ex_pos.get("size", 0))
             entry_price = float(ex_pos.get("entry_price", 0))
             
@@ -203,7 +204,7 @@ class EventLoop:
             if self.tg_send:
                 self.tg_send(f"⚠️ Error adoptando {symbol}: {str(e)[:100]}")
 
-    def _get_existing_stop_price(self, symbol: str, position_side: str) -> float:
+    def _get_existing_stop_price(self, symbol: str, position_side: str) -> Optional[float]:
         """
         Consulta órdenes STOP abiertas en Binance para un símbolo.
         Devuelve el stop_price si existe, None si no.
@@ -543,24 +544,35 @@ class EventLoop:
         # 1) ADX min (solo para EMA breakout, stop_hunt no usa ADX)
         if strategy_type == "ema_breakout":
             adx_val = float(ev.signal.get("adx", 0.0))
-            if adx_val < float(st.adx_min):
-                self.log.info(f"{symbol} BLOCKED: adx {adx_val:.2f} < min {st.adx_min}")
+            adx_min = float(st.adx_min)
+            if adx_val < adx_min:
+                self.log.info(f"{symbol} BLOCKED: adx {adx_val:.2f} < min {adx_min:.2f}")
                 return True
-
-            # 2) ADX rising (solo para EMA breakout)
-            if bool(getattr(CFG, "REQUIRE_ADX_RISING", True)):
-                if not bool(ev.signal.get("adx_increasing", False)):
-                    self.log.info(f"{symbol} BLOCKED: adx not rising")
-                    return True
-
+        
+        # 2) ADX rising (solo para EMA breakout)
+        if bool(getattr(CFG, "REQUIRE_ADX_RISING", True)):
+            if not bool(ev.signal.get("adx_increasing", False)):
+                self.log.info(f"{symbol} BLOCKED: adx not rising (current: {ev.signal.get('adx', 0.0):.2f})")
+                return True
+        
         # 3) Cooldown
         if self._cooldown_blocked(st, symbol, bar_close_ms):
-            self.log.info(f"{symbol} BLOCKED: cooldown")
+            cd = st.cooldown.get(symbol)
+            if cd:
+                until_ms = int(cd.get("until_ms", 0))
+                bars_left = max(0, (until_ms - bar_close_ms) // (5 * 60_000))  # asumiendo 5m por ahora
+                self.log.info(f"{symbol} BLOCKED: cooldown ({bars_left} bars restantes)")
+            else:
+                self.log.info(f"{symbol} BLOCKED: cooldown")
             return True
-
+        
         # 4) Max positions
         if self._max_positions_reached(st):
-            self.log.info(f"{symbol} BLOCKED: max positions")
+            try:
+                open_positions = self.exchange.get_open_positions()
+                self.log.info(f"{symbol} BLOCKED: max positions ({len(open_positions)}/{st.max_positions})")
+            except Exception:
+                self.log.info(f"{symbol} BLOCKED: max positions")
             return True
 
         # 5) Spread filter — manejado por OrderManager (spread dinámico)
