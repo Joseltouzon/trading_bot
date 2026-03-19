@@ -198,6 +198,21 @@ def compute_vwap_refresh_signals(df: pd.DataFrame) -> dict:
             "adx": adx_val,
             "adx_increasing": adx_increasing,
         },
+        "ml_features": {
+            "vwap": float(vwap),
+            "vwap_deviation": ((current_price - vwap) / vwap) * 100 if vwap > 0 else 0,
+            "upper_band": upper_band,
+            "lower_band": lower_band,
+            "vol_ratio": vol_ratio,
+            "vol_ok": vol_ratio >= CFG.VWAP_MIN_VOLUME_RATIO,
+            "ema_trend": ema_trend,
+            "atr_pct": atr_pct,
+            "adx": adx_val,
+            "adx_increasing": adx_increasing,
+            "range_bound": range_bound,
+            "refresh_long": refresh_long,
+            "refresh_short": refresh_short,
+        },
     }
 
 
