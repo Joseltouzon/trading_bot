@@ -213,6 +213,8 @@ daily_loss_limit_pct = st.daily_loss_limit_pct  # configurable por DB
 14. set_cooldown()
 ```
 
+**Nota**: El régimen se evalúa ANTES del event_loop en `signal_engine.check_and_switch_regime()`, no dentro del loop.
+
 ---
 
 ## 6. Estado persistente (BotState)
@@ -228,7 +230,7 @@ class BotState:
     risk_pct: float
     leverage: int
     symbols: List[str]
-    strategy_mode: str           # "ema_breakout" | "stop_hunt"
+    strategy_mode: str           # "ema_breakout" | "stop_hunt" | "vwap_refresh" | "auto"
     trailing_pct: float          # para modo % del trailing
     max_positions: int
     adx_min: float
@@ -244,6 +246,39 @@ class BotState:
 ```
 
 **DB como fuente de verdad**: al iniciar, `db.load_state()` sobrescribe defaults de `config.py` (excepto sanity checks en `bot.py`).
+
+---
+
+## 6b. Performance — Signal Engine
+
+**Archivo:** `strategy/signal_engine.py`
+
+### Optimizaciones implementadas
+
+1. **Regime check por símbolo**: Cada símbolo tiene su `_effective_mode` cacheado
+2. **Early exit**: Si `max_positions_reached = True`, saltea todo el procesamiento
+3. **Throttle regime check**: Evalúa cada 3 ciclos, no por ciclo
+4. **Cached indicators**: `_indicator_cache` comparte EMA/ATR/ADX entre estrategias
+
+### Flujo optimizado
+
+```
+bot.py loop:
+  1. market.update_all()
+  2. event_loop._max_positions_reached()  ← solo 1 llamada
+  3. Para cada símbolo:
+       check_and_switch_regime()  ← cada 3 ciclos
+       process_symbol()           ← usa estrategia cacheada
+  4. event_loop.loop_once()
+  5. trailing.loop_once()
+```
+
+### Tiempo estimado (15 símbolos)
+
+| Modo | Tiempo |
+|------|--------|
+| Fijo (1 estrategia) | ~400ms |
+| Auto | ~450ms |
 
 ---
 
@@ -272,11 +307,20 @@ Al cerrar posición: limpia `position_ids`, `trail`, `stop_orders` de state y ll
 ## 9. Llamado desde bot.py
 
 ```python
-trailing = TrailingManager(exchange, market, om, db, telegram.send, log)
+signal_engine = SignalEngine(market, bus, log, st.strategy_mode)
 event_loop = EventLoop(bus, market, exchange, om, telegram.send, db, log)
+trailing = TrailingManager(exchange, market, om, db, telegram.send, log)
+
 # dentro del while:
-event_loop.loop_once(st)   # 3
-trailing.loop_once(st)      # 4
+market.update_all(st.symbols)                    # 1
+max_pos_reached = event_loop._max_positions_reached(st)  # 2
+
+for sym in st.symbols:                           # 3
+    signal_engine.check_and_switch_regime(sym)   # 3a - régimen
+    signal_engine.process_symbol(sym, max_pos_reached)  # 3b - signals
+
+event_loop.loop_once(st)   # 4
+trailing.loop_once(st)     # 5
 # TP se llama dentro de event_loop.loop_once (paso 5)
 ```
 
@@ -356,20 +400,26 @@ Formulario → JS serializa → POST /update-config
 - `strategy/market_regime.py` — Market Regime Detector
 - `strategy/signal_engine.py` — Motor de selección
 
-### Estrategia Actual
+### Estrategias Fijas
+
+| strategy_mode | Descripción | Cuándo usar |
+|---------------|-------------|-------------|
+| `ema_breakout` | Trend-following | Mercados con tendencia clara (ADX >= 25) |
+| `stop_hunt` | Mean-reversion / Liquidity | Mercados laterales con volumen |
+| `vwap_refresh` | Range-bound / VWAP | Mercados laterales sin volumen |
+
+### Modo Auto
 
 | strategy_mode | Descripción |
 |---------------|-------------|
-| `ema_breakout` | Trend-following, opera en mercados con tendencia |
-| `stop_hunt` | Mean-reversion, opera cuando detecta liquidity grabs |
-| `vwap_refresh` | Range-bound, opera cuando precio rechaza del VWAP |
-| `auto` | Detecta automáticamente el régimen y cambia estrategia |
+| `auto` | Evalúa régimen por símbolo y asigna estrategia automáticamente |
 
-### Stop Hunt — Mejoras recientes
+### Cómo opera Auto
 
-- `STOP_HUNT_MIN_BREAK_CANDLES`: Verifica velas consecutivas rompiendo zona
-- `STOP_HUNT_ADX_MIN`: Filtro ADX para momentum (default 18.0)
-- Usa vela actual (sin lag de 1 vela)
+1. Evalúa ADX, volumen, rango para cada símbolo
+2. Asigna estrategia según condiciones
+3. Puede tener BTC en EMA mientras ETH en Stop Hunt
+4. Cambia si las condiciones del mercado cambian (confianza >= 70%)
 
 ---
 
@@ -377,11 +427,20 @@ Formulario → JS serializa → POST /update-config
 
 **Archivo:** `strategy/market_regime.py`
 
+### Cómo funciona
+
+El régimen se evalúa **POR SÍMBOLO**, no globalmente. Cada mercado puede tener una estrategia diferente según sus condiciones.
+
+- Solo aplica cuando `strategy_mode = "auto"` en el dashboard
+- Se evalúa cada 3 ciclos (no por ciclo, para no sobrecargar)
+- Cada símbolo tiene su propia estrategia efectiva guardada en `_effective_mode[symbol]`
+
 ### Detección de Régimen
 
 | Condición | Régimen | Estrategia |
 |-----------|---------|------------|
 | ADX >= 25 y no range-bound | TRENDING | EMA Breakout |
+| ADX 18-25 | TRANSITIONAL | Stop Hunt |
 | ADX <= 18, range-bound, vol >= 1.3 | RANGING + VOL | Stop Hunt |
 | ADX <= 18, range-bound, vol < 1.3 | RANGING + LOW VOL | VWAP Refresh |
 
@@ -390,8 +449,55 @@ Formulario → JS serializa → POST /update-config
 ```python
 REGIME_TRENDING_ADX_MIN = 25.0    # ADX para considerar trending
 REGIME_RANGING_ADX_MAX = 18.0     # ADX máximo para ranging
-REGIME_HUNT_VOL_RATIO_MIN = 1.3   # Volumen para hunts
+REGIME_HUNT_VOL_RATIO_MIN = 1.3   # Volumen mínimo para hunts
 ```
+
+### Métricas Calculadas
+
+- `adx`: ADX actual
+- `atr_pct`: Volatilidad como %
+- `vol_ratio`: Volumen vs MA(20)
+- `ema_spread_pct`: Diferencia EMAs normalizada
+- `range_bound`: True si rango < 5% y slopes EMAs < 0.3%
+- `high_low_range_pct`: Rango alto-bajo de últimas 20 velas
+- `confidence`: 0.5 a 0.95 (basado en qué tan clara es la condición)
+
+### Switch Automático
+
+- Evalúa cada 3 ciclos en `signal_engine.check_and_switch_regime()`
+- Requiere confianza >= 70% para cambiar
+- Mantiene `_effective_mode` por símbolo en cache
+- Si cambia estrategia, limpia el cache de indicadores
+
+### Flujo en bot.py
+
+```
+bot.py loop:
+  1. market.update_all()
+  2. event_loop._max_positions_reached()  ← check rápido
+  3. signal_engine.check_and_switch_regime()  ← régimen POR SÍMBOLO
+  4. Para cada símbolo:
+       signal_engine.process_symbol()  ← usa estrategia efectiva
+  5. event_loop.loop_once()
+  6. trailing.loop_once()
+  7. telegram.poll_once()
+```
+
+### Logs
+
+```bash
+# Ver régimen de cada símbolo
+tail -f logs/bot.log | grep "\[REGIME\]"
+
+# Ver estrategia por símbolo
+tail -f logs/bot.log | grep "strategy=ema_breakout\|strategy=stop_hunt\|strategy=vwap_refresh"
+```
+
+### Cuándo NO cambia
+
+- Si confianza < 70%
+- Si estrategia actual = estrategia recomendada
+- Si mode != "auto" (usa estrategia fija)
 
 ### Métricas Calculadas
 

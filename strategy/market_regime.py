@@ -21,14 +21,15 @@ def calculate_regime_metrics(df: pd.DataFrame) -> dict:
         }
 
     close = df["close"]
-    last = df.iloc[-1]
-    current_price = float(last["close"])
+    current_price = float(df["close"].iloc[-1])
 
+    df = df.copy()
     df["atr_val"] = atr(df, CFG.ATR_PERIOD)
     df["adx_val"] = adx(df, CFG.ADX_PERIOD)
     df["ema_fast"] = ema(close, CFG.EMA_FAST)
     df["ema_slow"] = ema(close, CFG.EMA_SLOW)
 
+    last = df.iloc[-1]
     atr_val = float(last["atr_val"])
     atr_pct = (atr_val / current_price) * 100 if current_price > 0 else 0
 
@@ -41,7 +42,7 @@ def calculate_regime_metrics(df: pd.DataFrame) -> dict:
     ema_spread_pct = ((ema_fast - ema_slow) / ema_slow) * 100 if ema_slow > 0 else 0
 
     vol_ma = df["volume"].iloc[-20:].mean()
-    vol_ratio = float(last["volume"]) / vol_ma if vol_ma > 0 else 1.0
+    vol_ratio = float(df["volume"].iloc[-1]) / vol_ma if vol_ma > 0 else 1.0
 
     lookback = 20
     if len(df) >= lookback:

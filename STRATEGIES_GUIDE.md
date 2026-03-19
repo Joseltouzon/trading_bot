@@ -166,7 +166,16 @@ Estrategia que busca entradas cuando el precio se extiende más allá del VWAP y
 ## 4. Modo Auto (Market Regime Detection)
 
 ### Descripción
-El bot analiza automáticamente el régimen del mercado y cambia la estrategia según las condiciones predominantes.
+El bot analiza automáticamente el régimen del mercado **POR SÍMBOLO** y cambia la estrategia según las condiciones predominantes. Cada mercado puede tener una estrategia diferente.
+
+### Cuándo usar Auto
+- Cuando querés que el bot decida qué estrategia usar según el mercado
+- Cuando operás múltiples símbolos con condiciones diferentes
+- Auto NO es necesario si ya tenés 3 bots con estrategias fijas
+
+### Cuándo NO usar Auto
+- Si operás con estrategias fijas ("ema_breakout", "stop_hunt", "vwap_refresh")
+- Si preferís control manual de qué estrategia usar
 
 ### Parámetros Clave (config.py)
 
@@ -183,22 +192,40 @@ El bot analiza automáticamente el régimen del mercado y cambia la estrategia s
    - Rango alto-bajo de últimas 20 velas
    - EMA spread (diferencia entre EMAs)
    - Volumen vs media
+   - Confidence (0.5 a 0.95)
 
-2. **Detección de Régimen**
+2. **Detección de Régimen POR SÍMBOLO**
 
    | Condición | Régimen | Estrategia |
    |-----------|---------|------------|
    | ADX >= 25 y no range-bound | TRENDING | EMA Breakout |
+   | ADX 18-25 | TRANSITIONAL | Stop Hunt |
    | ADX <= 18, range-bound, vol >= 1.3 | RANGING + VOL | Stop Hunt |
    | ADX <= 18, range-bound, vol < 1.3 | RANGING + LOW VOL | VWAP Refresh |
 
 3. **Switch Automático**
-   - Evalúa cada 5 ciclos
-   - Requiere confianza >= 75% para cambiar
-   - Solo cambia si no hay posiciones abiertas
+   - Evalúa cada 3 ciclos
+   - Requiere confianza >= 70% para cambiar
+   - Cada símbolo mantiene su propia estrategia efectiva en cache
+   - Si cambia estrategia, limpia cache de indicadores
+
+### Ejemplo Real
+
+```
+Símbolo    ADX     Régimen        Estrategia
+BTCUSDT    32.07  TRENDING       EMA Breakout
+ETHUSDT    29.25  TRENDING       EMA Breakout  
+NEARUSDT   15.51  RANGING        VWAP Refresh
+LTCUSDT    19.28  TRANSITIONAL   Stop Hunt
+```
 
 ### Cómo Activar
 Seleccionar "Auto (Mercado)" en el dashboard → Estrategia
+
+### Ver logs
+```bash
+tail -f logs/bot.log | grep "\[REGIME\]"
+```
 
 ---
 

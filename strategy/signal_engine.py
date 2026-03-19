@@ -28,15 +28,15 @@ class SignalEngine:
         if self.strategy_mode != "auto":
             return self.strategy_mode
 
+        if not isinstance(self._effective_mode, dict):
+            self._effective_mode = {}
+
         if symbol in self._effective_mode and self._effective_mode[symbol] is not None:
             return self._effective_mode[symbol]
 
         _, should_switch, regime_info = should_switch_strategy(
             df, "ema_breakout", threshold_confidence=0.70
         )
-        
-        if self._effective_mode is None or isinstance(self._effective_mode, str):
-            self._effective_mode = {}
         
         self._effective_mode[symbol] = regime_info.get("recommended_strategy", "ema_breakout")
         return self._effective_mode[symbol]
