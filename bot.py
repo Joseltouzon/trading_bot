@@ -168,7 +168,10 @@ def main():
 
     # ================= LEVERAGE =================
     for s in st.symbols:
-        exchange.set_margin_and_leverage(s, st.leverage, CFG.MARGIN_TYPE)
+        try:
+            exchange.set_margin_and_leverage(s, st.leverage, CFG.MARGIN_TYPE)
+        except Exception as e:
+            log.warning(f"[LEVERAGE] Error setting leverage for {s}: {e}")
 
     # ================= COMPONENTES =================
     market = MarketCache(exchange, log, db)
@@ -188,15 +191,19 @@ def main():
         "auto": f"Auto (analizando...)",
     }
     strategy_label = strategy_labels.get(st.strategy_mode, "EMA Breakout")
-    telegram.send(
-        f"🚀 Bot activo ({mode})\n"
-        f"Strategy: {strategy_label}\n"
-        f"Symbols: {', '.join(st.symbols)}\n"
-        f"TF: {CFG.INTERVAL}\n"
-        f"Risk: {st.risk_pct}%\n"
-        f"Lev: {st.leverage}x\n"
-        f"Trailing: {st.trailing_pct}%"
-    )
+    log.info(f"[STARTUP] Bot listo. Mode={mode} Strategy={strategy_label} Symbols={len(st.symbols)}")
+    try:
+        telegram.send(
+            f"🚀 Bot activo ({mode})\n"
+            f"Strategy: {strategy_label}\n"
+            f"Symbols: {', '.join(st.symbols)}\n"
+            f"TF: {CFG.INTERVAL}\n"
+            f"Risk: {st.risk_pct}%\n"
+            f"Lev: {st.leverage}x\n"
+            f"Trailing: {st.trailing_pct}%"
+        )
+    except Exception as e:
+        log.error(f"[TELEGRAM] Error sending startup message: {e}", exc_info=True)
 
     # ================= LOOP VARS =================
     last_account_snapshot = 0
@@ -209,6 +216,7 @@ def main():
     SERVER_TIME_CHECK_INTERVAL = 60
 
     # ================= MASTER LOOP =================
+    log.info("[LOOP] Entrando al main loop")
     while True:
         try:
             now = time.time()
@@ -312,6 +320,7 @@ def main():
             time.sleep(CFG.LOOP_SLEEP_SECONDS)
 
         except Exception as e:
+            log.error(f"Bot error: {type(e).__name__}: {e}", exc_info=True)
             telegram.send(f"⚠️ Bot error: {type(e).__name__}: {str(e)[:120]}")
             time.sleep(5)
 

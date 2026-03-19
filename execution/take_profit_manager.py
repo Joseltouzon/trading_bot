@@ -151,8 +151,9 @@ class TakeProfitManager:
         if entry <= 0 or db_qty <= 0 or not position_id:
             return
 
-        current_pos = self.exchange.get_position_info(symbol)
-        current_qty = abs(float(current_pos.get("positionAmt", 0))) if current_pos else db_qty
+        current_pos_list = self.exchange.get_open_positions(symbol=symbol)
+        current_pos = current_pos_list[0] if current_pos_list else None
+        current_qty = abs(float(current_pos.get("size", 0))) if current_pos else db_qty
 
         if current_qty <= 0:
             self.log.warning(f"[TP%] {symbol} position already closed")

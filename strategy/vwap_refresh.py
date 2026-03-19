@@ -166,12 +166,13 @@ def compute_vwap_refresh_signals(df: pd.DataFrame) -> dict:
         }
 
     close = df["close"]
-    last = df.iloc[-1]
-    prev = df.iloc[-2]
-    current_price = float(last["close"])
+    current_price = float(df["close"].iloc[-1])
 
     df["atr"] = atr(df, CFG.ATR_PERIOD)
     df["adx_val"] = adx(df, CFG.ADX_PERIOD)
+
+    last = df.iloc[-1]
+    prev = df.iloc[-2]
 
     atr_val = float(last["atr"])
     atr_pct = (atr_val / current_price) * 100 if current_price > 0 else 0
