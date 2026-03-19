@@ -44,7 +44,7 @@ class BacktestConfig:
     symbols: list = field(default_factory=lambda: CFG.SYMBOLS.copy())
     strategy: str = "ema_breakout"  # ema_breakout | stop_hunt | vwap_refresh
     interval: str = CFG.INTERVAL
-    days: int = 90
+    days: int = 30
     initial_capital: float = 170.0
     risk_pct: float = 1.0          # % del capital por trade
     leverage: int = 5
@@ -235,13 +235,17 @@ class BacktestEngine:
             if sig["trend"] == "BULL" and sig["breakout_long"] and sig["adx"] >= self.cfg.adx_min:
                 signal = sig
                 direction = "LONG"
-                signal_price = sig.get("signal_price", sig["close"])
+                entry_price = float(df.iloc[bar]["close"])
+                signal_price = sig.get("signal_price", entry_price)
                 sl_price = build_initial_sl("LONG", window, atr_val)
             elif sig["trend"] == "BEAR" and sig["breakout_short"] and sig["adx"] >= self.cfg.adx_min:
                 signal = sig
                 direction = "SHORT"
-                signal_price = sig.get("signal_price", sig["close"])
+                entry_price = float(df.iloc[bar]["close"])
+                signal_price = sig.get("signal_price", entry_price)
                 sl_price = build_initial_sl("SHORT", window, atr_val)
+            else:
+                entry_price = 0.0
 
         elif self.cfg.strategy == "stop_hunt":
             sig = compute_stop_hunt_signals(window)
@@ -249,13 +253,17 @@ class BacktestEngine:
             if sig.get("breakout_long"):
                 signal = sig
                 direction = "LONG"
-                signal_price = sig.get("signal_price", sig["close"])
+                entry_price = float(df.iloc[bar]["close"])
+                signal_price = sig.get("signal_price", entry_price)
                 sl_price = build_stop_hunt_sl(window, "LONG", signal_price)
             elif sig.get("breakout_short"):
                 signal = sig
                 direction = "SHORT"
-                signal_price = sig.get("signal_price", sig["close"])
+                entry_price = float(df.iloc[bar]["close"])
+                signal_price = sig.get("signal_price", entry_price)
                 sl_price = build_stop_hunt_sl(window, "SHORT", signal_price)
+            else:
+                entry_price = 0.0
 
         elif self.cfg.strategy == "vwap_refresh":
             try:
@@ -264,47 +272,53 @@ class BacktestEngine:
                 if sig.get("refresh_long"):
                     signal = sig
                     direction = "LONG"
-                    signal_price = sig.get("signal_price", sig["close"])
+                    entry_price = float(df.iloc[bar]["close"])
+                    signal_price = sig.get("signal_price", entry_price)
                     sl_price = build_vwap_refresh_sl(window, "LONG", signal_price)
                 elif sig.get("refresh_short"):
                     signal = sig
                     direction = "SHORT"
-                    signal_price = sig.get("signal_price", sig["close"])
+                    entry_price = float(df.iloc[bar]["close"])
+                    signal_price = sig.get("signal_price", entry_price)
                     sl_price = build_vwap_refresh_sl(window, "SHORT", signal_price)
+                else:
+                    entry_price = 0.0
             except Exception:
-                return
+                entry_price = 0.0
+        else:
+            entry_price = 0.0
 
         if signal is None or direction is None or sl_price is None:
             return
 
-        if signal_price <= 0 or atr_val <= 0 or sl_price <= 0:
+        if entry_price <= 0 or atr_val <= 0 or sl_price <= 0:
             return
 
-        # Calcular qty basado en riesgo
-        stop_distance = abs(signal_price - sl_price)
+        # Calcular qty basado en riesgo (entry_price = close real)
+        stop_distance = abs(entry_price - sl_price)
         if stop_distance <= 0:
             return
 
         risk_usdt = self.equity * (self.cfg.risk_pct / 100.0)
         notional = risk_usdt * self.cfg.leverage
-        qty = notional / signal_price
+        qty = notional / entry_price
 
         # Verificar SL mínimo
-        sl_pct = stop_distance / signal_price * 100
+        sl_pct = stop_distance / entry_price * 100
         if sl_pct < self.cfg.min_initial_sl_pct:
-            sl_price = signal_price * (1 - self.cfg.min_initial_sl_pct / 100) if direction == "LONG" else signal_price * (1 + self.cfg.min_initial_sl_pct / 100)
-            stop_distance = abs(signal_price - sl_price)
-            qty = (self.equity * (self.cfg.risk_pct / 100.0)) * self.cfg.leverage / signal_price
+            sl_price = entry_price * (1 - self.cfg.min_initial_sl_pct / 100) if direction == "LONG" else entry_price * (1 + self.cfg.min_initial_sl_pct / 100)
+            stop_distance = abs(entry_price - sl_price)
+            qty = (self.equity * (self.cfg.risk_pct / 100.0)) * self.cfg.leverage / entry_price
 
         # Comisión de entrada
-        commission = signal_price * qty * (self.cfg.commission_pct / 100)
+        commission = entry_price * qty * (self.cfg.commission_pct / 100)
         self.equity -= commission
 
         # Abrir posición
         pos = SimPosition(
             symbol=symbol,
             side=direction,
-            entry_price=signal_price,
+            entry_price=entry_price,
             qty=qty,
             entry_bar=bar,
             initial_sl=sl_price,

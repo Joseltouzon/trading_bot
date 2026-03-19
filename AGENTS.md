@@ -7,12 +7,13 @@ Act as a software engineer.
 ## Reglas de Comunicación
 
 1. **Antes de implementar:** Explicar el problema, la solución propuesta y pedir autorización
-2. **No hacer commits** sin autorización expresa del usuario
+2. **No hacer commits** sin autorización expresa del usuario. Si se autoriza, usar mensajes cortos (ej: "add RSI filter to EMA breakout", "fix spread calculation", etc.)
 3. **Explicar con claridad** cada decisión técnica para que el usuario pueda aprender
 4. **Ser preciso** con términos y números
 5. **Si hay bugs:** Mostrar el código problemático, explicar por qué falla, y proponer el fix
 6. **No agregar imports que no existan** — verificar que el método/clase esté en el archivo antes de usarlo
 7. **Verificar contra código real** — leer el archivo antes de asumir que un método existe
+8. **No ejecutar tests ni backtest** con `python` plano — usar `./venv/bin/python` (el entorno virtual tiene todas las dependencias). Si el usuario pide correr un test, aclarar que se hace manualmente con el venv.
 
 ## Propósito
 
@@ -805,7 +806,13 @@ backtest.py
 
 **Archivo:** `core/risk_monitor.py` — `RiskMonitor`
 
-Módulo de monitoreo de riesgo. Actualmente comentado en `bot.py` (línea 288: `# risk_monitor.check()`). Está disponible pero no se ejecuta automáticamente.
+Módulo de monitoreo de riesgo activo. Se ejecuta cada ciclo del main loop. Checks:
+- Margin usage >= 70% → alerta, >= 80% → crítico
+- Exposure/Equity >= 5x → alerta
+- Concentración por símbolo >= 60% → alerta
+- Daily loss limit → alerta (no cierra posiciones)
+
+Cooldown entre alertas: 10 min. Usa `get_used_margin()`, `get_available_balance()` y `get_total_exposure_notional()` del exchange.
 
 ---
 
@@ -945,7 +952,7 @@ tail -f logs/bot.log | grep "\[RECONCILE\]"
 ## Reglas de Oro
 
 1. **No cambiar varios parámetros a la vez** — uno a la vez, evaluar resultados
-2. **Probar en backtest antes de producción** — `python backtest.py --all`
+2. **Probar en backtest antes de producción** — `./venv/bin/python backtest.py --all` (usar venv)
 3. **No agregar imports que no existan** — verificar contra código real
 4. **Métricas > intuición** — win rate, profit factor, max DD
 5. **El bot debe ser resiliente** — nunca crashear permanentemente

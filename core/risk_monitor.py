@@ -12,7 +12,7 @@ class RiskMonitor:
         self.log = log
 
         self._last_alert_time = {}
-        self.cooldown_sec = 300  # 5 min entre alertas iguales
+        self.cooldown_sec = 600
 
     def _can_alert(self, key):
         now = time.time()
@@ -23,27 +23,63 @@ class RiskMonitor:
         return False
 
     def check(self):
-
         eq = self.exchange.get_equity()
+        used_margin = self.exchange.get_used_margin()
+        available = self.exchange.get_available_balance()
         exposure = self.exchange.get_total_exposure_notional()
+        positions = self.exchange.get_open_positions()
 
-        # ===============================
-        # 1️⃣ Exposure alto
-        # ===============================
+        total_margin_used = used_margin
+        total_account = total_margin_used + available
+
+        if total_account <= 0:
+            return
+
+        margin_health_pct = (total_margin_used / total_account) * 100.0
+
+        if margin_health_pct >= 70:
+            if self._can_alert("margin_high"):
+                self.telegram.send(
+                    f"🔴 <b>ALERTA MARGIN</b>\n"
+                    f"Margin usage: {margin_health_pct:.1f}%\n"
+                    f"Used: ${total_margin_used:.2f} / ${total_account:.2f}"
+                )
+
+        if margin_health_pct >= 80:
+            if self._can_alert("margin_critical"):
+                self.telegram.send(
+                    f"🚨 <b>MARGIN CRITICO</b>\n"
+                    f"Margin usage: {margin_health_pct:.1f}%\n"
+                    f"Liquidacion inminente si siguen en contra!"
+                )
 
         if eq > 0:
             ratio = exposure / eq
-
-            if ratio > 3:
+            if ratio >= 5:
                 if self._can_alert("exposure_high"):
                     self.telegram.send(
                         f"⚠️ <b>ALERTA EXPOSURE</b>\n"
-                        f"Exposure/Equity: {ratio:.2f}x"
+                        f"Exposure/Equity: {ratio:.2f}x\n"
+                        f"Equity: ${eq:.2f}"
                     )
 
-        # ===============================
-        # 2️⃣ Drawdown diario
-        # ===============================
+        if positions:
+            max_concentration = 0
+            concentrated_sym = ""
+            for p in positions:
+                mark = self.exchange.get_mark_price(p["symbol"])
+                sym_notional = abs(mark * float(p["size"]))
+                concentration = sym_notional / exposure if exposure > 0 else 0
+                if concentration > max_concentration:
+                    max_concentration = concentration
+                    concentrated_sym = p["symbol"]
+
+            if max_concentration >= 0.7:
+                if self._can_alert("concentration"):
+                    self.telegram.send(
+                        f"⚠️ <b>CONCENTRACION</b>\n"
+                        f"{concentrated_sym}: {max_concentration*100:.1f}% de exposure"
+                    )
 
         if self.st.day_start_equity > 0:
             dd_pct = ((eq - self.st.day_start_equity) /
@@ -55,9 +91,9 @@ class RiskMonitor:
                         f"🛑 <b>LIMITE DIARIO ALCANZADO</b>\n"
                         f"Drawdown: {dd_pct:.2f}%"
                     )
-                    #panic_mode(           ## por ahora me parece demasiado y si se activa cierra todo
+                    #panic_mode(
                     #   self.st,
                     #   self.exchange,
                     #   self.telegram.db,
                     #   self.telegram
-                    #) 
+                    #)
