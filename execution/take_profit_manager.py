@@ -145,11 +145,21 @@ class TakeProfitManager:
 
         side = position.get("side")
         entry = float(position.get("entry_price", 0))
-        total_qty = float(position.get("size", 0))
+        db_qty = float(position.get("size", 0))
         position_id = st.position_ids.get(symbol)
 
-        if entry <= 0 or total_qty <= 0 or not position_id:
+        if entry <= 0 or db_qty <= 0 or not position_id:
             return
+
+        current_pos = self.exchange.get_position_info(symbol)
+        current_qty = abs(float(current_pos.get("positionAmt", 0))) if current_pos else db_qty
+
+        if current_qty <= 0:
+            self.log.warning(f"[TP%] {symbol} position already closed")
+            self._tp_by_pct_executed[symbol] = True
+            return
+
+        total_qty = current_qty
 
         use_mark = bool(getattr(st, "tp_use_mark", True))
         if use_mark:
