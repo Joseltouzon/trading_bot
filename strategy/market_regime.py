@@ -3,7 +3,7 @@
 import pandas as pd
 import numpy as np
 import config as CFG
-from strategy.indicators import ema, atr, adx
+from strategy.indicators import ema, atr, adx, rsi
 
 
 def calculate_regime_metrics(df: pd.DataFrame) -> dict:
@@ -55,6 +55,10 @@ def calculate_regime_metrics(df: pd.DataFrame) -> dict:
 
     range_bound = high_low_range < 5.0 and abs(ema_slope_fast) < 0.3
 
+    # RSI para detección de sobrecompra/sobreventa en rangos
+    rsi_val = float(rsi(close, CFG.RSI_BB_RSI_PERIOD).iloc[-1])
+    rsi_extreme = rsi_val <= CFG.RSI_BB_OVERSOLD or rsi_val >= CFG.RSI_BB_OVERBOUGHT
+
     trending_threshold = CFG.REGIME_TRENDING_ADX_MIN
     ranging_threshold = CFG.REGIME_RANGING_ADX_MAX
 
@@ -66,6 +70,10 @@ def calculate_regime_metrics(df: pd.DataFrame) -> dict:
         recommended_strategy = "stop_hunt"
         regime = "RANGING"
         confidence = 0.7 + (0.3 * min(vol_ratio / 2.0, 1.0))
+    elif adx_val <= ranging_threshold and range_bound and rsi_extreme:
+        recommended_strategy = "rsi_bb_reversion"
+        regime = "RANGING"
+        confidence = 0.65 + (0.25 * min(vol_ratio / 2.0, 1.0))
     elif adx_val <= ranging_threshold and range_bound:
         recommended_strategy = "vwap_refresh"
         regime = "RANGING"

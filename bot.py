@@ -63,6 +63,21 @@ def sync_cfg_from_state(st):
     CFG.REGIME_RANGING_ADX_MAX = float(getattr(st, "regime_ranging_adx_max", CFG.REGIME_RANGING_ADX_MAX))
     CFG.REGIME_HUNT_VOL_RATIO_MIN = float(getattr(st, "regime_hunt_vol_ratio_min", CFG.REGIME_HUNT_VOL_RATIO_MIN))
 
+    CFG.RSI_BB_RSI_PERIOD = int(getattr(st, "rsi_bb_rsi_period", CFG.RSI_BB_RSI_PERIOD))
+    CFG.RSI_BB_OVERSOLD = float(getattr(st, "rsi_bb_oversold", CFG.RSI_BB_OVERSOLD))
+    CFG.RSI_BB_OVERBOUGHT = float(getattr(st, "rsi_bb_overbought", CFG.RSI_BB_OVERBOUGHT))
+    CFG.RSI_BB_BB_PERIOD = int(getattr(st, "rsi_bb_bb_period", CFG.RSI_BB_BB_PERIOD))
+    CFG.RSI_BB_BB_STD_MULT = float(getattr(st, "rsi_bb_bb_std_mult", CFG.RSI_BB_BB_STD_MULT))
+    CFG.RSI_BB_STOCH_PERIOD = int(getattr(st, "rsi_bb_stoch_period", CFG.RSI_BB_STOCH_PERIOD))
+    CFG.RSI_BB_DIVERGENCE_LOOKBACK = int(getattr(st, "rsi_bb_divergence_lookback", CFG.RSI_BB_DIVERGENCE_LOOKBACK))
+    CFG.RSI_BB_BAND_TOLERANCE_PCT = float(getattr(st, "rsi_bb_band_tolerance_pct", CFG.RSI_BB_BAND_TOLERANCE_PCT))
+    CFG.RSI_BB_MIN_VOLUME_RATIO = float(getattr(st, "rsi_bb_min_volume_ratio", CFG.RSI_BB_MIN_VOLUME_RATIO))
+    CFG.RSI_BB_ADX_MIN = float(getattr(st, "rsi_bb_adx_min", CFG.RSI_BB_ADX_MIN))
+    CFG.RSI_BB_MIN_ATR_PCT = float(getattr(st, "rsi_bb_min_atr_pct", CFG.RSI_BB_MIN_ATR_PCT))
+    CFG.RSI_BB_SL_ATR_MULT = float(getattr(st, "rsi_bb_sl_atr_mult", CFG.RSI_BB_SL_ATR_MULT))
+    CFG.RSI_BB_SL_PCT = float(getattr(st, "rsi_bb_sl_pct", CFG.RSI_BB_SL_PCT))
+    CFG.RSI_BB_REQUIRE_DIVERGENCE = bool(getattr(st, "rsi_bb_require_divergence", CFG.RSI_BB_REQUIRE_DIVERGENCE))
+
 
 def main():
     validate_config()
@@ -188,6 +203,7 @@ def main():
         "ema_breakout": "EMA Breakout",
         "stop_hunt": "Stop Hunt",
         "vwap_refresh": "VWAP Refresh",
+        "rsi_bb_reversion": "RSI + BB Reversion",
         "auto": f"Auto (analizando...)",
     }
     strategy_label = strategy_labels.get(st.strategy_mode, "EMA Breakout")

@@ -73,6 +73,22 @@ class BotState:
     regime_ranging_adx_max: float = 18.0
     regime_hunt_vol_ratio_min: float = 1.3
 
+    # RSI + BB Mean Reversion
+    rsi_bb_rsi_period: int = 14
+    rsi_bb_oversold: float = 25.0
+    rsi_bb_overbought: float = 75.0
+    rsi_bb_bb_period: int = 20
+    rsi_bb_bb_std_mult: float = 2.0
+    rsi_bb_stoch_period: int = 14
+    rsi_bb_divergence_lookback: int = 14
+    rsi_bb_band_tolerance_pct: float = 0.3
+    rsi_bb_min_volume_ratio: float = 1.5
+    rsi_bb_adx_min: float = 15.0
+    rsi_bb_min_atr_pct: float = 0.15
+    rsi_bb_sl_atr_mult: float = 2.5
+    rsi_bb_sl_pct: float = 0.60
+    rsi_bb_require_divergence: bool = True
+
     def copy(self):
         return copy.deepcopy(self)
 

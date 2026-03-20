@@ -163,7 +163,95 @@ Estrategia que busca entradas cuando el precio se extiende más allá del VWAP y
 
 ---
 
-## 4. Modo Auto (Market Regime Detection)
+## 4. RSI + Bollinger Band Mean Reversion
+
+### Descripción
+Estrategia de mean-reversion que combina RSI extremes, Bollinger Bands y divergencias para capturar reversiones de precio en sobreextensiones. Detecta cuando el precio se extiende fuera de las bandas con RSI en zona extrema y busca la reversión.
+
+### Parámetros Clave (config.py)
+
+| Parámetro | Default | Descripción |
+|-----------|---------|-------------|
+| RSI_BB_RSI_PERIOD | 14 | Período del RSI |
+| RSI_BB_OVERSOLD | 25 | RSI zona de sobreventa |
+| RSI_BB_OVERBOUGHT | 75 | RSI zona de sobrecompra |
+| RSI_BB_BB_PERIOD | 20 | Período Bollinger Bands |
+| RSI_BB_BB_STD_MULT | 2.0 | StdDev multiplier Bollinger |
+| RSI_BB_STOCH_PERIOD | 14 | Período Stochastic RSI |
+| RSI_BB_DIVERGENCE_LOOKBACK | 20 | Velas para detectar divergencias |
+| RSI_BB_BAND_TOLERANCE_PCT | 0.3 | Tolerancia fuera de banda (%) |
+| RSI_BB_MIN_VOLUME_RATIO | 1.5 | Volumen mínimo vs media |
+| RSI_BB_ADX_MIN | 15.0 | ADX mínimo |
+| RSI_BB_MIN_ATR_PCT | 0.15 | Volatilidad mínima (%) |
+| RSI_BB_SL_ATR_MULT | 2.5 | ATR multiplier para SL |
+| RSI_BB_SL_PCT | 0.60 | SL mínimo por porcentaje |
+
+### Lógica (rsi_bb_reversion.py)
+
+**3 tipos de trigger (se necesita AL MENOS UNO):**
+
+1. **RSI Crossover + BB Rejection**
+   - RSI cruza hacia arriba desde zona oversold (≤ 25) + precio rechazado en banda inferior
+   - RSI cruza hacia abajo desde zona overbought (≥ 75) + precio rechazado en banda superior
+
+2. **Divergencia RSI (Classic)**
+   - Bullish: precio hace lower low, RSI hace higher low (swing points con ventana de 5)
+   - Bearish: precio hace higher high, RSI hace lower high
+   - Requiere separación mínima de 5 velas entre swing points
+
+3. **Extreme RSI**
+   - RSI < 20 + precio por debajo de BB lower + vela verde → LONG
+   - RSI > 80 + precio por encima de BB upper + vela roja → SHORT
+
+### Filtros de Confirmación
+1. **Volumen**: ratio >= RSI_BB_MIN_VOLUME_RATIO (1.5)
+2. **ADX**: >= RSI_BB_ADX_MIN (15.0)
+3. **Volatilidad**: ATR% >= RSI_BB_MIN_ATR_PCT (0.15%)
+4. **Stochastic RSI**: K > D (LONG) o K < D (SHORT), o en zona extrema (<20/>80)
+5. **No contra tendencia fuerte**: si ADX > 30 + EMA en contra + spread > 0.5% → bloquea
+
+### Stop Loss
+- Basado en Bollinger Bands +/- ATR * 2.5
+- Fallback: entry +/- 0.60%
+- Usa el máximo de ambos (más holgado)
+
+### Detección de Divergencia
+- Swing points con ventana de 5 (robusto, no ruidoso)
+- Requiere separación mínima de 5 velas entre swings
+- Strength score basado en diferencia de precio y RSI
+
+### Cuándo Opera
+- Mercados en rango o transición
+- RSI en zona extrema (sobrecompra/sobreventa)
+- Precio tocando/rebasando bandas de Bollinger
+- Divergencia RSI presente
+
+### Cuándo NO Opera
+- Tendencia fuerte sin rechazo (ADX > 30 con EMA en contra)
+- Baja volatilidad (ATR% < 0.15)
+- Sin señal clara de reversión
+
+### Rendimiento por Símbolo (Backtest 30d 5m)
+| Símbolo | Trades | WR | PnL |
+|---------|--------|-----|------|
+| XRPUSDT | 23 | 61% | +$0.43 |
+| 1000PEPEUSDT | 19 | 58% | +$0.19 |
+| ETHUSDT | 17 | 53% | ~$0 |
+| BNBUSDT | - | bajo | negativo |
+| SOLUSDT | - | bajo | negativo |
+
+### Comandos Debug
+```bash
+# Ver señales RSI+BB
+tail -f logs/bot.log | grep "rsi_bb_reversion"
+
+# Ver triggers
+tail -f logs/bot.log | grep "trigger_long\|trigger_short"
+```
+
+---
+
+## 5. Modo Auto (Market Regime Detection)
 
 ### Descripción
 El bot analiza automáticamente el régimen del mercado **POR SÍMBOLO** y cambia la estrategia según las condiciones predominantes. Cada mercado puede tener una estrategia diferente.
@@ -171,10 +259,10 @@ El bot analiza automáticamente el régimen del mercado **POR SÍMBOLO** y cambi
 ### Cuándo usar Auto
 - Cuando querés que el bot decida qué estrategia usar según el mercado
 - Cuando operás múltiples símbolos con condiciones diferentes
-- Auto NO es necesario si ya tenés 3 bots con estrategias fijas
+- Auto NO es necesario si ya tenés bots con estrategias fijas
 
 ### Cuándo NO usar Auto
-- Si operás con estrategias fijas ("ema_breakout", "stop_hunt", "vwap_refresh")
+- Si operás con estrategias fijas ("ema_breakout", "stop_hunt", "vwap_refresh", "rsi_bb_reversion")
 - Si preferís control manual de qué estrategia usar
 
 ### Parámetros Clave (config.py)
@@ -201,6 +289,7 @@ El bot analiza automáticamente el régimen del mercado **POR SÍMBOLO** y cambi
    | ADX >= 25 y no range-bound | TRENDING | EMA Breakout |
    | ADX 18-25 | TRANSITIONAL | Stop Hunt |
    | ADX <= 18, range-bound, vol >= 1.3 | RANGING + VOL | Stop Hunt |
+   | ADX <= 18, range-bound, RSI extremo (≤25 o ≥75) | RANGING + EXTREME | RSI+BB Reversion |
    | ADX <= 18, range-bound, vol < 1.3 | RANGING + LOW VOL | VWAP Refresh |
 
 3. **Switch Automático**
@@ -236,8 +325,10 @@ tail -f logs/bot.log | grep "\[REGIME\]"
 strategy/ema_adx_breakout.py    # Lógica EMA Breakout
 strategy/stop_hunt.py           # Lógica Stop Hunt
 strategy/vwap_refresh.py        # Lógica VWAP Refresh
+strategy/rsi_bb_reversion.py    # Lógica RSI + BB Mean Reversion
 strategy/market_regime.py       # Detección de régimen
 strategy/signal_engine.py       # Motor de señales
+strategy/indicators.py          # RSI, Bollinger, Stochastic, EMA, ATR, ADX
 execution/event_loop.py         # Guards y ejecución
 config.py                      # Todos los parámetros
 ```

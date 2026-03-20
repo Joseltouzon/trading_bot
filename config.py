@@ -127,3 +127,21 @@ STOP_HUNT_ATR_MULT_SL = 2.0         # Aumentado de 1.5 a 2.0 - SL más seguro
 STOP_HUNT_MOMENTUM_BARS = 3        # Aumentado de 2 a 3 - momentum más fuerte
 STOP_HUNT_MIN_ATR_PCT = 0.12        # NUEVO: volatilidad mínima
 STOP_HUNT_ADX_MIN = 18.0            # ADX mínimo para operar (filtro de momentum)
+
+# ============================================================
+# RSI + BOLLINGER BAND MEAN REVERSION
+# ============================================================
+RSI_BB_RSI_PERIOD = 14              # Período del RSI
+RSI_BB_OVERSOLD = 25                # RSI zona de sobreventa (más extremo)
+RSI_BB_OVERBOUGHT = 75              # RSI zona de sobrecompra (más extremo)
+RSI_BB_BB_PERIOD = 20               # Período Bollinger Bands
+RSI_BB_BB_STD_MULT = 2.0            # StdDev multiplier Bollinger
+RSI_BB_STOCH_PERIOD = 14            # Período Stochastic RSI
+RSI_BB_DIVERGENCE_LOOKBACK = 14     # Velas hacia atrás para detectar divergencias
+RSI_BB_BAND_TOLERANCE_PCT = 0.3     # % de tolerancia fuera de banda para considerar "en la banda"
+RSI_BB_MIN_VOLUME_RATIO = 1.5       # Volumen mínimo vs media 20 (más exigente)
+RSI_BB_ADX_MIN = 15.0               # ADX mínimo
+RSI_BB_MIN_ATR_PCT = 0.15           # Volatilidad mínima
+RSI_BB_SL_ATR_MULT = 2.5            # ATR multiplier para SL (balanceado)
+RSI_BB_SL_PCT = 0.60                # SL mínimo por porcentaje
+RSI_BB_REQUIRE_DIVERGENCE = True    # True = requiere divergencia real, no solo rejection

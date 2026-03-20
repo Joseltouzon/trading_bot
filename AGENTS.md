@@ -180,8 +180,9 @@ except Exception as e:
 - `strategy/ema_adx_breakout.py` — Trend-following
 - `strategy/stop_hunt.py` — Mean-reversion / Liquidity
 - `strategy/vwap_refresh.py` — Range-bound / VWAP
+- `strategy/rsi_bb_reversion.py` — Mean-reversion RSI + Bollinger Bands
 - `strategy/signal_engine.py` — Motor de selección
-- `strategy/indicators.py` — EMA, ATR, ADX, RSI helpers
+- `strategy/indicators.py` — EMA, ATR, ADX, RSI, Bollinger, Stochastic helpers
 - `strategy/pivots.py` — Pivot highs/lows vectorizados
 
 ### Señales de salida (todas las estrategias)
@@ -247,6 +248,32 @@ Cada estrategia devuelve un dict con:
 
 **VWAP se resetea por sesión** (00:00 UTC). `_get_session_start_idx()` detecta el último cambio de día.
 
+### RSI + Bollinger Band Mean Reversion
+
+| Parámetro | Default | Descripción |
+|-----------|---------|-------------|
+| RSI_BB_RSI_PERIOD | 14 | Período del RSI |
+| RSI_BB_OVERSOLD | 25 | RSI zona de sobreventa |
+| RSI_BB_OVERBOUGHT | 75 | RSI zona de sobrecompra |
+| RSI_BB_BB_PERIOD | 20 | Período Bollinger Bands |
+| RSI_BB_BB_STD_MULT | 2.0 | StdDev multiplier Bollinger |
+| RSI_BB_STOCH_PERIOD | 14 | Período Stochastic RSI |
+| RSI_BB_DIVERGENCE_LOOKBACK | 20 | Velas para detectar divergencias |
+| RSI_BB_MIN_VOLUME_RATIO | 1.5 | Volumen mínimo |
+| RSI_BB_ADX_MIN | 15.0 | ADX mínimo |
+| RSI_BB_MIN_ATR_PCT | 0.15 | Volatilidad mínima |
+| RSI_BB_SL_ATR_MULT | 2.5 | ATR multiplier para SL |
+| RSI_BB_SL_PCT | 0.60 | SL mínimo por porcentaje |
+
+**3 tipos de trigger:**
+1. **RSI crossover + BB rejection**: RSI cruza desde zona extrema + precio rechazado en banda
+2. **Divergencia RSI**: classic divergence (swing lows/highs con confirmación)
+3. **Extreme RSI**: RSI < 20 / > 80 + precio fuera de banda + vela direccional
+
+**Filtros:** volumen, ADX, ATR, Stochastic RSI, no contra tendencia fuerte (ADX>30).
+
+**Funciona mejor en:** ETH, XRP, PEPE. No funciona bien en: BNB, SOL, GRASS, LTC.
+
 ---
 
 ## 4. Market Regime
@@ -263,6 +290,7 @@ Cada estrategia devuelve un dict con:
 | ADX >= 25, no range-bound | TRENDING | EMA Breakout |
 | ADX 18-25 | TRANSITIONAL | Stop Hunt |
 | ADX <= 18, range-bound, vol >= 1.3 | RANGING + VOL | Stop Hunt |
+| ADX <= 18, range-bound, RSI extremo | RANGING + EXTREME | RSI+BB Reversion |
 | ADX <= 18, range-bound, vol < 1.3 | RANGING + LOW VOL | VWAP Refresh |
 
 **Config:**
@@ -284,7 +312,7 @@ REGIME_HUNT_VOL_RATIO_MIN = 1.3
 |--------|-----------|
 | `process_symbol(symbol, max_positions_reached)` | Procesa un símbolo, genera señal si hay nueva vela |
 | `check_and_switch_regime(symbol)` | Evalúa régimen y cambia estrategia (cada 3 ciclos) |
-| `set_strategy_mode(mode)` | Cambia modo global (`ema_breakout`, `stop_hunt`, `vwap_refresh`, `auto`) |
+| `set_strategy_mode(mode)` | Cambia modo global (`ema_breakout`, `stop_hunt`, `vwap_refresh`, `rsi_bb_reversion`, `auto`) |
 
 ### Early exits (optimización)
 
@@ -775,7 +803,8 @@ Lista blanca de campos que el dashboard puede modificar. Si un campo no está aq
 python backtest.py --strategy ema_breakout --days 30 --capital 170
 python backtest.py --symbol BTCUSDT --strategy stop_hunt
 python backtest.py --symbols "ETHUSDT,BNBUSDT,SOLUSDT" --strategy ema_breakout
-python backtest.py --all  # prueba las 3 estrategias
+python backtest.py --strategy rsi_bb_reversion --symbols "ETHUSDT,XRPUSDT,1000PEPEUSDT"
+python backtest.py --all  # prueba las 4 estrategias
 ```
 
 ### Qué incluye
@@ -835,9 +864,10 @@ Cooldown entre alertas: 10 min. Usa `get_used_margin()`, `get_available_balance(
 | `ema_adx_breakout.py` | Estrategia EMA Breakout |
 | `stop_hunt.py` | Estrategia Stop Hunt |
 | `vwap_refresh.py` | Estrategia VWAP Refresh |
+| `rsi_bb_reversion.py` | Estrategia RSI + Bollinger Band Mean Reversion |
 | `market_regime.py` | Detección de régimen de mercado |
 | `signal_engine.py` | Motor de señales (dispatch a estrategias) |
-| `indicators.py` | EMA, ATR, ADX, RSI helpers |
+| `indicators.py` | EMA, ATR, ADX, RSI, Bollinger Bands, Stochastic RSI helpers |
 | `pivots.py` | Pivot highs/lows vectorizados |
 
 ### `execution/`
@@ -945,6 +975,9 @@ tail -f logs/bot.log | grep "ERROR\|WARNING\|Bot error"
 
 # Ver reconciliation
 tail -f logs/bot.log | grep "\[RECONCILE\]"
+
+# Ver señales RSI+BB
+tail -f logs/bot.log | grep "rsi_bb_reversion"
 ```
 
 ---
