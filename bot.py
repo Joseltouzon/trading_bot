@@ -136,7 +136,6 @@ def main():
         pivot_len=CFG.PIVOT_LEN,
         ema_slow=CFG.EMA_SLOW,
         ema_fast=CFG.EMA_FAST,
-        trailing_active=CFG.TRAILING_ACTIVATION_PCT,
         strategy_mode="ema_breakout",
         # Trailing runtime
         trailing_activation_pct=CFG.TRAILING_ACTIVATION_PCT,
