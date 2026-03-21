@@ -85,7 +85,7 @@ class Telegram:
                 "/status\n/status_full\n"
                 "/balance\n/positions\n"
                 "/performance\n/exposure\n/volatility\n/drawdown\n/health\n"
-                "/risk\n/trail\n/symbols\n"
+                "/risk\n/trail\n/symbols\n/strategies\n"
                 "/pause /resume\n"
                 "/close SYMBOL\n/close_all\n"
                 "/set_leverage N\n/set_risk N\n"
@@ -141,6 +141,7 @@ class Telegram:
                 f"Daily Realized PnL: ${pnl:.2f}\n"
                 f"Drawdown: {drawdown:.2f}%\n\n"
                 f"Risk: {st.risk_pct}% | Lev: {st.leverage}x\n"
+                f"Strategy: {st.strategy_mode}\n"
                 f"Trailing: {st.trailing_pct}%"
             )
 
@@ -214,13 +215,17 @@ class Telegram:
 
         if cmd == "/volatility":
 
-            symbols = st.symbols
+            strategy_symbols = st.strategy_symbols if hasattr(st, "strategy_symbols") else {}
+            all_symbols = set()
+            for syms in strategy_symbols.values():
+                all_symbols.update(syms)
+
             total = 0.0
             count = 0
 
-            lines = ["<b>🧠 Volatility (ATR % 5m)</b>\n"]
+            lines = ["<b>🧠 Volatility (ATR %)</b>\n"]
 
-            for s in symbols:
+            for s in all_symbols:
                 try:
                     atr_pct = exchange.get_atr_pct(s)
                     total += atr_pct
@@ -283,14 +288,34 @@ class Telegram:
                 self.send("No hay posiciones abiertas.")
                 return
 
+            trail = st.trail if hasattr(st, "trail") else {}
             lines = ["<b>📌 Open Positions</b>\n"]
 
             for p in pos:
+                symbol = p["symbol"]
+                side = p["side"]
+                size = float(p["size"])
+                entry = float(p["entry_price"])
+                pnl_unreal = float(p["unrealized_pnl"])
+
+                # Mark price
+                try:
+                    mark = float(exchange.get_mark_price(symbol))
+                except:
+                    mark = 0
+
+                pnl_pct = ((mark - entry) / entry * 100) if entry > 0 and side == "LONG" else ((entry - mark) / entry * 100) if entry > 0 else 0
+
+                # Trailing status
+                tr = trail.get(symbol, {})
+                trailing_txt = "🔒ON" if tr.get("activated") else "⏳wait" if tr else "❌"
+                sl_txt = f"SL:{tr.get('sl', 0):.4f}" if tr.get("sl") else "SL:-"
+
                 lines.append(
-                    f"{p['symbol']} {p['side']} "
-                    f"size={float(p['size']):.4f} "
-                    f"entry={float(p['entry_price']):.4f}"
-                    f"PnL={float(p['unrealized_pnl']):.2f} "
+                    f"{symbol} {side}\n"
+                    f"  Entry:{entry:.4f} Mark:{mark:.4f}\n"
+                    f"  PnL: {pnl_pct:+.2f}% (${pnl_unreal:+.2f})\n"
+                    f"  {trailing_txt} {sl_txt}"
                 )
 
             self.send("\n".join(lines))
@@ -342,7 +367,33 @@ class Telegram:
             return
 
         if cmd == "/symbols":
-            self.send("<b>Symbols activos:</b>\n" + ", ".join(st.symbols))
+            strategy_symbols = st.strategy_symbols if hasattr(st, "strategy_symbols") else {}
+            lines = ["<b>📊 Símbolos por estrategia</b>\n"]
+            all_symbols = set()
+            for strat, syms in strategy_symbols.items():
+                if syms:
+                    lines.append(f"<b>{strat}:</b> {', '.join(syms)}")
+                    all_symbols.update(syms)
+            lines.append(f"\nTotal únicos: {len(all_symbols)}")
+            self.send("\n".join(lines))
+            return
+
+        if cmd == "/strategies":
+            from strategy.signal_engine import ACTIVE_STRATEGIES
+            from config import STRATEGY_INTERVALS
+            strategy_symbols = st.strategy_symbols if hasattr(st, "strategy_symbols") else {}
+            mode = st.strategy_mode if hasattr(st, "strategy_mode") else "unknown"
+
+            lines = [f"<b>🔧 Estrategias (mode: {mode})</b>\n"]
+            for name, info in ACTIVE_STRATEGIES.items():
+                interval = STRATEGY_INTERVALS.get(name, "?")
+                syms = strategy_symbols.get(name, [])
+                status = "✅" if syms else "❌ sin símbolos"
+                lines.append(f"<b>{info['short']} {name}</b> ({interval}) {status}")
+                if syms:
+                    lines.append(f"  → {', '.join(syms)}")
+
+            self.send("\n".join(lines))
             return
 
         # ========================================================
@@ -353,7 +404,11 @@ class Telegram:
             lev = int(clamp(int(parts[1]), 1, 20))
             st.leverage = lev
             self.db.save_state(st.__dict__)
-            for s in st.symbols:
+            strategy_symbols = st.strategy_symbols if hasattr(st, "strategy_symbols") else {}
+            all_symbols = set()
+            for syms in strategy_symbols.values():
+                all_symbols.update(syms)
+            for s in all_symbols:
                 exchange.set_margin_and_leverage(s, lev, CFG.MARGIN_TYPE)
             self.send(f"Leverage actualizado: {lev}x")
             return

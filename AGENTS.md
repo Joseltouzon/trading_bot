@@ -940,7 +940,71 @@ Cooldown entre alertas: 10 min. Usa `get_used_margin()`, `get_available_balance(
 
 ---
 
-## 23. Logs y Debug
+## 23. Estrategias Fallidas (Registro)
+
+Estrategias probadas y descartadas. No re-probar sin cambios fundamentales.
+
+| Estrategia | Timeframe | Mejor PF | Problema |
+|-----------|-----------|----------|----------|
+| EMA Breakout | 5m | 0.96 | WR 75% pero Avg Loss 3x Avg Win. Pérdidas grandes. |
+| EMA Breakout v2 | 5m | 0.94 | SL ajustado soluciona pérdidas pero WR cae a 39%. |
+| EMA Breakout | 15m | 1.40 | Marginal. Solo DOGEUSDT funciona (PF 1.40). |
+| EMA original 15m | 15m | 1.36 | PF 1.36, WR 55%. Marginalmente ganador. |
+| Donchian Channel | 5m | 0.88 | Perdedor en 5m. |
+| Donchian Channel | 15m | 1.25 | Marginal. No justifica usarla. |
+| Supertrend | 5m | 0.91 | Perdedor. Cálculo iterativo lento. |
+| Supertrend | 15m | 0.66 | Terrible. |
+| Keltner Channel | - | - | No testeada (usuario descartó antes de probar). |
+| VWAP Refresh | 5m | - | 0 trades. Eliminada completamente. |
+| Market Regime | - | - | Sistema de auto-detección. Reemplazado por auto=fixed. |
+
+**Lecciones aprendidas:**
+- Breakouts directos en 5m no funcionan (ruido alto, tendencias débiles)
+- SL desde entry es mejor que SL desde pivot
+- RSI filter (30/70) reduce falsos positivos
+- Volume spike mínimo 2x es necesario para cualquier breakout
+- Timeframes más altos (15m) favorecen estrategias de tendencia
+
+---
+
+## 24. Telegram Comandos
+
+### Comandos disponibles
+
+| Comando | Descripción |
+|---------|-------------|
+| `/dashboard` | Resumen: equity, exposure, daily PnL, drawdown, strategy |
+| `/positions` | Posiciones abiertas con mark, pnl%, trailing, SL |
+| `/strategies` | Lista estrategias activas con símbolos y timeframe |
+| `/symbols` | Símbolos agrupados por estrategia |
+| `/volatility` | ATR% de todos los símbolos |
+| `/performance` | Daily realized PnL |
+| `/risk` | Config de riesgo |
+| `/trail` | Config de trailing |
+| `/pause /resume` | Control del bot |
+| `/close SYMBOL` | Cerrar posición |
+| `/close_all confirm` | Cerrar todas |
+| `/set_leverage N` | Cambiar leverage |
+| `/set_risk N` | Cambiar risk% |
+| `/set_trailing N` | Cambiar trailing% |
+| `/set_activation N` | Cambiar activation% |
+| `/set_maxpos N` | Cambiar max positions |
+| `/paper_mode` | Toggle paper trading |
+
+### Notificaciones automáticas
+
+| Evento | Emoji | Info mostrada |
+|--------|-------|---------------|
+| Nueva posición | 📈/📉 | entry, qty, notional, SL, leverage, riesgo, estrategia |
+| SL actualizado | 📈/📉 | SL nuevo, distancia, mark, PnL% y USDT |
+| Trailing activado | 🔒 | mark, SL, PnL% y USDT, qty |
+| TP hit | 🎯 | profit%, cerrado%, restante, PnL USDT, estrategia |
+| Posición cerrada | 🟢/🔴 | entry→exit, PnL%, PnL USDT, comisión, neto, duración |
+| Error | ⚠️ | Descripción del error |
+
+---
+
+## 25. Logs y Debug
 
 ### Tags de log
 
