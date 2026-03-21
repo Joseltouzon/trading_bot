@@ -229,8 +229,9 @@ def main():
             log.warning(f"[LEVERAGE] Error setting leverage for {s}: {e}")
 
     # ================= COMPONENTES =================
+    all_symbols = list(set(s for syms in st.strategy_symbols.values() for s in syms))
     market = MarketCache(exchange, log, db)
-    market.init_cache(st.symbols)
+    market.init_cache(all_symbols)
     bus = SignalBus()
     om = OrderManager(exchange, log, db, telegram.send)
     trailing = TrailingManager(exchange, market, om, db, telegram.send, log)
@@ -292,10 +293,11 @@ def main():
                     telegram.send(f"🔄 Modo cambiado a: <b>{mode}</b>")
                 if new_st.pivot_len != st.pivot_len:
                     log.info(f"[PIVOT] Cambio detectado: {st.pivot_len} → {new_st.pivot_len}")
-                if set(new_st.symbols) != set(st.symbols):
-                    log.info(f"[SYMBOLS] Cambio detectado: {st.symbols} -> {new_st.symbols}")
-                    market.init_cache(new_st.symbols)
-                    for s in new_st.symbols:
+                if set(new_st.symbols) != set(st.symbols) or new_st.strategy_symbols != st.strategy_symbols:
+                    all_syms = list(set(s for syms in new_st.strategy_symbols.values() for s in syms))
+                    log.info(f"[SYMBOLS] Cambio detectado, reloading: {all_syms}")
+                    market.init_cache(all_syms)
+                    for s in all_syms:
                         exchange.set_margin_and_leverage(s, new_st.leverage, CFG.MARGIN_TYPE)
                 if new_st.strategy_mode != st.strategy_mode:
                     log.info(f"[STRATEGY] Cambio detectado: {st.strategy_mode} -> {new_st.strategy_mode}")
@@ -325,15 +327,17 @@ def main():
                         st.day_key = local_day
                         st.day_start_equity = max(exchange.get_equity(), 0.0)
 
-            # 1) Market update
-            market.update_all(st.symbols)
+            # 1) Market update (all symbols from all strategies)
+            all_symbols = list(set(
+                s for syms in st.strategy_symbols.values() for s in syms
+            ))
+            market.update_all(all_symbols)
 
             # 2) Check max positions (avoid unnecessary signal processing)
             max_pos_reached = event_loop._max_positions_reached(st)
 
-            # 3) Generate signals (all strategies run in parallel)
-            for sym in st.symbols:
-                signal_engine.process_symbol(sym, max_pos_reached)
+            # 3) Generate signals (each strategy with its own symbols)
+            signal_engine.process_all(st.strategy_symbols, max_pos_reached)
 
             # 3) Execute signals
             event_loop.loop_once(st)

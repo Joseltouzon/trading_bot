@@ -11,6 +11,12 @@ class BotState:
     risk_pct: float = 1.0
     leverage: int = 5
     symbols: List[str] = field(default_factory=list)
+    strategy_symbols: dict = field(default_factory=lambda: {
+        "rsi_bb_reversion": ["XRPUSDT", "1000PEPEUSDT", "AVAXUSDT", "TIAUSDT", "ORDIUSDT"],
+        "stop_hunt":        ["XRPUSDT", "1000PEPEUSDT", "AVAXUSDT", "TIAUSDT", "ORDIUSDT"],
+        "macd_momentum":    ["XRPUSDT", "AVAXUSDT", "SOLUSDT", "LINKUSDT", "TIAUSDT"],
+        "ema_breakout":     [],
+    })
 
     # EMA Breakout v2
     ema_fast: int = 9

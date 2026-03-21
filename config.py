@@ -13,6 +13,12 @@ STRATEGY_INTERVALS = {
     "ema_breakout": "15m",
     "macd_momentum": "15m",
 }
+DEFAULT_STRATEGY_SYMBOLS = {
+    "rsi_bb_reversion": ["XRPUSDT", "1000PEPEUSDT", "AVAXUSDT", "TIAUSDT", "ORDIUSDT"],
+    "stop_hunt":        ["XRPUSDT", "1000PEPEUSDT", "AVAXUSDT", "TIAUSDT", "ORDIUSDT"],
+    "macd_momentum":    ["XRPUSDT", "AVAXUSDT", "SOLUSDT", "LINKUSDT", "TIAUSDT"],
+    "ema_breakout":     [],
+}
 REQUIRED_INTERVALS = sorted(set(STRATEGY_INTERVALS.values()))  # ["15m", "5m"]
 
 # =========================

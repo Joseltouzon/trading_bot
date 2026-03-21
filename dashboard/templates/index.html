@@ -872,6 +872,12 @@
     <div class="tab-pane fade" id="config-breakout">
         <div class="card p-4 mt-3">
             <h5 class="mb-4" style="color: #f3f7f3;">CONFIG BREAKOUT (EMA)</h5>
+            <div class="row g-3 mb-3">
+                <div class="col-md-12">
+                    <label class="form-label" style="color: aquamarine;">Símbolos (separados por coma)</label>
+                    <input type="text" class="form-control" name="strategy_symbols_ema_breakout" value="{{ ', '.join(state.strategy_symbols.get('ema_breakout', [])) }}" placeholder="Ej: BTCUSDT, ETHUSDT">
+                </div>
+            </div>
 
             <div class="row g-3 mb-3">
                 <div class="col-md-4">
@@ -926,6 +932,12 @@
     <div class="tab-pane fade" id="config-stophunt">
         <div class="card p-4 mt-3">
             <h5 class="mb-4" style="color: #f3f7f3;">CONFIG STOP HUNT</h5>
+            <div class="row g-3 mb-3">
+                <div class="col-md-12">
+                    <label class="form-label" style="color: aquamarine;">Símbolos (separados por coma)</label>
+                    <input type="text" class="form-control" name="strategy_symbols_stop_hunt" value="{{ ', '.join(state.strategy_symbols.get('stop_hunt', [])) }}" placeholder="Ej: XRPUSDT, AVAXUSDT">
+                </div>
+            </div>
 
             <div class="row g-3 mb-3">
                 <div class="col-md-3">
@@ -1017,6 +1029,12 @@
     <div class="tab-pane fade" id="config-rsi-bb">
         <div class="card p-4 mt-3">
             <h5 class="mb-4" style="color: #f3f7f3;">CONFIG RSI + BOLLINGER BAND MEAN REVERSION</h5>
+            <div class="row g-3 mb-3">
+                <div class="col-md-12">
+                    <label class="form-label" style="color: aquamarine;">Símbolos (separados por coma)</label>
+                    <input type="text" class="form-control" name="strategy_symbols_rsi_bb_reversion" value="{{ ', '.join(state.strategy_symbols.get('rsi_bb_reversion', [])) }}" placeholder="Ej: XRPUSDT, PEPEUSDT">
+                </div>
+            </div>
 
             <h6 class="mb-3" style="color: aquamarine;">RSI</h6>
             <div class="row g-3 mb-3">
@@ -1118,6 +1136,12 @@
     <div class="tab-pane fade" id="config-macd">
         <div class="card p-4 mt-3">
             <h5 class="mb-4" style="color: #f3f7f3;">CONFIG MACD MOMENTUM (15m)</h5>
+            <div class="row g-3 mb-3">
+                <div class="col-md-12">
+                    <label class="form-label" style="color: aquamarine;">Símbolos (separados por coma)</label>
+                    <input type="text" class="form-control" name="strategy_symbols_macd_momentum" value="{{ ', '.join(state.strategy_symbols.get('macd_momentum', [])) }}" placeholder="Ej: SOLUSDT, LINKUSDT">
+                </div>
+            </div>
 
             <h6 class="mb-3" style="color: aquamarine;">MACD</h6>
             <div class="row g-3 mb-3">

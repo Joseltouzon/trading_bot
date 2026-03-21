@@ -49,10 +49,10 @@ class SignalEngine:
             return [self.strategy_mode]
         return []
 
-    def process_symbol(self, symbol: str, max_positions_reached: bool = False):
-        """Ejecuta las estrategias activas para un símbolo.
+    def process_all(self, strategy_symbols: dict, max_positions_reached: bool = False):
+        """Ejecuta las estrategias activas, cada una con sus propios símbolos.
 
-        Cada estrategia usa su propio DF (5m o 15m) y su propia detección de nueva vela.
+        Itera por estrategia → por símbolo de esa estrategia.
         """
         if max_positions_reached:
             return
@@ -60,29 +60,34 @@ class SignalEngine:
         strategies = self._get_strategies_to_run()
 
         for strategy_name in strategies:
+            symbols = strategy_symbols.get(strategy_name, [])
+            if not symbols:
+                continue
+
             info = ACTIVE_STRATEGIES[strategy_name]
             interval = CFG.STRATEGY_INTERVALS.get(strategy_name, "5m")
 
-            # Obtener DF del timeframe correcto
-            df = self.market.get_df_copy(symbol, interval)
-            if df is None or len(df) < 50:
-                continue
+            for symbol in symbols:
+                # Obtener DF del timeframe correcto
+                df = self.market.get_df_copy(symbol, interval)
+                if df is None or len(df) < 50:
+                    continue
 
-            # Detección de nueva vela (independiente por timeframe)
-            last_close_time = int(df["close_time"].iloc[-2])
-            processed_key = (symbol, strategy_name)
+                # Detección de nueva vela (independiente por timeframe)
+                last_close_time = int(df["close_time"].iloc[-2])
+                processed_key = (symbol, strategy_name)
 
-            if self._last_processed.get(processed_key) == last_close_time:
-                continue
+                if self._last_processed.get(processed_key) == last_close_time:
+                    continue
 
-            self._last_processed[processed_key] = last_close_time
+                self._last_processed[processed_key] = last_close_time
 
-            # Ejecutar estrategia
-            try:
-                sig = info["compute"](df)
-                self._publish_signal(symbol, strategy_name, sig, last_close_time)
-            except Exception as e:
-                self.log.error(f"[SIGNAL] {symbol} {strategy_name} error: {e}")
+                # Ejecutar estrategia
+                try:
+                    sig = info["compute"](df)
+                    self._publish_signal(symbol, strategy_name, sig, last_close_time)
+                except Exception as e:
+                    self.log.error(f"[SIGNAL] {symbol} {strategy_name} error: {e}")
 
     def _publish_signal(self, symbol: str, strategy_name: str, sig: dict, last_close_time: int):
         """Procesa el resultado de una estrategia y publica señal si corresponde."""

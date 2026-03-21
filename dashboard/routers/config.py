@@ -12,6 +12,7 @@ async def update_config(payload: dict = Body(...), db = Depends(get_db)):
         "risk_pct",
         "leverage",
         "max_positions",
+        "strategy_symbols",
         "daily_loss_limit_pct",
         "trailing_pct",
         "adx_min",
@@ -131,7 +132,19 @@ async def update_config(payload: dict = Body(...), db = Depends(get_db)):
                 payload["trailing_automatico"] = bool(payload["trailing_automatico"])
 
             if key == "adx_rising":
-                payload["adx_rising"] = bool(payload["adx_rising"])    
+                payload["adx_rising"] = bool(payload["adx_rising"])
+
+            if key == "strategy_symbols":
+                val = payload["strategy_symbols"]
+                if isinstance(val, dict):
+                    # Convertir strings separados por coma a listas
+                    cleaned = {}
+                    for strat, syms_str in val.items():
+                        if isinstance(syms_str, str):
+                            cleaned[strat] = [s.strip().upper() for s in syms_str.split(",") if s.strip()]
+                        elif isinstance(syms_str, list):
+                            cleaned[strat] = syms_str
+                    payload["strategy_symbols"] = cleaned    
 
             if key == "risk_pct":
                 if payload["risk_pct"] <= 0 or payload["risk_pct"] > 10:

@@ -230,7 +230,12 @@
                     });
 
                     formData.forEach((value, key) => {
-                        if (key === "symbols") {
+                        if (key.startsWith('strategy_symbols_')) {
+                            // Agrupar en dict strategy_symbols
+                            if (!data.strategy_symbols) data.strategy_symbols = {}
+                            const strat = key.replace('strategy_symbols_', '')
+                            data.strategy_symbols[strat] = value
+                        } else if (key === "symbols") {
                             data[key] = value.split(",").map(s => s.trim())
                         } else if (checkboxIds.includes(key)) {
                             // Ya se manejó arriba, no sobreescribir
