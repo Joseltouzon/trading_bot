@@ -130,7 +130,12 @@ class TrailingManager:
                 self.db.save_state(st.__dict__)
                 
                 if old_sl is None:
+                    entry = float(tr.get("entry", 0))
+                    qty = float(tr.get("qty", 0))
+                    pnl_usdt = (mp - entry) * qty if direction == "LONG" else (entry - mp) * qty if entry > 0 else 0
                     self.tg_send(
                         f"🔒 <b>Trailing activado</b> {symbol} {direction}\n"
-                        f"Mark: {mp:.4f}\nSL inicial: {new_sl:.4f}\nPnL: {pnl_pct:.2f}%"
+                        f"Mark: {mp:.4f} | SL: {new_sl:.4f}\n"
+                        f"PnL: {pnl_pct:+.2f}% ({pnl_usdt:+.4f} USDT)\n"
+                        f"Qty: {qty:.6f}"
                     )

@@ -408,15 +408,23 @@ class EventLoop:
                     try:
                         r = float(realized_pnl or 0)
                         ep = float(exit_price or 0)
+                        entry = float(pos.get("entry_price", 0))
+                        qty = float(pos.get("qty", 0))
+                        hold_ms = int(pos.get("closed_at", 0)) - int(pos.get("opened_at", 0))
+                        hold_min = hold_ms / 60000 if hold_ms > 0 else 0
+                        pnl_pct = (ep - entry) / entry * 100 if entry > 0 and pos.get("side") == "LONG" else (entry - ep) / entry * 100 if entry > 0 else 0
                         emoji = "🟢" if r >= 0 else "🔴"
+                        result = "GANANCIA" if r > 0 else "PÉRDIDA" if r < 0 else "NEUTRAL"
+
                         if self.tg_send:
                             self.tg_send(
-                                f"{emoji} <b>Posición cerrada</b>\n"
-                                f"Symbol: {symbol}\n"
-                                f"Side: {pos['side']}\n"
-                                f"Exit: {ep:.4f}\n"
-                                f"Realized: {r:.4f} USDT\n"
-                                f"Commission: {total_commission:.4f} USDT ({commission_pct:.3f}%)"
+                                f"{emoji} <b>Posición cerrada</b> — {result}\n"
+                                f"{symbol} {pos.get('side', '?')}\n"
+                                f"Entry: {entry:.4f} → Exit: {ep:.4f}\n"
+                                f"PnL: {pnl_pct:+.2f}% ({r:+.4f} USDT)\n"
+                                f"Commission: {total_commission:.4f} USDT\n"
+                                f"Neto: {r - total_commission:+.4f} USDT\n"
+                                f"Duración: {hold_min:.0f} min"
                             )
                     except Exception as e:
                         self.log.warning(f"[TG CLOSE NOTIFY] {e}")

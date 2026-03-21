@@ -111,14 +111,25 @@ class OrderManager:
                     # Obtener precio actual para mostrar distancia al SL
                     mark_price = float(self.exchange.get_mark_price(symbol))
                     distance_pct = abs(mark_price - new_sl) / mark_price * 100
-                    
+
+                    # PnL actual
+                    trail_data = st.trail.get(symbol, {})
+                    entry = float(trail_data.get("entry", 0))
+                    qty = float(trail_data.get("qty", 0))
+                    if entry > 0 and qty > 0:
+                        pnl_pct = (mark_price - entry) / entry * 100 if position_side == "LONG" else (entry - mark_price) / entry * 100
+                        pnl_usdt = (mark_price - entry) * qty if position_side == "LONG" else (entry - mark_price) * qty
+                    else:
+                        pnl_pct = 0
+                        pnl_usdt = 0
+
                     emoji = "📈" if position_side == "LONG" else "📉"
                     self.tg_send(
-                        f"{emoji} <b>Stop Loss Actualizado</b>\n"
+                        f"{emoji} <b>SL Actualizado</b>\n"
                         f"{symbol} {position_side}\n"
-                        f"Nuevo SL: {new_sl:.4f}\n"
+                        f"SL: {new_sl:.4f} (dist: {distance_pct:.2f}%)\n"
                         f"Mark: {mark_price:.4f}\n"
-                        f"Distancia: {distance_pct:.2f}%"
+                        f"PnL: {pnl_pct:+.2f}% ({pnl_usdt:+.4f} USDT)"
                     )
                 except Exception as e:
                     self.logger.warning(f"[TG SL NOTIFY] {e}")
@@ -347,12 +358,22 @@ class OrderManager:
         if self.tg_send:
             try:
                 sl_txt = f"{initial_sl:.4f}" if initial_sl else "N/A"
+                strategy = signal.get("strategy", "unknown")
+                signal_type = signal.get("signal_type", "")
+                leverage = st.leverage if hasattr(st, "leverage") else "?"
+                notional = mark_price * qty
+                risk_usdt = notional / leverage if leverage else 0
+                sl_distance = abs(mark_price - initial_sl) / mark_price * 100 if initial_sl else 0
+                emoji = "📈" if side == "LONG" else "📉"
+
                 self.tg_send(
-                    f"📈 <b>Nueva posición</b>\n"
+                    f"{emoji} <b>Nueva posición</b>\n"
                     f"{symbol} {side}\n"
                     f"Entry: {mark_price:.4f}\n"
-                    f"Qty: {qty:.6f}\n"
-                    f"SL: {sl_txt}"
+                    f"Qty: {qty:.6f} ({notional:.2f} USDT)\n"
+                    f"SL: {sl_txt} ({sl_distance:.2f}%)\n"
+                    f"Leverage: {leverage}x | Riesgo: {risk_usdt:.2f} USDT\n"
+                    f"Estrategia: {strategy} ({signal_type})"
                 )
             except Exception as e:
                 self.logger.warning(f"[TELEGRAM] send failed: {e}")
