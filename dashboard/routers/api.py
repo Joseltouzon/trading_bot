@@ -364,34 +364,52 @@ def api_trailing_status(
     exchange = Depends(get_exchange)
 ):
     """
-    Devuelve el estado del trailing para cada símbolo con posición abierta.
-    Incluye mark price, distancia al SL, profit % y candlestick sparkline.
+    Devuelve el estado del trailing para TODAS las posiciones abiertas.
     """
     state = db.load_state() or {}
     trail = state.get("trail", {})
 
+    # Obtener posiciones abiertas de Binance
+    try:
+        open_positions = exchange.get_open_positions()
+    except Exception:
+        open_positions = []
+
     result = {}
-    for symbol, data in trail.items():
-        entry = float(data.get("entry") or 0)
-        best = float(data.get("best") or 0)
-        sl = float(data.get("sl") or 0)
-        direction = data.get("direction", "LONG")
+    for pos in open_positions:
+        symbol = pos.get("symbol", "")
+        if not symbol:
+            continue
 
-        mark_price = 0.0
+        entry = float(pos.get("entry_price", 0) or 0)
+        qty = abs(float(pos.get("size", 0) or 0))
+        direction = pos.get("side", "LONG")
+
+        # Mark price
         try:
-            mark_price = float(exchange.get_mark_price(symbol))
+            mark_price = float(exchange.get_mark_price(symbol) or 0)
         except Exception:
-            pass
+            mark_price = 0
 
+        # Datos del trail si existe
+        tr = trail.get(symbol, {})
+        best = float(tr.get("best") or entry)
+        sl = float(tr.get("sl") or 0)
+        activated = tr.get("activated", False)
+
+        # PnL
         if mark_price > 0 and entry > 0:
             if direction == "LONG":
                 pnl_pct = (mark_price - entry) / entry * 100
+                pnl_usdt = (mark_price - entry) * qty
                 dist_sl = ((mark_price - sl) / mark_price * 100) if sl > 0 else None
             else:
                 pnl_pct = (entry - mark_price) / entry * 100
+                pnl_usdt = (entry - mark_price) * qty
                 dist_sl = ((sl - mark_price) / mark_price * 100) if sl > 0 else None
         else:
             pnl_pct = 0.0
+            pnl_usdt = 0.0
             dist_sl = None
 
         result[symbol] = {
@@ -399,10 +417,12 @@ def api_trailing_status(
             "entry": entry,
             "best": best,
             "sl": sl,
+            "qty": qty,
             "mark_price": mark_price,
             "pnl_pct": round(pnl_pct, 3),
+            "pnl_usdt": round(pnl_usdt, 4),
             "dist_sl_pct": round(dist_sl, 3) if dist_sl is not None else None,
-            "activated": data.get("activated", False)
+            "activated": activated
         }
 
     return {"trailing": result}
@@ -509,7 +529,8 @@ def api_symbols_status(db = Depends(get_db)):
     Devuelve el estado de todos los símbolos monitoreados.
     """
     state = db.load_state() or {}
-    symbols = state.get("symbols", [])
+    strategy_symbols = state.get("strategy_symbols", {})
+    symbols = list(set(s for syms in strategy_symbols.values() for s in syms))
     cooldown = state.get("cooldown", {})
     trail = state.get("trail", {})
     position_ids = state.get("position_ids", {})
