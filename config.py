@@ -16,6 +16,32 @@ STRATEGY_INTERVALS = {
 REQUIRED_INTERVALS = sorted(set(STRATEGY_INTERVALS.values()))  # ["15m", "5m"]
 
 # =========================
+# EXECUTION / RISK
+# =========================
+DEFAULT_RISK_PCT = 1.0
+MAX_RISK_PCT_ALLOWED = 10.0
+MIN_NOTIONAL_USDT = 20          # CRÍTICO: No borrar, Binance exige min ~20USDT
+DEFAULT_LEVERAGE = 5
+MAX_OPEN_POSITIONS = 2
+MARGIN_TYPE = "ISOLATED"
+
+# =========================
+# Stop / trailing
+# =========================
+TRAILING_PCT = 0.5              # Solo usa si TRAILING_USE_ATR = False
+TRAILING_ACTIVATION_PCT = 0.5
+TRAILING_USE_ATR = True         # Activo: Usa volatilidad
+TRAILING_ATR_MULT = 2.0
+MIN_INITIAL_SL_PCT = 0.35       # Mínimo SL inicial
+INITIAL_SL_ATR_MULT = 0.7
+
+# =========================
+# Cooldown / daily loss
+# =========================
+DEFAULT_DAILY_LOSS_LIMIT_PCT = 10.0
+MIN_SECONDS_BETWEEN_ENTRIES = 45
+
+# =========================
 # STRATEGY - EMA BREAKOUT v2
 # =========================
 EMA_FAST = 9                        # EMA rápida (tendencia)
