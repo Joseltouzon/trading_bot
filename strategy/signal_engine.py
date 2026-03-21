@@ -1,285 +1,106 @@
 # strategy/signal_engine.py
+# Multi-strategy engine: ejecuta las 4 estrategias en paralelo
+# 5m: RSI+BB, Stop Hunt | 15m: EMA, MACD
+
 import config as CFG
 from core.models import SignalEvent
 from strategy.ema_adx_breakout import compute_signals
 from strategy.stop_hunt import compute_stop_hunt_signals
 from strategy.rsi_bb_reversion import compute_rsi_bb_signals
 from strategy.macd_momentum import compute_macd_momentum_signals
-from strategy.market_regime import should_switch_strategy, get_regime_confidence
-from strategy.indicators import ema, atr, adx
+
+
+# Estrategias activas y sus timeframes
+ACTIVE_STRATEGIES = {
+    "rsi_bb_reversion": {"compute": compute_rsi_bb_signals, "short": "RSI"},
+    "stop_hunt": {"compute": compute_stop_hunt_signals, "short": "HNT"},
+    "ema_breakout": {"compute": compute_signals, "short": "EMA"},
+    "macd_momentum": {"compute": compute_macd_momentum_signals, "short": "MAC"},
+}
 
 
 class SignalEngine:
 
-    def __init__(self, market_cache, signal_bus, log, strategy_mode: str = "ema_breakout"): 
+    def __init__(self, market_cache, signal_bus, log, strategy_mode: str = "ema_breakout"):
         self.market = market_cache
         self.bus = signal_bus
         self.log = log
         self.strategy_mode = strategy_mode
-        self._last_processed = {}
-        self._effective_mode = strategy_mode if strategy_mode != "auto" else None
-        self._regime_per_symbol = {}
-        self._last_regime_check = {}
-        self._indicator_cache = {}
-        self._cache_symbol = None
-        self._regime_check_counter = {}
-        self._regime_check_interval = 3
-
-    def _get_effective_mode_for_symbol(self, symbol: str, df) -> str:
-        if self.strategy_mode != "auto":
-            return self.strategy_mode
-
-        if not isinstance(self._effective_mode, dict):
-            self._effective_mode = {}
-
-        if symbol in self._effective_mode and self._effective_mode[symbol] is not None:
-            return self._effective_mode[symbol]
-
-        _, should_switch, regime_info = should_switch_strategy(
-            df, "ema_breakout", threshold_confidence=0.70
-        )
-        
-        self._effective_mode[symbol] = regime_info.get("recommended_strategy", "ema_breakout")
-        return self._effective_mode[symbol]
+        self._last_processed = {}  # (symbol, strategy) -> close_time_ms
 
     def set_strategy_mode(self, mode: str):
-        if mode in ["ema_breakout", "stop_hunt", "rsi_bb_reversion", "macd_momentum", "auto"]:
+        valid = list(ACTIVE_STRATEGIES.keys()) + ["auto", "all"]
+        if mode in valid:
             old_mode = self.strategy_mode
             self.strategy_mode = mode
-            self._effective_mode = {} if mode == "auto" else None
-            self._regime_per_symbol = {}
-            self._indicator_cache = {}
-            self._cache_symbol = None
             if old_mode != mode:
                 self.log.info(f"[SIGNAL] Strategy mode changed to: {mode}")
         else:
-            self.log.warning(f"[SIGNAL] Unknown strategy mode: {mode}, keeping {self.strategy_mode}")
+            self.log.warning(f"[SIGNAL] Unknown strategy mode: {mode}")
+
+    def _get_strategies_to_run(self):
+        """Retorna las estrategias que deben ejecutarse según el modo."""
+        if self.strategy_mode == "all" or self.strategy_mode == "auto":
+            return list(ACTIVE_STRATEGIES.keys())
+        elif self.strategy_mode in ACTIVE_STRATEGIES:
+            return [self.strategy_mode]
+        return []
 
     def process_symbol(self, symbol: str, max_positions_reached: bool = False):
-        df = self.market.get_df_copy(symbol)
-        if df is None or len(df) < 50:
-            return
+        """Ejecuta las estrategias activas para un símbolo.
 
-        last_close_time = int(df["close_time"].iloc[-2])
-
-        if self._last_processed.get(symbol) == last_close_time:
-            return
-
-        self._last_processed[symbol] = last_close_time
-
+        Cada estrategia usa su propio DF (5m o 15m) y su propia detección de nueva vela.
+        """
         if max_positions_reached:
             return
 
-        effective_mode = self._get_effective_mode_for_symbol(symbol, df)
+        strategies = self._get_strategies_to_run()
 
-        if effective_mode == "stop_hunt":
-            self._process_stop_hunt(symbol, df, last_close_time)
-        elif effective_mode == "rsi_bb_reversion":
-            self._process_rsi_bb_reversion(symbol, df, last_close_time)
-        elif effective_mode == "macd_momentum":
-            self._process_macd_momentum(symbol, df, last_close_time)
-        else:
-            self._process_ema_breakout(symbol, df, last_close_time)
+        for strategy_name in strategies:
+            info = ACTIVE_STRATEGIES[strategy_name]
+            interval = CFG.STRATEGY_INTERVALS.get(strategy_name, "5m")
 
-    def check_and_switch_regime(self, symbol: str):
-        if self.strategy_mode != "auto":
-            return
+            # Obtener DF del timeframe correcto
+            df = self.market.get_df_copy(symbol, interval)
+            if df is None or len(df) < 50:
+                continue
 
-        self._regime_check_counter[symbol] = self._regime_check_counter.get(symbol, 0) + 1
-        
-        if self._regime_check_counter.get(symbol, 0) < self._regime_check_interval:
-            return
+            # Detección de nueva vela (independiente por timeframe)
+            last_close_time = int(df["close_time"].iloc[-2])
+            processed_key = (symbol, strategy_name)
 
-        self._regime_check_counter[symbol] = 0
+            if self._last_processed.get(processed_key) == last_close_time:
+                continue
 
-        df = self.market.get_df_copy(symbol)
-        if df is None or len(df) < 50:
-            return
+            self._last_processed[processed_key] = last_close_time
 
-        current_mode = self._effective_mode.get(symbol) if isinstance(self._effective_mode, dict) else "ema_breakout"
-        new_strategy, should_switch, regime_info = should_switch_strategy(
-            df, current_mode, threshold_confidence=0.70
-        )
+            # Ejecutar estrategia
+            try:
+                sig = info["compute"](df)
+                self._publish_signal(symbol, strategy_name, sig, last_close_time)
+            except Exception as e:
+                self.log.error(f"[SIGNAL] {symbol} {strategy_name} error: {e}")
 
-        last_check = self._last_regime_check.get(symbol)
-        if last_check != regime_info.get("recommended_strategy"):
-            self.log.info(
-                f"[REGIME] {symbol} | regime={regime_info.get('recommended_strategy', 'unknown')} | "
-                f"conf={regime_info.get('confidence', 0):.2f} | "
-                f"adx={regime_info.get('adx', 0):.1f} | "
-                f"range={regime_info.get('range_bound', False)} | "
-                f"vol={regime_info.get('vol_ratio', 0):.1f}"
-            )
-            self._last_regime_check[symbol] = regime_info.get("recommended_strategy")
+    def _publish_signal(self, symbol: str, strategy_name: str, sig: dict, last_close_time: int):
+        """Procesa el resultado de una estrategia y publica señal si corresponde."""
+        short = ACTIVE_STRATEGIES[strategy_name]["short"]
 
-        if should_switch and isinstance(self._effective_mode, dict):
-            self._effective_mode[symbol] = new_strategy
-            self.log.info(f"[REGIME] {symbol} switched to: {new_strategy}")
+        signal_long = sig.get("breakout_long", False)
+        signal_short = sig.get("breakout_short", False)
 
-    def _process_ema_breakout(self, symbol: str, df, last_close_time):
-        sig = compute_signals(df)
-
-        trend_ok_long = sig["trend"] == "BULL"
-        trend_ok_short = sig["trend"] == "BEAR"
-
-        adx_ok = sig["adx"] >= CFG.DEFAULT_ADX_MIN
-        rising_ok = (not CFG.REQUIRE_ADX_RISING or sig["adx_increasing"])
-
-        breakout_long = sig["breakout_long"]
-        breakout_short = sig["breakout_short"]
-
+        # Log de estado
         self.log.info(
-            f"{symbol} | strategy=ema_breakout | "
-            f"trend={sig['trend']} | "
-            f"breakL={breakout_long} | "
-            f"breakS={breakout_short} | "
-            f"adx={sig['adx']:.2f} | "
-            f"adx_ok={adx_ok} | "
-            f"rising_ok={rising_ok} | "
-            f"vol_ratio={sig['vol_ratio']:.2f} | "
-            f"vol_up={sig.get('vol_increasing', False)}"
-        )
-
-        if trend_ok_long and breakout_long and adx_ok and rising_ok:
-            self.bus.publish(
-                SignalEvent(symbol, "LONG", sig, last_close_time)
-            )
-            self.log.info(
-                f"{symbol} ENTRY_DEBUG | "
-                f"ph={sig['last_ph']:.2f} pl={sig['last_pl']:.2f} | "
-                f"close={sig['close']:.2f} | "
-                f"atr={sig['atr']:.4f} ({(sig['atr']/sig['close']*100):.2f}%)"
-            )
-            self.log.info(f"{symbol} → LONG signal published (ema_breakout)")
-
-        elif trend_ok_short and breakout_short and adx_ok and rising_ok:
-            self.bus.publish(
-                SignalEvent(symbol, "SHORT", sig, last_close_time)
-            )
-            self.log.info(
-                f"{symbol} ENTRY_DEBUG | "
-                f"ph={sig['last_ph']:.2f} pl={sig['last_pl']:.2f} | "
-                f"close={sig['close']:.2f} | "
-                f"atr={sig['atr']:.4f} ({(sig['atr']/sig['close']*100):.2f}%)"
-            )
-            self.log.info(f"{symbol} → SHORT signal published (ema_breakout)")
-
-    def _process_stop_hunt(self, symbol: str, df, last_close_time):
-        sig = compute_stop_hunt_signals(df)
-
-        breakout_long = sig["breakout_long"]
-        breakout_short = sig["breakout_short"]
-
-        zones_long = sig.get("stop_hunt_zones", {}).get("long", [])
-        zones_short = sig.get("stop_hunt_zones", {}).get("short", [])
-
-        self.log.info(
-            f"{symbol} | strategy=stop_hunt | "
-            f"trend={sig['trend']} | "
-            f"breakL={breakout_long} | "
-            f"breakS={breakout_short} | "
-            f"vol_ratio={sig['vol_ratio']:.2f} | "
-            f"zones_long={len(zones_long)} | "
-            f"zones_short={len(zones_short)} | "
-            f"hunt_detected={sig.get('hunt_detected', False)}"
-        )
-
-        if breakout_long:
-            self.bus.publish(
-                SignalEvent(symbol, "LONG", sig, last_close_time)
-            )
-            self.log.info(
-                f"{symbol} ENTRY_DEBUG | "
-                f"zone={sig['signal_price']:.2f} | "
-                f"close={sig['close']:.2f} | "
-                f"atr={sig['atr']:.4f} ({(sig['atr']/sig['close']*100):.2f}%) | "
-                f"hunt_info={sig.get('hunt_info', {})}"
-            )
-            self.log.info(f"{symbol} → LONG signal published (stop_hunt)")
-
-        elif breakout_short:
-            self.bus.publish(
-                SignalEvent(symbol, "SHORT", sig, last_close_time)
-            )
-            self.log.info(
-                f"{symbol} ENTRY_DEBUG | "
-                f"zone={sig['signal_price']:.2f} | "
-                f"close={sig['close']:.2f} | "
-                f"atr={sig['atr']:.4f} ({(sig['atr']/sig['close']*100):.2f}%) | "
-                f"hunt_info={sig.get('hunt_info', {})}"
-            )
-            self.log.info(f"{symbol} → SHORT signal published (stop_hunt)")
-
-    def _process_rsi_bb_reversion(self, symbol: str, df, last_close_time):
-        sig = compute_rsi_bb_signals(df)
-
-        signal_long = sig["breakout_long"]
-        signal_short = sig["breakout_short"]
-
-        self.log.info(
-            f"{symbol} | strategy=rsi_bb_reversion | "
-            f"trend={sig['trend']} | "
-            f"sigL={signal_long} | "
-            f"sigS={signal_short} | "
-            f"rsi={sig['rsi_val']:.1f} | "
-            f"bb_pos={sig['bb_position']:.2f} | "
-            f"div={sig.get('divergence_type', 'none')} | "
-            f"stoch_k={sig.get('stoch_k', 0):.1f} | "
-            f"vol_ratio={sig['vol_ratio']:.2f}"
+            f"{symbol} | {strategy_name} | "
+            f"trend={sig.get('trend', 'NONE')} | "
+            f"L={signal_long} | S={signal_short} | "
+            f"adx={sig.get('adx', 0):.1f} | "
+            f"vol={sig.get('vol_ratio', 0):.2f}"
         )
 
         if signal_long:
-            self.bus.publish(
-                SignalEvent(symbol, "LONG", sig, last_close_time)
-            )
-            self.log.info(
-                f"{symbol} ENTRY_DEBUG | "
-                f"rsi={sig['rsi_val']:.1f} | "
-                f"bb_lower={sig['bb_lower']:.2f} | "
-                f"close={sig['close']:.2f} | "
-                f"div={sig.get('divergence_type', 'none')} | "
-                f"atr={sig['atr']:.4f} ({sig['atr_pct']:.2f}%)"
-            )
-            self.log.info(f"{symbol} → LONG signal published (rsi_bb_reversion)")
+            self.bus.publish(SignalEvent(symbol, "LONG", sig, last_close_time))
+            self.log.info(f"{symbol} → LONG published ({strategy_name})")
 
         elif signal_short:
-            self.bus.publish(
-                SignalEvent(symbol, "SHORT", sig, last_close_time)
-            )
-            self.log.info(
-                f"{symbol} ENTRY_DEBUG | "
-                f"rsi={sig['rsi_val']:.1f} | "
-                f"bb_upper={sig['bb_upper']:.2f} | "
-                f"close={sig['close']:.2f} | "
-                f"div={sig.get('divergence_type', 'none')} | "
-                f"atr={sig['atr']:.4f} ({sig['atr_pct']:.2f}%)"
-            )
-            self.log.info(f"{symbol} → SHORT signal published (rsi_bb_reversion)")
-
-    def _process_macd_momentum(self, symbol: str, df, last_close_time):
-        sig = compute_macd_momentum_signals(df)
-
-        signal_long = sig["breakout_long"]
-        signal_short = sig["breakout_short"]
-
-        self.log.info(
-            f"{symbol} | strategy=macd_momentum | "
-            f"trend={sig['trend']} | "
-            f"sigL={signal_long} | "
-            f"sigS={signal_short} | "
-            f"hist={sig.get('macd_histogram', 0):.4f} | "
-            f"type={sig.get('signal_type', 'none')} | "
-            f"vol={sig['vol_ratio']:.2f}"
-        )
-
-        if signal_long:
-            self.bus.publish(
-                SignalEvent(symbol, "LONG", sig, last_close_time)
-            )
-            self.log.info(f"{symbol} → LONG signal published (macd_momentum)")
-
-        elif signal_short:
-            self.bus.publish(
-                SignalEvent(symbol, "SHORT", sig, last_close_time)
-            )
-            self.log.info(f"{symbol} → SHORT signal published (macd_momentum)")
+            self.bus.publish(SignalEvent(symbol, "SHORT", sig, last_close_time))
+            self.log.info(f"{symbol} → SHORT published ({strategy_name})")

@@ -666,11 +666,22 @@ def main():
     results = []
 
     if args.all:
-        # Probar las 4 estrategias
+        # Probar las 4 estrategias con sus timeframes óptimos
+        from config import STRATEGY_INTERVALS
+
         for strategy in ["ema_breakout", "stop_hunt", "rsi_bb_reversion", "macd_momentum"]:
-            cfg = BacktestConfig(**{**base_config.__dict__, "strategy": strategy})
+            interval = STRATEGY_INTERVALS.get(strategy, args.interval)
+
+            # Descargar datos del timeframe correcto
+            strategy_data = {}
+            for sym in args.symbols:
+                print(f"  {sym} {interval}...", end=" ", flush=True)
+                strategy_data[sym] = fetch_klines(sym, interval, args.days)
+                print(f"{len(strategy_data[sym])} velas")
+
+            cfg = BacktestConfig(**{**base_config.__dict__, "strategy": strategy, "interval": interval})
             engine = BacktestEngine(cfg)
-            result = engine.run(data)
+            result = engine.run(strategy_data)
             results.append(result)
     else:
         # Probar solo la estrategia especificada

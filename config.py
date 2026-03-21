@@ -6,6 +6,15 @@ SYMBOLS = ["BTCUSDT", "BNBUSDT", "XRPUSDT"]
 INTERVAL = "5m"
 KLINES_LIMIT = 500
 
+# Multi-timeframe: cada estrategia opera en su timeframe óptimo
+STRATEGY_INTERVALS = {
+    "rsi_bb_reversion": "5m",
+    "stop_hunt": "5m",
+    "ema_breakout": "15m",
+    "macd_momentum": "15m",
+}
+REQUIRED_INTERVALS = sorted(set(STRATEGY_INTERVALS.values()))  # ["15m", "5m"]
+
 # =========================
 # STRATEGY - EMA BREAKOUT v2
 # =========================

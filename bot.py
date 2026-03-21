@@ -213,11 +213,13 @@ def main():
 
     mode = "PAPER" if st.paper_trading else "PRODUCCIÓN"
     strategy_labels = {
-        "ema_breakout": "EMA Breakout",
-        "stop_hunt": "Stop Hunt",
-        "rsi_bb_reversion": "RSI+BB Reversion",
-        "macd_momentum": "MACD Momentum",
-        "auto": f"Auto (analizando...)",
+        "ema_breakout": "EMA Breakout (15m)",
+        "stop_hunt": "Stop Hunt (5m)",
+        "vwap_refresh": "VWAP Refresh",
+        "rsi_bb_reversion": "RSI+BB (5m)",
+        "macd_momentum": "MACD (15m)",
+        "auto": "Auto (4 estrategias)",
+        "all": "Todas (4 estrategias)",
     }
     strategy_label = strategy_labels.get(st.strategy_mode, "EMA Breakout")
     log.info(f"[STARTUP] Bot listo. Mode={mode} Strategy={strategy_label} Symbols={len(st.symbols)}")
@@ -303,12 +305,7 @@ def main():
             # 2) Check max positions (avoid unnecessary signal processing)
             max_pos_reached = event_loop._max_positions_reached(st)
 
-            # 3) Regime check per symbol (if auto mode)
-            if not max_pos_reached:
-                for sym in st.symbols:
-                    signal_engine.check_and_switch_regime(sym)
-
-            # 4) Generate signals
+            # 3) Generate signals (all strategies run in parallel)
             for sym in st.symbols:
                 signal_engine.process_symbol(sym, max_pos_reached)
 
