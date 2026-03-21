@@ -70,7 +70,10 @@ Archivo de referencia único para agentes. Contiene la arquitectura, flujo de ej
 │MarketCache│    │SignalEngine  │            │EventLoop     │
 │          │     │EMA Breakout  │            │OrderManager  │
 │          │     │Stop Hunt     │            │TrailingMgr   │
-│          │     │VWAP Refresh  │            │TakeProfitMgr │
+│          │     │RSI+BB        │            │TakeProfitMgr │
+│          │     │Stop Hunt     │            │              │
+│          │     │EMA Breakout  │            │              │
+│          │     │MACD Momentum │            │              │
 │          │     │Market Regime │            │              │
 └────┬─────┘     └──────┬───────┘            └──────┬───────┘
      │                  │                           │
@@ -177,12 +180,12 @@ except Exception as e:
 ## 3. Estrategias
 
 **Archivos:**
-- `strategy/ema_adx_breakout.py` — Trend-following
-- `strategy/stop_hunt.py` — Mean-reversion / Liquidity
-- `strategy/vwap_refresh.py` — Range-bound / VWAP
-- `strategy/rsi_bb_reversion.py` — Mean-reversion RSI + Bollinger Bands
-- `strategy/signal_engine.py` — Motor de selección
-- `strategy/indicators.py` — EMA, ATR, ADX, RSI, Bollinger, Stochastic helpers
+- `strategy/ema_adx_breakout.py` — Trend-following (15m)
+- `strategy/stop_hunt.py` — Mean-reversion / Liquidity (5m)
+- `strategy/rsi_bb_reversion.py` — Mean-reversion RSI + Bollinger (5m)
+- `strategy/macd_momentum.py` — Momentum + Volume Spike (15m)
+- `strategy/signal_engine.py` — Motor multi-estrategia
+- `strategy/indicators.py` — EMA, ATR, ADX, RSI, Bollinger, Stochastic, MACD
 - `strategy/pivots.py` — Pivot highs/lows vectorizados
 
 ### Señales de salida (todas las estrategias)
@@ -237,16 +240,23 @@ Cada estrategia devuelve un dict con:
 
 **Zonas:** Swing levels (pivots) son targets de hunt. Order blocks son confirmación de proximidad (boost de confianza).
 
-### VWAP Refresh
+### MACD Momentum + Volume Spike (15m)
 
 | Parámetro | Default | Descripción |
 |-----------|---------|-------------|
-| VWAP_STD_MULT | 1.5 | StdDev multiplier bandas |
-| VWAP_MIN_VOLUME_RATIO | 1.5 | Volumen mínimo |
-| VWAP_SL_ATR_MULT | 2.0 | ATR multiplier SL |
-| VWAP_MAX_DEVIATION_PCT | 2.0 | Máxima desviación VWAP |
+| MACD_FAST | 12 | MACD fast EMA |
+| MACD_SLOW | 26 | MACD slow EMA |
+| MACD_SIGNAL | 9 | MACD signal line |
+| MACD_MIN_VOLUME_RATIO | 3.0 | Volume spike mínimo (3x media) |
+| MACD_RSI_BULL_MIN | 55 | RSI mínimo para LONG |
+| MACD_RSI_BEAR_MAX | 45 | RSI máximo para SHORT |
+| MACD_ADX_MIN | 25.0 | ADX mínimo |
+| MACD_MIN_ATR_PCT | 0.20 | Volatilidad mínima |
+| MACD_SL_ATR_MULT | 2.0 | ATR multiplier para SL |
 
-**VWAP se resetea por sesión** (00:00 UTC). `_get_session_start_idx()` detecta el último cambio de día.
+**Trigger:** MACD histogram creciente × 3 velas + volume spike + RSI direction + EMA alignment + higher high/lower low.
+
+**Funciona en 15m.** PF 2.10, Return +0.92%, DD 0.31%.
 
 ### RSI + Bollinger Band Mean Reversion
 
@@ -291,7 +301,7 @@ Cada estrategia devuelve un dict con:
 | ADX 18-25 | TRANSITIONAL | Stop Hunt |
 | ADX <= 18, range-bound, vol >= 1.3 | RANGING + VOL | Stop Hunt |
 | ADX <= 18, range-bound, RSI extremo | RANGING + EXTREME | RSI+BB Reversion |
-| ADX <= 18, range-bound, vol < 1.3 | RANGING + LOW VOL | VWAP Refresh |
+| ADX <= 18, range-bound, sin señal | RANGING + LOW VOL | Stop Hunt |
 
 **Config:**
 ```python
@@ -302,29 +312,52 @@ REGIME_HUNT_VOL_RATIO_MIN = 1.3
 
 ---
 
-## 5. Signal Engine
+## 5. Signal Engine (Multi-Timeframe)
 
 **Archivo:** `strategy/signal_engine.py`
+
+El engine ejecuta **las 4 estrategias en paralelo** por cada símbolo:
+
+| Estrategia | Timeframe | Intervalo |
+|-----------|-----------|-----------|
+| RSI+BB Reversion | 5m | Cada 5 minutos |
+| Stop Hunt | 5m | Cada 5 minutos |
+| EMA Breakout | 15m | Cada 15 minutos |
+| MACD Momentum | 15m | Cada 15 minutos |
+
+### Flujo `process_symbol()`
+
+```
+Para cada estrategia en ACTIVE_STRATEGIES:
+  1. interval = STRATEGY_INTERVALS[strategy]  ("5m" o "15m")
+  2. df = market.get_df_copy(symbol, interval)
+  3. close_time = df["close_time"].iloc[-2]
+  4. Si _last_processed[(symbol, strategy)] == close_time → skip
+  5. Ejecutar compute_function(df)
+  6. Si señal → publish al bus
+```
 
 ### Métodos clave
 
 | Método | Propósito |
 |--------|-----------|
-| `process_symbol(symbol, max_positions_reached)` | Procesa un símbolo, genera señal si hay nueva vela |
-| `check_and_switch_regime(symbol)` | Evalúa régimen y cambia estrategia (cada 3 ciclos) |
-| `set_strategy_mode(mode)` | Cambia modo global (`ema_breakout`, `stop_hunt`, `vwap_refresh`, `rsi_bb_reversion`, `auto`) |
+| `process_symbol(symbol, max_positions)` | Ejecuta las 4 estrategias con sus DFs |
+| `set_strategy_mode(mode)` | `all`/`auto` = 4 estrategias, o una individual |
 
-### Early exits (optimización)
+### Config
 
-1. `df is None or len(df) < 50` → return
-2. `last_close_time == _last_processed[symbol]` → return (ya procesado)
-3. `max_positions_reached` → return (no generar nuevas señales)
+```python
+STRATEGY_INTERVALS = {
+    "rsi_bb_reversion": "5m",
+    "stop_hunt": "5m",
+    "ema_breakout": "15m",
+    "macd_momentum": "15m",
+}
+```
 
 ### Cache
 
-- `_last_processed`: {symbol: close_time_ms} — evita reprocesar misma vela
-- `_effective_mode`: {symbol: "ema_breakout"} — estrategia efectiva por símbolo (auto mode)
-- `_indicator_cache`: comparte indicadores entre estrategias
+- `_last_processed`: {(symbol, strategy): close_time_ms} — evita reprocesar misma vela por estrategia
 
 ---
 
@@ -503,23 +536,30 @@ Al cerrar: limpia `position_ids`, `trail`, `stop_orders` de state + `tp_manager.
 
 ---
 
-## 12. Datafeed y Market Cache
+## 12. Datafeed y Market Cache (Multi-Timeframe)
 
 **Archivo:** `datafeed/market_cache.py` — `MarketCache`
 
+Cachea **múltiples DataFrames por símbolo** (5m y 15m).
+
+### Estructura
+
+```python
+self.cache = {
+    "ETHUSDT": {
+        "5m": MarketData(df_5m, ...),
+        "15m": MarketData(df_15m, ...),
+        "mark_price": 1234.56
+    }
+}
+```
+
 ### Funcionamiento
 
-- `init_cache(symbols)`: descarga 500 velas REST por símbolo, crea `MarketData` objects
-- `update_all(symbols)`: poll cada `KLINE_POLL_SECONDS` (15s)
-  - Si nueva vela cerrada: re-descarga DF completo
-  - Mark price: poll cada `MARK_POLL_SECONDS` (3s)
-- `get_df_copy(symbol)`: devuelve copia del DF cacheado
+- `init_cache(symbols)`: descarga velas de TODOS los timeframes requeridos por símbolo
+- `update_all(symbols)`: poll cada `KLINE_POLL_SECONDS` (15s) para CADA timeframe independientemente
+- `get_df_copy(symbol, interval)`: devuelve DF del timeframe específico
 - `get_mark_price_cached(symbol)`: precio mark cacheado
-
-### Timeframe
-
-- Lee de DB en cada `_get_current_timeframe()`
-- Si cambia el timeframe entre llamadas: log CRITICAL, no actualiza (requiere restart)
 
 ### Throttles
 
@@ -664,7 +704,7 @@ class BotState:
 
     # Símbolos y estrategia
     symbols: List[str]
-    strategy_mode: str                 # "ema_breakout"|"stop_hunt"|"vwap_refresh"|"auto"
+    strategy_mode: str                 # "ema_breakout"|"stop_hunt"|"rsi_bb_reversion"|"macd_momentum"|"auto"|"all"
     timeframe: str                     # "5m", "15m", etc.
 
     # Trailing
@@ -705,12 +745,6 @@ class BotState:
     stop_hunt_min_atr_pct: float
     stop_hunt_adx_min: float
     order_block_lookback: int
-
-    # VWAP
-    vwap_std_mult: float
-    vwap_min_volume_ratio: float
-    vwap_sl_atr_mult: float
-    vwap_max_deviation_pct: float
 
     # Market Regime (Auto)
     regime_trending_adx_min: float
@@ -784,8 +818,8 @@ Lista blanca de campos que el dashboard puede modificar. Si un campo no está aq
 |-----|-----------|
 | Config Generales | Control, Riesgo, Ejecución, Trailing, Take Profit |
 | Config Breakout | EMA, Volume, ADX, Pivot |
-| Config Stop Hunt | 13 parámetros de Stop Hunt |
-| Config VWAP | VWAP bands, parámetros Auto |
+| Config Stop Hunt | Parámetros de Stop Hunt |
+| Config RSI+BB | RSI, Bollinger Bands, Filtros, SL, Auto Mode |
 
 ### Autenticación
 
@@ -861,13 +895,13 @@ Cooldown entre alertas: 10 min. Usa `get_used_margin()`, `get_available_balance(
 
 | Archivo | Propósito |
 |---------|-----------|
-| `ema_adx_breakout.py` | Estrategia EMA Breakout |
-| `stop_hunt.py` | Estrategia Stop Hunt |
-| `vwap_refresh.py` | Estrategia VWAP Refresh |
-| `rsi_bb_reversion.py` | Estrategia RSI + Bollinger Band Mean Reversion |
+| `ema_adx_breakout.py` | Estrategia EMA Breakout (15m) |
+| `stop_hunt.py` | Estrategia Stop Hunt (5m) |
+| `rsi_bb_reversion.py` | Estrategia RSI + Bollinger Band (5m) |
+| `macd_momentum.py` | Estrategia MACD Momentum (15m) |
 | `market_regime.py` | Detección de régimen de mercado |
-| `signal_engine.py` | Motor de señales (dispatch a estrategias) |
-| `indicators.py` | EMA, ATR, ADX, RSI, Bollinger Bands, Stochastic RSI helpers |
+| `signal_engine.py` | Motor multi-estrategia (4 en paralelo) |
+| `indicators.py` | EMA, ATR, ADX, RSI, Bollinger, Stochastic, MACD |
 | `pivots.py` | Pivot highs/lows vectorizados |
 
 ### `execution/`

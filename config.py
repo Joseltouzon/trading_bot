@@ -42,31 +42,6 @@ MIN_BREAK_DISTANCE_PCT = 0.04       # Distancia mínima de breakout (%)
 MAX_PIVOT_AGE = 15                  # Máxima antigüedad del pivot (velas)
 ADX_MIN = 20.0                      # ADX mínimo
 COOLDOWN_BARS = 5
-
-# =========================
-# EXECUTION / RISK
-# =========================
-DEFAULT_RISK_PCT = 1.0
-MAX_RISK_PCT_ALLOWED = 10.0
-MIN_NOTIONAL_USDT = 20          # CRÍTICO: No borrar, Binance exige min ~20USDT
-DEFAULT_LEVERAGE = 5
-MAX_OPEN_POSITIONS = 2
-MARGIN_TYPE = "ISOLATED"
-# =========================
-# MARGIN / RISK
-# =========================
-MARGIN_SAFETY_BUFFER = 0.03     # 3% buffer extra para evitar -2019 en Binance, margin insufficient
-
-# Stop / trailing
-TRAILING_PCT = 0.5              # Solo usa si TRAILING_USE_ATR = False
-TRAILING_ACTIVATION_PCT = 0.5
-TRAILING_USE_ATR = True         # ✅ Activo: Usa volatilidad
-TRAILING_ATR_MULT = 2.0
-MIN_INITIAL_SL_PCT = 0.35       # Mínimo SL inicial
-INITIAL_SL_ATR_MULT = 0.7
-
-# Cooldown / daily loss
-DEFAULT_COOLDOWN_BARS = 4
 DEFAULT_DAILY_LOSS_LIMIT_PCT = 10.0
 MIN_SECONDS_BETWEEN_ENTRIES = 45
 

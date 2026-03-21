@@ -25,7 +25,6 @@ async def update_config(payload: dict = Body(...), db = Depends(get_db)):
         "trailing_automatico",
         "adx_rising",
         "vol_min_ratio",
-        "trailing_active",
         "strategy_mode",
         # Trailing runtime
         "trailing_activation_pct",

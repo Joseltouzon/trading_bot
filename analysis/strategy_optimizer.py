@@ -211,8 +211,8 @@ class StrategyOptimizer:
         # ADX threshold
         adx = self.optimize_adx_threshold(days)
         optimizations.append(ParameterOptimization(
-            parameter="DEFAULT_ADX_MIN",
-            current=self.config.DEFAULT_ADX_MIN if self.config else 20.0,
+            parameter="ADX_MIN",
+            current=self.config.ADX_MIN if self.config else 20.0,
             recommended=adx,
             range_min=15.0,
             range_max=35.0,

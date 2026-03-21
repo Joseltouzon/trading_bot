@@ -809,11 +809,6 @@
                         <small class="text-muted" style="color: #fff !important;">Si ATR está desactivado</small>
                     </div>
                     <div class="col-md-3">
-                        <label class="form-label" style="color: aquamarine;">Trailing Active % (Breakout)</label>
-                        <input type="number" step="0.1" class="form-control" name="trailing_active" value="{{ state.trailing_active }}" required min="0.1" max="10">
-                        <small class="text-muted" style="color: #fff !important;">PnL % para activar</small>
-                    </div>
-                    <div class="col-md-3">
                         <div class="form-check form-switch mt-4">
                             <input class="form-check-input" type="checkbox" id="trailing_use_atr" name="trailing_use_atr" {% if state.trailing_use_atr %}checked{% endif %}>
                             <label class="form-check-label fw-bold" style="color: aquamarine;" for="trailing_use_atr">Usar ATR (vs %)</label>
@@ -885,12 +880,9 @@
                     <input type="number" class="form-control" name="ema_slow" value="{{ state.ema_slow }}" required min="1" max="200">
                     <small class="text-muted" style="color: #fff !important;">ej: 21, 50, 200</small>
                 </div>
-                <div class="col-md-4">
-                    <label class="form-label" style="color: aquamarine;">Volume Min Ratio %</label>
-                    <input type="number" step="0.1" class="form-control" name="vol_min_ratio" value="{{ state.vol_min_ratio }}" required min="0.1" max="10">
-                    <small class="text-muted" style="color: #fff !important;">Mínimo volumen vs media</small>
-                </div>
             </div>
+
+            <div class="row g-3 mb-3">
 
             <div class="row g-3 mb-3">
                 <div class="col-md-4">
@@ -902,11 +894,6 @@
                     <label class="form-label" style="color: aquamarine;">Pivot Length</label>
                     <input type="number" class="form-control" name="pivot_len" value="{{ state.pivot_len }}" required min="5" max="50">
                     <small class="text-muted" style="color: #fff !important;">Período detección de pivotes</small>
-                </div>
-                <div class="col-md-4">
-                    <label class="form-label" style="color: aquamarine;">Trailing Active %</label>
-                    <input type="number" step="0.1" class="form-control" name="trailing_active" value="{{ state.trailing_active }}" required min="0.1" max="10">
-                    <small class="text-muted" style="color: #fff !important;">PnL % para activar</small>
                 </div>
             </div>
 

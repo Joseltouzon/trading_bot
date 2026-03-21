@@ -30,7 +30,6 @@ class BotState:
     ema_sl_pct: float = 0.30
 
     trailing_pct: float = 0.5
-    trailing_active: float = 0.5
     max_positions: int = 1
     adx_min: float = 20.0
     cooldown_bars: int = 5
@@ -51,7 +50,6 @@ class BotState:
 
     paper_trading: bool = False
     trailing_automatico: bool = True
-    adx_rising: bool = False
     strategy_mode: str = "ema_breakout"
 
     # Trailing (runtime)

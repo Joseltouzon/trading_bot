@@ -215,7 +215,6 @@ def main():
     strategy_labels = {
         "ema_breakout": "EMA Breakout (15m)",
         "stop_hunt": "Stop Hunt (5m)",
-        "vwap_refresh": "VWAP Refresh",
         "rsi_bb_reversion": "RSI+BB (5m)",
         "macd_momentum": "MACD (15m)",
         "auto": "Auto (4 estrategias)",
