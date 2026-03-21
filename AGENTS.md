@@ -8,7 +8,8 @@ Act as a software engineer.
 
 1. **Antes de implementar:** Explicar el problema, la solución propuesta y pedir autorización
 2. **No hacer commits** sin autorización expresa del usuario. Si se autoriza, usar mensajes cortos (ej: "add RSI filter to EMA breakout", "fix spread calculation", etc.)
-3. **Explicar con claridad** cada decisión técnica para que el usuario pueda aprender
+3. **Al commitear:** Revisar AGENTS.md, STRATEGIES_GUIDE.md y los archivos clave del mapa de archivos (sección 22) para ver si hay que actualizarlos
+4. **Explicar con claridad** cada decisión técnica para que el usuario pueda aprender
 4. **Ser preciso** con términos y números
 5. **Si hay bugs:** Mostrar el código problemático, explicar por qué falla, y proponer el fix
 6. **No agregar imports que no existan** — verificar que el método/clase esté en el archivo antes de usarlo

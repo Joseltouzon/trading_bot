@@ -2,139 +2,122 @@
 
 ## Arquitectura Multi-Timeframe
 
-El bot ejecuta **4 estrategias en paralelo** por cada símbolo:
+El bot ejecuta **3 estrategias en paralelo** (mode auto):
 
-| Estrategia | Timeframe | Tipo |
-|-----------|-----------|------|
-| RSI+BB Reversion | **5m** | Mean-reversion |
-| Stop Hunt | **5m** | Mean-reversion institucional |
-| EMA Breakout | **15m** | Trend-following |
-| MACD Momentum | **15m** | Momentum/Trend |
+| Estrategia | Timeframe | Símbolos |
+|-----------|-----------|----------|
+| RSI+BB Reversion | **5m** | XRP, PEPE, AVAX, TIA, ORDI, TAO |
+| Stop Hunt | **5m** | XRP, PEPE, AVAX, TIA, ORDI |
+| MACD Momentum | **15m** | PENDLE, XRP, AVAX, SOL, RUNE |
 
-El `MarketCache` mantiene DFs separados por timeframe. `SignalEngine` ejecuta las 4 estrategias, cada una con su DF correcto.
+`MarketCache` mantiene DFs separados por timeframe. `SignalEngine` ejecuta las 3 estrategias, cada una con su DF correcto.
+
+---
+
+## Backtest Final (símbolos actuales, 30 días)
+
+```
+                    Trades  T/día   T/sem   WR      PF      Return  PnL
+================================================================
+RSI+BB (5m):         65     2.17    15.1   64.6%   2.35    +0.74%  +$1.41
+Stop Hunt (5m):      11     0.37     2.6   81.8%   4.25    +0.19%  +$0.36
+MACD (15m):          99     3.30    23.0   56.6%   2.82    +1.47%  +$2.76
+================================================================
+TOTAL:              175     5.84    40.7    -       -      +2.40%  +$4.53
+================================================================
+PnL incluye leverage 5x. Sharpe promedio ~4.5.
+```
 
 ---
 
 ## 1. RSI + Bollinger Band Mean Reversion (5m) ⭐
 
-La estrategia más rentable. Captura sobreextensiones de precio combinando RSI extremes, Bollinger Bands y divergencias.
+Captura sobreextensiones de precio combinando RSI extremes, Bollinger Bands y divergencias.
 
-### Parámetros (config.py)
+### Símbolos
+XRPUSDT, 1000PEPEUSDT, AVAXUSDT, TIAUSDT, ORDIUSDT, TAOUSDT
 
+### Parámetros clave
 | Parámetro | Default | Descripción |
 |-----------|---------|-------------|
-| RSI_BB_RSI_PERIOD | 14 | Período del RSI |
-| RSI_BB_OVERSOLD | 20 | RSI zona de sobreventa |
-| RSI_BB_OVERBOUGHT | 80 | RSI zona de sobrecompra |
-| RSI_BB_BB_PERIOD | 20 | Período Bollinger Bands |
-| RSI_BB_BB_STD_MULT | 2.0 | StdDev multiplier Bollinger |
-| RSI_BB_STOCH_PERIOD | 14 | Período Stochastic RSI |
-| RSI_BB_DIVERGENCE_LOOKBACK | 20 | Velas para detectar divergencias |
-| RSI_BB_MIN_VOLUME_RATIO | 1.2 | Volumen mínimo vs media |
+| RSI_BB_OVERSOLD | 20 | RSI zona sobreventa |
+| RSI_BB_OVERBOUGHT | 80 | RSI zona sobrecompra |
+| RSI_BB_MIN_VOLUME_RATIO | 1.2 | Volumen mínimo |
 | RSI_BB_ADX_MIN | 12.0 | ADX mínimo |
-| RSI_BB_MIN_ATR_PCT | 0.15 | Volatilidad mínima (%) |
-| RSI_BB_SL_ATR_MULT | 2.5 | ATR multiplier para SL |
-| RSI_BB_SL_PCT | 0.60 | SL mínimo por porcentaje |
+| RSI_BB_SL_ATR_MULT | 2.5 | ATR multiplier SL |
 | RSI_BB_REQUIRE_DIVERGENCE | True | Requiere divergencia real |
 
 ### 3 Triggers
+1. RSI crossover + BB rejection
+2. Classic divergence (swing points)
+3. Extreme RSI (< 20 / > 80) + vela direccional
 
-1. **RSI crossover + BB rejection**: RSI cruza desde zona extrema + precio rechazado en banda
-2. **Classic divergence**: swing lows/highs con confirmación RSI
-3. **Extreme RSI**: RSI < 20 / > 80 + precio fuera de banda + vela direccional
-
-### Backtest (6 símbolos, 30d)
-- WR: 65.7% | PF: 2.29 | Return: +0.69% | DD: 0.23% | Sharpe: 5.44
-- Mejores símbolos: XRP, PEPE, AVAX, TIA, ORDI
+### Rendimiento por símbolo
+| Símbolo | Trades | WR | PnL |
+|---------|--------|-----|------|
+| PEPEUSDT | 8 | 100% | +$0.36 |
+| AVAXUSDT | 14 | 57% | +$0.27 |
+| XRPUSDT | 16 | 56% | +$0.22 |
+| TIAUSDT | 10 | 70% | +$0.21 |
+| ORDIUSDT | 10 | 60% | +$0.18 |
+| TAOUSDT | 7 | 57% | +$0.17 |
 
 ---
 
-## 2. Stop Hunt (5m)
+## 2. Stop Hunt (5m) 🏆
 
-Estrategia institucional que detecta hunts de liquidez en swing levels con order blocks como confirmación.
+Estrategia institucional que detecta hunts de liquidez en swing levels.
 
-### Parámetros
+### Símbolos
+XRPUSDT, 1000PEPEUSDT, AVAXUSDT, TIAUSDT, ORDIUSDT
 
+### Parámetros clave
 | Parámetro | Default | Descripción |
 |-----------|---------|-------------|
-| STOP_HUNT_WICK_PCT | 0.20 | Mecha mínima hunt (%) |
+| STOP_HUNT_WICK_PCT | 0.20 | Mecha mínima hunt |
 | STOP_HUNT_REJECTION_RATIO | 0.7 | Body/wick rechazo |
 | STOP_HUNT_MIN_ZONES | 2 | Mínimo zonas de liquidez |
-| STOP_HUNT_MAX_ZONE_DISTANCE_PCT | 0.8 | Distancia máxima a zona |
 | STOP_HUNT_MIN_VOLUME_RATIO | 1.5 | Volumen mínimo |
 | STOP_HUNT_ATR_MULT_SL | 2.0 | ATR multiplier SL |
-| STOP_HUNT_ADX_MIN | 18.0 | ADX mínimo |
 
-### Backtest (6 símbolos, 30d)
-- WR: 75.0% | PF: 2.60 | Return: +0.22% | DD: 0.07%
-- Solo 16 trades (baja frecuencia pero alta calidad)
+### Nota
+Baja frecuencia (11 trades/mes) pero la más precisa (WR 81.8%, PF 4.25). No ajustar parámetros — la calidad es la prioridad.
 
 ---
 
-## 3. EMA Breakout (15m)
+## 3. MACD Momentum + Volume Spike (15m) 💰
 
-Trend-following con breakout de pivots. SL ajustado desde entry, filtro RSI para evitar sobreextensiones.
+Captura tendencias fuertes que RSI+BB ignora.
 
-### Parámetros
+### Símbolos
+PENDLEUSDT, XRPUSDT, AVAXUSDT, SOLUSDT, RUNEUSDT
 
+### Parámetros clave
 | Parámetro | Default | Descripción |
 |-----------|---------|-------------|
-| EMA_FAST / EMA_SLOW | 9 / 21 | EMAs para tendencia |
-| EMA_MIN_SLOPE_PCT | 0.04 | Pendiente mínima EMA |
-| EMA_RSI_OVERSOLD / OVERBOUGHT | 30 / 70 | Filtro RSI |
-| EMA_MIN_VOLUME_RATIO | 1.2 | Volumen mínimo |
-| EMA_MIN_ATR_PCT | 0.15 | Volatilidad mínima |
-| EMA_SL_ATR_MULT | 2.0 | ATR multiplier SL |
-| MIN_BODY_RATIO | 0.50 | Ratio cuerpo/rango vela |
-| ADX_MIN | 20.0 | ADX mínimo |
-
-### Backtest (4 símbolos, 15m, 30d)
-- WR: 40.6% | PF: 1.40 | Return: +0.26% | DD: 0.66%
-
----
-
-## 4. MACD Momentum + Volume Spike (15m)
-
-Captura tendencias fuertes que RSI+BB ignora. MACD histogram creciente + volume spike + RSI direction.
-
-### Parámetros
-
-| Parámetro | Default | Descripción |
-|-----------|---------|-------------|
-| MACD_FAST / SLOW / SIGNAL | 12 / 26 / 9 | MACD settings |
-| MACD_MIN_VOLUME_RATIO | 3.0 | Volume spike mínimo (3x media) |
-| MACD_RSI_BULL_MIN | 55 | RSI mínimo para LONG |
-| MACD_RSI_BEAR_MAX | 45 | RSI máximo para SHORT |
+| MACD_FAST/SLOW/SIGNAL | 12/26/9 | MACD settings |
+| MACD_MIN_VOLUME_RATIO | 3.0 | Volume spike (3x media) |
+| MACD_RSI_BULL_MIN | 55 | RSI mínimo LONG |
+| MACD_RSI_BEAR_MAX | 45 | RSI máximo SHORT |
 | MACD_ADX_MIN | 25.0 | ADX mínimo |
-| MACD_MIN_ATR_PCT | 0.20 | Volatilidad mínima |
 | MACD_SL_ATR_MULT | 2.0 | ATR multiplier SL |
 
-### Trigger
-MACD histogram creciente × 3 velas + volume spike + RSI direction + EMA alignment + higher high/lower low.
-
-### Backtest (4 símbolos, 15m, 30d)
-- WR: 54.8% | PF: 2.10 | Return: +0.92% | DD: 0.31%
+### Rendimiento por símbolo
+| Símbolo | Trades | WR | PnL |
+|---------|--------|-----|------|
+| SOLUSDT | 27 | 56% | +$0.87 |
+| PENDLEUSDT | 16 | 69% | +$0.71 |
+| XRPUSDT | 22 | 59% | +$0.46 |
+| AVAXUSDT | 19 | 53% | +$0.36 |
+| RUNEUSDT | 15 | 47% | +$0.36 |
 
 ---
 
-## 5. Configuración Recomendada
+## 4. Configuración desde el Dashboard
 
-### Desde el Dashboard
 ```
-strategy_mode: "auto" (ejecuta las 4 en paralelo)
-Símbolos: XRPUSDT, 1000PEPEUSDT, AVAXUSDT, TIAUSDT, ORDIUSDT, ETHUSDT
-```
-
-### Backtesting
-```bash
-# Una estrategia
-./venv/bin/python backtest.py --strategy rsi_bb_reversion --symbols "XRPUSDT,AVAXUSDT" --days 30
-
-# Todas con timeframes correctos
-./venv/bin/python backtest.py --all --symbols "XRPUSDT,AVAXUSDT" --days 30
-
-# Estrategia individual con intervalo
-./venv/bin/python backtest.py --strategy macd_momentum --interval 15m --days 30
+strategy_mode: "auto" (ejecuta RSI+BB + Stop Hunt + MACD)
+Cada estrategia tiene sus propios símbolos configurados en su tab.
 ```
 
 ---
@@ -142,9 +125,8 @@ Símbolos: XRPUSDT, 1000PEPEUSDT, AVAXUSDT, TIAUSDT, ORDIUSDT, ETHUSDT
 ## Archivos Clave
 
 ```
-strategy/ema_adx_breakout.py    # EMA Breakout (15m)
-strategy/stop_hunt.py           # Stop Hunt (5m)
 strategy/rsi_bb_reversion.py    # RSI+BB (5m)
+strategy/stop_hunt.py           # Stop Hunt (5m)
 strategy/macd_momentum.py       # MACD Momentum (15m)
 strategy/signal_engine.py       # Motor multi-estrategia
 strategy/indicators.py          # EMA, ATR, ADX, RSI, Bollinger, MACD
