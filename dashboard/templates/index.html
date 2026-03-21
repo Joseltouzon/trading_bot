@@ -49,11 +49,6 @@
         </button>
     </li>
     <li class="nav-item" style="margin-bottom: 20px;">
-        <button class="nav-link" data-bs-toggle="pill" data-bs-target="#config-vwap">
-            <i class="bi bi-arrow-repeat"></i> Config VWAP
-        </button>
-    </li>
-    <li class="nav-item" style="margin-bottom: 20px;">
         <button class="nav-link" data-bs-toggle="pill" data-bs-target="#config-rsi-bb">
             <i class="bi bi-graph-down-arrow"></i> Config RSI+BB
         </button>
@@ -779,7 +774,6 @@
                             <span class="badge bg-warning text-dark" id="current-strategy-badge">
                                 {% if state.strategy_mode == 'ema_breakout' %}EMA Breakout
                                 {% elif state.strategy_mode == 'stop_hunt' %}Stop Hunt
-                                {% elif state.strategy_mode == 'vwap_refresh' %}VWAP Refresh
                                 {% elif state.strategy_mode == 'rsi_bb_reversion' %}RSI+BB Reversion
                                 {% elif state.strategy_mode == 'auto' %}Auto (Mercado)
                                 {% else %}EMA Breakout{% endif %}
@@ -788,7 +782,6 @@
                         <select class="form-select" name="strategy_mode" required>
                             <option value="ema_breakout" {% if state.strategy_mode=='ema_breakout' %}selected{% endif %}>EMA Breakout</option>
                             <option value="stop_hunt" {% if state.strategy_mode=='stop_hunt' %}selected{% endif %}>Stop Hunt</option>
-                            <option value="vwap_refresh" {% if state.strategy_mode=='vwap_refresh' %}selected{% endif %}>VWAP Refresh</option>
                             <option value="rsi_bb_reversion" {% if state.strategy_mode=='rsi_bb_reversion' %}selected{% endif %}>RSI+BB Reversion</option>
                             <option value="auto" {% if state.strategy_mode=='auto' %}selected{% endif %}>Auto (Mercado)</option>
                         </select>
@@ -1029,64 +1022,6 @@
         </div>
     </div>
 
-    <!-- ========================= CONFIG VWAP REFRESH TAB ========================= -->
-    <div class="tab-pane fade" id="config-vwap">
-        <div class="card p-4 mt-3">
-            <h5 class="mb-4" style="color: #f3f7f3;">CONFIG VWAP REFRESH</h5>
-
-            <div class="row g-3 mb-3">
-                <div class="col-md-4">
-                    <label class="form-label" style="color: aquamarine;">VWAP Std Multiplier</label>
-                    <input type="number" step="0.1" class="form-control" name="vwap_std_mult" value="{{ state.vwap_std_mult or 1.5 }}" required min="0.5" max="3">
-                    <small class="text-muted" style="color: #fff !important;">Ancho de bandas VWAP</small>
-                </div>
-                <div class="col-md-4">
-                    <label class="form-label" style="color: aquamarine;">Min Volume Ratio</label>
-                    <input type="number" step="0.1" class="form-control" name="vwap_min_volume_ratio" value="{{ state.vwap_min_volume_ratio or 1.5 }}" required min="0.5" max="5">
-                    <small class="text-muted" style="color: #fff !important;">Volumen mínimo vs media</small>
-                </div>
-                <div class="col-md-4">
-                    <label class="form-label" style="color: aquamarine;">SL ATR Multiplier</label>
-                    <input type="number" step="0.1" class="form-control" name="vwap_sl_atr_mult" value="{{ state.vwap_sl_atr_mult or 2.0 }}" required min="1" max="5">
-                    <small class="text-muted" style="color: #fff !important;">Multiplicador ATR para SL</small>
-                </div>
-            </div>
-
-            <div class="row g-3 mb-3">
-                <div class="col-md-4">
-                    <label class="form-label" style="color: aquamarine;">Max Deviation %</label>
-                    <input type="number" step="0.1" class="form-control" name="vwap_max_deviation_pct" value="{{ state.vwap_max_deviation_pct or 2.0 }}" required min="0.5" max="5">
-                    <small class="text-muted" style="color: #fff !important;">Máxima desviación precio-VWAP</small>
-                </div>
-            </div>
-
-            <h6 class="mb-3" style="color: #f3f7f3;">MERCADO AUTO</h6>
-            <div class="row g-3 mb-3">
-                <div class="col-md-4">
-                    <label class="form-label" style="color: aquamarine;">ADX Trending Min</label>
-                    <input type="number" step="1" class="form-control" name="regime_trending_adx_min" value="{{ state.regime_trending_adx_min or 25 }}" required min="15" max="40">
-                    <small class="text-muted" style="color: #fff !important;">ADX para considerar trending</small>
-                </div>
-                <div class="col-md-4">
-                    <label class="form-label" style="color: aquamarine;">ADX Ranging Max</label>
-                    <input type="number" step="1" class="form-control" name="regime_ranging_adx_max" value="{{ state.regime_ranging_adx_max or 18 }}" required min="10" max="25">
-                    <small class="text-muted" style="color: #fff !important;">ADX máximo para ranging</small>
-                </div>
-                <div class="col-md-4">
-                    <label class="form-label" style="color: aquamarine;">Hunt Vol Ratio Min</label>
-                    <input type="number" step="0.1" class="form-control" name="regime_hunt_vol_ratio_min" value="{{ state.regime_hunt_vol_ratio_min or 1.3 }}" required min="0.5" max="3">
-                    <small class="text-muted" style="color: #fff !important;">Volumen para hunts</small>
-                </div>
-            </div>
-
-            <div class="col-12 mt-3">
-                <button type="button" class="btn btn-primary" id="openConfirmVwap">
-                    <i class="bi bi-save"></i> Guardar Configuración
-                </button>
-            </div>
-        </div>
-    </div>
-
     <!-- ========================= CONFIG RSI+BB TAB ========================= -->
     <div class="tab-pane fade" id="config-rsi-bb">
         <div class="card p-4 mt-3">
@@ -1177,6 +1112,25 @@
                     <label class="form-label" style="color: aquamarine;">SL %</label>
                     <input type="number" step="0.1" class="form-control" name="rsi_bb_sl_pct" value="{{ state.rsi_bb_sl_pct or 0.6 }}" required min="0.1" max="2">
                     <small class="text-muted" style="color: #fff !important;">SL mínimo por porcentaje</small>
+                </div>
+            </div>
+
+            <h6 class="mb-3 mt-4" style="color: #f3f7f3;">MERCADO AUTO</h6>
+            <div class="row g-3 mb-3">
+                <div class="col-md-4">
+                    <label class="form-label" style="color: aquamarine;">ADX Trending Min</label>
+                    <input type="number" step="1" class="form-control" name="regime_trending_adx_min" value="{{ state.regime_trending_adx_min or 25 }}" required min="15" max="40">
+                    <small class="text-muted" style="color: #fff !important;">ADX para considerar trending</small>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label" style="color: aquamarine;">ADX Ranging Max</label>
+                    <input type="number" step="1" class="form-control" name="regime_ranging_adx_max" value="{{ state.regime_ranging_adx_max or 18 }}" required min="10" max="25">
+                    <small class="text-muted" style="color: #fff !important;">ADX máximo para ranging</small>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label" style="color: aquamarine;">Hunt Vol Ratio Min</label>
+                    <input type="number" step="0.1" class="form-control" name="regime_hunt_vol_ratio_min" value="{{ state.regime_hunt_vol_ratio_min or 1.3 }}" required min="0.5" max="3">
+                    <small class="text-muted" style="color: #fff !important;">Volumen para hunts</small>
                 </div>
             </div>
 

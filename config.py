@@ -105,14 +105,6 @@ TP_THROTTLE_SECONDS = 10      # Mínimo tiempo entre ejecuciones de TP por símb
 TP_USE_MARK_PRICE = True      # Usar Mark Price (no last) para evaluar TP
 
 # ============================================================
-# VWAP REFRESH STRATEGY
-# ============================================================
-VWAP_STD_MULT = 1.5
-VWAP_MIN_VOLUME_RATIO = 1.5
-VWAP_SL_ATR_MULT = 2.0
-VWAP_MAX_DEVIATION_PCT = 2.0
-
-# ============================================================
 # MARKET REGIME DETECTION
 # ============================================================
 REGIME_TRENDING_ADX_MIN = 25.0

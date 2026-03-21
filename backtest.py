@@ -2,7 +2,7 @@
 """
 Backtest engine para Beast Money Maker.
 
-Reutiliza las estrategias existentes (EMA Breakout, Stop Hunt, VWAP Refresh)
+Reutiliza las estrategias existentes (EMA Breakout, Stop Hunt, RSI+BB)
 y simula trading bar-a-bar con trailing stop, take profit y gestión de riesgo.
 
 Uso:
@@ -31,7 +31,6 @@ from binance.client import Client
 import config as CFG
 from strategy.ema_adx_breakout import compute_signals, build_initial_sl
 from strategy.stop_hunt import compute_stop_hunt_signals, build_stop_hunt_sl
-from strategy.vwap_refresh import compute_vwap_refresh_signals, build_vwap_refresh_sl
 from strategy.rsi_bb_reversion import compute_rsi_bb_signals, build_rsi_bb_sl
 from strategy.indicators import atr
 
@@ -43,7 +42,7 @@ from strategy.indicators import atr
 @dataclass
 class BacktestConfig:
     symbols: list = field(default_factory=lambda: ["ETHUSDT", "BNBUSDT", "SOLUSDT", "XRPUSDT", "LTCUSDT", "1000PEPEUSDT", "GRASSUSDT"])
-    strategy: str = "ema_breakout"  # ema_breakout | stop_hunt | vwap_refresh | rsi_bb_reversion
+    strategy: str = "ema_breakout"  # ema_breakout | stop_hunt | rsi_bb_reversion
     interval: str = CFG.INTERVAL
     days: int = 30
     initial_capital: float = 170.0
@@ -264,27 +263,6 @@ class BacktestEngine:
                 signal_price = sig.get("signal_price", entry_price)
                 sl_price = build_stop_hunt_sl(window, "SHORT", signal_price)
             else:
-                entry_price = 0.0
-
-        elif self.cfg.strategy == "vwap_refresh":
-            try:
-                sig = compute_vwap_refresh_signals(window)
-                atr_val = sig.get("atr", 0)
-                if sig.get("refresh_long"):
-                    signal = sig
-                    direction = "LONG"
-                    entry_price = float(df.iloc[bar]["close"])
-                    signal_price = sig.get("signal_price", entry_price)
-                    sl_price = build_vwap_refresh_sl(window, "LONG", signal_price)
-                elif sig.get("refresh_short"):
-                    signal = sig
-                    direction = "SHORT"
-                    entry_price = float(df.iloc[bar]["close"])
-                    signal_price = sig.get("signal_price", entry_price)
-                    sl_price = build_vwap_refresh_sl(window, "SHORT", signal_price)
-                else:
-                    entry_price = 0.0
-            except Exception:
                 entry_price = 0.0
 
         elif self.cfg.strategy == "rsi_bb_reversion":
@@ -618,7 +596,7 @@ def main():
     parser.add_argument("--symbol", type=str, help="Símbolo único (ej: BTCUSDT)")
     parser.add_argument("--symbols", type=str, help="Símbolos separados por coma (ej: ETHUSDT,BNBUSDT)")
     parser.add_argument("--strategy", type=str, default="ema_breakout",
-                        choices=["ema_breakout", "stop_hunt", "vwap_refresh", "rsi_bb_reversion"],
+                        choices=["ema_breakout", "stop_hunt", "rsi_bb_reversion"],
                         help="Estrategia a testear")
     parser.add_argument("--days", type=int, default=90, help="Días de historia")
     parser.add_argument("--capital", type=float, default=170.0, help="Capital inicial")
@@ -669,7 +647,7 @@ def main():
 
     if args.all:
         # Probar las 4 estrategias
-        for strategy in ["ema_breakout", "stop_hunt", "vwap_refresh", "rsi_bb_reversion"]:
+        for strategy in ["ema_breakout", "stop_hunt", "rsi_bb_reversion"]:
             cfg = BacktestConfig(**{**base_config.__dict__, "strategy": strategy})
             engine = BacktestEngine(cfg)
             result = engine.run(data)

@@ -3,7 +3,6 @@ import config as CFG
 from core.models import SignalEvent
 from strategy.ema_adx_breakout import compute_signals
 from strategy.stop_hunt import compute_stop_hunt_signals
-from strategy.vwap_refresh import compute_vwap_refresh_signals
 from strategy.rsi_bb_reversion import compute_rsi_bb_signals
 from strategy.market_regime import should_switch_strategy, get_regime_confidence
 from strategy.indicators import ema, atr, adx
@@ -43,7 +42,7 @@ class SignalEngine:
         return self._effective_mode[symbol]
 
     def set_strategy_mode(self, mode: str):
-        if mode in ["ema_breakout", "stop_hunt", "vwap_refresh", "rsi_bb_reversion", "auto"]:
+        if mode in ["ema_breakout", "stop_hunt", "rsi_bb_reversion", "auto"]:
             old_mode = self.strategy_mode
             self.strategy_mode = mode
             self._effective_mode = {} if mode == "auto" else None
@@ -74,8 +73,6 @@ class SignalEngine:
 
         if effective_mode == "stop_hunt":
             self._process_stop_hunt(symbol, df, last_close_time)
-        elif effective_mode == "vwap_refresh":
-            self._process_vwap_refresh(symbol, df, last_close_time)
         elif effective_mode == "rsi_bb_reversion":
             self._process_rsi_bb_reversion(symbol, df, last_close_time)
         else:
@@ -209,46 +206,6 @@ class SignalEngine:
                 f"hunt_info={sig.get('hunt_info', {})}"
             )
             self.log.info(f"{symbol} → SHORT signal published (stop_hunt)")
-
-    def _process_vwap_refresh(self, symbol: str, df, last_close_time):
-        sig = compute_vwap_refresh_signals(df)
-
-        refresh_long = sig["refresh_long"]
-        refresh_short = sig["refresh_short"]
-
-        self.log.info(
-            f"{symbol} | strategy=vwap_refresh | "
-            f"trend={sig['trend']} | "
-            f"refreshL={refresh_long} | "
-            f"refreshS={refresh_short} | "
-            f"vwap={sig['vwap']:.2f} | "
-            f"vol_ratio={sig['vol_ratio']:.2f} | "
-            f"range_bound={sig.get('range_bound', False)}"
-        )
-
-        if refresh_long:
-            self.bus.publish(
-                SignalEvent(symbol, "LONG", sig, last_close_time)
-            )
-            self.log.info(
-                f"{symbol} ENTRY_DEBUG | "
-                f"vwap={sig['vwap']:.2f} | "
-                f"close={sig['close']:.2f} | "
-                f"vwap_lower={sig.get('vwap_lower', 0):.2f}"
-            )
-            self.log.info(f"{symbol} → LONG signal published (vwap_refresh)")
-
-        elif refresh_short:
-            self.bus.publish(
-                SignalEvent(symbol, "SHORT", sig, last_close_time)
-            )
-            self.log.info(
-                f"{symbol} ENTRY_DEBUG | "
-                f"vwap={sig['vwap']:.2f} | "
-                f"close={sig['close']:.2f} | "
-                f"vwap_upper={sig.get('vwap_upper', 0):.2f}"
-            )
-            self.log.info(f"{symbol} → SHORT signal published (vwap_refresh)")
 
     def _process_rsi_bb_reversion(self, symbol: str, df, last_close_time):
         sig = compute_rsi_bb_signals(df)

@@ -51,11 +51,6 @@ async def update_config(payload: dict = Body(...), db = Depends(get_db)):
         "stop_hunt_min_atr_pct",
         "stop_hunt_adx_min",
         "order_block_lookback",
-        # VWAP
-        "vwap_std_mult",
-        "vwap_min_volume_ratio",
-        "vwap_sl_atr_mult",
-        "vwap_max_deviation_pct",
         # RSI + Bollinger Band
         "rsi_bb_rsi_period",
         "rsi_bb_oversold",
@@ -85,7 +80,7 @@ async def update_config(payload: dict = Body(...), db = Depends(get_db)):
 
             # Validación para strategy_mode
             if key == "strategy_mode":
-                valid_strategies = ["ema_breakout", "stop_hunt", "vwap_refresh", "rsi_bb_reversion", "auto"]
+                valid_strategies = ["ema_breakout", "stop_hunt", "rsi_bb_reversion", "auto"]
                 if payload["strategy_mode"] not in valid_strategies:
                     raise HTTPException(
                         status_code=400,

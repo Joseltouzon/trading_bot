@@ -82,11 +82,6 @@ class BotState:
     stop_hunt_adx_min: float = 18.0
     order_block_lookback: int = 5
 
-    vwap_std_mult: float = 1.5
-    vwap_min_volume_ratio: float = 1.5
-    vwap_sl_atr_mult: float = 2.0
-    vwap_max_deviation_pct: float = 2.0
-
     regime_trending_adx_min: float = 25.0
     regime_ranging_adx_max: float = 18.0
     regime_hunt_vol_ratio_min: float = 1.3

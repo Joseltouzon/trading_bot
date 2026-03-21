@@ -74,11 +74,6 @@ def sync_cfg_from_state(st):
     CFG.STOP_HUNT_ADX_MIN = float(getattr(st, "stop_hunt_adx_min", CFG.STOP_HUNT_ADX_MIN))
     CFG.ORDER_BLOCK_LOOKBACK = int(getattr(st, "order_block_lookback", CFG.ORDER_BLOCK_LOOKBACK))
 
-    CFG.VWAP_STD_MULT = float(getattr(st, "vwap_std_mult", CFG.VWAP_STD_MULT))
-    CFG.VWAP_MIN_VOLUME_RATIO = float(getattr(st, "vwap_min_volume_ratio", CFG.VWAP_MIN_VOLUME_RATIO))
-    CFG.VWAP_SL_ATR_MULT = float(getattr(st, "vwap_sl_atr_mult", CFG.VWAP_SL_ATR_MULT))
-    CFG.VWAP_MAX_DEVIATION_PCT = float(getattr(st, "vwap_max_deviation_pct", CFG.VWAP_MAX_DEVIATION_PCT))
-
     CFG.REGIME_TRENDING_ADX_MIN = float(getattr(st, "regime_trending_adx_min", CFG.REGIME_TRENDING_ADX_MIN))
     CFG.REGIME_RANGING_ADX_MAX = float(getattr(st, "regime_ranging_adx_max", CFG.REGIME_RANGING_ADX_MAX))
     CFG.REGIME_HUNT_VOL_RATIO_MIN = float(getattr(st, "regime_hunt_vol_ratio_min", CFG.REGIME_HUNT_VOL_RATIO_MIN))
@@ -220,8 +215,7 @@ def main():
     strategy_labels = {
         "ema_breakout": "EMA Breakout",
         "stop_hunt": "Stop Hunt",
-        "vwap_refresh": "VWAP Refresh",
-        "rsi_bb_reversion": "RSI + BB Reversion",
+        "rsi_bb_reversion": "RSI+BB Reversion",
         "auto": f"Auto (analizando...)",
     }
     strategy_label = strategy_labels.get(st.strategy_mode, "EMA Breakout")

@@ -75,7 +75,7 @@ def calculate_regime_metrics(df: pd.DataFrame) -> dict:
         regime = "RANGING"
         confidence = 0.65 + (0.25 * min(vol_ratio / 2.0, 1.0))
     elif adx_val <= ranging_threshold and range_bound:
-        recommended_strategy = "vwap_refresh"
+        recommended_strategy = "stop_hunt"
         regime = "RANGING"
         confidence = 0.7 + (0.3 * min(vol_ratio / 2.0, 1.0))
     elif adx_val > ranging_threshold and adx_val < trending_threshold:
