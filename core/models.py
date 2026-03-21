@@ -35,6 +35,9 @@ class BotState:
     adx_min: float = 20.0
     cooldown_bars: int = 5
     daily_loss_limit_pct: float = 10.0
+    # Legacy fields (compatibilidad DB)
+    vol_min_ratio: float = 1.2
+    adx_rising: bool = False
     pivot_len: int = 5
     timeframe: str = "5m"
 
