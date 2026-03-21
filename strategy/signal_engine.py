@@ -8,6 +8,7 @@ from strategy.ema_adx_breakout import compute_signals
 from strategy.stop_hunt import compute_stop_hunt_signals
 from strategy.rsi_bb_reversion import compute_rsi_bb_signals
 from strategy.macd_momentum import compute_macd_momentum_signals
+from strategy.structure_break import compute_structure_break_signals
 
 
 # Estrategias activas y sus timeframes
@@ -16,6 +17,7 @@ ACTIVE_STRATEGIES = {
     "stop_hunt": {"compute": compute_stop_hunt_signals, "short": "HNT"},
     "ema_breakout": {"compute": compute_signals, "short": "EMA"},
     "macd_momentum": {"compute": compute_macd_momentum_signals, "short": "MAC"},
+    "structure_break": {"compute": compute_structure_break_signals, "short": "STR"},
 }
 
 

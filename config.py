@@ -12,12 +12,14 @@ STRATEGY_INTERVALS = {
     "stop_hunt": "5m",
     "ema_breakout": "15m",
     "macd_momentum": "15m",
+    "structure_break": "5m",
 }
 DEFAULT_STRATEGY_SYMBOLS = {
     "rsi_bb_reversion": ["XRPUSDT", "1000PEPEUSDT", "AVAXUSDT", "TIAUSDT", "ORDIUSDT"],
     "stop_hunt":        ["XRPUSDT", "1000PEPEUSDT", "AVAXUSDT", "TIAUSDT", "ORDIUSDT"],
     "macd_momentum":    ["XRPUSDT", "AVAXUSDT", "SOLUSDT", "LINKUSDT", "TIAUSDT"],
     "ema_breakout":     [],
+    "structure_break":  [],
 }
 REQUIRED_INTERVALS = sorted(set(STRATEGY_INTERVALS.values()))  # ["15m", "5m"]
 
@@ -166,3 +168,17 @@ MACD_ADX_MIN = 25.0                 # ADX mínimo (momentum real)
 MACD_MIN_ATR_PCT = 0.20             # Volatilidad mínima
 MACD_STRUCTURE_LOOKBACK = 10        # Velas para higher high / lower low
 MACD_SL_ATR_MULT = 2.0              # ATR multiplier para SL
+
+# ============================================================
+# STRUCTURE BREAK + RETEST
+# ============================================================
+STRUCTURE_SWING_WINDOW = 5          # Ventana para swing highs/lows
+STRUCTURE_LOOKBACK = 60             # Velas hacia atrás para buscar swings
+STRUCTURE_BREAK_LOOKBACK = 10       # Velas para buscar ruptura
+STRUCTURE_MIN_BREAK_VOLUME = 2.0    # Volumen mínimo en vela de ruptura (2x)
+STRUCTURE_RETEST_LOOKBACK = 8       # Velas después de ruptura para buscar retest
+STRUCTURE_RETEST_TOLERANCE_ATR = 0.5 # Tolerancia de retest (en ATR)
+STRUCTURE_SL_BUFFER_ATR = 1.0       # Buffer ATR para SL
+STRUCTURE_ADX_MIN = 15.0            # ADX mínimo
+STRUCTURE_MIN_VOLUME_RATIO = 1.0    # Volumen mínimo
+STRUCTURE_MIN_ATR_PCT = 0.10        # Volatilidad mínima

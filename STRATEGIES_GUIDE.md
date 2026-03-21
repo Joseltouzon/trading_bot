@@ -1,38 +1,24 @@
 # Guía de Estrategias — Beast Money Maker
 
-## Arquitectura Multi-Timeframe
+## Comparación Final (30 días, leverage 5x)
 
-El bot ejecuta **3 estrategias en paralelo** (mode auto):
+```
+                    Símbolos T/mes  T/día   WR      PF      Ret     DD
+================================================================
+RSI+BB (5m):         6       65     2.17    64.6%   2.35    +0.74%  0.26%
+Stop Hunt (5m):      5       11     0.37    81.8%   4.25    +0.19%  0.07%
+MACD (15m):          5       99     3.30    56.6%   2.82    +1.47%  0.14%
+Structure (5m):      5      215     7.17    59.1%   2.22    +2.13%  0.27%
+================================================================
+TOTAL:              21      390    13.00      -       -     +4.53%  0.74%
+================================================================
+```
 
-| Estrategia | Timeframe | Símbolos |
-|-----------|-----------|----------|
-| RSI+BB Reversion | **5m** | XRP, PEPE, AVAX, TIA, ORDI, TAO |
-| Stop Hunt | **5m** | XRP, PEPE, AVAX, TIA, ORDI |
-| MACD Momentum | **15m** | PENDLE, XRP, AVAX, SOL, RUNE |
-
-`MarketCache` mantiene DFs separados por timeframe. `SignalEngine` ejecuta las 3 estrategias, cada una con su DF correcto.
+Mode auto ejecuta RSI+BB + Stop Hunt + MACD (3 estrategias). Structure disponible individualmente.
 
 ---
 
-## Backtest Final (símbolos actuales, 30 días)
-
-```
-                    Trades  T/día   T/sem   WR      PF      Return  PnL
-================================================================
-RSI+BB (5m):         65     2.17    15.1   64.6%   2.35    +0.74%  +$1.41
-Stop Hunt (5m):      11     0.37     2.6   81.8%   4.25    +0.19%  +$0.36
-MACD (15m):          99     3.30    23.0   56.6%   2.82    +1.47%  +$2.76
-================================================================
-TOTAL:              175     5.84    40.7    -       -      +2.40%  +$4.53
-================================================================
-PnL incluye leverage 5x. Sharpe promedio ~4.5.
-```
-
----
-
-## 1. RSI + Bollinger Band Mean Reversion (5m) ⭐
-
-Captura sobreextensiones de precio combinando RSI extremes, Bollinger Bands y divergencias.
+## 1. RSI + Bollinger Band Mean Reversion (5m)
 
 ### Símbolos
 XRPUSDT, 1000PEPEUSDT, AVAXUSDT, TIAUSDT, ORDIUSDT, TAOUSDT
@@ -52,21 +38,9 @@ XRPUSDT, 1000PEPEUSDT, AVAXUSDT, TIAUSDT, ORDIUSDT, TAOUSDT
 2. Classic divergence (swing points)
 3. Extreme RSI (< 20 / > 80) + vela direccional
 
-### Rendimiento por símbolo
-| Símbolo | Trades | WR | PnL |
-|---------|--------|-----|------|
-| PEPEUSDT | 8 | 100% | +$0.36 |
-| AVAXUSDT | 14 | 57% | +$0.27 |
-| XRPUSDT | 16 | 56% | +$0.22 |
-| TIAUSDT | 10 | 70% | +$0.21 |
-| ORDIUSDT | 10 | 60% | +$0.18 |
-| TAOUSDT | 7 | 57% | +$0.17 |
-
 ---
 
-## 2. Stop Hunt (5m) 🏆
-
-Estrategia institucional que detecta hunts de liquidez en swing levels.
+## 2. Stop Hunt (5m)
 
 ### Símbolos
 XRPUSDT, 1000PEPEUSDT, AVAXUSDT, TIAUSDT, ORDIUSDT
@@ -80,14 +54,11 @@ XRPUSDT, 1000PEPEUSDT, AVAXUSDT, TIAUSDT, ORDIUSDT
 | STOP_HUNT_MIN_VOLUME_RATIO | 1.5 | Volumen mínimo |
 | STOP_HUNT_ATR_MULT_SL | 2.0 | ATR multiplier SL |
 
-### Nota
-Baja frecuencia (11 trades/mes) pero la más precisa (WR 81.8%, PF 4.25). No ajustar parámetros — la calidad es la prioridad.
+**Nota:** Baja frecuencia pero la más precisa (WR 81.8%, PF 4.25).
 
 ---
 
-## 3. MACD Momentum + Volume Spike (15m) 💰
-
-Captura tendencias fuertes que RSI+BB ignora.
+## 3. MACD Momentum + Volume Spike (15m)
 
 ### Símbolos
 PENDLEUSDT, XRPUSDT, AVAXUSDT, SOLUSDT, RUNEUSDT
@@ -102,23 +73,30 @@ PENDLEUSDT, XRPUSDT, AVAXUSDT, SOLUSDT, RUNEUSDT
 | MACD_ADX_MIN | 25.0 | ADX mínimo |
 | MACD_SL_ATR_MULT | 2.0 | ATR multiplier SL |
 
-### Rendimiento por símbolo
-| Símbolo | Trades | WR | PnL |
-|---------|--------|-----|------|
-| SOLUSDT | 27 | 56% | +$0.87 |
-| PENDLEUSDT | 16 | 69% | +$0.71 |
-| XRPUSDT | 22 | 59% | +$0.46 |
-| AVAXUSDT | 19 | 53% | +$0.36 |
-| RUNEUSDT | 15 | 47% | +$0.36 |
-
 ---
 
-## 4. Configuración desde el Dashboard
+## 4. Structure Break + Retest (5m)
 
-```
-strategy_mode: "auto" (ejecuta RSI+BB + Stop Hunt + MACD)
-Cada estrategia tiene sus propios símbolos configurados en su tab.
-```
+### Símbolos
+FILUSDT, DOGEUSDT, APTUSDT, WIFUSDT, ATOMUSDT
+
+### Parámetros clave
+| Parámetro | Default | Descripción |
+|-----------|---------|-------------|
+| STRUCTURE_SWING_WINDOW | 5 | Ventana para swing highs/lows |
+| STRUCTURE_LOOKBACK | 60 | Velas para buscar swings |
+| STRUCTURE_BREAK_LOOKBACK | 10 | Velas para buscar ruptura |
+| STRUCTURE_MIN_BREAK_VOLUME | 2.0 | Volumen mínimo en ruptura (2x) |
+| STRUCTURE_RETEST_LOOKBACK | 8 | Velas después de ruptura para retest |
+| STRUCTURE_RETEST_TOLERANCE_ATR | 0.5 | Tolerancia de retest (ATR) |
+| STRUCTURE_SL_BUFFER_ATR | 1.0 | Buffer ATR para SL |
+| STRUCTURE_ADX_MIN | 15.0 | ADX mínimo |
+
+### Lógica
+1. **Estructura rota**: precio cierra por encima del swing high (LONG) o por debajo del swing low (SHORT)
+2. **Volumen spike**: la vela de ruptura tiene volumen 2x+ (institucionales entrando)
+3. **Retest**: precio vuelve a tocar el nivel roto y se rechaza
+4. **Entry**: en el retest, no en el breakout
 
 ---
 
@@ -128,6 +106,7 @@ Cada estrategia tiene sus propios símbolos configurados en su tab.
 strategy/rsi_bb_reversion.py    # RSI+BB (5m)
 strategy/stop_hunt.py           # Stop Hunt (5m)
 strategy/macd_momentum.py       # MACD Momentum (15m)
+strategy/structure_break.py     # Structure Break (5m)
 strategy/signal_engine.py       # Motor multi-estrategia
 strategy/indicators.py          # EMA, ATR, ADX, RSI, Bollinger, MACD
 execution/event_loop.py         # Guards y ejecución

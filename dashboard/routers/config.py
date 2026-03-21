@@ -96,6 +96,15 @@ async def update_config(payload: dict = Body(...), db = Depends(get_db)):
         "macd_min_atr_pct",
         "macd_structure_lookback",
         "macd_sl_atr_mult",
+        # Structure Break
+        "structure_swing_window",
+        "structure_lookback",
+        "structure_break_lookback",
+        "structure_retest_lookback",
+        "structure_retest_tolerance_atr",
+        "structure_min_break_volume",
+        "structure_sl_buffer_atr",
+        "structure_adx_min",
     ]
     for key in allowed_keys:
         if key in payload:
@@ -110,7 +119,7 @@ async def update_config(payload: dict = Body(...), db = Depends(get_db)):
 
             # Validación para strategy_mode
             if key == "strategy_mode":
-                valid_strategies = ["ema_breakout", "stop_hunt", "rsi_bb_reversion", "macd_momentum", "auto"]
+                valid_strategies = ["ema_breakout", "stop_hunt", "rsi_bb_reversion", "macd_momentum", "structure_break", "auto"]
                 if payload["strategy_mode"] not in valid_strategies:
                     raise HTTPException(
                         status_code=400,

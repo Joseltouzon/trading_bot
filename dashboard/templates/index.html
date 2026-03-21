@@ -58,6 +58,11 @@
             <i class="bi bi-activity"></i> Config MACD
         </button>
     </li>
+    <li class="nav-item" style="margin-bottom: 20px;">
+        <button class="nav-link" data-bs-toggle="pill" data-bs-target="#config-structure">
+            <i class="bi bi-diagram-3"></i> Config Structure
+        </button>
+    </li>
 </ul>
 
 <div class="tab-content">
@@ -780,6 +785,7 @@
                                 {% elif state.strategy_mode == 'stop_hunt' %}Stop Hunt
                                 {% elif state.strategy_mode == 'rsi_bb_reversion' %}RSI+BB Reversion
                                 {% elif state.strategy_mode == 'macd_momentum' %}MACD Momentum
+                                {% elif state.strategy_mode == 'structure_break' %}Structure Break
                                 {% elif state.strategy_mode == 'auto' %}Auto (Mercado)
                                 {% else %}EMA Breakout{% endif %}
                             </span>
@@ -789,6 +795,7 @@
                             <option value="stop_hunt" {% if state.strategy_mode=='stop_hunt' %}selected{% endif %}>Stop Hunt</option>
                             <option value="rsi_bb_reversion" {% if state.strategy_mode=='rsi_bb_reversion' %}selected{% endif %}>RSI+BB Reversion</option>
                             <option value="macd_momentum" {% if state.strategy_mode=='macd_momentum' %}selected{% endif %}>MACD Momentum</option>
+                            <option value="structure_break" {% if state.strategy_mode=='structure_break' %}selected{% endif %}>Structure Break</option>
                             <option value="auto" {% if state.strategy_mode=='auto' %}selected{% endif %}>Auto (Mercado)</option>
                         </select>
                         <small class="text-muted" style="color: #fff !important;">Auto detecta régimen y cambia estrategia</small>
@@ -1202,6 +1209,65 @@
 
             <div class="col-12 mt-3">
                 <button type="button" class="btn btn-primary" id="openConfirmMacd">
+                    <i class="bi bi-save"></i> Guardar Configuración
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================= CONFIG STRUCTURE TAB ========================= -->
+    <div class="tab-pane fade" id="config-structure">
+        <div class="card p-4 mt-3">
+            <h5 class="mb-4" style="color: #f3f7f3;">CONFIG STRUCTURE BREAK + RETEST (5m)</h5>
+            <div class="row g-3 mb-3">
+                <div class="col-md-12">
+                    <label class="form-label" style="color: aquamarine;">Símbolos (separados por coma)</label>
+                    <input type="text" class="form-control" name="strategy_symbols_structure_break" value="{{ ', '.join(state.strategy_symbols.get('structure_break', [])) }}" placeholder="Ej: FILUSDT, DOGEUSDT">
+                </div>
+            </div>
+
+            <h6 class="mb-3" style="color: aquamarine;">Structure</h6>
+            <div class="row g-3 mb-3">
+                <div class="col-md-3">
+                    <label class="form-label" style="color: aquamarine;">Swing Window</label>
+                    <input type="number" step="1" class="form-control" name="structure_swing_window" value="{{ state.structure_swing_window or 5 }}" required min="2" max="10">
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label" style="color: aquamarine;">Lookback</label>
+                    <input type="number" step="1" class="form-control" name="structure_lookback" value="{{ state.structure_lookback or 60 }}" required min="20" max="120">
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label" style="color: aquamarine;">Break Lookback</label>
+                    <input type="number" step="1" class="form-control" name="structure_break_lookback" value="{{ state.structure_break_lookback or 10 }}" required min="3" max="20">
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label" style="color: aquamarine;">Retest Lookback</label>
+                    <input type="number" step="1" class="form-control" name="structure_retest_lookback" value="{{ state.structure_retest_lookback or 8 }}" required min="3" max="15">
+                </div>
+            </div>
+
+            <h6 class="mb-3 mt-4" style="color: aquamarine;">Filtros</h6>
+            <div class="row g-3 mb-3">
+                <div class="col-md-3">
+                    <label class="form-label" style="color: aquamarine;">Min Break Volume</label>
+                    <input type="number" step="0.5" class="form-control" name="structure_min_break_volume" value="{{ state.structure_min_break_volume or 2.0 }}" required min="1" max="5">
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label" style="color: aquamarine;">Retest Tolerance ATR</label>
+                    <input type="number" step="0.1" class="form-control" name="structure_retest_tolerance_atr" value="{{ state.structure_retest_tolerance_atr or 0.5 }}" required min="0.1" max="2">
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label" style="color: aquamarine;">ADX Min</label>
+                    <input type="number" step="1" class="form-control" name="structure_adx_min" value="{{ state.structure_adx_min or 15 }}" required min="5" max="30">
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label" style="color: aquamarine;">SL Buffer ATR</label>
+                    <input type="number" step="0.1" class="form-control" name="structure_sl_buffer_atr" value="{{ state.structure_sl_buffer_atr or 1.0 }}" required min="0.5" max="3">
+                </div>
+            </div>
+
+            <div class="col-12 mt-3">
+                <button type="button" class="btn btn-primary" id="openConfirmStructure">
                     <i class="bi bi-save"></i> Guardar Configuración
                 </button>
             </div>

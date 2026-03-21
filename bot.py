@@ -121,6 +121,16 @@ def sync_cfg_from_state(st):
     CFG.MACD_STRUCTURE_LOOKBACK = int(getattr(st, "macd_structure_lookback", CFG.MACD_STRUCTURE_LOOKBACK))
     CFG.MACD_SL_ATR_MULT = float(getattr(st, "macd_sl_atr_mult", CFG.MACD_SL_ATR_MULT))
 
+    # Structure Break
+    CFG.STRUCTURE_SWING_WINDOW = int(getattr(st, "structure_swing_window", CFG.STRUCTURE_SWING_WINDOW))
+    CFG.STRUCTURE_LOOKBACK = int(getattr(st, "structure_lookback", CFG.STRUCTURE_LOOKBACK))
+    CFG.STRUCTURE_BREAK_LOOKBACK = int(getattr(st, "structure_break_lookback", CFG.STRUCTURE_BREAK_LOOKBACK))
+    CFG.STRUCTURE_RETEST_LOOKBACK = int(getattr(st, "structure_retest_lookback", CFG.STRUCTURE_RETEST_LOOKBACK))
+    CFG.STRUCTURE_RETEST_TOLERANCE_ATR = float(getattr(st, "structure_retest_tolerance_atr", CFG.STRUCTURE_RETEST_TOLERANCE_ATR))
+    CFG.STRUCTURE_MIN_BREAK_VOLUME = float(getattr(st, "structure_min_break_volume", CFG.STRUCTURE_MIN_BREAK_VOLUME))
+    CFG.STRUCTURE_SL_BUFFER_ATR = float(getattr(st, "structure_sl_buffer_atr", CFG.STRUCTURE_SL_BUFFER_ATR))
+    CFG.STRUCTURE_ADX_MIN = float(getattr(st, "structure_adx_min", CFG.STRUCTURE_ADX_MIN))
+
 
 def main():
     validate_config()

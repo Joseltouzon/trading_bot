@@ -184,6 +184,7 @@ except Exception as e:
 - `strategy/stop_hunt.py` — Mean-reversion / Liquidity (5m)
 - `strategy/rsi_bb_reversion.py` — Mean-reversion RSI + Bollinger (5m)
 - `strategy/macd_momentum.py` — Momentum + Volume Spike (15m)
+- `strategy/structure_break.py` — Market Structure Break + Retest (5m) 🆕
 - `strategy/signal_engine.py` — Motor multi-estrategia
 - `strategy/indicators.py` — EMA, ATR, ADX, RSI, Bollinger, Stochastic, MACD
 - `strategy/pivots.py` — Pivot highs/lows vectorizados
@@ -288,8 +289,10 @@ Cada estrategia devuelve un dict con:
 
 ## 4. Modo Auto
 
-`auto` ejecuta las 4 estrategias en paralelo por cada símbolo:
-- RSI+BB (5m) + Stop Hunt (5m) + EMA Breakout (15m) + MACD Momentum (15m)
+`auto` ejecuta 3 estrategias en paralelo por cada símbolo:
+- RSI+BB (5m) + Stop Hunt (5m) + MACD Momentum (15m)
+
+EMA Breakout está disponible manualmente pero no en auto (no funciona bien). Structure Break disponible individualmente.
 
 ---
 
@@ -303,8 +306,8 @@ El engine ejecuta **las 4 estrategias en paralelo** por cada símbolo:
 |-----------|-----------|-----------|
 | RSI+BB Reversion | 5m | Cada 5 minutos |
 | Stop Hunt | 5m | Cada 5 minutos |
-| EMA Breakout | 15m | Cada 15 minutos |
 | MACD Momentum | 15m | Cada 15 minutos |
+| Structure Break | 5m | Cada 5 minutos |
 
 ### Flujo `process_symbol()`
 
@@ -323,7 +326,7 @@ Para cada estrategia en ACTIVE_STRATEGIES:
 | Método | Propósito |
 |--------|-----------|
 | `process_symbol(symbol, max_positions)` | Ejecuta las 4 estrategias con sus DFs |
-| `set_strategy_mode(mode)` | `all`/`auto` = 4 estrategias, o una individual |
+| `set_strategy_mode(mode)` | `all`=4 estrategias, `auto`=3 (sin EMA), o una individual |
 
 ### Config
 
@@ -875,6 +878,7 @@ Cooldown entre alertas: 10 min. Usa `get_used_margin()`, `get_available_balance(
 | `stop_hunt.py` | Estrategia Stop Hunt (5m) |
 | `rsi_bb_reversion.py` | Estrategia RSI + Bollinger Band (5m) |
 | `macd_momentum.py` | Estrategia MACD Momentum (15m) |
+| `structure_break.py` | Estrategia Market Structure Break + Retest (5m) 🆕 |
 | `signal_engine.py` | Motor multi-estrategia (4 en paralelo) |
 | `indicators.py` | EMA, ATR, ADX, RSI, Bollinger, Stochastic, MACD |
 | `pivots.py` | Pivot highs/lows vectorizados |

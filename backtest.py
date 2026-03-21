@@ -33,6 +33,7 @@ from strategy.ema_adx_breakout import compute_signals, build_initial_sl
 from strategy.stop_hunt import compute_stop_hunt_signals, build_stop_hunt_sl
 from strategy.rsi_bb_reversion import compute_rsi_bb_signals, build_rsi_bb_sl
 from strategy.macd_momentum import compute_macd_momentum_signals, build_macd_momentum_sl
+from strategy.structure_break import compute_structure_break_signals, build_structure_sl
 from strategy.indicators import atr
 
 
@@ -299,6 +300,24 @@ class BacktestEngine:
                 entry_price = float(df.iloc[bar]["close"])
                 signal_price = sig.get("signal_price", entry_price)
                 sl_price = build_macd_momentum_sl(window, "SHORT", signal_price)
+            else:
+                entry_price = 0.0
+
+        elif self.cfg.strategy == "structure_break":
+            sig = compute_structure_break_signals(window)
+            atr_val = sig.get("atr", 0)
+            if sig.get("breakout_long"):
+                signal = sig
+                direction = "LONG"
+                entry_price = float(df.iloc[bar]["close"])
+                signal_price = sig.get("signal_price", entry_price)
+                sl_price = build_structure_sl(window, "LONG", signal_price)
+            elif sig.get("breakout_short"):
+                signal = sig
+                direction = "SHORT"
+                entry_price = float(df.iloc[bar]["close"])
+                signal_price = sig.get("signal_price", entry_price)
+                sl_price = build_structure_sl(window, "SHORT", signal_price)
             else:
                 entry_price = 0.0
 
@@ -616,7 +635,7 @@ def main():
     parser.add_argument("--symbol", type=str, help="Símbolo único (ej: BTCUSDT)")
     parser.add_argument("--symbols", type=str, help="Símbolos separados por coma (ej: ETHUSDT,BNBUSDT)")
     parser.add_argument("--strategy", type=str, default="ema_breakout",
-                        choices=["ema_breakout", "stop_hunt", "rsi_bb_reversion", "macd_momentum"],
+                        choices=["ema_breakout", "stop_hunt", "rsi_bb_reversion", "macd_momentum", "structure_break"],
                         help="Estrategia a testear")
     parser.add_argument("--days", type=int, default=90, help="Días de historia")
     parser.add_argument("--capital", type=float, default=170.0, help="Capital inicial")

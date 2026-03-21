@@ -121,8 +121,15 @@ class BotState:
     macd_structure_lookback: int = 10
     macd_sl_atr_mult: float = 2.0
 
-    def copy(self):
-        return copy.deepcopy(self)
+    # Structure Break
+    structure_swing_window: int = 5
+    structure_lookback: int = 60
+    structure_break_lookback: int = 10
+    structure_retest_lookback: int = 8
+    structure_retest_tolerance_atr: float = 0.5
+    structure_min_break_volume: float = 2.0
+    structure_sl_buffer_atr: float = 1.0
+    structure_adx_min: float = 15.0
 
     def to_dict(self):
         return asdict(self)

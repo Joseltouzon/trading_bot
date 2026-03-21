@@ -159,6 +159,7 @@
             const openConfirmStophunt = document.getElementById('openConfirmStophunt')
             const openConfirmRsiBB = document.getElementById('openConfirmRsiBB')
             const openConfirmMacd = document.getElementById('openConfirmMacd')
+            const openConfirmStructure = document.getElementById('openConfirmStructure')
             const confirmSave = document.getElementById('confirmSave')
             const modal = new bootstrap.Modal(document.getElementById('confirmModal'))
             const toastEl = document.getElementById('mainToast')
@@ -201,6 +202,16 @@
 
             if (openConfirmMacd) {
                 openConfirmMacd.addEventListener('click', () => {
+                    if (!form.checkValidity()) {
+                        form.classList.add('was-validated')
+                        return
+                    }
+                    modal.show()
+                })
+            }
+
+            if (openConfirmStructure) {
+                openConfirmStructure.addEventListener('click', () => {
                     if (!form.checkValidity()) {
                         form.classList.add('was-validated')
                         return
