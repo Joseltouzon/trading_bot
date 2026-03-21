@@ -63,3 +63,15 @@ def stochastic_rsi(series: pd.Series, rsi_period: int = 14, stoch_period: int = 
     stoch_k = stoch_k_raw.rolling(window=smooth_k, min_periods=1).mean().fillna(50.0)
     stoch_d = stoch_k.rolling(window=smooth_d, min_periods=1).mean().fillna(50.0)
     return {"k": stoch_k, "d": stoch_d}
+
+def macd(series: pd.Series, fast: int = 12, slow: int = 26, signal: int = 9) -> dict:
+    ema_fast = series.ewm(span=fast, adjust=False).mean()
+    ema_slow = series.ewm(span=slow, adjust=False).mean()
+    macd_line = ema_fast - ema_slow
+    signal_line = macd_line.ewm(span=signal, adjust=False).mean()
+    histogram = macd_line - signal_line
+    return {
+        "macd": macd_line,
+        "signal": signal_line,
+        "histogram": histogram,
+    }

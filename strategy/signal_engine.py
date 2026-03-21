@@ -4,6 +4,7 @@ from core.models import SignalEvent
 from strategy.ema_adx_breakout import compute_signals
 from strategy.stop_hunt import compute_stop_hunt_signals
 from strategy.rsi_bb_reversion import compute_rsi_bb_signals
+from strategy.macd_momentum import compute_macd_momentum_signals
 from strategy.market_regime import should_switch_strategy, get_regime_confidence
 from strategy.indicators import ema, atr, adx
 
@@ -42,7 +43,7 @@ class SignalEngine:
         return self._effective_mode[symbol]
 
     def set_strategy_mode(self, mode: str):
-        if mode in ["ema_breakout", "stop_hunt", "rsi_bb_reversion", "auto"]:
+        if mode in ["ema_breakout", "stop_hunt", "rsi_bb_reversion", "macd_momentum", "auto"]:
             old_mode = self.strategy_mode
             self.strategy_mode = mode
             self._effective_mode = {} if mode == "auto" else None
@@ -75,6 +76,8 @@ class SignalEngine:
             self._process_stop_hunt(symbol, df, last_close_time)
         elif effective_mode == "rsi_bb_reversion":
             self._process_rsi_bb_reversion(symbol, df, last_close_time)
+        elif effective_mode == "macd_momentum":
+            self._process_macd_momentum(symbol, df, last_close_time)
         else:
             self._process_ema_breakout(symbol, df, last_close_time)
 
@@ -252,3 +255,31 @@ class SignalEngine:
                 f"atr={sig['atr']:.4f} ({sig['atr_pct']:.2f}%)"
             )
             self.log.info(f"{symbol} → SHORT signal published (rsi_bb_reversion)")
+
+    def _process_macd_momentum(self, symbol: str, df, last_close_time):
+        sig = compute_macd_momentum_signals(df)
+
+        signal_long = sig["breakout_long"]
+        signal_short = sig["breakout_short"]
+
+        self.log.info(
+            f"{symbol} | strategy=macd_momentum | "
+            f"trend={sig['trend']} | "
+            f"sigL={signal_long} | "
+            f"sigS={signal_short} | "
+            f"hist={sig.get('macd_histogram', 0):.4f} | "
+            f"type={sig.get('signal_type', 'none')} | "
+            f"vol={sig['vol_ratio']:.2f}"
+        )
+
+        if signal_long:
+            self.bus.publish(
+                SignalEvent(symbol, "LONG", sig, last_close_time)
+            )
+            self.log.info(f"{symbol} → LONG signal published (macd_momentum)")
+
+        elif signal_short:
+            self.bus.publish(
+                SignalEvent(symbol, "SHORT", sig, last_close_time)
+            )
+            self.log.info(f"{symbol} → SHORT signal published (macd_momentum)")

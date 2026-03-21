@@ -80,7 +80,7 @@ async def update_config(payload: dict = Body(...), db = Depends(get_db)):
 
             # Validación para strategy_mode
             if key == "strategy_mode":
-                valid_strategies = ["ema_breakout", "stop_hunt", "rsi_bb_reversion", "auto"]
+                valid_strategies = ["ema_breakout", "stop_hunt", "rsi_bb_reversion", "macd_momentum", "auto"]
                 if payload["strategy_mode"] not in valid_strategies:
                     raise HTTPException(
                         status_code=400,

@@ -216,6 +216,7 @@ def main():
         "ema_breakout": "EMA Breakout",
         "stop_hunt": "Stop Hunt",
         "rsi_bb_reversion": "RSI+BB Reversion",
+        "macd_momentum": "MACD Momentum",
         "auto": f"Auto (analizando...)",
     }
     strategy_label = strategy_labels.get(st.strategy_mode, "EMA Breakout")

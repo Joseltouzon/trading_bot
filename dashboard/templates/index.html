@@ -775,6 +775,7 @@
                                 {% if state.strategy_mode == 'ema_breakout' %}EMA Breakout
                                 {% elif state.strategy_mode == 'stop_hunt' %}Stop Hunt
                                 {% elif state.strategy_mode == 'rsi_bb_reversion' %}RSI+BB Reversion
+                                {% elif state.strategy_mode == 'macd_momentum' %}MACD Momentum
                                 {% elif state.strategy_mode == 'auto' %}Auto (Mercado)
                                 {% else %}EMA Breakout{% endif %}
                             </span>
@@ -783,6 +784,7 @@
                             <option value="ema_breakout" {% if state.strategy_mode=='ema_breakout' %}selected{% endif %}>EMA Breakout</option>
                             <option value="stop_hunt" {% if state.strategy_mode=='stop_hunt' %}selected{% endif %}>Stop Hunt</option>
                             <option value="rsi_bb_reversion" {% if state.strategy_mode=='rsi_bb_reversion' %}selected{% endif %}>RSI+BB Reversion</option>
+                            <option value="macd_momentum" {% if state.strategy_mode=='macd_momentum' %}selected{% endif %}>MACD Momentum</option>
                             <option value="auto" {% if state.strategy_mode=='auto' %}selected{% endif %}>Auto (Mercado)</option>
                         </select>
                         <small class="text-muted" style="color: #fff !important;">Auto detecta régimen y cambia estrategia</small>

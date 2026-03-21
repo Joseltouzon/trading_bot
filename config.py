@@ -142,3 +142,18 @@ RSI_BB_MIN_ATR_PCT = 0.15           # Volatilidad mínima
 RSI_BB_SL_ATR_MULT = 2.5            # ATR multiplier para SL (balanceado)
 RSI_BB_SL_PCT = 0.60                # SL mínimo por porcentaje
 RSI_BB_REQUIRE_DIVERGENCE = True    # True = requiere divergencia real, no solo rejection
+
+# ============================================================
+# MACD MOMENTUM + VOLUME SPIKE
+# ============================================================
+MACD_FAST = 12                      # MACD fast EMA
+MACD_SLOW = 26                      # MACD slow EMA
+MACD_SIGNAL = 9                     # MACD signal line
+MACD_MIN_VOLUME_RATIO = 3.5         # Volume spike mínimo (3.5x media)
+MACD_RSI_PERIOD = 14                # RSI para confirmación direccional
+MACD_RSI_BULL_MIN = 58              # RSI mínimo para LONG
+MACD_RSI_BEAR_MAX = 42              # RSI máximo para SHORT
+MACD_ADX_MIN = 28.0                 # ADX mínimo (alto para momentum real)
+MACD_MIN_ATR_PCT = 0.20             # Volatilidad mínima
+MACD_STRUCTURE_LOOKBACK = 10        # Velas para higher high / lower low
+MACD_SL_ATR_MULT = 2.0              # ATR multiplier para SL
