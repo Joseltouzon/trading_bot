@@ -40,8 +40,11 @@ class SignalEngine:
 
     def _get_strategies_to_run(self):
         """Retorna las estrategias que deben ejecutarse según el modo."""
-        if self.strategy_mode == "all" or self.strategy_mode == "auto":
+        if self.strategy_mode == "all":
             return list(ACTIVE_STRATEGIES.keys())
+        elif self.strategy_mode == "auto":
+            # auto: 3 estrategias (sin EMA que no funciona bien)
+            return ["rsi_bb_reversion", "stop_hunt", "macd_momentum"]
         elif self.strategy_mode in ACTIVE_STRATEGIES:
             return [self.strategy_mode]
         return []

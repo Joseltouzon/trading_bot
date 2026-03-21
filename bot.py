@@ -244,7 +244,7 @@ def main():
         "stop_hunt": "Stop Hunt (5m)",
         "rsi_bb_reversion": "RSI+BB (5m)",
         "macd_momentum": "MACD (15m)",
-        "auto": "Auto (4 estrategias)",
+        "auto": "Auto (3 estrategias)",
         "all": "Todas (4 estrategias)",
     }
     strategy_label = strategy_labels.get(st.strategy_mode, "EMA Breakout")
