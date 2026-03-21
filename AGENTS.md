@@ -26,7 +26,7 @@ Archivo de referencia único para agentes. Contiene la arquitectura, flujo de ej
 1. [Arquitectura General](#1-arquitectura-general)
 2. [Flujo de Ejecución (bot.py)](#2-flujo-de-ejecución)
 3. [Estrategias](#3-estrategias)
-4. [Market Regime (Auto)](#4-market-regime)
+4. [Modo Auto](#4-modo-auto)
 5. [Signal Engine](#5-signal-engine)
 6. [Event Loop y Guards](#6-event-loop-y-guards)
 7. [Order Manager](#7-order-manager)
@@ -74,7 +74,7 @@ Archivo de referencia único para agentes. Contiene la arquitectura, flujo de ej
 │          │     │Stop Hunt     │            │              │
 │          │     │EMA Breakout  │            │              │
 │          │     │MACD Momentum │            │              │
-│          │     │Market Regime │            │              │
+│          │     │              │            │              │
 └────┬─────┘     └──────┬───────┘            └──────┬───────┘
      │                  │                           │
      └──────────────────┴───────────────────────────┘
@@ -142,12 +142,11 @@ Archivo de referencia único para agentes. Contiene la arquitectura, flujo de ej
    └─ Si nueva vela cerrada: re-descarga DF completo
 
 4. max_pos_reached = event_loop._max_positions_reached(st)
-   └─ Si True: SKIPPED regime check + signal processing
+   └─ Si True: SKIPPED signal processing
 
 5. Signal generation (si no max_positions)
    └─ Por cada símbolo:
-      ├─ check_and_switch_regime()    ← cada 3 ciclos, solo en mode="auto"
-      └─ process_symbol()             ← genera señal si hay nueva vela
+      └─ process_symbol()             ← ejecuta las 4 estrategias
 
 6. event_loop.loop_once(st)
    └─ Guards → ejecuta señal del bus
@@ -286,29 +285,10 @@ Cada estrategia devuelve un dict con:
 
 ---
 
-## 4. Market Regime
+## 4. Modo Auto
 
-**Archivo:** `strategy/market_regime.py`
-
-- Solo activo cuando `strategy_mode = "auto"`
-- Evalúa **POR SÍMBOLO** (cada uno puede tener estrategia diferente)
-- Se evalúa cada 3 ciclos en `signal_engine.check_and_switch_regime()`
-- Requiere confianza >= 70% para cambiar
-
-| Condición | Régimen | Estrategia |
-|-----------|---------|------------|
-| ADX >= 25, no range-bound | TRENDING | EMA Breakout |
-| ADX 18-25 | TRANSITIONAL | Stop Hunt |
-| ADX <= 18, range-bound, vol >= 1.3 | RANGING + VOL | Stop Hunt |
-| ADX <= 18, range-bound, RSI extremo | RANGING + EXTREME | RSI+BB Reversion |
-| ADX <= 18, range-bound, sin señal | RANGING + LOW VOL | Stop Hunt |
-
-**Config:**
-```python
-REGIME_TRENDING_ADX_MIN = 25.0
-REGIME_RANGING_ADX_MAX = 18.0
-REGIME_HUNT_VOL_RATIO_MIN = 1.3
-```
+`auto` ejecuta las 4 estrategias en paralelo por cada símbolo:
+- RSI+BB (5m) + Stop Hunt (5m) + EMA Breakout (15m) + MACD Momentum (15m)
 
 ---
 
@@ -746,11 +726,6 @@ class BotState:
     stop_hunt_adx_min: float
     order_block_lookback: int
 
-    # Market Regime (Auto)
-    regime_trending_adx_min: float
-    regime_ranging_adx_max: float
-    regime_hunt_vol_ratio_min: float
-
     # Runtime state (NO se exponen en dashboard)
     trail: dict                        # trailing stops activos
     position_ids: dict                 # symbol → position_id
@@ -899,7 +874,6 @@ Cooldown entre alertas: 10 min. Usa `get_used_margin()`, `get_available_balance(
 | `stop_hunt.py` | Estrategia Stop Hunt (5m) |
 | `rsi_bb_reversion.py` | Estrategia RSI + Bollinger Band (5m) |
 | `macd_momentum.py` | Estrategia MACD Momentum (15m) |
-| `market_regime.py` | Detección de régimen de mercado |
 | `signal_engine.py` | Motor multi-estrategia (4 en paralelo) |
 | `indicators.py` | EMA, ATR, ADX, RSI, Bollinger, Stochastic, MACD |
 | `pivots.py` | Pivot highs/lows vectorizados |
@@ -971,7 +945,6 @@ Cooldown entre alertas: 10 min. Usa `get_used_margin()`, `get_available_balance(
 | `[CACHE]` | Actualización de cache (nueva vela) |
 | `[STARTUP]` | Bot listo para operar |
 | `[LOOP]` | Main loop iniciado |
-| `[REGIME]` | Cambio de régimen de mercado |
 | `[DAILY LOSS]` | Límite de pérdida diaria |
 | `[SPREAD]` | Filtro de spread |
 | `[SLIPPAGE]` | Guard de slippage |
@@ -988,12 +961,6 @@ Cooldown entre alertas: 10 min. Usa `get_used_margin()`, `get_available_balance(
 ```bash
 # Ver señales en tiempo real
 tail -f logs/bot.log | grep "trend="
-
-# Ver régimen de mercado
-tail -f logs/bot.log | grep "\[REGIME\]"
-
-# Ver bloqueos
-tail -f logs/bot.log | grep "BLOCKED"
 
 # Ver entradas/salidas
 tail -f logs/bot.log | grep "ENTRY\|EXIT\|CLOSE"

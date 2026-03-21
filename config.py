@@ -114,13 +114,6 @@ MIN_R_FOR_FIRST_TP = 4.8      # No activar TP si R:R < 1.2 (evitar ruido)
 TP_THROTTLE_SECONDS = 10      # Mínimo tiempo entre ejecuciones de TP por símbolo
 TP_USE_MARK_PRICE = True      # Usar Mark Price (no last) para evaluar TP
 
-# ============================================================
-# MARKET REGIME DETECTION
-# ============================================================
-REGIME_TRENDING_ADX_MIN = 25.0
-REGIME_RANGING_ADX_MAX = 18.0
-REGIME_HUNT_VOL_RATIO_MIN = 1.3
-
 STOP_HUNT_WICK_PCT = 0.20           # Aumentado de 0.15 a 0.20 - mecha más grande
 STOP_HUNT_REJECTION_RATIO = 0.7    # Aumentado de 0.5 a 0.7 - rechazo más fuerte
 STOP_HUNT_MIN_ZONES = 2             # Reducido de 3 a 2 - menos zonas pero más relevantes

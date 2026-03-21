@@ -74,10 +74,6 @@ def sync_cfg_from_state(st):
     CFG.STOP_HUNT_ADX_MIN = float(getattr(st, "stop_hunt_adx_min", CFG.STOP_HUNT_ADX_MIN))
     CFG.ORDER_BLOCK_LOOKBACK = int(getattr(st, "order_block_lookback", CFG.ORDER_BLOCK_LOOKBACK))
 
-    CFG.REGIME_TRENDING_ADX_MIN = float(getattr(st, "regime_trending_adx_min", CFG.REGIME_TRENDING_ADX_MIN))
-    CFG.REGIME_RANGING_ADX_MAX = float(getattr(st, "regime_ranging_adx_max", CFG.REGIME_RANGING_ADX_MAX))
-    CFG.REGIME_HUNT_VOL_RATIO_MIN = float(getattr(st, "regime_hunt_vol_ratio_min", CFG.REGIME_HUNT_VOL_RATIO_MIN))
-
     CFG.RSI_BB_RSI_PERIOD = int(getattr(st, "rsi_bb_rsi_period", CFG.RSI_BB_RSI_PERIOD))
     CFG.RSI_BB_OVERSOLD = float(getattr(st, "rsi_bb_oversold", CFG.RSI_BB_OVERSOLD))
     CFG.RSI_BB_OVERBOUGHT = float(getattr(st, "rsi_bb_overbought", CFG.RSI_BB_OVERBOUGHT))

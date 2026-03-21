@@ -80,10 +80,6 @@ class BotState:
     stop_hunt_adx_min: float = 18.0
     order_block_lookback: int = 5
 
-    regime_trending_adx_min: float = 25.0
-    regime_ranging_adx_max: float = 18.0
-    regime_hunt_vol_ratio_min: float = 1.3
-
     # RSI + BB Mean Reversion
     rsi_bb_rsi_period: int = 14
     rsi_bb_oversold: float = 20.0

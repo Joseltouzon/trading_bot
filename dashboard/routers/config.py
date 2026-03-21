@@ -65,10 +65,6 @@ async def update_config(payload: dict = Body(...), db = Depends(get_db)):
         "rsi_bb_sl_atr_mult",
         "rsi_bb_sl_pct",
         "rsi_bb_require_divergence",
-        # Market Regime
-        "regime_trending_adx_min",
-        "regime_ranging_adx_max",
-        "regime_hunt_vol_ratio_min",
         # EMA Breakout v2
         "ema_min_slope_pct",
         "ema_rsi_period",
