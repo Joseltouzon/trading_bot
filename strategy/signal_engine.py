@@ -82,9 +82,9 @@ class SignalEngine:
 
                 self._last_processed[processed_key] = last_close_time
 
-                # Ejecutar estrategia
+                # Ejecutar estrategia (excluir última vela parcial)
                 try:
-                    sig = info["compute"](df)
+                    sig = info["compute"](df.iloc[:-1])
                     self._publish_signal(symbol, strategy_name, sig, last_close_time)
                 except Exception as e:
                     self.log.error(f"[SIGNAL] {symbol} {strategy_name} error: {e}")
