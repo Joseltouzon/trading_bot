@@ -31,6 +31,26 @@ def validate_config():
 
 def sync_cfg_from_state(st):
     """Sincronizar config.py (runtime) con valores de BotState (DB/dashboard)."""
+    # EMA Breakout v2
+    CFG.EMA_FAST = int(getattr(st, "ema_fast", CFG.EMA_FAST))
+    CFG.EMA_SLOW = int(getattr(st, "ema_slow", CFG.EMA_SLOW))
+    CFG.EMA_MIN_SLOPE_PCT = float(getattr(st, "ema_min_slope_pct", CFG.EMA_MIN_SLOPE_PCT))
+    CFG.EMA_RSI_PERIOD = int(getattr(st, "ema_rsi_period", CFG.EMA_RSI_PERIOD))
+    CFG.EMA_RSI_OVERSOLD = float(getattr(st, "ema_rsi_oversold", CFG.EMA_RSI_OVERSOLD))
+    CFG.EMA_RSI_OVERBOUGHT = float(getattr(st, "ema_rsi_overbought", CFG.EMA_RSI_OVERBOUGHT))
+    CFG.EMA_MIN_VOLUME_RATIO = float(getattr(st, "ema_min_volume_ratio", CFG.EMA_MIN_VOLUME_RATIO))
+    CFG.EMA_MIN_ATR_PCT = float(getattr(st, "ema_min_atr_pct", CFG.EMA_MIN_ATR_PCT))
+    CFG.EMA_MOMENTUM_BARS = int(getattr(st, "ema_momentum_bars", CFG.EMA_MOMENTUM_BARS))
+    CFG.EMA_MIN_MOMENTUM_PCT = float(getattr(st, "ema_min_momentum_pct", CFG.EMA_MIN_MOMENTUM_PCT))
+    CFG.EMA_BREAKOUT_LOOKBACK = int(getattr(st, "ema_breakout_lookback", CFG.EMA_BREAKOUT_LOOKBACK))
+    CFG.EMA_PULLBACK_ATR_MULT = float(getattr(st, "ema_pullback_atr_mult", CFG.EMA_PULLBACK_ATR_MULT))
+    CFG.EMA_MAX_PULLBACK_ATR_MULT = float(getattr(st, "ema_max_pullback_atr_mult", CFG.EMA_MAX_PULLBACK_ATR_MULT))
+    CFG.EMA_SL_ATR_MULT = float(getattr(st, "ema_sl_atr_mult", CFG.EMA_SL_ATR_MULT))
+    CFG.EMA_SL_PCT = float(getattr(st, "ema_sl_pct", CFG.EMA_SL_PCT))
+    CFG.PIVOT_LEN = int(getattr(st, "pivot_len", CFG.PIVOT_LEN))
+    CFG.ADX_MIN = float(getattr(st, "adx_min", CFG.ADX_MIN))
+    CFG.COOLDOWN_BARS = int(getattr(st, "cooldown_bars", CFG.COOLDOWN_BARS))
+
     CFG.TRAILING_ACTIVATION_PCT = float(getattr(st, "trailing_activation_pct", CFG.TRAILING_ACTIVATION_PCT))
     CFG.TRAILING_USE_ATR = bool(getattr(st, "trailing_use_atr", CFG.TRAILING_USE_ATR))
     CFG.TRAILING_ATR_MULT = float(getattr(st, "trailing_atr_mult", CFG.TRAILING_ATR_MULT))
@@ -113,16 +133,14 @@ def main():
         trailing_pct=CFG.TRAILING_PCT,
         trailing_automatico=CFG.TRAILING_USE_ATR,
         max_positions=CFG.MAX_OPEN_POSITIONS,
-        adx_min=CFG.DEFAULT_ADX_MIN,
-        adx_rising=CFG.REQUIRE_ADX_RISING,
-        cooldown_bars=CFG.DEFAULT_COOLDOWN_BARS,
+        adx_min=CFG.ADX_MIN,
+        cooldown_bars=CFG.COOLDOWN_BARS,
         daily_loss_limit_pct=CFG.DEFAULT_DAILY_LOSS_LIMIT_PCT,
         paper_trading=PAPER_TRADING,
         timeframe=CFG.INTERVAL,
         pivot_len=CFG.PIVOT_LEN,
         ema_slow=CFG.EMA_SLOW,
         ema_fast=CFG.EMA_FAST,
-        vol_min_ratio=CFG.VOLUME_MIN_RATIO,
         trailing_active=CFG.TRAILING_ACTIVATION_PCT,
         strategy_mode="ema_breakout",
         # Trailing runtime

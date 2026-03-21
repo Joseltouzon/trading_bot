@@ -69,10 +69,10 @@ class BacktestConfig:
     min_initial_sl_pct: float = CFG.MIN_INITIAL_SL_PCT
 
     # Cooldown
-    cooldown_bars: int = CFG.DEFAULT_COOLDOWN_BARS
+    cooldown_bars: int = CFG.COOLDOWN_BARS
 
     # Filters
-    adx_min: float = CFG.DEFAULT_ADX_MIN
+    adx_min: float = CFG.ADX_MIN
 
 
 # ============================================================

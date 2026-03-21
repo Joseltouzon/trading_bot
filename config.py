@@ -7,27 +7,32 @@ INTERVAL = "5m"
 KLINES_LIMIT = 500
 
 # =========================
-# STRATEGY - EMA BREAKOUT
+# STRATEGY - EMA BREAKOUT v2
 # =========================
-EMA_FAST = 9
-EMA_SLOW = 21
-MIN_EMA_SLOPE_PCT = 0.01
-ADX_PERIOD = 14
-ATR_PERIOD = 14
-PIVOT_LEN = 5
-DEFAULT_ADX_MIN = 20.0
-REQUIRE_ADX_RISING = False
-VOLUME_MIN_RATIO = 1.20
-MAX_VOLUME_RATIO = 3.5
-MIN_BREAK_DISTANCE_PCT = 0.05
-MIN_BODY_RATIO = 0.50
-MIN_ATR_PCT = 0.15
-# Momentum trigger
-MOMENTUM_LOOKBACK = 3
-MIN_MOMENTUM_PCT = 0.12
-MAX_PIVOT_AGE = 20
-MIN_PIVOT_DISTANCE_PCT = 0.10
-SL_BUFFER_PCT = 0.0012
+EMA_FAST = 9                        # EMA rápida (tendencia)
+EMA_SLOW = 21                       # EMA lenta (tendencia)
+EMA_MIN_SLOPE_PCT = 0.03            # Pendiente mínima EMA para tendencia
+EMA_RSI_PERIOD = 14                 # Período RSI para filtro
+EMA_RSI_OVERSOLD = 30               # RSI sobreventa (no SHORT por debajo)
+EMA_RSI_OVERBOUGHT = 70             # RSI sobrecompra (no LONG por encima)
+EMA_MIN_VOLUME_RATIO = 1.2          # Volumen mínimo vs media
+EMA_MIN_ATR_PCT = 0.15              # Volatilidad mínima
+EMA_MOMENTUM_BARS = 3               # Velas para momentum
+EMA_MIN_MOMENTUM_PCT = 0.15         # Momentum mínimo
+EMA_BREAKOUT_LOOKBACK = 8           # Velas para buscar breakout previo
+EMA_PULLBACK_ATR_MULT = 0.8         # Max distancia pullback al pivot (ATR)
+EMA_MAX_PULLBACK_ATR_MULT = 2.5     # Min distancia pullback al pivot (ATR)
+EMA_SL_ATR_MULT = 1.5               # ATR multiplier para SL
+EMA_SL_PCT = 0.30                   # SL mínimo por porcentaje
+ADX_PERIOD = 14                     # Período del ADX
+ATR_PERIOD = 14                     # Período del ATR
+PIVOT_LEN = 5                       # Velas a cada lado para pivots
+MIN_BODY_RATIO = 0.40               # Ratio mínimo cuerpo/rango vela
+MIN_PIVOT_DISTANCE_PCT = 0.08       # Distancia mínima precio-pivot (%)
+MIN_BREAK_DISTANCE_PCT = 0.04       # Distancia mínima de breakout (%)
+MAX_PIVOT_AGE = 15                  # Máxima antigüedad del pivot (velas)
+ADX_MIN = 20.0
+COOLDOWN_BARS = 5
 
 # =========================
 # EXECUTION / RISK

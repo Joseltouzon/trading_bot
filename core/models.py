@@ -11,16 +11,31 @@ class BotState:
     risk_pct: float = 1.0
     leverage: int = 5
     symbols: List[str] = field(default_factory=list)
-    ema_slow: int = 9
-    ema_fast: int = 21
+
+    # EMA Breakout v2
+    ema_fast: int = 9
+    ema_slow: int = 21
+    ema_min_slope_pct: float = 0.02
+    ema_rsi_period: int = 14
+    ema_rsi_oversold: float = 35.0
+    ema_rsi_overbought: float = 65.0
+    ema_min_volume_ratio: float = 1.0
+    ema_min_atr_pct: float = 0.12
+    ema_momentum_bars: int = 3
+    ema_min_momentum_pct: float = 0.10
+    ema_breakout_lookback: int = 8
+    ema_pullback_atr_mult: float = 1.0
+    ema_max_pullback_atr_mult: float = 3.0
+    ema_sl_atr_mult: float = 1.5
+    ema_sl_pct: float = 0.30
+
     trailing_pct: float = 0.5
-    trailing_active : float = 0.5
+    trailing_active: float = 0.5
     max_positions: int = 1
     adx_min: float = 20.0
-    vol_min_ratio: float = 1.2
-    cooldown_bars: int = 8
+    cooldown_bars: int = 5
     daily_loss_limit_pct: float = 10.0
-    pivot_len: int = 8
+    pivot_len: int = 5
     timeframe: str = "5m"
 
     trail: Dict[str, dict] = field(default_factory=dict)
