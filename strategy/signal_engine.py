@@ -45,8 +45,8 @@ class SignalEngine:
         if self.strategy_mode == "all":
             return list(ACTIVE_STRATEGIES.keys())
         elif self.strategy_mode == "auto":
-            # auto: 3 estrategias (sin EMA que no funciona bien)
-            return ["rsi_bb_reversion", "stop_hunt", "macd_momentum"]
+            # auto: 4 estrategias (sin EMA que no funciona bien)
+            return ["rsi_bb_reversion", "stop_hunt", "macd_momentum", "structure_break"]
         elif self.strategy_mode in ACTIVE_STRATEGIES:
             return [self.strategy_mode]
         return []
