@@ -93,6 +93,38 @@ def sync_cfg_from_state(st):
     CFG.RSI_BB_SL_PCT = float(getattr(st, "rsi_bb_sl_pct", CFG.RSI_BB_SL_PCT))
     CFG.RSI_BB_REQUIRE_DIVERGENCE = bool(getattr(st, "rsi_bb_require_divergence", CFG.RSI_BB_REQUIRE_DIVERGENCE))
 
+    # EMA Breakout v2
+    CFG.EMA_MIN_SLOPE_PCT = float(getattr(st, "ema_min_slope_pct", CFG.EMA_MIN_SLOPE_PCT))
+    CFG.EMA_RSI_PERIOD = int(getattr(st, "ema_rsi_period", CFG.EMA_RSI_PERIOD))
+    CFG.EMA_RSI_OVERSOLD = float(getattr(st, "ema_rsi_oversold", CFG.EMA_RSI_OVERSOLD))
+    CFG.EMA_RSI_OVERBOUGHT = float(getattr(st, "ema_rsi_overbought", CFG.EMA_RSI_OVERBOUGHT))
+    CFG.EMA_MIN_VOLUME_RATIO = float(getattr(st, "ema_min_volume_ratio", CFG.EMA_MIN_VOLUME_RATIO))
+    CFG.EMA_MIN_ATR_PCT = float(getattr(st, "ema_min_atr_pct", CFG.EMA_MIN_ATR_PCT))
+    CFG.EMA_MOMENTUM_BARS = int(getattr(st, "ema_momentum_bars", CFG.EMA_MOMENTUM_BARS))
+    CFG.EMA_MIN_MOMENTUM_PCT = float(getattr(st, "ema_min_momentum_pct", CFG.EMA_MIN_MOMENTUM_PCT))
+    CFG.EMA_BREAKOUT_LOOKBACK = int(getattr(st, "ema_breakout_lookback", CFG.EMA_BREAKOUT_LOOKBACK))
+    CFG.EMA_PULLBACK_ATR_MULT = float(getattr(st, "ema_pullback_atr_mult", CFG.EMA_PULLBACK_ATR_MULT))
+    CFG.EMA_MAX_PULLBACK_ATR_MULT = float(getattr(st, "ema_max_pullback_atr_mult", CFG.EMA_MAX_PULLBACK_ATR_MULT))
+    CFG.EMA_SL_ATR_MULT = float(getattr(st, "ema_sl_atr_mult", CFG.EMA_SL_ATR_MULT))
+    CFG.EMA_SL_PCT = float(getattr(st, "ema_sl_pct", CFG.EMA_SL_PCT))
+    CFG.MIN_BODY_RATIO = float(getattr(st, "ema_min_body_ratio", CFG.MIN_BODY_RATIO))
+    CFG.MIN_PIVOT_DISTANCE_PCT = float(getattr(st, "ema_min_pivot_distance_pct", CFG.MIN_PIVOT_DISTANCE_PCT))
+    CFG.MIN_BREAK_DISTANCE_PCT = float(getattr(st, "ema_min_break_distance_pct", CFG.MIN_BREAK_DISTANCE_PCT))
+    CFG.MAX_PIVOT_AGE = int(getattr(st, "ema_max_pivot_age", CFG.MAX_PIVOT_AGE))
+
+    # MACD Momentum
+    CFG.MACD_FAST = int(getattr(st, "macd_fast", CFG.MACD_FAST))
+    CFG.MACD_SLOW = int(getattr(st, "macd_slow", CFG.MACD_SLOW))
+    CFG.MACD_SIGNAL = int(getattr(st, "macd_signal", CFG.MACD_SIGNAL))
+    CFG.MACD_MIN_VOLUME_RATIO = float(getattr(st, "macd_min_volume_ratio", CFG.MACD_MIN_VOLUME_RATIO))
+    CFG.MACD_RSI_PERIOD = int(getattr(st, "macd_rsi_period", CFG.MACD_RSI_PERIOD))
+    CFG.MACD_RSI_BULL_MIN = float(getattr(st, "macd_rsi_bull_min", CFG.MACD_RSI_BULL_MIN))
+    CFG.MACD_RSI_BEAR_MAX = float(getattr(st, "macd_rsi_bear_max", CFG.MACD_RSI_BEAR_MAX))
+    CFG.MACD_ADX_MIN = float(getattr(st, "macd_adx_min", CFG.MACD_ADX_MIN))
+    CFG.MACD_MIN_ATR_PCT = float(getattr(st, "macd_min_atr_pct", CFG.MACD_MIN_ATR_PCT))
+    CFG.MACD_STRUCTURE_LOOKBACK = int(getattr(st, "macd_structure_lookback", CFG.MACD_STRUCTURE_LOOKBACK))
+    CFG.MACD_SL_ATR_MULT = float(getattr(st, "macd_sl_atr_mult", CFG.MACD_SL_ATR_MULT))
+
 
 def main():
     validate_config()

@@ -53,6 +53,11 @@
             <i class="bi bi-graph-down-arrow"></i> Config RSI+BB
         </button>
     </li>
+    <li class="nav-item" style="margin-bottom: 20px;">
+        <button class="nav-link" data-bs-toggle="pill" data-bs-target="#config-macd">
+            <i class="bi bi-activity"></i> Config MACD
+        </button>
+    </li>
 </ul>
 
 <div class="tab-content">
@@ -897,6 +902,62 @@
                 </div>
             </div>
 
+            <h6 class="mb-3 mt-4" style="color: aquamarine;">EMA v2 Filtros</h6>
+            <div class="row g-3 mb-3">
+                <div class="col-md-3">
+                    <label class="form-label" style="color: aquamarine;">Min Slope %</label>
+                    <input type="number" step="0.01" class="form-control" name="ema_min_slope_pct" value="{{ state.ema_min_slope_pct or 0.04 }}" required min="0.01" max="0.2">
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label" style="color: aquamarine;">RSI Period</label>
+                    <input type="number" step="1" class="form-control" name="ema_rsi_period" value="{{ state.ema_rsi_period or 14 }}" required min="5" max="30">
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label" style="color: aquamarine;">RSI Overbought</label>
+                    <input type="number" step="1" class="form-control" name="ema_rsi_overbought" value="{{ state.ema_rsi_overbought or 70 }}" required min="60" max="90">
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label" style="color: aquamarine;">RSI Oversold</label>
+                    <input type="number" step="1" class="form-control" name="ema_rsi_oversold" value="{{ state.ema_rsi_oversold or 30 }}" required min="10" max="40">
+                </div>
+            </div>
+            <div class="row g-3 mb-3">
+                <div class="col-md-3">
+                    <label class="form-label" style="color: aquamarine;">Min Volume Ratio</label>
+                    <input type="number" step="0.1" class="form-control" name="ema_min_volume_ratio" value="{{ state.ema_min_volume_ratio or 1.2 }}" required min="0.5" max="5">
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label" style="color: aquamarine;">Min ATR %</label>
+                    <input type="number" step="0.01" class="form-control" name="ema_min_atr_pct" value="{{ state.ema_min_atr_pct or 0.15 }}" required min="0.05" max="1">
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label" style="color: aquamarine;">Min Momentum %</label>
+                    <input type="number" step="0.01" class="form-control" name="ema_min_momentum_pct" value="{{ state.ema_min_momentum_pct or 0.10 }}" required min="0.02" max="0.5">
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label" style="color: aquamarine;">Min Body Ratio</label>
+                    <input type="number" step="0.05" class="form-control" name="ema_min_body_ratio" value="{{ state.ema_min_body_ratio or 0.50 }}" required min="0.2" max="0.9">
+                </div>
+            </div>
+            <div class="row g-3 mb-3">
+                <div class="col-md-3">
+                    <label class="form-label" style="color: aquamarine;">Breakout Lookback</label>
+                    <input type="number" step="1" class="form-control" name="ema_breakout_lookback" value="{{ state.ema_breakout_lookback or 8 }}" required min="3" max="20">
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label" style="color: aquamarine;">SL ATR Mult</label>
+                    <input type="number" step="0.1" class="form-control" name="ema_sl_atr_mult" value="{{ state.ema_sl_atr_mult or 2.0 }}" required min="1" max="5">
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label" style="color: aquamarine;">SL %</label>
+                    <input type="number" step="0.05" class="form-control" name="ema_sl_pct" value="{{ state.ema_sl_pct or 0.30 }}" required min="0.1" max="1">
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label" style="color: aquamarine;">Max Pivot Age</label>
+                    <input type="number" step="1" class="form-control" name="ema_max_pivot_age" value="{{ state.ema_max_pivot_age or 15 }}" required min="5" max="50">
+                </div>
+            </div>
+
             <div class="row g-3 mb-3">
                 <div class="col-md-4">
                     <label class="form-label" style="color: aquamarine;">Trailing % (no ATR)</label>
@@ -1125,6 +1186,76 @@
 
             <div class="col-12 mt-3">
                 <button type="button" class="btn btn-primary" id="openConfirmRsiBB">
+                    <i class="bi bi-save"></i> Guardar Configuración
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================= CONFIG MACD TAB ========================= -->
+    <div class="tab-pane fade" id="config-macd">
+        <div class="card p-4 mt-3">
+            <h5 class="mb-4" style="color: #f3f7f3;">CONFIG MACD MOMENTUM (15m)</h5>
+
+            <h6 class="mb-3" style="color: aquamarine;">MACD</h6>
+            <div class="row g-3 mb-3">
+                <div class="col-md-3">
+                    <label class="form-label" style="color: aquamarine;">Fast EMA</label>
+                    <input type="number" step="1" class="form-control" name="macd_fast" value="{{ state.macd_fast or 12 }}" required min="5" max="30">
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label" style="color: aquamarine;">Slow EMA</label>
+                    <input type="number" step="1" class="form-control" name="macd_slow" value="{{ state.macd_slow or 26 }}" required min="15" max="50">
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label" style="color: aquamarine;">Signal Line</label>
+                    <input type="number" step="1" class="form-control" name="macd_signal" value="{{ state.macd_signal or 9 }}" required min="3" max="20">
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label" style="color: aquamarine;">RSI Period</label>
+                    <input type="number" step="1" class="form-control" name="macd_rsi_period" value="{{ state.macd_rsi_period or 14 }}" required min="5" max="30">
+                </div>
+            </div>
+
+            <h6 class="mb-3 mt-4" style="color: aquamarine;">Filtros</h6>
+            <div class="row g-3 mb-3">
+                <div class="col-md-3">
+                    <label class="form-label" style="color: aquamarine;">Min Volume Ratio</label>
+                    <input type="number" step="0.5" class="form-control" name="macd_min_volume_ratio" value="{{ state.macd_min_volume_ratio or 3.0 }}" required min="1" max="10">
+                    <small class="text-muted" style="color: #fff !important;">Volume spike (3x = triple)</small>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label" style="color: aquamarine;">RSI Bull Min</label>
+                    <input type="number" step="1" class="form-control" name="macd_rsi_bull_min" value="{{ state.macd_rsi_bull_min or 55 }}" required min="40" max="70">
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label" style="color: aquamarine;">RSI Bear Max</label>
+                    <input type="number" step="1" class="form-control" name="macd_rsi_bear_max" value="{{ state.macd_rsi_bear_max or 45 }}" required min="30" max="60">
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label" style="color: aquamarine;">ADX Min</label>
+                    <input type="number" step="1" class="form-control" name="macd_adx_min" value="{{ state.macd_adx_min or 25 }}" required min="10" max="40">
+                </div>
+            </div>
+
+            <div class="row g-3 mb-3">
+                <div class="col-md-3">
+                    <label class="form-label" style="color: aquamarine;">Min ATR %</label>
+                    <input type="number" step="0.01" class="form-control" name="macd_min_atr_pct" value="{{ state.macd_min_atr_pct or 0.20 }}" required min="0.05" max="1">
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label" style="color: aquamarine;">Structure Lookback</label>
+                    <input type="number" step="1" class="form-control" name="macd_structure_lookback" value="{{ state.macd_structure_lookback or 10 }}" required min="5" max="30">
+                    <small class="text-muted" style="color: #fff !important;">Velas para HH/LL</small>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label" style="color: aquamarine;">SL ATR Multiplier</label>
+                    <input type="number" step="0.1" class="form-control" name="macd_sl_atr_mult" value="{{ state.macd_sl_atr_mult or 2.0 }}" required min="1" max="5">
+                </div>
+            </div>
+
+            <div class="col-12 mt-3">
+                <button type="button" class="btn btn-primary" id="openConfirmMacd">
                     <i class="bi bi-save"></i> Guardar Configuración
                 </button>
             </div>
