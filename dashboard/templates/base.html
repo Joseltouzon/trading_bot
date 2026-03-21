@@ -158,6 +158,7 @@
             const openConfirmBreakout = document.getElementById('openConfirmBreakout')
             const openConfirmStophunt = document.getElementById('openConfirmStophunt')
             const openConfirmVwap = document.getElementById('openConfirmVwap')
+            const openConfirmRsiBB = document.getElementById('openConfirmRsiBB')
             const confirmSave = document.getElementById('confirmSave')
             const modal = new bootstrap.Modal(document.getElementById('confirmModal'))
             const toastEl = document.getElementById('mainToast')
@@ -198,6 +199,16 @@
                 })
             }
 
+            if (openConfirmRsiBB) {
+                openConfirmRsiBB.addEventListener('click', () => {
+                    if (!form.checkValidity()) {
+                        form.classList.add('was-validated')
+                        return
+                    }
+                    modal.show()
+                })
+            }
+
             confirmSave.addEventListener('click', async () => {
 
                 console.log("CLICK CONFIRM SAVE");
@@ -211,7 +222,7 @@
                     const checkboxIds = [
                         'paused', 'paper_trading', 'trailing_automatico', 'adx_rising',
                         'trailing_use_atr', 'use_take_profit', 'tp_by_pct',
-                        'stop_hunt_use_ema_filter'
+                        'stop_hunt_use_ema_filter', 'rsi_bb_require_divergence'
                     ];
                     checkboxIds.forEach(id => {
                         const el = document.getElementById(id);
@@ -233,7 +244,9 @@
                                     key === "cooldown_bars" || key === "max_positions" ||
                                     key === "leverage" || key === "order_block_lookback" ||
                                     key === "stop_hunt_min_zones" || key === "stop_hunt_min_break_candles" ||
-                                    key === "stop_hunt_momentum_bars") {
+                                    key === "stop_hunt_momentum_bars" ||
+                                    key === "rsi_bb_rsi_period" || key === "rsi_bb_bb_period" ||
+                                    key === "rsi_bb_stoch_period" || key === "rsi_bb_divergence_lookback") {
                             data[key] = parseInt(value, 10)
                         } else {
                             data[key] = Number(value)

@@ -56,6 +56,21 @@ async def update_config(payload: dict = Body(...), db = Depends(get_db)):
         "vwap_min_volume_ratio",
         "vwap_sl_atr_mult",
         "vwap_max_deviation_pct",
+        # RSI + Bollinger Band
+        "rsi_bb_rsi_period",
+        "rsi_bb_oversold",
+        "rsi_bb_overbought",
+        "rsi_bb_bb_period",
+        "rsi_bb_bb_std_mult",
+        "rsi_bb_stoch_period",
+        "rsi_bb_divergence_lookback",
+        "rsi_bb_band_tolerance_pct",
+        "rsi_bb_min_volume_ratio",
+        "rsi_bb_adx_min",
+        "rsi_bb_min_atr_pct",
+        "rsi_bb_sl_atr_mult",
+        "rsi_bb_sl_pct",
+        "rsi_bb_require_divergence",
     ]
     for key in allowed_keys:
         if key in payload:
@@ -70,7 +85,7 @@ async def update_config(payload: dict = Body(...), db = Depends(get_db)):
 
             # Validación para strategy_mode
             if key == "strategy_mode":
-                valid_strategies = ["ema_breakout", "stop_hunt", "vwap_refresh", "auto"]
+                valid_strategies = ["ema_breakout", "stop_hunt", "vwap_refresh", "rsi_bb_reversion", "auto"]
                 if payload["strategy_mode"] not in valid_strategies:
                     raise HTTPException(
                         status_code=400,
@@ -103,7 +118,7 @@ async def update_config(payload: dict = Body(...), db = Depends(get_db)):
 
             if key in ("paper_trading", "trailing_automatico", "adx_rising",
                         "trailing_use_atr", "use_take_profit", "tp_by_pct",
-                        "stop_hunt_use_ema_filter"):
+                        "stop_hunt_use_ema_filter", "rsi_bb_require_divergence"):
                 payload[key] = bool(payload[key])
 
             if key == "tp_sl_mode":
