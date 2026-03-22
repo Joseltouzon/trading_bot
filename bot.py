@@ -34,6 +34,8 @@ def sync_cfg_from_state(st):
     # EMA Breakout v2
     CFG.EMA_FAST = int(getattr(st, "ema_fast", CFG.EMA_FAST))
     CFG.EMA_SLOW = int(getattr(st, "ema_slow", CFG.EMA_SLOW))
+    CFG.EMA_BREAKOUT_FAST = int(getattr(st, "ema_breakout_fast", CFG.EMA_BREAKOUT_FAST))
+    CFG.EMA_BREAKOUT_SLOW = int(getattr(st, "ema_breakout_slow", CFG.EMA_BREAKOUT_SLOW))
     CFG.EMA_MIN_SLOPE_PCT = float(getattr(st, "ema_min_slope_pct", CFG.EMA_MIN_SLOPE_PCT))
     CFG.EMA_RSI_PERIOD = int(getattr(st, "ema_rsi_period", CFG.EMA_RSI_PERIOD))
     CFG.EMA_RSI_OVERSOLD = float(getattr(st, "ema_rsi_oversold", CFG.EMA_RSI_OVERSOLD))

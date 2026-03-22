@@ -21,23 +21,25 @@ class BotState:
     # EMA Breakout v2
     ema_fast: int = 9
     ema_slow: int = 21
-    ema_min_slope_pct: float = 0.02
+    ema_breakout_fast: int = 25
+    ema_breakout_slow: int = 50
+    ema_min_slope_pct: float = 0.04
     ema_rsi_period: int = 14
-    ema_rsi_oversold: float = 35.0
-    ema_rsi_overbought: float = 65.0
-    ema_min_volume_ratio: float = 1.0
-    ema_min_atr_pct: float = 0.12
+    ema_rsi_oversold: float = 30.0
+    ema_rsi_overbought: float = 70.0
+    ema_min_volume_ratio: float = 1.2
+    ema_min_atr_pct: float = 0.15
     ema_momentum_bars: int = 3
     ema_min_momentum_pct: float = 0.10
     ema_breakout_lookback: int = 8
-    ema_pullback_atr_mult: float = 1.0
-    ema_max_pullback_atr_mult: float = 3.0
-    ema_sl_atr_mult: float = 1.5
+    ema_pullback_atr_mult: float = 0.8
+    ema_max_pullback_atr_mult: float = 2.5
+    ema_sl_atr_mult: float = 2.0
     ema_sl_pct: float = 0.30
 
     trailing_pct: float = 0.5
     max_positions: int = 1
-    adx_min: float = 20.0
+    adx_min: float = 25.0
     cooldown_bars: int = 5
     daily_loss_limit_pct: float = 10.0
     # Legacy fields (compatibilidad DB)

@@ -54,6 +54,8 @@ MIN_SECONDS_BETWEEN_ENTRIES = 45
 # =========================
 EMA_FAST = 9                        # EMA rápida (tendencia)
 EMA_SLOW = 21                       # EMA lenta (tendencia)
+EMA_BREAKOUT_FAST = 25              # EMA rápida para EMA Breakout
+EMA_BREAKOUT_SLOW = 50              # EMA lenta para EMA Breakout
 EMA_MIN_SLOPE_PCT = 0.04            # Pendiente mínima EMA para tendencia
 EMA_RSI_PERIOD = 14                 # Período RSI para filtro
 EMA_RSI_OVERSOLD = 30               # RSI sobreventa (no SHORT por debajo)
@@ -74,7 +76,7 @@ MIN_BODY_RATIO = 0.50               # Ratio mínimo cuerpo/rango vela
 MIN_PIVOT_DISTANCE_PCT = 0.08       # Distancia mínima precio-pivot (%)
 MIN_BREAK_DISTANCE_PCT = 0.04       # Distancia mínima de breakout (%)
 MAX_PIVOT_AGE = 15                  # Máxima antigüedad del pivot (velas)
-ADX_MIN = 20.0                      # ADX mínimo
+ADX_MIN = 25.0                      # ADX mínimo (optimizado para EMA 25/50)
 COOLDOWN_BARS = 5
 DEFAULT_DAILY_LOSS_LIMIT_PCT = 10.0
 MIN_SECONDS_BETWEEN_ENTRIES = 45

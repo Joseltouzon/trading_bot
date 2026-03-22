@@ -289,10 +289,10 @@ Cada estrategia devuelve un dict con:
 
 ## 4. Modo Auto
 
-`auto` ejecuta 3 estrategias en paralelo por cada símbolo:
-- RSI+BB (5m) + Stop Hunt (5m) + MACD Momentum (15m)
+`auto` ejecuta 5 estrategias en paralelo por cada símbolo:
+- RSI+BB (5m) + Stop Hunt (5m) + MACD Momentum (15m) + EMA Breakout (15m) + Structure Break (5m)
 
-EMA Breakout está disponible manualmente pero no en auto (no funciona bien). Structure Break disponible individualmente.
+EMA optimizada con EMA 25/50 + ADX 25 (PF 3.97, WR 63%). Ya no es "no funciona".
 
 ---
 
@@ -946,10 +946,9 @@ Estrategias probadas y descartadas. No re-probar sin cambios fundamentales.
 
 | Estrategia | Timeframe | Mejor PF | Problema |
 |-----------|-----------|----------|----------|
-| EMA Breakout | 5m | 0.96 | WR 75% pero Avg Loss 3x Avg Win. Pérdidas grandes. |
-| EMA Breakout v2 | 5m | 0.94 | SL ajustado soluciona pérdidas pero WR cae a 39%. |
-| EMA Breakout | 15m | 1.40 | Marginal. Solo DOGEUSDT funciona (PF 1.40). |
-| EMA original 15m | 15m | 1.36 | PF 1.36, WR 55%. Marginalmente ganador. |
+| EMA Breakout (vieja 9/21) | 5m | 0.96 | WR 75% pero Avg Loss 3x Avg Win. Pérdidas grandes. |
+| EMA Breakout (vieja 9/21) | 15m | 1.40 | Marginal con 9/21. OPTIMIZADA a 25/50 + ADX 25 = PF 3.97. |
+| EMA original 15m | 15m | 1.36 | PF 1.36, WR 55%. OPTIMIZADA con filtros de features. |
 | Donchian Channel | 5m | 0.88 | Perdedor en 5m. |
 | Donchian Channel | 15m | 1.25 | Marginal. No justifica usarla. |
 | Supertrend | 5m | 0.91 | Perdedor. Cálculo iterativo lento. |

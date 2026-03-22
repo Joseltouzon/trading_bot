@@ -8,13 +8,14 @@
 RSI+BB (5m):         6       65     2.17    64.6%   2.35    +0.74%  0.26%
 Stop Hunt (5m):      5       11     0.37    81.8%   4.25    +0.19%  0.07%
 MACD (15m):          5       99     3.30    56.6%   2.82    +1.47%  0.14%
+EMA (15m):           6       65     2.17    63.1%   3.97    +1.05%  0.20%
 Structure (5m):      5      215     7.17    59.1%   2.22    +2.13%  0.27%
 ================================================================
-TOTAL:              21      390    13.00      -       -     +4.53%  0.74%
+TOTAL:              27      455    15.17      -       -     +5.58%  0.94%
 ================================================================
 ```
 
-Mode auto ejecuta RSI+BB + Stop Hunt + MACD (3 estrategias). Structure disponible individualmente.
+Mode auto ejecuta 5 estrategias: RSI+BB + Stop Hunt + MACD + EMA (optimizada 25/50, PF 3.97) + Structure.
 
 ---
 

@@ -888,13 +888,13 @@
 
             <div class="row g-3 mb-3">
                 <div class="col-md-4">
-                    <label class="form-label" style="color: aquamarine;">EMA Fast</label>
-                    <input type="number" class="form-control" name="ema_fast" value="{{ state.ema_fast }}" required min="1" max="200">
-                    <small class="text-muted" style="color: #fff !important;">ej: 9, 12, 21</small>
+                    <label class="form-label" style="color: aquamarine;">EMA Fast (Breakout)</label>
+                    <input type="number" class="form-control" name="ema_breakout_fast" value="{{ state.ema_breakout_fast or 25 }}" required min="1" max="200">
+                    <small class="text-muted" style="color: #fff !important;">ej: 9, 21, 25</small>
                 </div>
                 <div class="col-md-4">
-                    <label class="form-label" style="color: aquamarine;">EMA Slow</label>
-                    <input type="number" class="form-control" name="ema_slow" value="{{ state.ema_slow }}" required min="1" max="200">
+                    <label class="form-label" style="color: aquamarine;">EMA Slow (Breakout)</label>
+                    <input type="number" class="form-control" name="ema_breakout_slow" value="{{ state.ema_breakout_slow or 50 }}" required min="1" max="200">
                     <small class="text-muted" style="color: #fff !important;">ej: 21, 50, 200</small>
                 </div>
             </div>

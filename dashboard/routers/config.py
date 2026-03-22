@@ -67,6 +67,8 @@ async def update_config(payload: dict = Body(...), db = Depends(get_db)):
         "rsi_bb_sl_pct",
         "rsi_bb_require_divergence",
         # EMA Breakout v2
+        "ema_breakout_fast",
+        "ema_breakout_slow",
         "ema_min_slope_pct",
         "ema_rsi_period",
         "ema_rsi_oversold",

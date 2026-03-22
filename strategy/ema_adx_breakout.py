@@ -38,8 +38,8 @@ def compute_signals(df: pd.DataFrame) -> dict:
     close = df_closed["close"]
     volume = df_closed["volume"]
 
-    df_closed["ema_fast"] = ema(close, CFG.EMA_FAST)
-    df_closed["ema_slow"] = ema(close, CFG.EMA_SLOW)
+    df_closed["ema_fast"] = ema(close, getattr(CFG, "EMA_BREAKOUT_FAST", CFG.EMA_FAST))
+    df_closed["ema_slow"] = ema(close, getattr(CFG, "EMA_BREAKOUT_SLOW", CFG.EMA_SLOW))
     df_closed["adx_val"] = adx(df_closed, CFG.ADX_PERIOD)
     df_closed["atr_val"] = atr(df_closed, CFG.ATR_PERIOD)
     df_closed["rsi_val"] = rsi(close, CFG.EMA_RSI_PERIOD)
