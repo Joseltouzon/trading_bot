@@ -1,0 +1,169 @@
+# Symbol Registry — Referencia de Backtesting
+
+Última actualización: 2026-03-22
+
+## RSI+BB Reversion (5m)
+
+### Activos ✅
+| Símbolo | Trades | WR | PF | Ret | Nota |
+|---------|--------|-----|------|-----|------|
+| 1000PEPEUSDT | 8 | 100% | inf | +0.20% | 8W/0L |
+| TIAUSDT | 10 | 70% | 2.43 | +0.11% |
+| TAOUSDT | 7 | 57% | 2.02 | +0.09% | Pocos trades |
+| AVAXUSDT | 14 | 57% | 1.73 | +0.11% |
+| ORDIUSDT | 11 | 55% | 1.60 | +0.06% |
+
+### Descartados ❌
+| Símbolo | Trades | WR | PF | Ret | Razón |
+|---------|--------|-----|------|-----|-------|
+| XRPUSDT | 14 | 50% | 1.27 | +0.02% | PF bajo |
+| ETHUSDT | 6 | 67% | 1.47 | +0.02% | Pocos trades |
+| SOLUSDT | 11 | 46% | 0.68 | -0.08% |
+| DOGEUSDT | 12 | 50% | 0.78 | -0.06% |
+| WIFUSDT | - | - | - | - | PF bajo |
+| BONKUSDT | 7 | 29% | 0.29 | - |
+| SEIUSDT | 5 | 40% | 0.28 | - |
+| PYTHUSDT | 5 | 20% | 0.02 | - |
+| FILUSDT | - | - | - | - |
+| APTUSDT | - | - | - | - |
+| ATOMUSDT | - | - | - | - |
+| INJUSDT | 8 | 38% | 0.76 | - |
+| FETUSDT | 5 | 40% | 0.39 | - |
+| LTCUSDT | 7 | 29% | 0.32 | - |
+| RENDERUSDT | 4 | 50% | 0.82 | - |
+| DYDXUSDT | 0 | - | - | - |
+
+---
+
+## Stop Hunt (5m)
+
+### Activos ✅
+| Símbolo | Trades | WR | PF | Ret |
+|---------|--------|-----|------|-----|
+| XRPUSDT | 2 | 50% | 0.79 | -0.01% |
+| 1000PEPEUSDT | 4 | 100% | inf | +0.12% |
+| AVAXUSDT | 1 | 100% | inf | +0.01% |
+| TIAUSDT | 1 | 100% | inf | +0.02% |
+| ORDIUSDT | 3 | 67% | 3.05 | +0.06% |
+
+### Descartados ❌
+Stop Hunt es baja frecuencia. No se pueden descartar símbolos con certeza.
+
+---
+
+## MACD Momentum (15m)
+
+### Activos ✅
+| Símbolo | Trades | WR | PF | Ret |
+|---------|--------|-----|------|-----|
+| XRPUSDT | 24 | 63% | 2.80 | +0.31% |
+| AVAXUSDT | 21 | 57% | 2.47 | +0.25% |
+| SOLUSDT | 10 | 60% | 2.67 | +0.12% |
+| PENDLEUSDT | 16 | 69% | 2.82 | +0.20% |
+| RUNEUSDT | 15 | 47% | 1.98 | +0.16% |
+
+### Descartados ❌
+| Símbolo | Trades | WR | PF | Ret |
+|---------|--------|-----|------|-----|
+| ETHUSDT | 13 | 31% | 0.78 | -0.07% |
+| DOGEUSDT | 26 | 39% | 0.96 | -0.06% |
+| WIFUSDT | 17 | 24% | 0.57 | -0.16% |
+| SUIUSDT | 21 | 43% | 1.44 | +0.11% |
+| FETUSDT | 20 | 25% | 0.94 | -0.05% |
+| NEARUSDT | 20 | 30% | 0.62 | - |
+| AAVEUSDT | 15 | 33% | 0.95 | -0.04% |
+| INJUSDT | 12 | 25% | 0.35 | -0.18% |
+| LINKUSDT | 24 | 58% | 1.97 | +0.20% |
+| TIAUSDT | 21 | 48% | 1.88 | +0.21% |
+| ARBUSDT | 18 | 56% | 1.81 | +0.11% |
+| ORDIUSDT | 25 | 40% | 1.36 | +0.08% |
+| RENDERUSDT | 21 | 38% | 1.28 | +0.04% |
+| LTCUSDT | 20 | 40% | 1.30 | +0.04% |
+| OPUSDT | 15 | 33% | 1.30 | +0.02% |
+| FILUSDT | - | - | - | - |
+| ATOMUSDT | - | - | - | - |
+| APTUSDT | - | - | - | - |
+| BONKUSDT | - | - | - | - |
+| TAOUSDT | - | - | - | - |
+| SEIUSDT | - | - | - | - |
+| WLDUSDT | - | - | - | - |
+
+---
+
+## EMA Breakout (15m, 25/50 + ADX 25)
+
+### Activos ✅
+| Símbolo | Trades | WR | PF | Ret |
+|---------|--------|-----|------|-----|
+| DOGEUSDT | 19 | 53% | 2.12 | +0.15% |
+| LINKUSDT | 15 | 53% | 2.60 | +0.14% |
+| TIAUSDT | 20 | 50% | 2.41 | +0.20% |
+| ORDIUSDT | 18 | 44% | 2.86 | +0.21% |
+| PENDLEUSDT | 10 | 50% | 2.51 | +0.10% |
+| 1000BONKUSDT | 15 | 47% | 2.02 | +0.12% |
+
+### Descartados ❌ (con EMA vieja 9/21)
+| Símbolo | Trades | WR | PF | Ret |
+|---------|--------|-----|------|-----|
+| BTCUSDT | 12 | 0% | 0.00 | -0.24% |
+| ETHUSDT | 14 | 29% | 0.82 | -0.06% |
+| SOLUSDT | 18 | 28% | 0.93 | -0.05% |
+| AVAXUSDT | 9 | 33% | 0.89 | -0.03% |
+| XRPUSDT | 35 | 34% | 0.44 | -0.38% |
+| DOGEUSDT | 41 | 22% | 0.42 | -0.50% |
+| FILUSDT | 27 | 26% | 0.73 | -0.17% |
+| APTUSDT | 21 | 24% | 0.54 | -0.19% |
+| ATOMUSDT | 31 | 26% | 0.49 | -0.31% |
+| BNBUSDT | 9 | 0% | 0.00 | -0.19% |
+| LTCUSDT | 13 | 23% | 0.36 | -0.14% |
+| ARBUSDT | 8 | 13% | 0.07 | -0.13% |
+| OPUSDT | 13 | 39% | 1.56 | +0.04% |
+| FETUSDT | 20 | 20% | 0.83 | -0.08% |
+| INJUSDT | 7 | 0% | 0.00 | -0.12% |
+| TAOUSDT | 14 | 36% | 1.49 | +0.05% |
+| RENDERUSDT | 17 | 35% | 1.41 | +0.05% |
+| SAGAUSDT | 8 | 0% | 0.00 | -0.15% |
+| DYDXUSDT | 5 | 20% | 1.29 | +0.01% |
+| GMTUSDT | 16 | 44% | 1.42 | +0.05% |
+| SEIUSDT | 9 | 33% | 0.59 | -0.06% |
+| WLDUSDT | 15 | 13% | 0.24 | -0.21% |
+| JUPUSDT | 9 | 22% | 1.23 | +0.00% |
+| ONDOUSDT | 16 | 38% | 1.18 | +0.01% |
+| PYTHUSDT | 11 | 36% | 1.33 | +0.03% |
+| SOLUSDT | 13 | 39% | 1.41 | +0.04% |
+| WIFUSDT | 18 | 33% | 0.96 | -0.04% |
+| RUNEUSDT | 10 | 40% | 0.98 | -0.02% |
+| ETHUSDT | 11 | 18% | 0.48 | -0.11% |
+| AVAXUSDT | 10 | 40% | 0.92 | -0.03% |
+| 1000PEPEUSDT | - | - | - | - |
+
+---
+
+## Structure Break + Retest (5m)
+
+### Activos ✅
+| Símbolo | Trades | WR | PF | Ret |
+|---------|--------|-----|------|-----|
+| FILUSDT | 32 | 72% | 3.76 | +0.47% |
+| DOGEUSDT | 40 | 63% | 2.61 | +0.50% |
+| APTUSDT | 40 | 58% | 2.46 | +0.46% |
+| WIFUSDT | 57 | 51% | 1.75 | +0.41% |
+| ATOMUSDT | 51 | 55% | 1.62 | +0.23% |
+
+### Descartados ❌
+| Símbolo | Trades | WR | PF | Ret |
+|---------|--------|-----|------|-----|
+| ETHUSDT | 44 | 52% | 1.57 | +0.20% |
+| ORDIUSDT | 43 | 51% | 1.52 | +0.19% |
+| XRPUSDT | 34 | 38% | 0.94 | -0.09% |
+| SOLUSDT | 50 | 44% | 1.00 | -0.09% |
+| LINKUSDT | 40 | 43% | 1.12 | -0.01% |
+| AVAXUSDT | 51 | 45% | 1.06 | -0.05% |
+| PENDLEUSDT | 42 | 52% | 1.26 | +0.04% |
+| RUNEUSDT | 32 | 50% | 1.15 | -0.01% |
+| 1000PEPEUSDT | 39 | 36% | 0.78 | -0.19% |
+| TIAUSDT | 48 | 25% | 0.29 | -0.69% |
+| SUIUSDT | 95 | 37% | 0.74 | -0.17% |
+| NEARUSDT | - | - | - | - |
+| BNBUSDT | 32 | 50% | 0.88 | -0.11% |
+| INJUSDT | 48 | 44% | 1.04 | -0.06% |
