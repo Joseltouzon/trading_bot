@@ -955,6 +955,9 @@ Estrategias probadas y descartadas. No re-probar sin cambios fundamentales.
 | Supertrend | 5m | 0.91 | Perdedor. Cálculo iterativo lento. |
 | Supertrend | 15m | 0.66 | Terrible. |
 | Keltner Channel | - | - | No testeada (usuario descartó antes de probar). |
+| BB Squeeze | 5m/15m | 1.78 | Top 3 15m: PF 1.56. No suficiente. |
+| Funding Rate Filter | - | - | Rates demasiado bajos (max 0.01%). No filtra nada. |
+| Extreme Price Zone | 15m | 1.75 | Solo 2 símbolos con PF > 1.3. Insuficiente. |
 | VWAP Refresh | 5m | - | 0 trades. Eliminada completamente. |
 | Market Regime | - | - | Sistema de auto-detección. Reemplazado por auto=fixed. |
 
