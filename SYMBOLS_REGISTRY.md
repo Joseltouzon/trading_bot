@@ -32,6 +32,16 @@
 | LTCUSDT | 7 | 29% | 0.32 | - |
 | RENDERUSDT | 4 | 50% | 0.82 | - |
 | DYDXUSDT | 0 | - | - | - |
+| ONDOUSDT | 9 | 56% | 0.68 | -0.05% |
+| PYTHUSDT | 6 | 17% | 0.01 | -0.16% |
+| JUPUSDT | 7 | 29% | 0.53 | -0.06% |
+| WLDUSDT | 4 | 50% | 0.99 | -0.01% |
+| GMTUSDT | 5 | 20% | 0.07 | -0.12% |
+| SANDUSDT | 10 | 40% | 0.75 | -0.05% |
+| ALGOUSDT | 7 | 14% | 0.17 | -0.17% |
+| 1000BONKUSDT | 7 | 29% | 0.29 | -0.10% |
+| MANAUSDT | 1 | - | - | pocos |
+| SAGAUSDT | 3 | - | - | pocos |
 
 ---
 
@@ -48,6 +58,16 @@
 
 ### Descartados ❌
 Stop Hunt es baja frecuencia. No se pueden descartar símbolos con certeza.
+| ETHUSDT | 5 | 60% | 1.15 | +0.00% |
+| SOLUSDT | 4 | 25% | 0.29 | -0.06% |
+| LINKUSDT | 0 | - | - | sin señales |
+| DOGEUSDT | 1 | 0% | 0.00 | -0.03% |
+| PENDLEUSDT | 2 | 100% | inf | +0.06% |
+| BTCUSDT | 1 | 100% | inf | -0.00% |
+| RUNEUSDT | 5 | 40% | 0.20 | -0.08% |
+| WIFUSDT | 5 | 60% | 2.57 | +0.05% | ✅ candidato
+| SUIUSDT | 5 | 80% | 4.33 | +0.14% | ✅ candidato
+| NEARUSDT | 3 | 67% | 26.57 | +0.05% | ✅ candidato |
 
 ---
 
@@ -87,6 +107,11 @@ Stop Hunt es baja frecuencia. No se pueden descartar símbolos con certeza.
 | TAOUSDT | - | - | - | - |
 | SEIUSDT | - | - | - | - |
 | WLDUSDT | - | - | - | - |
+| SANDUSDT | 17 | 59% | 3.46 | +0.32% | ✅ candidato
+| ALGOUSDT | 17 | 53% | 1.41 | +0.04% | marginal
+| MANAUSDT | 23 | 26% | 0.78 | -0.12% |
+| GMTUSDT | 17 | 41% | 0.66 | -0.11% |
+| SAGAUSDT | 20 | 25% | 0.74 | -0.14% |
 
 ---
 
@@ -100,7 +125,21 @@ Stop Hunt es baja frecuencia. No se pueden descartar símbolos con certeza.
 | TIAUSDT | 20 | 50% | 2.41 | +0.20% |
 | ORDIUSDT | 18 | 44% | 2.86 | +0.21% |
 | PENDLEUSDT | 10 | 50% | 2.51 | +0.10% |
-| 1000BONKUSDT | 15 | 47% | 2.02 | +0.12% |
+| AVAXUSDT | 7 | 57% | 2.28 | +0.06% | reemplaza BONK
+
+### Descartados ❌ (con EMA 25/50)
+| Símbolo | Trades | WR | PF | Ret | Nota |
+|---------|--------|-----|------|-----|------|
+| 1000BONKUSDT | 15 | 47% | 2.02 | +0.12% | reemplazado por AVAX |
+| SOLUSDT | 9 | 44% | 2.08 | +0.09% | candidato |
+| ALGOUSDT | 8 | 50% | 1.75 | +0.05% | candidato |
+| RENDERUSDT | 11 | 36% | 1.72 | +0.06% | candidato |
+| FETUSDT | 12 | 33% | 1.45 | +0.04% | candidato |
+| RUNEUSDT | 9 | 44% | 1.17 | +0.00% | marginal |
+| TAOUSDT | 8 | 25% | 0.93 | -0.02% |
+| NEARUSDT | 8 | 25% | 0.77 | -0.04% |
+| BTCUSDT | 8 | 13% | 0.23 | -0.12% |
+| FILUSDT | 10 | 10% | 0.13 | -0.11% |
 
 ### Descartados ❌ (con EMA vieja 9/21)
 | Símbolo | Trades | WR | PF | Ret |
@@ -108,7 +147,6 @@ Stop Hunt es baja frecuencia. No se pueden descartar símbolos con certeza.
 | BTCUSDT | 12 | 0% | 0.00 | -0.24% |
 | ETHUSDT | 14 | 29% | 0.82 | -0.06% |
 | SOLUSDT | 18 | 28% | 0.93 | -0.05% |
-| AVAXUSDT | 9 | 33% | 0.89 | -0.03% |
 | XRPUSDT | 35 | 34% | 0.44 | -0.38% |
 | DOGEUSDT | 41 | 22% | 0.42 | -0.50% |
 | FILUSDT | 27 | 26% | 0.73 | -0.17% |
