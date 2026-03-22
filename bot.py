@@ -259,16 +259,35 @@ def main():
         "all": "Todas (4 estrategias)",
     }
     strategy_label = strategy_labels.get(st.strategy_mode, "EMA Breakout")
-    log.info(f"[STARTUP] Bot listo. Mode={mode} Strategy={strategy_label} Symbols={len(st.symbols)}")
+    log.info(f"[STARTUP] Bot listo. Mode={mode} Strategy={strategy_label}")
+
     try:
+        from strategy.signal_engine import ACTIVE_STRATEGIES
+        from config import STRATEGY_INTERVALS
+
+        strategy_symbols = getattr(st, "strategy_symbols", {})
+        all_symbols = set()
+        estrategias = []
+        for name, info in ACTIVE_STRATEGIES.items():
+            syms = strategy_symbols.get(name, [])
+            if syms:
+                interval = STRATEGY_INTERVALS.get(name, "?")
+                estrategias.append(f"  {info['short']} {name} ({interval}): {len(syms)}")
+                all_symbols.update(syms)
+
+        eq = exchange.get_equity()
+        mode_txt = "🧪 PAPER" if st.paper_trading else "💵 PRODUCCIÓN"
+
         telegram.send(
-            f"🚀 Bot activo ({mode})\n"
-            f"Strategy: {strategy_label}\n"
-            f"Symbols: {', '.join(st.symbols)}\n"
-            f"TF: {CFG.INTERVAL}\n"
-            f"Risk: {st.risk_pct}%\n"
-            f"Lev: {st.leverage}x\n"
-            f"Trailing: {st.trailing_pct}%"
+            f"🚀 <b>Bot activo</b> — {mode_txt}\n\n"
+            f"<b>Estrategias:</b>\n" + "\n".join(estrategias) + "\n\n"
+            f"<b>Config:</b>\n"
+            f"  Equity: ${eq:.2f}\n"
+            f"  Risk: {st.risk_pct}% | Lev: {st.leverage}x\n"
+            f"  Max pos: {st.max_positions}\n"
+            f"  Trailing: {st.trailing_pct}%\n"
+            f"  Daily loss limit: {st.daily_loss_limit_pct}%\n\n"
+            f"<b>Símbolos únicos:</b> {len(all_symbols)}"
         )
     except Exception as e:
         log.error(f"[TELEGRAM] Error sending startup message: {e}", exc_info=True)
