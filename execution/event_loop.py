@@ -416,14 +416,13 @@ class EventLoop:
                         entry = float(pos.get("entry_price", 0))
                         qty = float(pos.get("qty", 0))
 
-                        # Calcular hold time (maneja datetime o int)
+                        # Calcular hold time usando opened_at del pos y close_time_ms ya calculado
                         opened_at = pos.get("opened_at", 0)
-                        closed_at = pos.get("closed_at", 0)
                         if hasattr(opened_at, 'timestamp'):
-                            opened_at = int(opened_at.timestamp() * 1000)
-                        if hasattr(closed_at, 'timestamp'):
-                            closed_at = int(closed_at.timestamp() * 1000)
-                        hold_ms = int(closed_at) - int(opened_at)
+                            opened_at_ms = int(opened_at.timestamp() * 1000)
+                        else:
+                            opened_at_ms = int(opened_at)
+                        hold_ms = close_time_ms - opened_at_ms
                         hold_min = hold_ms / 60000 if hold_ms > 0 else 0
                         pnl_pct = (ep - entry) / entry * 100 if entry > 0 and pos.get("side") == "LONG" else (entry - ep) / entry * 100 if entry > 0 else 0
                         emoji = "🟢" if r >= 0 else "🔴"
