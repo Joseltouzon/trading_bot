@@ -18,7 +18,7 @@ DEFAULT_STRATEGY_SYMBOLS = {
     "rsi_bb_reversion": ["XRPUSDT", "1000PEPEUSDT", "AVAXUSDT", "TIAUSDT", "ORDIUSDT"],
     "stop_hunt":        ["XRPUSDT", "1000PEPEUSDT", "AVAXUSDT", "TIAUSDT", "ORDIUSDT"],
     "macd_momentum":    ["XRPUSDT", "AVAXUSDT", "SOLUSDT", "LINKUSDT", "TIAUSDT"],
-    "ema_breakout":     [],
+    "ema_breakout":     ["DOGEUSDT", "LINKUSDT", "TIAUSDT", "ORDIUSDT", "PENDLEUSDT", "1000BONKUSDT"],
     "structure_break":  [],
 }
 REQUIRED_INTERVALS = sorted(set(STRATEGY_INTERVALS.values()))  # ["15m", "5m"]
