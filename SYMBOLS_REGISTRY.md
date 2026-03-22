@@ -50,14 +50,17 @@
 ### Activos ✅
 | Símbolo | Trades | WR | PF | Ret |
 |---------|--------|-----|------|-----|
-| XRPUSDT | 2 | 50% | 0.79 | -0.01% |
 | 1000PEPEUSDT | 4 | 100% | inf | +0.12% |
 | AVAXUSDT | 1 | 100% | inf | +0.01% |
-| TIAUSDT | 1 | 100% | inf | +0.02% |
 | ORDIUSDT | 3 | 67% | 3.05 | +0.06% |
+| SUIUSDT | 5 | 80% | 4.33 | +0.14% |
+| WIFUSDT | 5 | 60% | 2.57 | +0.05% |
 
 ### Descartados ❌
-Stop Hunt es baja frecuencia. No se pueden descartar símbolos con certeza.
+| Símbolo | Trades | WR | PF | Ret | Nota |
+|---------|--------|-----|------|-----|------|
+| XRPUSDT | 2 | 50% | 0.79 | -0.01% | reemplazado por SUI |
+| TIAUSDT | 1 | 100% | inf | +0.02% | reemplazado por WIF |
 | ETHUSDT | 5 | 60% | 1.15 | +0.00% |
 | SOLUSDT | 4 | 25% | 0.29 | -0.06% |
 | LINKUSDT | 0 | - | - | sin señales |
@@ -76,15 +79,16 @@ Stop Hunt es baja frecuencia. No se pueden descartar símbolos con certeza.
 ### Activos ✅
 | Símbolo | Trades | WR | PF | Ret |
 |---------|--------|-----|------|-----|
+| SANDUSDT | 17 | 59% | 3.46 | +0.32% |
+| PENDLEUSDT | 16 | 69% | 2.82 | +0.20% |
 | XRPUSDT | 24 | 63% | 2.80 | +0.31% |
 | AVAXUSDT | 21 | 57% | 2.47 | +0.25% |
 | SOLUSDT | 10 | 60% | 2.67 | +0.12% |
-| PENDLEUSDT | 16 | 69% | 2.82 | +0.20% |
-| RUNEUSDT | 15 | 47% | 1.98 | +0.16% |
 
 ### Descartados ❌
-| Símbolo | Trades | WR | PF | Ret |
-|---------|--------|-----|------|-----|
+| Símbolo | Trades | WR | PF | Ret | Nota |
+|---------|--------|-----|------|-----|------|
+| RUNEUSDT | 15 | 47% | 1.98 | +0.16% | reemplazado por SAND |
 | ETHUSDT | 13 | 31% | 0.78 | -0.07% |
 | DOGEUSDT | 26 | 39% | 0.96 | -0.06% |
 | WIFUSDT | 17 | 24% | 0.57 | -0.16% |

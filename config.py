@@ -15,10 +15,10 @@ STRATEGY_INTERVALS = {
     "structure_break": "5m",
 }
 DEFAULT_STRATEGY_SYMBOLS = {
-    "rsi_bb_reversion": ["XRPUSDT", "1000PEPEUSDT", "AVAXUSDT", "TIAUSDT", "ORDIUSDT"],
-    "stop_hunt":        ["XRPUSDT", "1000PEPEUSDT", "AVAXUSDT", "TIAUSDT", "ORDIUSDT"],
-    "macd_momentum":    ["XRPUSDT", "AVAXUSDT", "SOLUSDT", "LINKUSDT", "TIAUSDT"],
-    "ema_breakout":     ["DOGEUSDT", "LINKUSDT", "TIAUSDT", "ORDIUSDT", "PENDLEUSDT", "AVAXUSDT"],
+    "rsi_bb_reversion": ["1000PEPEUSDT", "AVAXUSDT", "TIAUSDT", "ORDIUSDT", "TAOUSDT"],
+    "stop_hunt":        ["1000PEPEUSDT", "AVAXUSDT", "ORDIUSDT", "SUIUSDT", "WIFUSDT"],
+    "macd_momentum":    ["SANDUSDT", "PENDLEUSDT", "XRPUSDT", "AVAXUSDT", "SOLUSDT"],
+    "ema_breakout":     ["DOGEUSDT", "LINKUSDT", "TIAUSDT", "ORDIUSDT", "PENDLEUSDT"],
     "structure_break":  ["FILUSDT", "DOGEUSDT", "APTUSDT", "WIFUSDT", "ATOMUSDT"],
 }
 REQUIRED_INTERVALS = sorted(set(STRATEGY_INTERVALS.values()))  # ["15m", "5m"]
