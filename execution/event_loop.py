@@ -268,10 +268,15 @@ class EventLoop:
             # 🆕 Paso 1: Detectar y adoptar posiciones manuales
             db_open = self.db.get_open_positions()
             db_symbols = {p["symbol"] for p in db_open}
-            
+
+            strategy_symbols = getattr(st, "strategy_symbols", {})
+            all_symbols = set()
+            for syms in strategy_symbols.values():
+                all_symbols.update(syms)
+
             for ex_pos in exchange_positions:
                 symbol = ex_pos.get("symbol")
-                if not symbol or symbol not in st.symbols:
+                if not symbol or symbol not in all_symbols:
                     continue
                 # Si existe en Binance pero NO en DB → ADOPTAR
                 if symbol not in db_symbols:
@@ -410,7 +415,15 @@ class EventLoop:
                         ep = float(exit_price or 0)
                         entry = float(pos.get("entry_price", 0))
                         qty = float(pos.get("qty", 0))
-                        hold_ms = int(pos.get("closed_at", 0)) - int(pos.get("opened_at", 0))
+
+                        # Calcular hold time (maneja datetime o int)
+                        opened_at = pos.get("opened_at", 0)
+                        closed_at = pos.get("closed_at", 0)
+                        if hasattr(opened_at, 'timestamp'):
+                            opened_at = int(opened_at.timestamp() * 1000)
+                        if hasattr(closed_at, 'timestamp'):
+                            closed_at = int(closed_at.timestamp() * 1000)
+                        hold_ms = int(closed_at) - int(opened_at)
                         hold_min = hold_ms / 60000 if hold_ms > 0 else 0
                         pnl_pct = (ep - entry) / entry * 100 if entry > 0 and pos.get("side") == "LONG" else (entry - ep) / entry * 100 if entry > 0 else 0
                         emoji = "🟢" if r >= 0 else "🔴"
@@ -493,6 +506,8 @@ class EventLoop:
             "symbol": sym, "side": side, "price": price, "qty": qty,
             "atr": atr, "bar_close_ms": int(ev.kline_close_time_ms),
             "initial_sl": initial_sl,
+            "strategy": ev.signal.get("strategy", "unknown"),
+            "signal_type": ev.signal.get("signal_type", ""),
             "ml_features": ev.signal.get("ml_features"),
         }
 

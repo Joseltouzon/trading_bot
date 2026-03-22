@@ -32,10 +32,15 @@ class TakeProfitManager:
     def loop_once(self, st):
         """Iterar sobre posiciones abiertas y evaluar niveles de TP"""
         try:
+            strategy_symbols = getattr(st, "strategy_symbols", {})
+            all_symbols = set()
+            for syms in strategy_symbols.values():
+                all_symbols.update(syms)
+
             positions = self.exchange.get_open_positions()
             for p in positions:
                 symbol = p.get("symbol")
-                if not symbol or symbol not in st.symbols:
+                if not symbol or symbol not in all_symbols:
                     continue
                     
                 # Saltar si está en cooldown de TP

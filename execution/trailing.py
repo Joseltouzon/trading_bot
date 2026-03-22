@@ -15,12 +15,18 @@ class TrailingManager:
 
     def loop_once(self, st):
         try:
+            # Unión de todos los símbolos de todas las estrategias
+            strategy_symbols = getattr(st, "strategy_symbols", {})
+            all_symbols = set()
+            for syms in strategy_symbols.values():
+                all_symbols.update(syms)
+
             positions = self.exchange.get_open_positions()
             for p in positions:
                 symbol = p.get("symbol")
                 if not symbol:
                     continue
-                if symbol not in st.symbols:
+                if symbol not in all_symbols:
                     continue
                 self.update_trailing(st, symbol, p)
         except Exception as e:
