@@ -302,7 +302,8 @@ class OrderManager:
             symbol=symbol,
             side=side,
             qty=qty,
-            entry_price=mark_price
+            entry_price=mark_price,
+            strategy_tag=signal.get("strategy", "unknown")
         )
 
         if not hasattr(st, "position_ids"):

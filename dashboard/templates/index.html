@@ -34,6 +34,11 @@
         </button>
     </li>
     <li class="nav-item" style="margin-bottom: 20px;">
+        <button class="nav-link" data-bs-toggle="pill" data-bs-target="#strategy-performance">
+            <i class="bi bi-bar-chart-line"></i> Rendimiento
+        </button>
+    </li>
+    <li class="nav-item" style="margin-bottom: 20px;">
         <button class="nav-link" data-bs-toggle="pill" data-bs-target="#config-generales">
             <i class="bi bi-sliders"></i> Config Generales
         </button>
@@ -700,6 +705,33 @@
         </div>
     </div>
 
+    <!-- ========================= STRATEGY PERFORMANCE TAB ========================= -->
+    <div class="tab-pane fade" id="strategy-performance">
+        <div class="card p-4 mt-3">
+            <h5 class="mb-4" style="color: #f3f7f3;">RENDIMIENTO POR ESTRATEGIA</h5>
+            <div class="table-responsive">
+                <table class="table table-dark table-striped">
+                    <thead>
+                        <tr>
+                            <th>Estrategia</th>
+                            <th>Trades</th>
+                            <th>WR</th>
+                            <th>PnL</th>
+                            <th>PF</th>
+                            <th>Comisión</th>
+                            <th>Neto</th>
+                            <th>Mejor</th>
+                            <th>Peor</th>
+                        </tr>
+                    </thead>
+                    <tbody id="strategyStatsBody">
+                        <tr><td colspan="9">Cargando...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
     <!-- ========================= CONFIG GENERALES TAB ========================= -->
     <div class="tab-pane fade" id="config-generales">
         <form id="configForm" class="row g-3 needs-validation" novalidate>
@@ -712,12 +744,6 @@
                         <div class="form-check form-switch">
                             <input class="form-check-input" type="checkbox" id="paused" name="paused" {% if state.paused %}checked{% endif %}>
                             <label class="form-check-label fw-bold" style="color: aquamarine;" for="paused">Bot Pausado</label>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-check form-switch">
-                            <input class="form-check-input" type="checkbox" id="paper_trading" name="paper_trading" {% if state.paper_trading %}checked{% endif %}>
-                            <label class="form-check-label fw-bold" style="color: aquamarine;" for="paper_trading">Paper Trading</label>
                         </div>
                     </div>
                 </div>
@@ -748,11 +774,6 @@
 
                 <h6 class="mb-3" style="color: #f3f7f3;">EJECUCION</h6>
                 <div class="row g-3 mb-3">
-                    <div class="col-12">
-                        <label class="form-label" style="color: aquamarine;">Symbols (comma sep)</label>
-                        <input type="text" class="form-control" name="symbols" value="{{ state.symbols | join(',') }}" required>
-                        <div class="invalid-feedback">Al menos un símbolo</div>
-                    </div>
                     <div class="col-md-4">
                         <label class="form-label" style="color: aquamarine;">
                             Timeframe
@@ -786,7 +807,7 @@
                                 {% elif state.strategy_mode == 'rsi_bb_reversion' %}RSI+BB Reversion
                                 {% elif state.strategy_mode == 'macd_momentum' %}MACD Momentum
                                 {% elif state.strategy_mode == 'structure_break' %}Structure Break
-                                {% elif state.strategy_mode == 'auto' %}Auto (Mercado)
+                                {% elif state.strategy_mode == 'auto' %}Auto (todas simultáneas)
                                 {% else %}EMA Breakout{% endif %}
                             </span>
                         </label>
@@ -796,9 +817,9 @@
                             <option value="rsi_bb_reversion" {% if state.strategy_mode=='rsi_bb_reversion' %}selected{% endif %}>RSI+BB Reversion</option>
                             <option value="macd_momentum" {% if state.strategy_mode=='macd_momentum' %}selected{% endif %}>MACD Momentum</option>
                             <option value="structure_break" {% if state.strategy_mode=='structure_break' %}selected{% endif %}>Structure Break</option>
-                            <option value="auto" {% if state.strategy_mode=='auto' %}selected{% endif %}>Auto (Mercado)</option>
+                            <option value="auto" {% if state.strategy_mode=='auto' %}selected{% endif %}>Auto (todas simultáneas)</option>
                         </select>
-                        <small class="text-muted" style="color: #fff !important;">Auto detecta régimen y cambia estrategia</small>
+                        <small class="text-muted" style="color: #fff !important;">Auto todas las estrategias en simultaneo</small>
                     </div>
                 </div>
 
@@ -909,6 +930,69 @@
                     <label class="form-label" style="color: aquamarine;">Pivot Length</label>
                     <input type="number" class="form-control" name="pivot_len" value="{{ state.pivot_len }}" required min="5" max="50">
                     <small class="text-muted" style="color: #fff !important;">Período detección de pivotes</small>
+                </div>
+            </div>
+
+            <h6 class="mb-3 mt-4" style="color: aquamarine;">EMA v2 Filtros</h6>
+            <div class="row g-3 mb-3">
+                <div class="col-md-3">
+                    <label class="form-label" style="color: aquamarine;">Min Slope %</label>
+                    <input type="number" step="0.01" class="form-control" name="ema_min_slope_pct" value="{{ state.ema_min_slope_pct or 0.04 }}" required min="0.01" max="0.2">
+                    <small class="text-muted" style="color: #fff !important;">Pendiente mínima EMA (0.04 = óptimo)</small>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label" style="color: aquamarine;">RSI Overbought</label>
+                    <input type="number" step="1" class="form-control" name="ema_rsi_overbought" value="{{ state.ema_rsi_overbought or 70 }}" required min="60" max="90">
+                    <small class="text-muted" style="color: #fff !important;">No LONG si RSI > esto</small>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label" style="color: aquamarine;">RSI Oversold</label>
+                    <input type="number" step="1" class="form-control" name="ema_rsi_oversold" value="{{ state.ema_rsi_oversold or 30 }}" required min="10" max="40">
+                    <small class="text-muted" style="color: #fff !important;">No SHORT si RSI < esto</small>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label" style="color: aquamarine;">Min Volume Ratio</label>
+                    <input type="number" step="0.1" class="form-control" name="ema_min_volume_ratio" value="{{ state.ema_min_volume_ratio or 1.2 }}" required min="0.5" max="5">
+                    <small class="text-muted" style="color: #fff !important;">1.2 = 20% sobre media</small>
+                </div>
+            </div>
+            <div class="row g-3 mb-3">
+                <div class="col-md-3">
+                    <label class="form-label" style="color: aquamarine;">Min ATR %</label>
+                    <input type="number" step="0.01" class="form-control" name="ema_min_atr_pct" value="{{ state.ema_min_atr_pct or 0.15 }}" required min="0.05" max="1">
+                    <small class="text-muted" style="color: #fff !important;">Volatilidad mínima (0.15%)</small>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label" style="color: aquamarine;">Min Momentum %</label>
+                    <input type="number" step="0.01" class="form-control" name="ema_min_momentum_pct" value="{{ state.ema_min_momentum_pct or 0.10 }}" required min="0.02" max="0.5">
+                    <small class="text-muted" style="color: #fff !important;">Movimiento mínimo en 3 velas</small>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label" style="color: aquamarine;">SL ATR Mult</label>
+                    <input type="number" step="0.1" class="form-control" name="ema_sl_atr_mult" value="{{ state.ema_sl_atr_mult or 2.0 }}" required min="1" max="5">
+                    <small class="text-muted" style="color: #fff !important;">Distancia SL en ATR (2.0 = estándar)</small>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label" style="color: aquamarine;">SL %</label>
+                    <input type="number" step="0.05" class="form-control" name="ema_sl_pct" value="{{ state.ema_sl_pct or 0.30 }}" required min="0.1" max="1">
+                    <small class="text-muted" style="color: #fff !important;">SL mínimo como % del precio</small>
+                </div>
+            </div>
+            <div class="row g-3 mb-3">
+                <div class="col-md-3">
+                    <label class="form-label" style="color: aquamarine;">Min Body Ratio</label>
+                    <input type="number" step="0.05" class="form-control" name="ema_min_body_ratio" value="{{ state.ema_min_body_ratio or 0.50 }}" required min="0.2" max="0.9">
+                    <small class="text-muted" style="color: #fff !important;">Cuerpo/rango vela (0.5 = mitad)</small>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label" style="color: aquamarine;">Breakout Lookback</label>
+                    <input type="number" step="1" class="form-control" name="ema_breakout_lookback" value="{{ state.ema_breakout_lookback or 8 }}" required min="3" max="20">
+                    <small class="text-muted" style="color: #fff !important;">Velas para buscar breakout</small>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label" style="color: aquamarine;">Max Pivot Age</label>
+                    <input type="number" step="1" class="form-control" name="ema_max_pivot_age" value="{{ state.ema_max_pivot_age or 15 }}" required min="5" max="50">
+                    <small class="text-muted" style="color: #fff !important;">Máx antigüedad del pivot</small>
                 </div>
             </div>
 
@@ -1155,18 +1239,22 @@
                 <div class="col-md-3">
                     <label class="form-label" style="color: aquamarine;">Fast EMA</label>
                     <input type="number" step="1" class="form-control" name="macd_fast" value="{{ state.macd_fast or 12 }}" required min="5" max="30">
+                    <small class="text-muted" style="color: #fff !important;">Rápida (12 = estándar)</small>
                 </div>
                 <div class="col-md-3">
                     <label class="form-label" style="color: aquamarine;">Slow EMA</label>
                     <input type="number" step="1" class="form-control" name="macd_slow" value="{{ state.macd_slow or 26 }}" required min="15" max="50">
+                    <small class="text-muted" style="color: #fff !important;">Lenta (26 = estándar)</small>
                 </div>
                 <div class="col-md-3">
                     <label class="form-label" style="color: aquamarine;">Signal Line</label>
                     <input type="number" step="1" class="form-control" name="macd_signal" value="{{ state.macd_signal or 9 }}" required min="3" max="20">
+                    <small class="text-muted" style="color: #fff !important;">Señal (9 = estándar)</small>
                 </div>
                 <div class="col-md-3">
                     <label class="form-label" style="color: aquamarine;">RSI Period</label>
                     <input type="number" step="1" class="form-control" name="macd_rsi_period" value="{{ state.macd_rsi_period or 14 }}" required min="5" max="30">
+                    <small class="text-muted" style="color: #fff !important;">Para confirmación direccional</small>
                 </div>
             </div>
 
@@ -1180,14 +1268,17 @@
                 <div class="col-md-3">
                     <label class="form-label" style="color: aquamarine;">RSI Bull Min</label>
                     <input type="number" step="1" class="form-control" name="macd_rsi_bull_min" value="{{ state.macd_rsi_bull_min or 55 }}" required min="40" max="70">
+                    <small class="text-muted" style="color: #fff !important;">RSI mínimo para LONG</small>
                 </div>
                 <div class="col-md-3">
                     <label class="form-label" style="color: aquamarine;">RSI Bear Max</label>
                     <input type="number" step="1" class="form-control" name="macd_rsi_bear_max" value="{{ state.macd_rsi_bear_max or 45 }}" required min="30" max="60">
+                    <small class="text-muted" style="color: #fff !important;">RSI máximo para SHORT</small>
                 </div>
                 <div class="col-md-3">
                     <label class="form-label" style="color: aquamarine;">ADX Min</label>
                     <input type="number" step="1" class="form-control" name="macd_adx_min" value="{{ state.macd_adx_min or 25 }}" required min="10" max="40">
+                    <small class="text-muted" style="color: #fff !important;">25 = tendencia fuerte</small>
                 </div>
             </div>
 
@@ -1195,6 +1286,7 @@
                 <div class="col-md-3">
                     <label class="form-label" style="color: aquamarine;">Min ATR %</label>
                     <input type="number" step="0.01" class="form-control" name="macd_min_atr_pct" value="{{ state.macd_min_atr_pct or 0.20 }}" required min="0.05" max="1">
+                    <small class="text-muted" style="color: #fff !important;">Volatilidad mínima (0.20%)</small>
                 </div>
                 <div class="col-md-3">
                     <label class="form-label" style="color: aquamarine;">Structure Lookback</label>
@@ -1231,18 +1323,22 @@
                 <div class="col-md-3">
                     <label class="form-label" style="color: aquamarine;">Swing Window</label>
                     <input type="number" step="1" class="form-control" name="structure_swing_window" value="{{ state.structure_swing_window or 5 }}" required min="2" max="10">
+                    <small class="text-muted" style="color: #fff !important;">Velas a cada lado del swing</small>
                 </div>
                 <div class="col-md-3">
                     <label class="form-label" style="color: aquamarine;">Lookback</label>
                     <input type="number" step="1" class="form-control" name="structure_lookback" value="{{ state.structure_lookback or 60 }}" required min="20" max="120">
+                    <small class="text-muted" style="color: #fff !important;">Velas para buscar swings</small>
                 </div>
                 <div class="col-md-3">
                     <label class="form-label" style="color: aquamarine;">Break Lookback</label>
                     <input type="number" step="1" class="form-control" name="structure_break_lookback" value="{{ state.structure_break_lookback or 10 }}" required min="3" max="20">
+                    <small class="text-muted" style="color: #fff !important;">Velas para buscar ruptura</small>
                 </div>
                 <div class="col-md-3">
                     <label class="form-label" style="color: aquamarine;">Retest Lookback</label>
                     <input type="number" step="1" class="form-control" name="structure_retest_lookback" value="{{ state.structure_retest_lookback or 8 }}" required min="3" max="15">
+                    <small class="text-muted" style="color: #fff !important;">Velas post-ruptura para retest</small>
                 </div>
             </div>
 
@@ -1251,18 +1347,22 @@
                 <div class="col-md-3">
                     <label class="form-label" style="color: aquamarine;">Min Break Volume</label>
                     <input type="number" step="0.5" class="form-control" name="structure_min_break_volume" value="{{ state.structure_min_break_volume or 2.0 }}" required min="1" max="5">
+                    <small class="text-muted" style="color: #fff !important;">2x = volumen de ruptura doble</small>
                 </div>
                 <div class="col-md-3">
                     <label class="form-label" style="color: aquamarine;">Retest Tolerance ATR</label>
                     <input type="number" step="0.1" class="form-control" name="structure_retest_tolerance_atr" value="{{ state.structure_retest_tolerance_atr or 0.5 }}" required min="0.1" max="2">
+                    <small class="text-muted" style="color: #fff !important;">0.5 = medio ATR de tolerancia</small>
                 </div>
                 <div class="col-md-3">
                     <label class="form-label" style="color: aquamarine;">ADX Min</label>
                     <input type="number" step="1" class="form-control" name="structure_adx_min" value="{{ state.structure_adx_min or 15 }}" required min="5" max="30">
+                    <small class="text-muted" style="color: #fff !important;">15 = mínimo para ruptura</small>
                 </div>
                 <div class="col-md-3">
                     <label class="form-label" style="color: aquamarine;">SL Buffer ATR</label>
                     <input type="number" step="0.1" class="form-control" name="structure_sl_buffer_atr" value="{{ state.structure_sl_buffer_atr or 1.0 }}" required min="0.5" max="3">
+                    <small class="text-muted" style="color: #fff !important;">1.0 = SL debajo del nivel roto</small>
                 </div>
             </div>
 

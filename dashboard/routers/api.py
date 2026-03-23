@@ -553,3 +553,59 @@ def api_symbols_status(db = Depends(get_db)):
         })
     
     return {"symbols": result}
+
+
+@router.get("/strategy-stats")
+def api_strategy_stats(db = Depends(get_db)):
+    """Estadísticas de rendimiento por estrategia."""
+    try:
+        with db.conn.cursor() as cur:
+            cur.execute("""
+                SELECT
+                    COALESCE(strategy_tag, 'unknown') as strategy,
+                    COUNT(*) as total_trades,
+                    COUNT(CASE WHEN realized_pnl > 0 THEN 1 END) as wins,
+                    COUNT(CASE WHEN realized_pnl <= 0 THEN 1 END) as losses,
+                    COALESCE(SUM(realized_pnl), 0) as total_pnl,
+                    COALESCE(SUM(commission), 0) as total_commission,
+                    COALESCE(AVG(CASE WHEN realized_pnl > 0 THEN realized_pnl END), 0) as avg_win,
+                    COALESCE(AVG(CASE WHEN realized_pnl <= 0 THEN realized_pnl END), 0) as avg_loss,
+                    COALESCE(MAX(realized_pnl), 0) as best_trade,
+                    COALESCE(MIN(realized_pnl), 0) as worst_trade
+                FROM positions
+                WHERE status = 'CLOSED'
+                GROUP BY COALESCE(strategy_tag, 'unknown')
+                ORDER BY total_pnl DESC
+            """)
+            rows = cur.fetchall()
+
+        strategies = []
+        for row in rows:
+            strategy, total, wins, losses, pnl, comm, avg_w, avg_l, best, worst = row
+            wr = (wins / total * 100) if total > 0 else 0
+
+            # Profit factor
+            total_wins = wins * avg_w if wins > 0 and avg_w else 0
+            total_losses = abs(losses * avg_l) if losses > 0 and avg_l else 0
+            pf = total_wins / total_losses if total_losses > 0 else (float('inf') if total_wins > 0 else 0)
+
+            strategies.append({
+                "strategy": strategy,
+                "total_trades": total,
+                "wins": wins,
+                "losses": losses,
+                "win_rate": round(wr, 1),
+                "total_pnl": round(float(pnl or 0), 4),
+                "total_commission": round(float(comm or 0), 4),
+                "net_pnl": round(float(pnl or 0) - float(comm or 0), 4),
+                "profit_factor": round(pf, 2) if pf != float('inf') else 99.99,
+                "avg_win": round(float(avg_w or 0), 4),
+                "avg_loss": round(float(avg_l or 0), 4),
+                "best_trade": round(float(best or 0), 4),
+                "worst_trade": round(float(worst or 0), 4),
+            })
+
+        return {"strategies": strategies}
+
+    except Exception as e:
+        return {"strategies": [], "error": str(e)}

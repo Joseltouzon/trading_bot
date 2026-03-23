@@ -1505,9 +1505,70 @@
         }
     });
 
+    // ── Strategy Stats ──────────────────────────────────────
+    async function loadStrategyStats() {
+        try {
+            const res = await fetch("/api/strategy-stats");
+            const data = await res.json();
+            const tbody = document.getElementById("strategyStatsBody");
+            if (!tbody || !data.strategies) return;
+
+            if (data.strategies.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="9" class="text-center">Sin trades cerrados aún</td></tr>';
+                return;
+            }
+
+            let html = "";
+            let totalPnl = 0;
+            let totalTrades = 0;
+
+            data.strategies.forEach(s => {
+                const pnlColor = s.net_pnl >= 0 ? "text-success" : "text-danger";
+                const wrColor = s.win_rate >= 50 ? "text-success" : "text-warning";
+                const pfColor = s.profit_factor >= 1.5 ? "text-success" : s.profit_factor >= 1.0 ? "text-warning" : "text-danger";
+
+                html += `<tr>
+                    <td><strong>${s.strategy}</strong></td>
+                    <td>${s.total_trades} <small class="text-muted">(${s.wins}W/${s.losses}L)</small></td>
+                    <td class="${wrColor}">${s.win_rate}%</td>
+                    <td class="${pnlColor}">${s.total_pnl >= 0 ? '+' : ''}$${s.total_pnl.toFixed(4)}</td>
+                    <td class="${pfColor}">${s.profit_factor}</td>
+                    <td>-$${s.total_commission.toFixed(4)}</td>
+                    <td class="${pnlColor}"><strong>${s.net_pnl >= 0 ? '+' : ''}$${s.net_pnl.toFixed(4)}</strong></td>
+                    <td class="text-success">+$${s.best_trade.toFixed(4)}</td>
+                    <td class="text-danger">$${s.worst_trade.toFixed(4)}</td>
+                </tr>`;
+
+                totalPnl += s.net_pnl;
+                totalTrades += s.total_trades;
+            });
+
+            // Total row
+            const totalColor = totalPnl >= 0 ? "text-success" : "text-danger";
+            html += `<tr style="border-top: 2px solid #555;">
+                <td><strong>TOTAL</strong></td>
+                <td><strong>${totalTrades}</strong></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="${totalColor}"><strong>${totalPnl >= 0 ? '+' : ''}$${totalPnl.toFixed(4)}</strong></td>
+                <td></td>
+                <td></td>
+            </tr>`;
+
+            tbody.innerHTML = html;
+        } catch (e) {
+            console.error("Strategy stats load failed", e);
+        }
+    }
+
+    loadStrategyStats();
+    setInterval(loadStrategyStats, 10000);
+
     loadTrailingStatus();
     loadBenchmark();
-    setInterval(loadTrailingStatus, 5000);
+    setInterval(loadTrailingStatus, 3000);
     </script>
 
 </body>
