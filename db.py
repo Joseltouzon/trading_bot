@@ -959,9 +959,90 @@ class Database:
             position_id: ID de la posición en la tabla positions
             features: Dict con los features de la señal (ADX, volumen, momentum, etc.)
         """
+        # Convertir numpy types a Python nativos para JSON serialization
+        clean_features = {}
+        for k, v in features.items():
+            if hasattr(v, 'item'):  # numpy scalar
+                clean_features[k] = v.item()
+            elif isinstance(v, (bool, int, float, str)):
+                clean_features[k] = v
+            else:
+                clean_features[k] = str(v)
+
         with self.cursor() as cur:
             cur.execute("""
                 UPDATE positions
                 SET signal_features = %s
                 WHERE id = %s
-            """, (json.dumps(features), position_id))        
+            """, (json.dumps(clean_features), position_id))
+
+    def get_strategy_stats(self):
+        """Estadísticas de rendimiento por estrategia."""
+        with self.cursor() as cur:
+            cur.execute("""
+                SELECT
+                    COALESCE(strategy_tag, 'unknown') as strategy,
+                    COUNT(*) as total_trades,
+                    COUNT(CASE WHEN realized_pnl > 0 THEN 1 END) as wins,
+                    COUNT(CASE WHEN realized_pnl <= 0 THEN 1 END) as losses,
+                    COALESCE(SUM(realized_pnl), 0) as total_pnl,
+                    COALESCE(SUM(commission), 0) as total_commission,
+                    COALESCE(AVG(CASE WHEN realized_pnl > 0 THEN realized_pnl END), 0) as avg_win,
+                    COALESCE(AVG(CASE WHEN realized_pnl <= 0 THEN realized_pnl END), 0) as avg_loss,
+                    COALESCE(MAX(realized_pnl), 0) as best_trade,
+                    COALESCE(MIN(realized_pnl), 0) as worst_trade
+                FROM positions
+                WHERE status = 'CLOSED'
+                GROUP BY COALESCE(strategy_tag, 'unknown')
+                ORDER BY total_pnl DESC
+            """)
+            rows = cur.fetchall()
+
+        strategies = []
+        for row in rows:
+            if isinstance(row, dict):
+                strategy = str(row.get('strategy') or 'unknown')
+                total = int(row.get('total_trades') or 0)
+                wins = int(row.get('wins') or 0)
+                losses = int(row.get('losses') or 0)
+                pnl = float(row.get('total_pnl') or 0)
+                comm = float(row.get('total_commission') or 0)
+                avg_w = float(row.get('avg_win') or 0)
+                avg_l = float(row.get('avg_loss') or 0)
+                best = float(row.get('best_trade') or 0)
+                worst = float(row.get('worst_trade') or 0)
+            else:
+                strategy, total, wins, losses, pnl, comm, avg_w, avg_l, best, worst = row
+                strategy = str(strategy or 'unknown')
+                total = int(total or 0)
+                wins = int(wins or 0)
+                losses = int(losses or 0)
+                pnl = float(pnl or 0)
+                comm = float(comm or 0)
+                avg_w = float(avg_w or 0)
+                avg_l = float(avg_l or 0)
+                best = float(best or 0)
+                worst = float(worst or 0)
+
+            wr = (wins / total * 100) if total > 0 else 0
+            total_wins = wins * avg_w if wins > 0 else 0
+            total_losses = abs(losses * avg_l) if losses > 0 else 0
+            pf = total_wins / total_losses if total_losses > 0 else (99.99 if total_wins > 0 else 0)
+
+            strategies.append({
+                "strategy": strategy,
+                "total_trades": total,
+                "wins": wins,
+                "losses": losses,
+                "win_rate": round(wr, 1),
+                "total_pnl": round(float(pnl), 4),
+                "total_commission": round(float(comm), 4),
+                "net_pnl": round(float(pnl) - float(comm), 4),
+                "profit_factor": round(pf, 2),
+                "avg_win": round(float(avg_w), 4),
+                "avg_loss": round(float(avg_l), 4),
+                "best_trade": round(float(best), 4),
+                "worst_trade": round(float(worst), 4),
+            })
+
+        return strategies        
