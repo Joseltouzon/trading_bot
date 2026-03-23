@@ -1529,7 +1529,7 @@
 
                 html += `<tr>
                     <td><strong>${s.strategy}</strong></td>
-                    <td>${s.total_trades} <small class="text-muted">(${s.wins}W/${s.losses}L)</small></td>
+                    <td>${s.total_trades} <small class="text-muted" style="color: yellow !important;">(${s.wins}W/${s.losses}L)</small></td>
                     <td class="${wrColor}">${s.win_rate}%</td>
                     <td class="${pnlColor}">${s.total_pnl >= 0 ? '+' : ''}$${s.total_pnl.toFixed(4)}</td>
                     <td class="${pfColor}">${s.profit_factor}</td>
