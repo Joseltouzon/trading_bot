@@ -351,8 +351,8 @@ class EventLoop:
                     )
                     
                     if position_history:
-                        realized_pnl = float(position_history["realizedPnl"])  # ← PnL neto (ya incluye fees)
-                        self.log.info(f"[RECONCILE] {symbol} PnL={realized_pnl} Commission={total_commission}")
+                        realized_pnl = float(position_history["realizedPnl"])  # ← PnL bruto de Binance
+                        self.log.info(f"[RECONCILE] {symbol} PnL bruto={realized_pnl} Commission={total_commission}")
                     else:
                         # Fallback: cálculo manual si falla la API
                         entry_price = float(pos["entry_price"])
@@ -361,8 +361,9 @@ class EventLoop:
                             realized_pnl = (exit_price - entry_price) * qty_closed
                         else:
                             realized_pnl = (entry_price - exit_price) * qty_closed
-                        # Restar comisiones calculadas
-                        realized_pnl -= total_commission
+
+                    # SIEMPRE restar comisión para obtener PnL neto
+                    realized_pnl -= total_commission
                     
                     # 🆕 5️⃣ Calcular comisión como porcentaje del notional
                     entry_price = float(pos["entry_price"])
@@ -411,7 +412,8 @@ class EventLoop:
                                         
                     # 1️⃣1️⃣ Telegram notification
                     try:
-                        r = float(realized_pnl or 0)
+                        net_pnl = float(realized_pnl or 0)  # Ya es neto (bruto - comisión)
+                        gross_pnl = net_pnl + total_commission  # Bruto
                         ep = float(exit_price or 0)
                         entry = float(pos.get("entry_price", 0))
                         qty = float(pos.get("qty", 0))
@@ -425,17 +427,17 @@ class EventLoop:
                         hold_ms = close_time_ms - opened_at_ms
                         hold_min = hold_ms / 60000 if hold_ms > 0 else 0
                         pnl_pct = (ep - entry) / entry * 100 if entry > 0 and pos.get("side") == "LONG" else (entry - ep) / entry * 100 if entry > 0 else 0
-                        emoji = "🟢" if r >= 0 else "🔴"
-                        result = "GANANCIA" if r > 0 else "PÉRDIDA" if r < 0 else "NEUTRAL"
+                        emoji = "🟢" if net_pnl >= 0 else "🔴"
+                        result = "GANANCIA" if net_pnl > 0 else "PÉRDIDA" if net_pnl < 0 else "NEUTRAL"
 
                         if self.tg_send:
                             self.tg_send(
                                 f"{emoji} <b>Posición cerrada</b> — {result}\n"
                                 f"{symbol} {pos.get('side', '?')}\n"
                                 f"Entry: {entry:.4f} → Exit: {ep:.4f}\n"
-                                f"PnL: {pnl_pct:+.2f}% ({r:+.4f} USDT)\n"
+                                f"PnL bruto: {gross_pnl:+.4f} USDT\n"
                                 f"Commission: {total_commission:.4f} USDT\n"
-                                f"Neto: {r - total_commission:+.4f} USDT\n"
+                                f"<b>Neto: {net_pnl:+.4f} USDT</b>\n"
                                 f"Duración: {hold_min:.0f} min"
                             )
                     except Exception as e:
