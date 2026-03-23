@@ -1,17 +1,19 @@
-# 🤖 Binance Futures Trading Bot (EMA/ADX Breakout)
+# 🤖 Beast Money Maker — Multi-Strategy Crypto Trading Bot
 
-Bot de trading algorítmico para Binance Futures (USDT-M) enfocado en rupturas de tendencia con confirmación de volumen y momentum.
+Bot de trading algorítmico para Binance Futures (USDT-M) con 5 estrategias simultáneas:
+RSI+BB (5m), Stop Hunt (5m), EMA Breakout (15m), MACD Momentum (15m), Structure Break (5m).
 
 ## ⚠️ Disclaimer
 Este software es solo para fines educativos. El trading de futuros conlleva un alto riesgo de pérdida de capital. Úsalo bajo tu propia responsabilidad.
 
 ## 🚀 Características
-- **Estrategia:** Breakout de Pivots con confirmación EMA + ADX + Volumen.
-- **Gestión de Riesgo:** Stop Loss dinámico (ATR), Trailing Stop, Límite de pérdida diaria.
+- **Estrategias:** 5 estrategias en paralelo (RSI+BB, Stop Hunt, EMA, MACD, Structure Break)
+- **Multi-timeframe:** 5m (RSI+BB, Stop Hunt, Structure) + 15m (EMA, MACD)
+- **Gestión de Riesgo:** Stop Loss dinámico (ATR), Trailing Stop, Límite de pérdida diaria
 - **Ejecución:** Órdenes Reduce-Only, protección contra slippage y spread.
 - **Base de Datos:** PostgreSQL para historial de trades, estado del bot y logs.
 - **Notificaciones:** Telegram para entradas, salidas, stops y comandos de control.
-- **Dashboard:** Comandos vía Telegram para monitoreo en tiempo real.
+- **Dashboard:** Web dashboard para monitoreo, configuración y estadísticas en tiempo real.
 
 ## 📋 Requisitos
 - Python 3+

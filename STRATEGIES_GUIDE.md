@@ -76,7 +76,36 @@ PENDLEUSDT, XRPUSDT, AVAXUSDT, SOLUSDT, RUNEUSDT
 
 ---
 
-## 4. Structure Break + Retest (5m)
+## 4. EMA Breakout (15m, 25/50 + ADX 25)
+
+### Símbolos
+DOGEUSDT, LINKUSDT, TIAUSDT, ORDIUSDT, PENDLEUSDT, AVAXUSDT
+
+### Parámetros clave
+| Parámetro | Default | Descripción |
+|-----------|---------|-------------|
+| EMA_BREAKOUT_FAST | 25 | EMA rápida |
+| EMA_BREAKOUT_SLOW | 50 | EMA lenta |
+| ADX_MIN | 25 | ADX mínimo (optimizado) |
+| EMA_MIN_SLOPE_PCT | 0.04 | Pendiente mínima EMA |
+| EMA_RSI_OVERBOUGHT | 70 | No LONG si RSI > 70 |
+| EMA_RSI_OVERSOLD | 30 | No SHORT si RSI < 30 |
+| MIN_BODY_RATIO | 0.50 | Ratio mínimo cuerpo/rango |
+| EMA_SL_ATR_MULT | 2.0 | ATR multiplier SL |
+
+### Rendimiento por símbolo (30d 15m, ADX 25)
+| Símbolo | Trades | WR | PF | Ret |
+|---------|--------|-----|------|-----|
+| ORDIUSDT | 18 | 44% | 2.86 | +0.21% |
+| LINKUSDT | 15 | 53% | 2.60 | +0.14% |
+| PENDLEUSDT | 10 | 50% | 2.51 | +0.10% |
+| TIAUSDT | 20 | 50% | 2.41 | +0.20% |
+| AVAXUSDT | 7 | 57% | 2.28 | +0.06% |
+| DOGEUSDT | 19 | 53% | 2.12 | +0.15% |
+
+---
+
+## 5. Structure Break + Retest (5m)
 
 ### Símbolos
 FILUSDT, DOGEUSDT, APTUSDT, WIFUSDT, ATOMUSDT
@@ -106,9 +135,10 @@ FILUSDT, DOGEUSDT, APTUSDT, WIFUSDT, ATOMUSDT
 ```
 strategy/rsi_bb_reversion.py    # RSI+BB (5m)
 strategy/stop_hunt.py           # Stop Hunt (5m)
+strategy/ema_adx_breakout.py    # EMA Breakout (15m, 25/50)
 strategy/macd_momentum.py       # MACD Momentum (15m)
 strategy/structure_break.py     # Structure Break (5m)
-strategy/signal_engine.py       # Motor multi-estrategia
+strategy/signal_engine.py       # Motor multi-estrategia (5 en paralelo)
 strategy/indicators.py          # EMA, ATR, ADX, RSI, Bollinger, MACD
 execution/event_loop.py         # Guards y ejecución
 datafeed/market_cache.py        # Cache multi-timeframe

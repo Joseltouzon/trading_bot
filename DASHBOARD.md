@@ -53,9 +53,13 @@ Dependencies
 | Analytics | `#analytics` | Per-symbol analytics, commissions |
 | Calendario PnL | `#calendar` | Daily PnL calendar, summary stats |
 | Trailing | `#trailing-tab` | Estado trailing en tiempo real, tabla ordenable |
+| Rendimiento | `#strategy-performance` | Estadísticas por estrategia: trades, WR, PF, PnL neto |
 | Config Generales | `#config-generales` | Control, Riesgo, Ejecución, Trailing, Take Profit |
-| Config Breakout | `#config-breakout` | EMA, Volume, ADX, Pivot, Trailing (Breakout) |
+| Config Breakout | `#config-breakout` | EMA 25/50, Volume, ADX, Pivot, EMA v2 filtros |
 | Config Stop Hunt | `#config-stophunt` | 12 parámetros Stop Hunt |
+| Config RSI+BB | `#config-rsi-bb` | RSI, Bollinger Bands, Filtros, SL |
+| Config MACD | `#config-macd` | MACD settings, Filtros, SL |
+| Config Structure | `#config-structure` | Parámetros Structure Break |
 
 ---
 
@@ -138,7 +142,7 @@ daily_pnl_db = stats["daily_pnl"]
 ### Validaciones
 
 - `timeframe`: enum válido
-- `strategy_mode`: `ema_breakout` | `stop_hunt`
+- `strategy_mode`: `ema_breakout` | `stop_hunt` | `rsi_bb_reversion` | `macd_momentum` | `structure_break` | `auto` | `all`
 - `risk_pct`: 0.1 - 10
 - `leverage`: 1 - 50
 - `pivot_len`: 5 - 50 (int)

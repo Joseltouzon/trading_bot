@@ -147,7 +147,7 @@ Archivo de referencia único para agentes. Contiene la arquitectura, flujo de ej
 
 5. Signal generation (si no max_positions)
    └─ Por cada símbolo:
-      └─ process_symbol()             ← ejecuta las 4 estrategias
+      └─ process_symbol()             ← ejecuta las 5 estrategias
 
 6. event_loop.loop_once(st)
    └─ Guards → ejecuta señal del bus
@@ -300,13 +300,14 @@ EMA optimizada con EMA 25/50 + ADX 25 (PF 3.97, WR 63%). Ya no es "no funciona".
 
 **Archivo:** `strategy/signal_engine.py`
 
-El engine ejecuta **las 4 estrategias en paralelo** por cada símbolo:
+El engine ejecuta **las 5 estrategias en paralelo** por cada símbolo:
 
 | Estrategia | Timeframe | Intervalo |
 |-----------|-----------|-----------|
 | RSI+BB Reversion | 5m | Cada 5 minutos |
 | Stop Hunt | 5m | Cada 5 minutos |
 | MACD Momentum | 15m | Cada 15 minutos |
+| EMA Breakout | 15m | Cada 15 minutos |
 | Structure Break | 5m | Cada 5 minutos |
 
 ### Flujo `process_symbol()`
@@ -325,8 +326,8 @@ Para cada estrategia en ACTIVE_STRATEGIES:
 
 | Método | Propósito |
 |--------|-----------|
-| `process_symbol(symbol, max_positions)` | Ejecuta las 4 estrategias con sus DFs |
-| `set_strategy_mode(mode)` | `all`=4 estrategias, `auto`=3 (sin EMA), o una individual |
+| `process_symbol(symbol, max_positions)` | Ejecuta las 5 estrategias con sus DFs |
+| `set_strategy_mode(mode)` | `all`=5 estrategias, `auto`=5, o una individual |
 
 ### Config
 
@@ -638,7 +639,7 @@ result = cache.get("key", fetch_function)  # devuelve cacheado si < 5s
 ### Tablas
 
 ```sql
-positions               -- trades abiertos/cerrados, entry/exit, pnl
+positions               -- trades abiertos/cerrados, entry/exit, pnl, strategy_tag
 position_stops          -- historial de SL por posición
 position_events         -- eventos: TAKE_PROFIT, TAKE_PROFIT_PCT, PARTIAL_CLOSE
 bot_state               -- estado del bot (JSON serializado)
@@ -646,6 +647,12 @@ account_snapshots       -- equity/margin/available cada 15s
 equity_snapshots        -- equity histórico cada 60s
 signals                 -- señales generadas (para análisis)
 ```
+
+### Notas importantes
+
+- `positions.strategy_tag` se guarda con cada posición (ej: "rsi_bb_reversion", "macd_momentum")
+- `positions.realized_pnl` guarda el PnL **neto** (después de restar comisiones)
+- `positions.signal_features` guarda ML features de la señal que generó la posición (JSON)
 
 ### Métodos clave
 
@@ -795,10 +802,19 @@ Lista blanca de campos que el dashboard puede modificar. Si un campo no está aq
 
 | Tab | Contenido |
 |-----|-----------|
+| Overview | Equity, drawdown, PnL, posiciones abiertas |
+| Performance | Stats diarias, trades, exportar CSV |
+| Advanced Stats | Sharpe, recovery, expectancy, profit factor |
+| Analytics | Análisis detallado por símbolo |
+| Calendar | PnL por día (heatmap) |
+| Trailing | Tabla de trailing activos por símbolo |
+| Rendimiento | Estadísticas por estrategia: trades, WR, PF, PnL neto |
 | Config Generales | Control, Riesgo, Ejecución, Trailing, Take Profit |
-| Config Breakout | EMA, Volume, ADX, Pivot |
+| Config Breakout | EMA 25/50, Volume, ADX, Pivot, EMA v2 filtros |
 | Config Stop Hunt | Parámetros de Stop Hunt |
-| Config RSI+BB | RSI, Bollinger Bands, Filtros, SL, Auto Mode |
+| Config RSI+BB | RSI, Bollinger Bands, Filtros, SL |
+| Config MACD | MACD, Filtros, SL |
+| Config Structure | Parámetros de Structure Break |
 
 ### Autenticación
 
@@ -817,7 +833,7 @@ python backtest.py --strategy ema_breakout --days 30 --capital 170
 python backtest.py --symbol BTCUSDT --strategy stop_hunt
 python backtest.py --symbols "ETHUSDT,BNBUSDT,SOLUSDT" --strategy ema_breakout
 python backtest.py --strategy rsi_bb_reversion --symbols "ETHUSDT,XRPUSDT,1000PEPEUSDT"
-python backtest.py --all  # prueba las 4 estrategias
+python backtest.py --all  # prueba las 5 estrategias
 ```
 
 ### Qué incluye
@@ -879,7 +895,7 @@ Cooldown entre alertas: 10 min. Usa `get_used_margin()`, `get_available_balance(
 | `rsi_bb_reversion.py` | Estrategia RSI + Bollinger Band (5m) |
 | `macd_momentum.py` | Estrategia MACD Momentum (15m) |
 | `structure_break.py` | Estrategia Market Structure Break + Retest (5m) 🆕 |
-| `signal_engine.py` | Motor multi-estrategia (4 en paralelo) |
+| `signal_engine.py` | Motor multi-estrategia (5 en paralelo) |
 | `indicators.py` | EMA, ATR, ADX, RSI, Bollinger, Stochastic, MACD |
 | `pivots.py` | Pivot highs/lows vectorizados |
 
