@@ -435,7 +435,7 @@ class EventLoop:
                                 f"{emoji} <b>Posición cerrada</b> — {result}\n"
                                 f"{symbol} {pos.get('side', '?')}\n"
                                 f"Entry: {entry:.4f} → Exit: {ep:.4f}\n"
-                                f"PnL bruto: {gross_pnl:+.4f} USDT\n"
+                                f"PnL bruto: {gross_pnl:+.4f} USDT ({pnl_pct:+.2f}%)\n"
                                 f"Commission: {total_commission:.4f} USDT\n"
                                 f"<b>Neto: {net_pnl:+.4f} USDT</b>\n"
                                 f"Duración: {hold_min:.0f} min"
