@@ -256,13 +256,13 @@ class TakeProfitManager:
                 self.db.save_state(st.__dict__)
 
             if self.tg_send:
-                strategy = signal.get("strategy", "unknown") if signal else "unknown"
+                pos_strategy = position.get("strategy", "unknown") if position else "unknown"
                 self.tg_send(
                     f"🎯 <b>TP % Hit</b> {symbol} {side}\n"
                     f"Profit: {profit_pct:.2f}% (target: {activation_pct}%)\n"
                     f"Cerrado: {close_pct}% ({close_qty:.6f}) | Restante: {remaining_qty:.6f}\n"
                     f"PnL realizado: {realized:+.4f} USDT\n"
-                    f"Estrategia: {strategy}"
+                    f"Estrategia: {pos_strategy}"
                 )
 
         except Exception as e:
