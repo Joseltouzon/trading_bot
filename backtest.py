@@ -74,6 +74,7 @@ class BacktestConfig:
 
     # Filters
     adx_min: float = CFG.ADX_MIN
+    use_generic_sl: bool = True     # True = usa SL genérico del bot (ATR*0.7). False = SL de cada estrategia.
 
 
 # ============================================================
