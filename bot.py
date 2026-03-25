@@ -283,8 +283,10 @@ def main():
         "stop_hunt": "Stop Hunt (5m)",
         "rsi_bb_reversion": "RSI+BB (5m)",
         "macd_momentum": "MACD (15m)",
-        "auto": "Auto (4 estrategias)",
-        "all": "Todas (4 estrategias)",
+        "structure_break": "Structure (5m)",
+        "volatility_squeeze": "Vol Squeeze (1h)",
+        "auto": "Auto (6 estrategias)",
+        "all": "Todas (6 estrategias)",
     }
     strategy_label = strategy_labels.get(st.strategy_mode, "EMA Breakout")
     log.info(f"[STARTUP] Bot listo. Mode={mode} Strategy={strategy_label}")
@@ -294,14 +296,20 @@ def main():
         from config import STRATEGY_INTERVALS
 
         strategy_symbols = getattr(st, "strategy_symbols", {})
+        enabled_map = getattr(CFG, "STRATEGY_ENABLED", {})
         all_symbols = set()
         estrategias = []
         for name, info in ACTIVE_STRATEGIES.items():
             syms = strategy_symbols.get(name, [])
+            interval = STRATEGY_INTERVALS.get(name, "?")
+            enabled = enabled_map.get(name, True)
+            status = "✅" if enabled else "❌"
             if syms:
-                interval = STRATEGY_INTERVALS.get(name, "?")
-                estrategias.append(f"  {info['short']} {name} ({interval}): {len(syms)}")
-                all_symbols.update(syms)
+                estrategias.append(f"  {status} {info['short']} {name} ({interval}): {len(syms)}")
+                if enabled:
+                    all_symbols.update(syms)
+            else:
+                estrategias.append(f"  {status} {info['short']} {name} ({interval}): sin símbolos")
 
         eq = exchange.get_equity()
         mode_txt = "🧪 PAPER" if st.paper_trading else "💵 PRODUCCIÓN"

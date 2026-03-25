@@ -16,6 +16,7 @@ def compute_signals(df: pd.DataFrame) -> dict:
 
     if df is None or len(df) < 55:
         return {
+            "strategy": "ema_breakout",
             "trend": "NONE",
             "breakout_long": False,
             "breakout_short": False,
@@ -231,6 +232,7 @@ def compute_signals(df: pd.DataFrame) -> dict:
     }
 
     return {
+        "strategy": "ema_breakout",
         "trend": trend,
         "last_ph": float(last_ph) if last_ph is not None else None,
         "last_pl": float(last_pl) if last_pl is not None else None,

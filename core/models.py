@@ -16,6 +16,7 @@ class BotState:
         "stop_hunt":        ["XRPUSDT", "1000PEPEUSDT", "AVAXUSDT", "TIAUSDT", "ORDIUSDT"],
         "macd_momentum":    ["XRPUSDT", "AVAXUSDT", "SOLUSDT", "LINKUSDT", "TIAUSDT"],
         "ema_breakout":     [],
+        "structure_break":  ["FILUSDT", "DOGEUSDT", "APTUSDT", "WIFUSDT", "ATOMUSDT"],
         "volatility_squeeze": ["NEARUSDT", "OPUSDT", "BTCUSDT", "LINKUSDT", "XRPUSDT"],
     })
 
