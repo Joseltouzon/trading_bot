@@ -220,18 +220,29 @@
                 })
             }
 
-            const openConfirmVolSqueeze = document.getElementById('openConfirmVolSqueeze')
-            if (openConfirmVolSqueeze) {
-                openConfirmVolSqueeze.addEventListener('click', () => {
-                    if (!form.checkValidity()) {
-                        form.classList.add('was-validated')
-                        return
-                    }
-                    modal.show()
-                })
-            }
+             const openConfirmVolSqueeze = document.getElementById('openConfirmVolSqueeze')
+             if (openConfirmVolSqueeze) {
+                 openConfirmVolSqueeze.addEventListener('click', () => {
+                     if (!form.checkValidity()) {
+                         form.classList.add('was-validated')
+                         return
+                     }
+                     modal.show()
+                 })
+             }
 
-            confirmSave.addEventListener('click', async () => {
+             const openConfirmVolRegime = document.getElementById('openConfirmVolRegime')
+             if (openConfirmVolRegime) {
+                 openConfirmVolRegime.addEventListener('click', () => {
+                     if (!form.checkValidity()) {
+                         form.classList.add('was-validated')
+                         return
+                     }
+                     modal.show()
+                 })
+             }
+
+             confirmSave.addEventListener('click', async () => {
 
                 console.log("CLICK CONFIRM SAVE");
 

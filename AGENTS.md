@@ -1114,10 +1114,12 @@ tail -f logs/bot.log | grep "rsi_bb_reversion"
 
 ## Reglas de Oro
 
-1. **No cambiar varios parámetros a la vez** — uno a la vez, evaluar resultados
-2. **Probar en backtest antes de producción** — `./venv/bin/python backtest.py --all` (usar venv)
-3. **No agregar imports que no existan** — verificar contra código real
-4. **Métricas > intuición** — win rate, profit factor, max DD
-5. **El bot debe ser resiliente** — nunca crashear permanentemente
-6. **DB es fuente de verdad** — no confiar solo en config.py
-7. **sync_cfg_from_state** — cada cambio de BotState debe reflejarse en CFG
+1. **NUNCA hacer commit antes de evaluar resultados** — el usuario SIEMPRE evalúa antes de commit. Si se pide commit sin evaluar, PREGUNTAR primero si evaluar.
+2. **No cambiar varios parámetros a la vez** — uno a la vez, evaluar resultados
+3. **Probar en backtest antes de producción** — `./venv/bin/python backtest.py --all` (usar venv)
+4. **No agregar imports que no existan** — verificar contra código real
+5. **Métricas > intuición** — win rate, profit factor, max DD
+6. **El bot debe ser resiliente** — nunca crashear permanentemente
+7. **DB es fuente de verdad** — no confiar solo en config.py
+8. **sync_cfg_from_state** — cada cambio de BotState debe reflejarse en CFG
+9. **Evaluación SIEMPRE antes de commit** — mostrar resultados, esperar veredicto del usuario, SOLO DESPUÉS hacer commit
