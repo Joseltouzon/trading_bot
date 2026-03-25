@@ -184,7 +184,8 @@ except Exception as e:
 - `strategy/stop_hunt.py` — Mean-reversion / Liquidity (5m)
 - `strategy/rsi_bb_reversion.py` — Mean-reversion RSI + Bollinger (5m)
 - `strategy/macd_momentum.py` — Momentum + Volume Spike (15m)
-- `strategy/structure_break.py` — Market Structure Break + Retest (5m) 🆕
+- `strategy/structure_break.py` — Market Structure Break + Retest (5m)
+- `strategy/volatility_squeeze.py` — Volatility Compression + Momentum Exhaustion (1h) 🆕
 - `strategy/signal_engine.py` — Motor multi-estrategia
 - `strategy/indicators.py` — EMA, ATR, ADX, RSI, Bollinger, Stochastic, MACD
 - `strategy/pivots.py` — Pivot highs/lows vectorizados
@@ -285,6 +286,24 @@ Cada estrategia devuelve un dict con:
 
 **Funciona mejor en:** ETH, XRP, PEPE. No funciona bien en: BNB, SOL, GRASS, LTC.
 
+### Volatility Squeeze + Momentum Exhaustion (1h) 🆕
+
+| Parámetro | Default | Descripción |
+|-----------|---------|-------------|
+| VOL_SQUEEZE_ATR_PERCENTILE | 15 | ATR en bottom 15% = compresión |
+| VOL_SQUEEZE_BB_WIDTH_PERCENTILE | 25 | BB Width comprimido |
+| VOL_SQUEEZE_RSI_OVERSOLD/OVERBOUGHT | 30 / 70 | Zonas RSI |
+| VOL_SQUEEZE_MIN_VOLUME_RATIO | 1.5 | Volumen mínimo |
+| VOL_SQUEEZE_ADX_MIN | 15.0 | ADX mínimo |
+| VOL_SQUEEZE_SL_ATR_MULT | 1.5 | ATR multiplier SL |
+| VOL_SQUEEZE_EMA_FAST/SLOW | 20 / 50 | EMAs para tendencia |
+
+**Lógica:** Detecta compresión de volatilidad (ATR bajo + BB estrecho) y entra en dirección del swing previo cuando la tendencia EMA confirma.
+
+**Mejores símbolos (60 días, 1h):** NEARUSDT (+9.72), OPUSDT (+8.08), BTCUSDT (+7.26), LINKUSDT (+5.60), XRPUSDT (+3.22)
+
+**Stats combinados:** 78 trades, WR 88%, PF 3.46, Return +19.93%, Sharpe 4.92
+
 ---
 
 ## 4. Modo Auto
@@ -292,7 +311,9 @@ Cada estrategia devuelve un dict con:
 `auto` ejecuta 5 estrategias en paralelo por cada símbolo:
 - RSI+BB (5m) + Stop Hunt (5m) + MACD Momentum (15m) + EMA Breakout (15m) + Structure Break (5m)
 
-EMA optimizada con EMA 25/50 + ADX 25 (PF 3.97, WR 63%). Ya no es "no funciona".
+EMA optimizada con EMA 25/50 + ADX 25 (PF 3.97, WR 63%).
+
+**Volatility Squeeze (1h)** se ejecuta por separado con sus propios símbolos.
 
 ---
 
@@ -300,7 +321,7 @@ EMA optimizada con EMA 25/50 + ADX 25 (PF 3.97, WR 63%). Ya no es "no funciona".
 
 **Archivo:** `strategy/signal_engine.py`
 
-El engine ejecuta **las 5 estrategias en paralelo** por cada símbolo:
+El engine ejecuta **las 5 estrategias + VS en paralelo** por cada símbolo:
 
 | Estrategia | Timeframe | Intervalo |
 |-----------|-----------|-----------|
@@ -309,6 +330,7 @@ El engine ejecuta **las 5 estrategias en paralelo** por cada símbolo:
 | MACD Momentum | 15m | Cada 15 minutos |
 | EMA Breakout | 15m | Cada 15 minutos |
 | Structure Break | 5m | Cada 5 minutos |
+| Volatility Squeeze | 1h | Cada 1 hora |
 
 ### Flujo `process_symbol()`
 
@@ -337,6 +359,8 @@ STRATEGY_INTERVALS = {
     "stop_hunt": "5m",
     "ema_breakout": "15m",
     "macd_momentum": "15m",
+    "structure_break": "5m",
+    "volatility_squeeze": "1h",
 }
 ```
 
@@ -975,8 +999,19 @@ Estrategias probadas y descartadas. No re-probar sin cambios fundamentales.
 | Extreme Price Zone | 15m | 1.75 | Solo 2 símbolos con PF > 1.3. Insuficiente. |
 | VWAP Refresh | 5m | - | 0 trades. Eliminada completamente. |
 | Market Regime | - | - | Sistema de auto-detección. Reemplazado por auto=fixed. |
+| Liquidation Cascade | 1h | 1.23 | WR 58% pero PF bajo. Trailing 0.35% cierra ganancias muy pronto. 18 símbolos probados. |
+| Momentum Divergence | 1h | 0.36 | Solo 8 trades, 0% WR. Filtros demasiado estrictos, no genera señales suficientes. |
+| Smart Money Flow | 1h | inf | Solo 2 trades (100% WR pero muestra insuficiente). Concepto bueno, implementación muy restrictiva. |
+| Volatility Breakout | 1h | 1.07 | 126 trades pero PF marginal. Demasiados trades perdedores (AVAXUSDT -$0.68). Comisiones comen ganancias. |
 
-**Lecciones aprendidas:**
+**Lecciones aprendidas (1h):**
+- Volatility Squeeze funciona: detectar compresión + dirección del swing + tendencia EMA
+- Liquidation Cascade no funciona: trailing muy apretado vs SL amplio (ratio 1:3)
+- Momentum Divergence: demasiados filtros, no genera señales
+- Smart Money Flow: concepto bueno pero demasiado restrictivo
+- Volatility Breakout puro: demasiados falsos positivos, comisiones altas
+
+**Lecciones aprendidas (5m/15m):**
 - Breakouts directos en 5m no funcionan (ruido alto, tendencias débiles)
 - SL desde entry es mejor que SL desde pivot
 - RSI filter (30/70) reduce falsos positivos

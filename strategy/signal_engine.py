@@ -1,6 +1,6 @@
 # strategy/signal_engine.py
-# Multi-strategy engine: ejecuta las 4 estrategias en paralelo
-# 5m: RSI+BB, Stop Hunt | 15m: EMA, MACD
+# Multi-strategy engine: ejecuta las 6 estrategias en paralelo
+# 5m: RSI+BB, Stop Hunt | 15m: EMA, MACD | 1h: Volatility Squeeze
 
 import config as CFG
 from core.models import SignalEvent
@@ -9,6 +9,7 @@ from strategy.stop_hunt import compute_stop_hunt_signals
 from strategy.rsi_bb_reversion import compute_rsi_bb_signals
 from strategy.macd_momentum import compute_macd_momentum_signals
 from strategy.structure_break import compute_structure_break_signals
+from strategy.volatility_squeeze import compute_volatility_squeeze_signals
 
 
 # Estrategias activas y sus timeframes
@@ -18,6 +19,7 @@ ACTIVE_STRATEGIES = {
     "ema_breakout": {"compute": compute_signals, "short": "EMA"},
     "macd_momentum": {"compute": compute_macd_momentum_signals, "short": "MAC"},
     "structure_break": {"compute": compute_structure_break_signals, "short": "STR"},
+    "volatility_squeeze": {"compute": compute_volatility_squeeze_signals, "short": "VSQ"},
 }
 
 

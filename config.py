@@ -13,6 +13,7 @@ STRATEGY_INTERVALS = {
     "ema_breakout": "15m",
     "macd_momentum": "15m",
     "structure_break": "5m",
+    "volatility_squeeze": "1h",
 }
 DEFAULT_STRATEGY_SYMBOLS = {
     "rsi_bb_reversion": ["1000PEPEUSDT", "AVAXUSDT", "TIAUSDT", "ORDIUSDT", "TAOUSDT"],
@@ -20,6 +21,7 @@ DEFAULT_STRATEGY_SYMBOLS = {
     "macd_momentum":    ["SANDUSDT", "PENDLEUSDT", "XRPUSDT", "AVAXUSDT", "SOLUSDT"],
     "ema_breakout":     ["DOGEUSDT", "LINKUSDT", "TIAUSDT", "ORDIUSDT", "PENDLEUSDT"],
     "structure_break":  ["FILUSDT", "DOGEUSDT", "APTUSDT", "WIFUSDT", "ATOMUSDT"],
+    "volatility_squeeze": ["NEARUSDT", "OPUSDT", "BTCUSDT", "LINKUSDT", "XRPUSDT"],
 }
 REQUIRED_INTERVALS = sorted(set(STRATEGY_INTERVALS.values()))  # ["15m", "5m"]
 
@@ -36,9 +38,9 @@ MARGIN_TYPE = "ISOLATED"
 # =========================
 # Stop / trailing
 # =========================
-TRAILING_PCT = 0.5              # Solo usa si TRAILING_USE_ATR = False
-TRAILING_ACTIVATION_PCT = 0.5
-TRAILING_USE_ATR = True         # Activo: Usa volatilidad
+TRAILING_PCT = 0.35              # Solo usa si TRAILING_USE_ATR = False
+TRAILING_ACTIVATION_PCT = 0.4
+TRAILING_USE_ATR = False         # Activo: Usa volatilidad
 TRAILING_ATR_MULT = 2.0
 MIN_INITIAL_SL_PCT = 0.35       # Mínimo SL inicial
 INITIAL_SL_ATR_MULT = 0.7
@@ -184,3 +186,21 @@ STRUCTURE_SL_BUFFER_ATR = 1.0       # Buffer ATR para SL
 STRUCTURE_ADX_MIN = 15.0            # ADX mínimo
 STRUCTURE_MIN_VOLUME_RATIO = 1.0    # Volumen mínimo
 STRUCTURE_MIN_ATR_PCT = 0.10        # Volatilidad mínima
+
+# ============================================================
+# VOLATILITY SQUEEZE + MOMENTUM EXHAUSTION (1h)
+# ============================================================
+VOL_SQUEEZE_ATR_PERIOD = 14
+VOL_SQUEEZE_ATR_LOOKBACK = 100
+VOL_SQUEEZE_ATR_PERCENTILE = 15
+VOL_SQUEEZE_BB_PERIOD = 20
+VOL_SQUEEZE_BB_WIDTH_PERCENTILE = 25
+VOL_SQUEEZE_RSI_PERIOD = 14
+VOL_SQUEEZE_RSI_OVERSOLD = 30
+VOL_SQUEEZE_RSI_OVERBOUGHT = 70
+VOL_SQUEEZE_MIN_VOLUME_RATIO = 1.5
+VOL_SQUEEZE_ADX_MIN = 15.0
+VOL_SQUEEZE_SL_ATR_MULT = 1.5
+VOL_SQUEEZE_TP_ATR_MULT = 4.0
+VOL_SQUEEZE_EMA_FAST = 20
+VOL_SQUEEZE_EMA_SLOW = 50

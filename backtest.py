@@ -34,6 +34,7 @@ from strategy.stop_hunt import compute_stop_hunt_signals, build_stop_hunt_sl
 from strategy.rsi_bb_reversion import compute_rsi_bb_signals, build_rsi_bb_sl
 from strategy.macd_momentum import compute_macd_momentum_signals, build_macd_momentum_sl
 from strategy.structure_break import compute_structure_break_signals, build_structure_sl
+from strategy.volatility_squeeze import compute_volatility_squeeze_signals, build_volatility_squeeze_sl
 from strategy.indicators import atr
 
 
@@ -184,7 +185,7 @@ class BacktestEngine:
         print(f"{'='*60}\n")
 
         # Iterar bar a bar
-        for bar in range(50, total_bars):  # Empezar en 50 para tener suficientes indicadores
+        for bar in range(100, total_bars):  # Empezar en 100 para tener suficientes indicadores
             # 1. Actualizar posiciones abiertas (trailing, TP, SL)
             for symbol in list(self.positions.keys()):
                 df = data.get(symbol)
@@ -322,6 +323,24 @@ class BacktestEngine:
             else:
                 entry_price = 0.0
 
+        elif self.cfg.strategy == "volatility_squeeze":
+            sig = compute_volatility_squeeze_signals(window)
+            atr_val = sig.get("atr", 0)
+            if sig.get("breakout_long"):
+                signal = sig
+                direction = "LONG"
+                entry_price = float(df.iloc[bar]["close"])
+                signal_price = sig.get("signal_price", entry_price)
+                sl_price = build_volatility_squeeze_sl(sig, "LONG")
+            elif sig.get("breakout_short"):
+                signal = sig
+                direction = "SHORT"
+                entry_price = float(df.iloc[bar]["close"])
+                signal_price = sig.get("signal_price", entry_price)
+                sl_price = build_volatility_squeeze_sl(sig, "SHORT")
+            else:
+                entry_price = 0.0
+
         else:
             entry_price = 0.0
 
@@ -331,21 +350,24 @@ class BacktestEngine:
         if entry_price <= 0 or atr_val <= 0 or sl_price <= 0:
             return
 
-        # Calcular qty basado en riesgo (entry_price = close real)
+        # Calcular qty basado en riesgo (igual que event_loop.py)
         stop_distance = abs(entry_price - sl_price)
         if stop_distance <= 0:
             return
 
-        risk_usdt = self.equity * (self.cfg.risk_pct / 100.0)
-        notional = risk_usdt * self.cfg.leverage
-        qty = notional / entry_price
+        # Risk Management (igual que bot real)
+        max_positions = int(self.cfg.max_positions)
+        base_risk_pct = float(self.cfg.risk_pct)
+        risk_pct_per_trade = base_risk_pct / max_positions  # 1% / 2 = 0.5%
+        risk_usdt = self.equity * (risk_pct_per_trade / 100.0)
+        qty = risk_usdt / stop_distance  # qty basado en stop distance, NO leverage
 
         # Verificar SL mínimo
         sl_pct = stop_distance / entry_price * 100
         if sl_pct < self.cfg.min_initial_sl_pct:
             sl_price = entry_price * (1 - self.cfg.min_initial_sl_pct / 100) if direction == "LONG" else entry_price * (1 + self.cfg.min_initial_sl_pct / 100)
             stop_distance = abs(entry_price - sl_price)
-            qty = (self.equity * (self.cfg.risk_pct / 100.0)) * self.cfg.leverage / entry_price
+            qty = risk_usdt / stop_distance  # recalcular qty con nuevo stop distance
 
         # Comisión de entrada
         commission = entry_price * qty * (self.cfg.commission_pct / 100)
@@ -636,7 +658,7 @@ def main():
     parser.add_argument("--symbol", type=str, help="Símbolo único (ej: BTCUSDT)")
     parser.add_argument("--symbols", type=str, help="Símbolos separados por coma (ej: ETHUSDT,BNBUSDT)")
     parser.add_argument("--strategy", type=str, default="ema_breakout",
-                        choices=["ema_breakout", "stop_hunt", "rsi_bb_reversion", "macd_momentum", "structure_break"],
+                        choices=["ema_breakout", "stop_hunt", "rsi_bb_reversion", "macd_momentum", "structure_break", "volatility_squeeze"],
                         help="Estrategia a testear")
     parser.add_argument("--days", type=int, default=90, help="Días de historia")
     parser.add_argument("--capital", type=float, default=170.0, help="Capital inicial")
@@ -686,10 +708,10 @@ def main():
     results = []
 
     if args.all:
-        # Probar las 4 estrategias con sus timeframes óptimos
+        # Probar las 6 estrategias con sus timeframes óptimos
         from config import STRATEGY_INTERVALS
 
-        for strategy in ["ema_breakout", "stop_hunt", "rsi_bb_reversion", "macd_momentum"]:
+        for strategy in ["ema_breakout", "stop_hunt", "rsi_bb_reversion", "macd_momentum", "structure_break", "volatility_squeeze"]:
             interval = STRATEGY_INTERVALS.get(strategy, args.interval)
 
             # Descargar datos del timeframe correcto

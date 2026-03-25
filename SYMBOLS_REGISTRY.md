@@ -1,6 +1,34 @@
 # Symbol Registry — Referencia de Backtesting
 
-Última actualización: 2026-03-22
+Última actualización: 2026-03-25
+
+## Volatility Squeeze (1h) 🆕
+
+### Activos ✅
+| Símbolo | Trades | WR | PF | Ret | Nota |
+|---------|--------|-----|------|-----|------|
+| NEARUSDT | 13 | 92% | 3.46 | +5.72% | Mejor símbolo |
+| OPUSDT | 22 | 95% | 3.46 | +4.75% | Más trades |
+| BTCUSDT | 14 | 79% | 1.34 | +4.27% | Líder de mercado |
+| LINKUSDT | 12 | 92% | 1.88 | +3.29% | Consistente |
+| XRPUSDT | 17 | 82% | 1.88 | +1.89% | Volumen alto |
+
+### Descartados ❌
+| Símbolo | Trades | WR | PF | Ret | Razón |
+|---------|--------|-----|------|-----|-------|
+| ETHUSDT | 17 | 53% | - | -2.80% | WR bajo |
+| SOLUSDT | 16 | 69% | - | +0.48% | PF marginal |
+| BNBUSDT | 12 | 75% | - | +2.63% | No top 5 |
+| DOGEUSDT | 22 | 73% | - | +2.72% | No top 5 |
+| ADAUSDT | 9 | 78% | - | +1.16% | Pocos trades |
+| DOTUSDT | 11 | 82% | - | +2.41% | No top 5 |
+| LTCUSDT | 17 | 76% | - | +2.83% | No top 5 |
+| FILUSDT | 8 | 75% | - | +0.16% | Pocos trades |
+| ATOMUSDT | 14 | 71% | - | +1.58% | No top 5 |
+| ARBUSDT | 8 | 88% | - | +1.93% | Pocos trades |
+| UNIUSDT | 8 | 62% | - | -1.56% | Perdedor |
+
+---
 
 ## RSI+BB Reversion (5m)
 

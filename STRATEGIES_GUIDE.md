@@ -11,11 +11,13 @@ MACD (15m):          5       99     3.30    56.6%   2.82    +1.47%  0.14%
 EMA (15m):           6       65     2.17    63.1%   3.97    +1.05%  0.20%
 Structure (5m):      5      215     7.17    59.1%   2.22    +2.13%  0.27%
 ================================================================
-TOTAL:              27      455    15.17      -       -     +5.58%  0.94%
+SUBTOTAL 5m/15m:    27      455    15.17      -       -     +5.58%  0.94%
+================================================================
+Vol Squeeze (1h):    5       78     2.60    88.0%   3.46   +19.93%  4.37%
 ================================================================
 ```
 
-Mode auto ejecuta 5 estrategias: RSI+BB + Stop Hunt + MACD + EMA (optimizada 25/50, PF 3.97) + Structure.
+Mode auto ejecuta 5 estrategias (5m/15m). Volatility Squeeze opera por separado en 1h.
 
 ---
 
@@ -130,6 +132,52 @@ FILUSDT, DOGEUSDT, APTUSDT, WIFUSDT, ATOMUSDT
 
 ---
 
+## 6. Volatility Squeeze + Momentum Exhaustion (1h) 🆕
+
+### Símbolos (Top 5 backtested 60 días)
+NEARUSDT, OPUSDT, BTCUSDT, LINKUSDT, XRPUSDT
+
+### Parámetros clave
+| Parámetro | Default | Descripción |
+|-----------|---------|-------------|
+| VOL_SQUEEZE_ATR_PERIOD | 14 | Período del ATR |
+| VOL_SQUEEZE_ATR_LOOKBACK | 100 | Velas para percentil histórico |
+| VOL_SQUEEZE_ATR_PERCENTILE | 15 | ATR en bottom 15% = compresión |
+| VOL_SQUEEZE_BB_PERIOD | 20 | Período Bollinger Bands |
+| VOL_SQUEEZE_BB_WIDTH_PERCENTILE | 25 | BB Width comprimido |
+| VOL_SQUEEZE_RSI_PERIOD | 14 | Período RSI |
+| VOL_SQUEEZE_RSI_OVERSOLD | 30 | Zona oversold |
+| VOL_SQUEEZE_RSI_OVERBOUGHT | 70 | Zona overbought |
+| VOL_SQUEEZE_MIN_VOLUME_RATIO | 1.5 | Volumen mínimo |
+| VOL_SQUEEZE_ADX_MIN | 15.0 | ADX mínimo |
+| VOL_SQUEEZE_SL_ATR_MULT | 1.5 | ATR multiplier para SL |
+| VOL_SQUEEZE_EMA_FAST/SLOW | 20 / 50 | EMAs para tendencia |
+
+### Lógica
+1. **Compresión detectada**: ATR en percentil bajo (< 15%) O BB Width comprimido (< 25%)
+2. **Dirección del swing**: precio de las últimas 20 velas indica BULL o BEAR
+3. **Tendencia EMA**: EMA 20 > EMA 50 = BULL, EMA 20 < EMA 50 = BEAR
+4. **Entry**: compresión + swing direction + EMA trend confirmados
+
+### Resultados Backtesting (60 días, 1h, $170, 5x)
+
+| Símbolo | Trades | WR | PnL | Return |
+|---------|--------|-----|-----|--------|
+| NEARUSDT | 13 | 92% | $+9.72 | +5.72% |
+| OPUSDT | 22 | 95% | $+8.08 | +4.75% |
+| BTCUSDT | 14 | 79% | $+7.26 | +4.27% |
+| LINKUSDT | 12 | 92% | $+5.60 | +3.29% |
+| XRPUSDT | 17 | 82% | $+3.22 | +1.89% |
+| **TOTAL** | **78** | **88%** | **$+33.88** | **+19.93%** |
+
+| Salida | Cantidad | % |
+|--------|----------|---|
+| TRAILING | 50 | 64% |
+| TAKE_PROFIT | 16 | 21% |
+| STOP_LOSS | 12 | 15% |
+
+---
+
 ## Archivos Clave
 
 ```
@@ -138,9 +186,10 @@ strategy/stop_hunt.py           # Stop Hunt (5m)
 strategy/ema_adx_breakout.py    # EMA Breakout (15m, 25/50)
 strategy/macd_momentum.py       # MACD Momentum (15m)
 strategy/structure_break.py     # Structure Break (5m)
-strategy/signal_engine.py       # Motor multi-estrategia (5 en paralelo)
+strategy/volatility_squeeze.py  # Volatility Squeeze (1h) 🆕
+strategy/signal_engine.py       # Motor multi-estrategia (6 en paralelo)
 strategy/indicators.py          # EMA, ATR, ADX, RSI, Bollinger, MACD
 execution/event_loop.py         # Guards y ejecución
-datafeed/market_cache.py        # Cache multi-timeframe
+datafeed/market_cache.py        # Cache multi-timeframe (5m, 15m, 1h)
 config.py                      # Todos los parámetros
 ```

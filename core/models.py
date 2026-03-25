@@ -16,6 +16,7 @@ class BotState:
         "stop_hunt":        ["XRPUSDT", "1000PEPEUSDT", "AVAXUSDT", "TIAUSDT", "ORDIUSDT"],
         "macd_momentum":    ["XRPUSDT", "AVAXUSDT", "SOLUSDT", "LINKUSDT", "TIAUSDT"],
         "ema_breakout":     [],
+        "volatility_squeeze": ["NEARUSDT", "OPUSDT", "BTCUSDT", "LINKUSDT", "XRPUSDT"],
     })
 
     # EMA Breakout v2
@@ -132,6 +133,22 @@ class BotState:
     structure_min_break_volume: float = 2.0
     structure_sl_buffer_atr: float = 1.0
     structure_adx_min: float = 15.0
+
+    # Volatility Squeeze (1h)
+    vol_squeeze_atr_period: int = 14
+    vol_squeeze_atr_lookback: int = 100
+    vol_squeeze_atr_percentile: int = 15
+    vol_squeeze_bb_period: int = 20
+    vol_squeeze_bb_width_percentile: int = 25
+    vol_squeeze_rsi_period: int = 14
+    vol_squeeze_rsi_oversold: float = 30.0
+    vol_squeeze_rsi_overbought: float = 70.0
+    vol_squeeze_min_volume_ratio: float = 1.5
+    vol_squeeze_adx_min: float = 15.0
+    vol_squeeze_sl_atr_mult: float = 1.5
+    vol_squeeze_tp_atr_mult: float = 4.0
+    vol_squeeze_ema_fast: int = 20
+    vol_squeeze_ema_slow: int = 50
 
     def to_dict(self):
         return asdict(self)

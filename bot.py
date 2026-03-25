@@ -133,6 +133,22 @@ def sync_cfg_from_state(st):
     CFG.STRUCTURE_SL_BUFFER_ATR = float(getattr(st, "structure_sl_buffer_atr", CFG.STRUCTURE_SL_BUFFER_ATR))
     CFG.STRUCTURE_ADX_MIN = float(getattr(st, "structure_adx_min", CFG.STRUCTURE_ADX_MIN))
 
+    # Volatility Squeeze (1h)
+    CFG.VOL_SQUEEZE_ATR_PERIOD = int(getattr(st, "vol_squeeze_atr_period", CFG.VOL_SQUEEZE_ATR_PERIOD))
+    CFG.VOL_SQUEEZE_ATR_LOOKBACK = int(getattr(st, "vol_squeeze_atr_lookback", CFG.VOL_SQUEEZE_ATR_LOOKBACK))
+    CFG.VOL_SQUEEZE_ATR_PERCENTILE = int(getattr(st, "vol_squeeze_atr_percentile", CFG.VOL_SQUEEZE_ATR_PERCENTILE))
+    CFG.VOL_SQUEEZE_BB_PERIOD = int(getattr(st, "vol_squeeze_bb_period", CFG.VOL_SQUEEZE_BB_PERIOD))
+    CFG.VOL_SQUEEZE_BB_WIDTH_PERCENTILE = int(getattr(st, "vol_squeeze_bb_width_percentile", CFG.VOL_SQUEEZE_BB_WIDTH_PERCENTILE))
+    CFG.VOL_SQUEEZE_RSI_PERIOD = int(getattr(st, "vol_squeeze_rsi_period", CFG.VOL_SQUEEZE_RSI_PERIOD))
+    CFG.VOL_SQUEEZE_RSI_OVERSOLD = float(getattr(st, "vol_squeeze_rsi_oversold", CFG.VOL_SQUEEZE_RSI_OVERSOLD))
+    CFG.VOL_SQUEEZE_RSI_OVERBOUGHT = float(getattr(st, "vol_squeeze_rsi_overbought", CFG.VOL_SQUEEZE_RSI_OVERBOUGHT))
+    CFG.VOL_SQUEEZE_MIN_VOLUME_RATIO = float(getattr(st, "vol_squeeze_min_volume_ratio", CFG.VOL_SQUEEZE_MIN_VOLUME_RATIO))
+    CFG.VOL_SQUEEZE_ADX_MIN = float(getattr(st, "vol_squeeze_adx_min", CFG.VOL_SQUEEZE_ADX_MIN))
+    CFG.VOL_SQUEEZE_SL_ATR_MULT = float(getattr(st, "vol_squeeze_sl_atr_mult", CFG.VOL_SQUEEZE_SL_ATR_MULT))
+    CFG.VOL_SQUEEZE_TP_ATR_MULT = float(getattr(st, "vol_squeeze_tp_atr_mult", CFG.VOL_SQUEEZE_TP_ATR_MULT))
+    CFG.VOL_SQUEEZE_EMA_FAST = int(getattr(st, "vol_squeeze_ema_fast", CFG.VOL_SQUEEZE_EMA_FAST))
+    CFG.VOL_SQUEEZE_EMA_SLOW = int(getattr(st, "vol_squeeze_ema_slow", CFG.VOL_SQUEEZE_EMA_SLOW))
+
 
 def main():
     validate_config()
