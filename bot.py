@@ -149,6 +149,16 @@ def sync_cfg_from_state(st):
     CFG.VOL_SQUEEZE_EMA_FAST = int(getattr(st, "vol_squeeze_ema_fast", CFG.VOL_SQUEEZE_EMA_FAST))
     CFG.VOL_SQUEEZE_EMA_SLOW = int(getattr(st, "vol_squeeze_ema_slow", CFG.VOL_SQUEEZE_EMA_SLOW))
 
+    # Estrategias activas (enabled/disabled)
+    CFG.STRATEGY_ENABLED = {
+        "rsi_bb_reversion": bool(getattr(st, "strategy_enabled_rsi_bb", True)),
+        "stop_hunt": bool(getattr(st, "strategy_enabled_stop_hunt", True)),
+        "macd_momentum": bool(getattr(st, "strategy_enabled_macd", True)),
+        "ema_breakout": bool(getattr(st, "strategy_enabled_ema", True)),
+        "structure_break": bool(getattr(st, "strategy_enabled_structure", True)),
+        "volatility_squeeze": bool(getattr(st, "strategy_enabled_vol_squeeze", True)),
+    }
+
 
 def main():
     validate_config()

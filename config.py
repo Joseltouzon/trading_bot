@@ -25,6 +25,16 @@ DEFAULT_STRATEGY_SYMBOLS = {
 }
 REQUIRED_INTERVALS = sorted(set(STRATEGY_INTERVALS.values()))  # ["15m", "5m"]
 
+# Estrategias activas en modo auto (se pueden activar/desactivar desde dashboard)
+STRATEGY_ENABLED = {
+    "rsi_bb_reversion": True,
+    "stop_hunt": True,
+    "macd_momentum": True,
+    "ema_breakout": True,
+    "structure_break": True,
+    "volatility_squeeze": True,
+}
+
 # =========================
 # EXECUTION / RISK
 # =========================

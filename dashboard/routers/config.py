@@ -122,6 +122,13 @@ async def update_config(payload: dict = Body(...), db = Depends(get_db)):
         "vol_squeeze_tp_atr_mult",
         "vol_squeeze_ema_fast",
         "vol_squeeze_ema_slow",
+        # Estrategias activas (toggles)
+        "strategy_enabled_rsi_bb",
+        "strategy_enabled_stop_hunt",
+        "strategy_enabled_macd",
+        "strategy_enabled_ema",
+        "strategy_enabled_structure",
+        "strategy_enabled_vol_squeeze",
     ]
     for key in allowed_keys:
         if key in payload:
@@ -181,7 +188,10 @@ async def update_config(payload: dict = Body(...), db = Depends(get_db)):
 
             if key in ("paper_trading", "trailing_automatico", "adx_rising",
                         "trailing_use_atr", "use_take_profit", "tp_by_pct",
-                        "stop_hunt_use_ema_filter", "rsi_bb_require_divergence"):
+                        "stop_hunt_use_ema_filter", "rsi_bb_require_divergence",
+                        "strategy_enabled_rsi_bb", "strategy_enabled_stop_hunt",
+                        "strategy_enabled_macd", "strategy_enabled_ema",
+                        "strategy_enabled_structure", "strategy_enabled_vol_squeeze"):
                 payload[key] = bool(payload[key])
 
             if key == "tp_sl_mode":

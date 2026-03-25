@@ -61,6 +61,14 @@ class BotState:
     trailing_automatico: bool = True
     strategy_mode: str = "ema_breakout"
 
+    # Estrategias activas (modo auto filtra por estas)
+    strategy_enabled_rsi_bb: bool = True
+    strategy_enabled_stop_hunt: bool = True
+    strategy_enabled_macd: bool = True
+    strategy_enabled_ema: bool = True
+    strategy_enabled_structure: bool = True
+    strategy_enabled_vol_squeeze: bool = True
+
     # Trailing (runtime)
     trailing_activation_pct: float = 0.5
     trailing_use_atr: bool = True

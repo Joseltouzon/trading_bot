@@ -47,8 +47,8 @@ class SignalEngine:
         if self.strategy_mode == "all":
             return list(ACTIVE_STRATEGIES.keys())
         elif self.strategy_mode == "auto":
-            # auto: 5 estrategias
-            return ["rsi_bb_reversion", "stop_hunt", "macd_momentum", "ema_breakout", "structure_break"]
+            # auto: 6 estrategias
+            return ["rsi_bb_reversion", "stop_hunt", "macd_momentum", "ema_breakout", "structure_break", "volatility_squeeze"]
         elif self.strategy_mode in ACTIVE_STRATEGIES:
             return [self.strategy_mode]
         return []
@@ -57,13 +57,19 @@ class SignalEngine:
         """Ejecuta las estrategias activas, cada una con sus propios símbolos.
 
         Itera por estrategia → por símbolo de esa estrategia.
+        Filtra por STRATEGY_ENABLED (dashboard toggle).
         """
         if max_positions_reached:
             return
 
         strategies = self._get_strategies_to_run()
+        enabled_map = getattr(CFG, "STRATEGY_ENABLED", {})
 
         for strategy_name in strategies:
+            # Filtrar por enabled (si existe el mapa)
+            if enabled_map and not enabled_map.get(strategy_name, True):
+                continue
+
             symbols = strategy_symbols.get(strategy_name, [])
             if not symbols:
                 continue

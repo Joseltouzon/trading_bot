@@ -828,6 +828,46 @@
                     </div>
                 </div>
 
+                <h6 class="mb-3 mt-4" style="color: #f3f7f3;">ESTRATEGIAS ACTIVAS (modo auto)</h6>
+                <div class="row g-3 mb-3">
+                    <div class="col-md-2">
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="strategy_enabled_rsi_bb" name="strategy_enabled_rsi_bb" {% if state.strategy_enabled_rsi_bb %}checked{% endif %}>
+                            <label class="form-check-label" style="color: aquamarine;" for="strategy_enabled_rsi_bb">RSI+BB (5m)</label>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="strategy_enabled_stop_hunt" name="strategy_enabled_stop_hunt" {% if state.strategy_enabled_stop_hunt %}checked{% endif %}>
+                            <label class="form-check-label" style="color: aquamarine;" for="strategy_enabled_stop_hunt">Stop Hunt (5m)</label>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="strategy_enabled_macd" name="strategy_enabled_macd" {% if state.strategy_enabled_macd %}checked{% endif %}>
+                            <label class="form-check-label" style="color: aquamarine;" for="strategy_enabled_macd">MACD (15m)</label>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="strategy_enabled_ema" name="strategy_enabled_ema" {% if state.strategy_enabled_ema %}checked{% endif %}>
+                            <label class="form-check-label" style="color: aquamarine;" for="strategy_enabled_ema">EMA (15m)</label>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="strategy_enabled_structure" name="strategy_enabled_structure" {% if state.strategy_enabled_structure %}checked{% endif %}>
+                            <label class="form-check-label" style="color: aquamarine;" for="strategy_enabled_structure">Structure (5m)</label>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="strategy_enabled_vol_squeeze" name="strategy_enabled_vol_squeeze" {% if state.strategy_enabled_vol_squeeze %}checked{% endif %}>
+                            <label class="form-check-label" style="color: aquamarine;" for="strategy_enabled_vol_squeeze">Vol Squeeze (1h)</label>
+                        </div>
+                    </div>
+                </div>
+
                 <h6 class="mb-3" style="color: #f3f7f3;">TRAILING</h6>
                 <div class="row g-3 mb-3">
                     <div class="col-md-3">
