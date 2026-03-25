@@ -186,6 +186,7 @@ except Exception as e:
 - `strategy/macd_momentum.py` — Momentum + Volume Spike (15m)
 - `strategy/structure_break.py` — Market Structure Break + Retest (5m)
 - `strategy/volatility_squeeze.py` — Volatility Compression + Momentum Exhaustion (1h) 🆕
+- `strategy/volatility_regime.py` — Volatility Regime + Adaptive Entry (1h) 🆕
 - `strategy/signal_engine.py` — Motor multi-estrategia
 - `strategy/indicators.py` — EMA, ATR, ADX, RSI, Bollinger, Stochastic, MACD
 - `strategy/pivots.py` — Pivot highs/lows vectorizados
@@ -308,12 +309,11 @@ Cada estrategia devuelve un dict con:
 
 ## 4. Modo Auto
 
-`auto` ejecuta 5 estrategias en paralelo por cada símbolo:
+`auto` ejecuta 7 estrategias en paralelo por cada símbolo:
 - RSI+BB (5m) + Stop Hunt (5m) + MACD Momentum (15m) + EMA Breakout (15m) + Structure Break (5m)
+- Volatility Squeeze (1h) + Volatility Regime (1h)
 
 EMA optimizada con EMA 25/50 + ADX 25 (PF 3.97, WR 63%).
-
-**Volatility Squeeze (1h)** se ejecuta por separado con sus propios símbolos.
 
 ---
 
@@ -321,7 +321,7 @@ EMA optimizada con EMA 25/50 + ADX 25 (PF 3.97, WR 63%).
 
 **Archivo:** `strategy/signal_engine.py`
 
-El engine ejecuta **las 5 estrategias + VS en paralelo** por cada símbolo:
+El engine ejecuta **las 7 estrategias en paralelo** por cada símbolo:
 
 | Estrategia | Timeframe | Intervalo |
 |-----------|-----------|-----------|
@@ -331,6 +331,7 @@ El engine ejecuta **las 5 estrategias + VS en paralelo** por cada símbolo:
 | EMA Breakout | 15m | Cada 15 minutos |
 | Structure Break | 5m | Cada 5 minutos |
 | Volatility Squeeze | 1h | Cada 1 hora |
+| Volatility Regime | 1h | Cada 1 hora |
 
 ### Flujo `process_symbol()`
 
@@ -361,6 +362,7 @@ STRATEGY_INTERVALS = {
     "macd_momentum": "15m",
     "structure_break": "5m",
     "volatility_squeeze": "1h",
+    "volatility_regime": "1h",
 }
 ```
 
@@ -1003,10 +1005,15 @@ Estrategias probadas y descartadas. No re-probar sin cambios fundamentales.
 | Momentum Divergence | 1h | 0.36 | Solo 8 trades, 0% WR. Filtros demasiado estrictos, no genera señales suficientes. |
 | Smart Money Flow | 1h | inf | Solo 2 trades (100% WR pero muestra insuficiente). Concepto bueno, implementación muy restrictiva. |
 | Volatility Breakout | 1h | 1.07 | 126 trades pero PF marginal. Demasiados trades perdedores (AVAXUSDT -$0.68). Comisiones comen ganancias. |
+| Funding Rate Extreme | 1h | 1.26 | 26 trades, WR 81% pero PF bajo y return +0.38%. Avg Win ($0.27) muy bajo vs Avg Loss ($0.89). |
+| MTF Trend Alignment | 1h | 1.32 | 30 trades, WR 73%, return +1.61%. Mejor que Funding pero no compara con Vol Squeeze. Muy sensible a filtros. |
 
 **Lecciones aprendidas (1h):**
-- Volatility Squeeze funciona: detectar compresión + dirección del swing + tendencia EMA
+- Volatility Sizzle funciona: detectar compresión + dirección del swing + tendencia EMA
 - Liquidation Cascade no funciona: trailing muy apretado vs SL amplio (ratio 1:3)
+- Funding Rate Extreme: concepto bueno pero Avg Win demasiado bajo (trailing cierra muy pronto)
+- MTF Trend: demasiado sensible a filtros, o 0 trades o demasiados perdedores
+- Estrategias contrarian en 1h no funcionan tan bien como momentum/trend
 - Momentum Divergence: demasiados filtros, no genera señales
 - Smart Money Flow: concepto bueno pero demasiado restrictivo
 - Volatility Breakout puro: demasiados falsos positivos, comisiones altas

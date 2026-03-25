@@ -18,6 +18,7 @@ class BotState:
         "ema_breakout":     [],
         "structure_break":  ["FILUSDT", "DOGEUSDT", "APTUSDT", "WIFUSDT", "ATOMUSDT"],
         "volatility_squeeze": ["NEARUSDT", "OPUSDT", "BTCUSDT", "LINKUSDT", "XRPUSDT"],
+        "volatility_regime": ["XRPUSDT", "BTCUSDT", "DOGEUSDT", "OPUSDT", "FILUSDT"],
     })
 
     # EMA Breakout v2
@@ -69,6 +70,7 @@ class BotState:
     strategy_enabled_ema: bool = True
     strategy_enabled_structure: bool = True
     strategy_enabled_vol_squeeze: bool = True
+    strategy_enabled_vol_regime: bool = True
 
     # Trailing (runtime)
     trailing_activation_pct: float = 0.5
@@ -158,6 +160,20 @@ class BotState:
     vol_squeeze_tp_atr_mult: float = 4.0
     vol_squeeze_ema_fast: int = 20
     vol_squeeze_ema_slow: int = 50
+
+    # Volatility Regime (1h)
+    vr_atr_period: int = 14
+    vr_atr_lookback: int = 100
+    vr_atr_low_percentile: int = 20
+    vr_atr_high_percentile: int = 70
+    vr_volume_ratio_min: float = 1.3
+    vr_rsi_period: int = 14
+    vr_adx_min: float = 18.0
+    vr_sl_atr_mult: float = 1.5
+    vr_ema_fast: int = 20
+    vr_ema_slow: int = 50
+    vr_momentum_bars: int = 3
+    vr_breakout_lookback: int = 20
 
     def to_dict(self):
         return asdict(self)

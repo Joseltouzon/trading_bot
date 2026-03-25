@@ -149,6 +149,20 @@ def sync_cfg_from_state(st):
     CFG.VOL_SQUEEZE_EMA_FAST = int(getattr(st, "vol_squeeze_ema_fast", CFG.VOL_SQUEEZE_EMA_FAST))
     CFG.VOL_SQUEEZE_EMA_SLOW = int(getattr(st, "vol_squeeze_ema_slow", CFG.VOL_SQUEEZE_EMA_SLOW))
 
+    # Volatility Regime (1h)
+    CFG.VR_ATR_PERIOD = int(getattr(st, "vr_atr_period", CFG.VR_ATR_PERIOD))
+    CFG.VR_ATR_LOOKBACK = int(getattr(st, "vr_atr_lookback", CFG.VR_ATR_LOOKBACK))
+    CFG.VR_ATR_LOW_PERCENTILE = int(getattr(st, "vr_atr_low_percentile", CFG.VR_ATR_LOW_PERCENTILE))
+    CFG.VR_ATR_HIGH_PERCENTILE = int(getattr(st, "vr_atr_high_percentile", CFG.VR_ATR_HIGH_PERCENTILE))
+    CFG.VR_VOLUME_RATIO_MIN = float(getattr(st, "vr_volume_ratio_min", CFG.VR_VOLUME_RATIO_MIN))
+    CFG.VR_RSI_PERIOD = int(getattr(st, "vr_rsi_period", CFG.VR_RSI_PERIOD))
+    CFG.VR_ADX_MIN = float(getattr(st, "vr_adx_min", CFG.VR_ADX_MIN))
+    CFG.VR_SL_ATR_MULT = float(getattr(st, "vr_sl_atr_mult", CFG.VR_SL_ATR_MULT))
+    CFG.VR_EMA_FAST = int(getattr(st, "vr_ema_fast", CFG.VR_EMA_FAST))
+    CFG.VR_EMA_SLOW = int(getattr(st, "vr_ema_slow", CFG.VR_EMA_SLOW))
+    CFG.VR_MOMENTUM_BARS = int(getattr(st, "vr_momentum_bars", CFG.VR_MOMENTUM_BARS))
+    CFG.VR_BREAKOUT_LOOKBACK = int(getattr(st, "vr_breakout_lookback", CFG.VR_BREAKOUT_LOOKBACK))
+
     # Estrategias activas (enabled/disabled)
     CFG.STRATEGY_ENABLED = {
         "rsi_bb_reversion": bool(getattr(st, "strategy_enabled_rsi_bb", True)),
@@ -157,6 +171,7 @@ def sync_cfg_from_state(st):
         "ema_breakout": bool(getattr(st, "strategy_enabled_ema", True)),
         "structure_break": bool(getattr(st, "strategy_enabled_structure", True)),
         "volatility_squeeze": bool(getattr(st, "strategy_enabled_vol_squeeze", True)),
+        "volatility_regime": bool(getattr(st, "strategy_enabled_vol_regime", True)),
     }
 
 

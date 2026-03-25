@@ -14,10 +14,11 @@ Structure (5m):      5      215     7.17    59.1%   2.22    +2.13%  0.27%
 SUBTOTAL 5m/15m:    27      455    15.17      -       -     +5.58%  0.94%
 ================================================================
 Vol Squeeze (1h):    5       78     2.60    88.0%   3.46   +19.93%  4.37%
+Vol Regime (1h):     5      458    15.27    76.0%   1.75   +12.13%  3.93%
 ================================================================
 ```
 
-Mode auto ejecuta 5 estrategias (5m/15m). Volatility Squeeze opera por separado en 1h.
+Mode auto ejecuta 7 estrategias (5m/15m + 1h).
 
 ---
 
@@ -178,6 +179,48 @@ NEARUSDT, OPUSDT, BTCUSDT, LINKUSDT, XRPUSDT
 
 ---
 
+## 7. Volatility Regime + Adaptive Entry (1h) 🆕
+
+### Símbolos (Top 5 backtested 60 días)
+XRPUSDT, BTCUSDT, DOGEUSDT, OPUSDT, FILUSDT
+
+### Parámetros clave
+| Parámetro | Default | Descripción |
+|-----------|---------|-------------|
+| VR_ATR_PERIOD | 14 | Período del ATR |
+| VR_ATR_LOOKBACK | 100 | Velas para percentil histórico |
+| VR_ATR_LOW_PERCENTILE | 20 | ATR < 20% = compresión |
+| VR_ATR_HIGH_PERCENTILE | 70 | ATR > 70% = expansión |
+| VR_VOLUME_RATIO_MIN | 1.3 | Volumen mínimo |
+| VR_ADX_MIN | 18.0 | ADX mínimo |
+| VR_SL_ATR_MULT | 1.5 | ATR multiplier para SL |
+| VR_EMA_FAST/SLOW | 20 / 50 | EMAs para tendencia |
+| VR_MOMENTUM_BARS | 3 | Velas consecutivas para momentum |
+
+### Lógica
+1. **Régimen BAJO (ATR < 20%)**: operar breakout en dirección del swing (como VS)
+2. **Régimen ALTO (ATR > 70%)**: operar momentum continuation (N velas + nuevo high/low)
+3. **Régimen NORMAL**: NO OPERAR
+
+### Resultados Backtesting (60 días, 1h, $170, 5x)
+
+| Símbolo | Trades | WR | PnL | Return |
+|---------|--------|-----|-----|--------|
+| XRPUSDT | 28 | 93% | $+12.62 | +7.42% |
+| BTCUSDT | 30 | 77% | $+10.72 | +6.31% |
+| DOGEUSDT | 36 | 75% | $+9.36 | +5.51% |
+| OPUSDT | 31 | 90% | $+7.36 | +4.33% |
+| FILUSDT | 28 | 86% | $+7.03 | +4.14% |
+| **TOTAL** | **153** | **84%** | **$+47.09** | **+27.70%** |
+
+| Salida | Cantidad | % |
+|--------|----------|---|
+| TRAILING | 259 | 66% |
+| STOP_LOSS | 115 | 29% |
+| TAKE_PROFIT | 82 | 21% |
+
+---
+
 ## Archivos Clave
 
 ```
@@ -187,7 +230,8 @@ strategy/ema_adx_breakout.py    # EMA Breakout (15m, 25/50)
 strategy/macd_momentum.py       # MACD Momentum (15m)
 strategy/structure_break.py     # Structure Break (5m)
 strategy/volatility_squeeze.py  # Volatility Squeeze (1h) 🆕
-strategy/signal_engine.py       # Motor multi-estrategia (6 en paralelo)
+strategy/volatility_regime.py   # Volatility Regime (1h) 🆕
+strategy/signal_engine.py       # Motor multi-estrategia (7 en paralelo)
 strategy/indicators.py          # EMA, ATR, ADX, RSI, Bollinger, MACD
 execution/event_loop.py         # Guards y ejecución
 datafeed/market_cache.py        # Cache multi-timeframe (5m, 15m, 1h)

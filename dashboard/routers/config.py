@@ -122,6 +122,19 @@ async def update_config(payload: dict = Body(...), db = Depends(get_db)):
         "vol_squeeze_tp_atr_mult",
         "vol_squeeze_ema_fast",
         "vol_squeeze_ema_slow",
+        # Volatility Regime (1h)
+        "vr_atr_period",
+        "vr_atr_lookback",
+        "vr_atr_low_percentile",
+        "vr_atr_high_percentile",
+        "vr_volume_ratio_min",
+        "vr_rsi_period",
+        "vr_adx_min",
+        "vr_sl_atr_mult",
+        "vr_ema_fast",
+        "vr_ema_slow",
+        "vr_momentum_bars",
+        "vr_breakout_lookback",
         # Estrategias activas (toggles)
         "strategy_enabled_rsi_bb",
         "strategy_enabled_stop_hunt",
@@ -129,6 +142,7 @@ async def update_config(payload: dict = Body(...), db = Depends(get_db)):
         "strategy_enabled_ema",
         "strategy_enabled_structure",
         "strategy_enabled_vol_squeeze",
+        "strategy_enabled_vol_regime",
     ]
     for key in allowed_keys:
         if key in payload:
@@ -191,7 +205,8 @@ async def update_config(payload: dict = Body(...), db = Depends(get_db)):
                         "stop_hunt_use_ema_filter", "rsi_bb_require_divergence",
                         "strategy_enabled_rsi_bb", "strategy_enabled_stop_hunt",
                         "strategy_enabled_macd", "strategy_enabled_ema",
-                        "strategy_enabled_structure", "strategy_enabled_vol_squeeze"):
+                        "strategy_enabled_structure", "strategy_enabled_vol_squeeze",
+                        "strategy_enabled_vol_regime"):
                 payload[key] = bool(payload[key])
 
             if key == "tp_sl_mode":

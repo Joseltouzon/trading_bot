@@ -1,6 +1,6 @@
 # strategy/signal_engine.py
-# Multi-strategy engine: ejecuta las 6 estrategias en paralelo
-# 5m: RSI+BB, Stop Hunt | 15m: EMA, MACD | 1h: Volatility Squeeze
+# Multi-strategy engine: ejecuta las 7 estrategias en paralelo
+# 5m: RSI+BB, Stop Hunt | 15m: EMA, MACD | 1h: Volatility Squeeze, Volatility Regime
 
 import config as CFG
 from core.models import SignalEvent
@@ -10,6 +10,7 @@ from strategy.rsi_bb_reversion import compute_rsi_bb_signals
 from strategy.macd_momentum import compute_macd_momentum_signals
 from strategy.structure_break import compute_structure_break_signals
 from strategy.volatility_squeeze import compute_volatility_squeeze_signals
+from strategy.volatility_regime import compute_volatility_regime_signals
 
 
 # Estrategias activas y sus timeframes
@@ -20,6 +21,7 @@ ACTIVE_STRATEGIES = {
     "macd_momentum": {"compute": compute_macd_momentum_signals, "short": "MAC"},
     "structure_break": {"compute": compute_structure_break_signals, "short": "STR"},
     "volatility_squeeze": {"compute": compute_volatility_squeeze_signals, "short": "VSQ"},
+    "volatility_regime": {"compute": compute_volatility_regime_signals, "short": "VRG"},
 }
 
 
@@ -47,8 +49,8 @@ class SignalEngine:
         if self.strategy_mode == "all":
             return list(ACTIVE_STRATEGIES.keys())
         elif self.strategy_mode == "auto":
-            # auto: 6 estrategias
-            return ["rsi_bb_reversion", "stop_hunt", "macd_momentum", "ema_breakout", "structure_break", "volatility_squeeze"]
+            # auto: 7 estrategias
+            return ["rsi_bb_reversion", "stop_hunt", "macd_momentum", "ema_breakout", "structure_break", "volatility_squeeze", "volatility_regime"]
         elif self.strategy_mode in ACTIVE_STRATEGIES:
             return [self.strategy_mode]
         return []

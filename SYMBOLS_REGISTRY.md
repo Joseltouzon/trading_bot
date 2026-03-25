@@ -2,6 +2,26 @@
 
 Última actualización: 2026-03-25
 
+## Volatility Regime (1h) 🆕
+
+### Activos ✅
+| Símbolo | Trades | WR | PF | Ret | Nota |
+|---------|--------|-----|------|-----|------|
+| XRPUSDT | 28 | 93% | 2.15 | +7.42% | Mejor WR |
+| BTCUSDT | 30 | 77% | 2.15 | +6.31% | Líder de mercado |
+| DOGEUSDT | 36 | 75% | 1.55 | +5.51% | Volumen alto |
+| OPUSDT | 31 | 90% | 1.55 | +4.33% | Consistente |
+| FILUSDT | 28 | 86% | 1.55 | +4.14% | Buen WR |
+
+### Descartados ❌
+| Símbolo | Trades | WR | PF | Ret | Razón |
+|---------|--------|-----|------|-----|-------|
+| AVAXUSDT | 29 | 62% | - | -2.18% | Perdedor |
+| ATOMUSDT | 28 | 61% | - | -1.90% | Perdedor |
+| NEARUSDT | 36 | 72% | - | -0.45% | Marginal |
+
+---
+
 ## Volatility Squeeze (1h) 🆕
 
 ### Activos ✅

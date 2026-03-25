@@ -14,6 +14,7 @@ STRATEGY_INTERVALS = {
     "macd_momentum": "15m",
     "structure_break": "5m",
     "volatility_squeeze": "1h",
+    "volatility_regime": "1h",
 }
 DEFAULT_STRATEGY_SYMBOLS = {
     "rsi_bb_reversion": ["1000PEPEUSDT", "AVAXUSDT", "TIAUSDT", "ORDIUSDT", "TAOUSDT"],
@@ -22,6 +23,7 @@ DEFAULT_STRATEGY_SYMBOLS = {
     "ema_breakout":     ["DOGEUSDT", "LINKUSDT", "TIAUSDT", "ORDIUSDT", "PENDLEUSDT"],
     "structure_break":  ["FILUSDT", "DOGEUSDT", "APTUSDT", "WIFUSDT", "ATOMUSDT"],
     "volatility_squeeze": ["NEARUSDT", "OPUSDT", "BTCUSDT", "LINKUSDT", "XRPUSDT"],
+    "volatility_regime": ["XRPUSDT", "BTCUSDT", "DOGEUSDT", "OPUSDT", "FILUSDT"],
 }
 REQUIRED_INTERVALS = sorted(set(STRATEGY_INTERVALS.values()))  # ["15m", "5m"]
 
@@ -33,6 +35,7 @@ STRATEGY_ENABLED = {
     "ema_breakout": True,
     "structure_break": True,
     "volatility_squeeze": True,
+    "volatility_regime": True,
 }
 
 # =========================
@@ -214,3 +217,19 @@ VOL_SQUEEZE_SL_ATR_MULT = 1.5
 VOL_SQUEEZE_TP_ATR_MULT = 4.0
 VOL_SQUEEZE_EMA_FAST = 20
 VOL_SQUEEZE_EMA_SLOW = 50
+
+# ============================================================
+# VOLATILITY REGIME + ADAPTIVE ENTRY (1h)
+# ============================================================
+VR_ATR_PERIOD = 14
+VR_ATR_LOOKBACK = 100
+VR_ATR_LOW_PERCENTILE = 20
+VR_ATR_HIGH_PERCENTILE = 70
+VR_VOLUME_RATIO_MIN = 1.3
+VR_RSI_PERIOD = 14
+VR_ADX_MIN = 18.0
+VR_SL_ATR_MULT = 1.5
+VR_EMA_FAST = 20
+VR_EMA_SLOW = 50
+VR_MOMENTUM_BARS = 3
+VR_BREAKOUT_LOOKBACK = 20
