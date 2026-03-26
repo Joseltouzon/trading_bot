@@ -333,24 +333,32 @@ El engine ejecuta **las 7 estrategias en paralelo** por cada símbolo:
 | Volatility Squeeze | 1h | Cada 1 hora |
 | Volatility Regime | 1h | Cada 1 hora |
 
-### Flujo `process_symbol()`
+### Flujo `process_all()` (batch processing)
 
 ```
-Para cada estrategia en ACTIVE_STRATEGIES:
-  1. interval = STRATEGY_INTERVALS[strategy]  ("5m" o "15m")
-  2. df = market.get_df_copy(symbol, interval)
-  3. close_time = df["close_time"].iloc[-2]
-  4. Si _last_processed[(symbol, strategy)] == close_time → skip
-  5. Ejecutar compute_function(df)
-  6. Si señal → publish al bus
+1. Recopilar símbolos únicos y sus estrategias
+2. Agrupar por símbolo → por intervalo
+3. Para cada símbolo/intervalo:
+   a. df = market.get_df(symbol, interval)  ← SIN copia
+   b. df_closed = df.iloc[:-1]              ← una sola vez
+   c. Para cada estrategia del intervalo:
+      - Verificar _last_processed
+      - Ejecutar compute_function(df_closed)
+      - Si señal → publish al bus
 ```
+
+### Optimizaciones de rendimiento
+
+1. **Cache de DataFrames** - `get_df()` sin copia, `get_closed_df()` cacheado
+2. **Cache de indicadores** - `indicator_cache.py` calcula una vez por vela
+3. **Batch processing** - procesa por símbolo, no por estrategia
 
 ### Métodos clave
 
 | Método | Propósito |
 |--------|-----------|
-| `process_symbol(symbol, max_positions)` | Ejecuta las 5 estrategias con sus DFs |
-| `set_strategy_mode(mode)` | `all`=5 estrategias, `auto`=5, o una individual |
+| `process_all(strategy_symbols, max_positions)` | Ejecuta 7 estrategias (batch por símbolo) |
+| `set_strategy_mode(mode)` | `auto`=7, o una individual |
 
 ### Config
 
@@ -569,7 +577,10 @@ self.cache = {
 
 - `init_cache(symbols)`: descarga velas de TODOS los timeframes requeridos por símbolo
 - `update_all(symbols)`: poll cada `KLINE_POLL_SECONDS` (15s) para CADA timeframe independientemente
-- `get_df_copy(symbol, interval)`: devuelve DF del timeframe específico
+- `get_df_copy(symbol, interval)`: devuelve copia del DF (cuando se necesita modificar)
+- `get_df(symbol, interval)`: devuelve DF sin copia (solo lectura, más rápido) 🆕
+- `get_closed_df(symbol, interval)`: devuelve DF sin última vela parcial (cacheado) 🆕
+- `invalidate_closed_df(symbol, interval)`: invalida cache cuando hay nueva vela 🆕
 - `get_mark_price_cached(symbol)`: precio mark cacheado
 
 ### Throttles
@@ -921,8 +932,9 @@ Cooldown entre alertas: 10 min. Usa `get_used_margin()`, `get_available_balance(
 | `rsi_bb_reversion.py` | Estrategia RSI + Bollinger Band (5m) |
 | `macd_momentum.py` | Estrategia MACD Momentum (15m) |
 | `structure_break.py` | Estrategia Market Structure Break + Retest (5m) 🆕 |
-| `signal_engine.py` | Motor multi-estrategia (5 en paralelo) |
+| `signal_engine.py` | Motor multi-estrategia (7 en paralelo, batch processing) |
 | `indicators.py` | EMA, ATR, ADX, RSI, Bollinger, Stochastic, MACD |
+| `indicator_cache.py` | Cache global de indicadores (optimización) 🆕 |
 | `pivots.py` | Pivot highs/lows vectorizados |
 
 ### `execution/`

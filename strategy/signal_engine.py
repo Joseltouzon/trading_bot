@@ -58,8 +58,8 @@ class SignalEngine:
     def process_all(self, strategy_symbols: dict, max_positions_reached: bool = False):
         """Ejecuta las estrategias activas, cada una con sus propios símbolos.
 
-        Itera por estrategia → por símbolo de esa estrategia.
-        Filtra por STRATEGY_ENABLED (dashboard toggle).
+        Optimizado: agrupa por símbolo para evitar múltiples get_df().
+        Procesa todas las estrategias de un símbolo juntas.
         """
         if max_positions_reached:
             return
@@ -67,39 +67,53 @@ class SignalEngine:
         strategies = self._get_strategies_to_run()
         enabled_map = getattr(CFG, "STRATEGY_ENABLED", {})
 
+        # Recopilar todos los símbolos únicos y sus estrategias
+        symbol_strategies = {}  # symbol -> [(strategy_name, interval)]
         for strategy_name in strategies:
-            # Filtrar por enabled (si existe el mapa)
             if enabled_map and not enabled_map.get(strategy_name, True):
                 continue
-
             symbols = strategy_symbols.get(strategy_name, [])
             if not symbols:
                 continue
-
-            info = ACTIVE_STRATEGIES[strategy_name]
             interval = CFG.STRATEGY_INTERVALS.get(strategy_name, "5m")
-
             for symbol in symbols:
-                # Obtener DF del timeframe correcto
-                df = self.market.get_df_copy(symbol, interval)
+                if symbol not in symbol_strategies:
+                    symbol_strategies[symbol] = []
+                symbol_strategies[symbol].append((strategy_name, interval))
+
+        # Procesar por símbolo (batch)
+        for symbol, strats in symbol_strategies.items():
+            # Agrupar por intervalo para minimizar get_df()
+            by_interval = {}
+            for strategy_name, interval in strats:
+                if interval not in by_interval:
+                    by_interval[interval] = []
+                by_interval[interval].append(strategy_name)
+
+            # Procesar cada intervalo
+            for interval, strat_names in by_interval.items():
+                # Obtener DF una sola vez por intervalo
+                df = self.market.get_df(symbol, interval)
                 if df is None or len(df) < 50:
                     continue
 
-                # Detección de nueva vela (independiente por timeframe)
                 last_close_time = int(df["close_time"].iloc[-2])
-                processed_key = (symbol, strategy_name)
+                df_closed = df.iloc[:-1]
 
-                if self._last_processed.get(processed_key) == last_close_time:
-                    continue
+                # Procesar todas las estrategias de este intervalo
+                for strategy_name in strat_names:
+                    processed_key = (symbol, strategy_name)
+                    if self._last_processed.get(processed_key) == last_close_time:
+                        continue
 
-                self._last_processed[processed_key] = last_close_time
+                    self._last_processed[processed_key] = last_close_time
+                    info = ACTIVE_STRATEGIES[strategy_name]
 
-                # Ejecutar estrategia (excluir última vela parcial)
-                try:
-                    sig = info["compute"](df.iloc[:-1])
-                    self._publish_signal(symbol, strategy_name, sig, last_close_time)
-                except Exception as e:
-                    self.log.error(f"[SIGNAL] {symbol} {strategy_name} error: {e}")
+                    try:
+                        sig = info["compute"](df_closed)
+                        self._publish_signal(symbol, strategy_name, sig, last_close_time)
+                    except Exception as e:
+                        self.log.error(f"[SIGNAL] {symbol} {strategy_name} error: {e}")
 
     def _publish_signal(self, symbol: str, strategy_name: str, sig: dict, last_close_time: int):
         """Procesa el resultado de una estrategia y publica señal si corresponde."""

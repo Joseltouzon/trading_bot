@@ -97,6 +97,7 @@ class MarketCache:
 
                         self.cache[symbol][interval].df = df_full
                         self.cache[symbol][interval].last_closed_kline_ms = last_closed_time
+                        self.cache[symbol][interval]._closed_df = None  # Invalidar cache
 
                         self.log.info(f"[CACHE] New closed candle {symbol} {interval} close_time={last_closed_time}")
                 except Exception as e:
@@ -155,6 +156,64 @@ class MarketCache:
             if iv in self.cache[symbol]:
                 return self.cache[symbol][iv].df.copy()
         return None
+
+    def get_df(self, symbol, interval=None):
+        """Obtiene DF cacheado SIN copia (solo lectura).
+        Más rápido que get_df_copy(). Usar cuando no se modifica el DF.
+        """
+        if symbol not in self.cache:
+            return None
+
+        if interval is not None:
+            md = self.cache[symbol].get(interval)
+            if md is None:
+                return None
+            return md.df
+
+        # Fallback: primer intervalo disponible
+        for iv in self._intervals:
+            if iv in self.cache[symbol]:
+                return self.cache[symbol][iv].df
+        return None
+
+    def get_closed_df(self, symbol, interval=None):
+        """Obtiene DF sin la última vela parcial (cached).
+        Evita hacer df.iloc[:-1] en cada ciclo.
+        """
+        if symbol not in self.cache:
+            return None
+
+        if interval is not None:
+            md = self.cache[symbol].get(interval)
+            if md is None:
+                return None
+            # Cache del DF cerrado
+            if not hasattr(md, '_closed_df') or md._closed_df is None:
+                md._closed_df = md.df.iloc[:-1].copy()
+            return md._closed_df
+
+        # Fallback
+        for iv in self._intervals:
+            if iv in self.cache[symbol]:
+                md = self.cache[symbol][iv]
+                if not hasattr(md, '_closed_df') or md._closed_df is None:
+                    md._closed_df = md.df.iloc[:-1].copy()
+                return md._closed_df
+        return None
+
+    def invalidate_closed_df(self, symbol, interval=None):
+        """Invalida el cache del DF cerrado cuando hay nueva vela."""
+        if symbol not in self.cache:
+            return
+
+        if interval is not None:
+            md = self.cache[symbol].get(interval)
+            if md is not None:
+                md._closed_df = None
+        else:
+            for iv in self._intervals:
+                if iv in self.cache[symbol]:
+                    self.cache[symbol][iv]._closed_df = None
 
     def get_mark_price_cached(self, symbol):
         if symbol not in self.cache:
