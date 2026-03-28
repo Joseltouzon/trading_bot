@@ -209,9 +209,12 @@ class BinanceFutures:
 
         return spread
 
-    def get_klines_rest(self, symbol: str, interval: str, limit: int = 200):
+    def get_klines_rest(self, symbol: str, interval: str, limit: int = 200, start_time: int = None):
         limit = int(limit)
-        return self.client.futures_klines(symbol=symbol, interval=interval, limit=limit)
+        kwargs = dict(symbol=symbol, interval=interval, limit=limit)
+        if start_time is not None:
+            kwargs["startTime"] = int(start_time)
+        return self.client.futures_klines(**kwargs)
 
     # ============================================================
     # POSITIONS

@@ -4,6 +4,7 @@
 import pandas as pd
 import config as CFG
 import time
+from concurrent.futures import ThreadPoolExecutor, as_completed
 
 from core.models import MarketData
 
@@ -63,11 +64,24 @@ class MarketCache:
 
     def update_all(self, symbols):
         now = time.time()
-        for sym in symbols:
-            try:
-                self._update_symbol(sym, now)
-            except Exception as e:
-                self.log.warning(f"[CACHE] update error {sym}: {e}")
+        max_workers = min(len(symbols), 10)
+        with ThreadPoolExecutor(max_workers=max_workers) as executor:
+            futures = {}
+            for sym in symbols:
+                f = executor.submit(self._update_symbol_safe, sym, now)
+                futures[f] = sym
+            for f in as_completed(futures):
+                try:
+                    f.result()
+                except Exception as e:
+                    self.log.warning(f"[CACHE] update error {futures[f]}: {e}")
+
+    def _update_symbol_safe(self, symbol, now_ts: float):
+        """Wrapper thread-safe para _update_symbol."""
+        try:
+            self._update_symbol(symbol, now_ts)
+        except Exception as e:
+            self.log.warning(f"[CACHE] update error {symbol}: {e}")
 
     def _update_symbol(self, symbol, now_ts: float):
         if symbol not in self.cache:
@@ -100,6 +114,8 @@ class MarketCache:
                         self.cache[symbol][interval]._closed_df = None  # Invalidar cache
 
                         self.log.info(f"[CACHE] New closed candle {symbol} {interval} close_time={last_closed_time}")
+                except Exception as e:
+                    self.log.warning(f"[CACHE] kline poll error {symbol} {interval}: {e}")
                 except Exception as e:
                     self.log.warning(f"[CACHE] kline poll error {symbol} {interval}: {e}")
 
