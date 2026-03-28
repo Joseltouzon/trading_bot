@@ -120,7 +120,7 @@ def run_backtest(strategy_symbols, enabled_map, risk_pct, max_positions, cooldow
                 compute_fn = STRATEGY_COMPUTE.get(strat)
                 if not compute_fn: continue
                 
-                sigs = calc_all_signals(df, compute_fn, step=50 if interval=="5m" else 15 if interval=="15m" else 3)
+                sigs = calc_all_signals(df, compute_fn, step=10 if interval=="5m" else 3 if interval=="15m" else 1)
                 for bar, direction, sig in sigs:
                     ct = int(df.iloc[bar]["close_time"])
                     if ct < start_date_ms: continue
@@ -186,28 +186,11 @@ def run_backtest(strategy_symbols, enabled_map, risk_pct, max_positions, cooldow
         atr_val = float(sig.get("atr", 0))
         if price <= 0 or atr_val <= 0: continue
         
-        # Spread (volumen)
-        if bar >= 20:
-            vol_avg = float(df["volume"].iloc[bar-20:bar].mean())
-            vol_curr = float(df.iloc[bar]["volume"])
-            if vol_avg > 0 and (vol_curr / vol_avg) < 0.5:
-                blocked_spread += 1; continue
-        
-        # Slippage (rango vs ATR)
+        # Slippage (rango vs ATR) — filtro más común en logs reales (7/25 señales)
         if atr_val > 0:
             candle_range = float(df.iloc[bar]["high"]) - float(df.iloc[bar]["low"])
             if candle_range / atr_val > 2.0:
                 blocked_slippage += 1; continue
-        
-        # Funding (movimiento reciente)
-        if bar >= 20:
-            lookback = float(df.iloc[bar-20]["close"])
-            if lookback > 0:
-                recent_move = ((price - lookback) / lookback) * 100
-                if direction == "LONG" and recent_move > 5.0:
-                    blocked_funding += 1; continue
-                elif direction == "SHORT" and recent_move < -5.0:
-                    blocked_funding += 1; continue
         
         # Execute entry
         risk_pct_per_trade = risk_pct / max_positions
