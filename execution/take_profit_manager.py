@@ -86,9 +86,9 @@ class TakeProfitManager:
         # === Precio actual ===
         use_mark = bool(getattr(CFG, "TP_USE_MARK_PRICE", True))
         if use_mark:
-            mp = float(self.market.get_mark_price_cached(symbol) or 0)
+            mp = float(self.exchange.get_mark_price(symbol) or 0)
             if mp <= 0:
-                mp = float(self.exchange.get_mark_price(symbol) or 0)
+                mp = float(self.market.get_mark_price_cached(symbol) or 0)
         else:
             mp = float(self.exchange.get_ticker_price(symbol) or 0)
         
@@ -169,9 +169,11 @@ class TakeProfitManager:
 
         use_mark = bool(getattr(st, "tp_use_mark", True))
         if use_mark:
-            mp = float(self.market.get_mark_price_cached(symbol) or 0)
+            # SIEMPRE usar mark price directo (no cached) para TP
+            # El cached puede estar desactualizado y hacer que el trailing cierre primero
+            mp = float(self.exchange.get_mark_price(symbol) or 0)
             if mp <= 0:
-                mp = float(self.exchange.get_mark_price(symbol) or 0)
+                mp = float(self.market.get_mark_price_cached(symbol) or 0)
         else:
             mp = float(self.exchange.get_ticker_price(symbol) or 0)
 
