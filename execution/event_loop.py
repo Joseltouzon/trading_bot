@@ -548,9 +548,7 @@ class EventLoop:
                     pass
             return False
 
-        # Evaluar Take Profit (antes de nuevas entradas)
-        if getattr(st, "use_take_profit", False):
-            self.tp_manager.loop_once(st)    
+        # TP se ejecuta en bot.py después del trailing
 
         # Pop signal
         ev = self.bus.pop_any()

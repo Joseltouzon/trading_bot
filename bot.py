@@ -337,7 +337,7 @@ def main():
             f"  Risk: {st.risk_pct}% | Lev: {st.leverage}x\n"
             f"  Max pos: {st.max_positions}\n"
             f"  Trailing: {st.trailing_pct}%\n"
-            f"  Daily loss limit: {st.daily_loss_limit_pct}%\n\n"
+            f"  Daily loss limit: {st.daily_loss_limit_pct} USDT\n\n"
             f"<b>Símbolos únicos:</b> {len(all_symbols)}"
         )
     except Exception as e:
@@ -425,7 +425,11 @@ def main():
             # 4) Trailing
             trailing.loop_once(st)
 
-            # 5) Telegram polling
+            # 5) Take Profit (después del trailing, con mark price fresco)
+            if getattr(st, "use_take_profit", False):
+                event_loop.tp_manager.loop_once(st)
+
+            # 6) Telegram polling
             telegram.poll_once(st, exchange, db)
 
             # 6) Control de Riesgo
