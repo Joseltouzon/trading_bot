@@ -30,32 +30,23 @@ class TakeProfitManager:
         self._last_tp_action = {}
         
     def loop_once(self, st):
-        """Iterar sobre posiciones abiertas y evaluar niveles de TP"""
+        """Iterar sobre posiciones abiertas (st.trail) y evaluar TP"""
         try:
-            strategy_symbols = getattr(st, "strategy_symbols", {})
-            all_symbols = set()
-            for syms in strategy_symbols.values():
-                all_symbols.update(syms)
+            trail = getattr(st, "trail", {})
+            if not trail:
+                return
 
-            positions = self.exchange.get_open_positions()
-            for p in positions:
-                symbol = p.get("symbol")
-                if not symbol or symbol not in all_symbols:
-                    continue
-                    
-                # Saltar si está en cooldown de TP
+            for symbol in list(trail.keys()):
                 if self._is_throttled(symbol):
                     continue
-                
+
                 if bool(getattr(st, "tp_by_pct", False)):
-                    self._evaluate_tp_by_pct(st, symbol, p)
+                    self._evaluate_tp_by_pct(st, symbol, trail[symbol])
                 else:
-                    self._evaluate_tps(st, symbol, p)
-                
+                    self._evaluate_tps(st, symbol, trail[symbol])
+
         except Exception as e:
             self.log.error(f"[TP MANAGER] loop error: {e}")
-            if self.tg_send:
-                self.tg_send(f"⚠️ TP Manager error: {str(e)[:100]}")
     
     def _is_throttled(self, symbol: str) -> bool:
         """Verificar throttle de API por símbolo"""
@@ -148,24 +139,12 @@ class TakeProfitManager:
         if self._tp_by_pct_executed.get(symbol, False):
             return
 
-        side = position.get("side")
-        entry = float(position.get("entry_price", 0))
-        db_qty = float(position.get("size", 0))
-        position_id = st.position_ids.get(symbol)
+        side = position.get("direction")
+        entry = float(position.get("entry", 0))
+        total_qty = abs(float(position.get("qty", 0)))
 
-        if entry <= 0 or db_qty <= 0 or not position_id:
+        if entry <= 0 or total_qty <= 0:
             return
-
-        current_pos_list = self.exchange.get_open_positions(symbol=symbol)
-        current_pos = current_pos_list[0] if current_pos_list else None
-        current_qty = abs(float(current_pos.get("size", 0))) if current_pos else db_qty
-
-        if current_qty <= 0:
-            self.log.warning(f"[TP%] {symbol} position already closed")
-            self._tp_by_pct_executed[symbol] = True
-            return
-
-        total_qty = current_qty
 
         use_mark = bool(getattr(st, "tp_use_mark", True))
         if use_mark:
