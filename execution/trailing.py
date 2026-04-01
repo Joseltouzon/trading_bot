@@ -51,20 +51,9 @@ class TrailingManager:
         is_long = direction == "LONG"
         pnl_pct = (mp - entry) / entry * 100.0 if is_long else (entry - mp) / entry * 100.0
 
-        # --- Inicialización segura tras restart ---
-        # Si no existe registro en memoria/DB pero hay posición, inicializar desde entry_price
-        # para no perder el "mejor precio" histórico si el bot se cayó.
+        # Si no existe registro en st.trail, IGNORAR (posición de otro bot)
         if symbol not in st.trail:
-            st.trail[symbol] = {
-                "direction": direction,
-                "entry": entry,
-                "qty": qty,
-                "best": entry,  # <--- CAMBIO CRÍTICO: Usar entry como base segura
-                "sl": None,
-                "activated": False
-            }
-            self.db.save_state(st.__dict__)
-            # No retornamos, dejamos que continúe para evaluar activación
+            return
         
         tr = st.trail[symbol]
         tr["direction"] = direction
