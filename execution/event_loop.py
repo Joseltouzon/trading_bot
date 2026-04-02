@@ -279,9 +279,10 @@ class EventLoop:
                 if not symbol or symbol not in all_symbols:
                     continue
                 # Si existe en Binance pero NO en DB → ADOPTAR
-                if symbol not in db_symbols:
-                    self._adopt_manual_position(st, symbol, ex_pos)
-                    db_symbols.add(symbol)
+                # se comenta porque choca con el bot de arbitrage que abre posiciones manualmente y no queremos que el event loop las adopte
+                # if symbol not in db_symbols:
+                #     self._adopt_manual_position(st, symbol, ex_pos)
+                #     db_symbols.add(symbol)
 
             # Refrescar lista de DB con las nuevas adopciones
             db_open = self.db.get_open_positions()

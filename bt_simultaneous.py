@@ -22,9 +22,9 @@ from strategy.indicators import atr
 INITIAL_CAPITAL = 150.0
 MAX_POSITIONS = 1
 COMMISSION_PCT = 0.04
-START_DATE = "2026-02-25"
-END_DATE = "2026-03-27"
-WINDOW = 200  # ventana fija para compute_fn
+START_DATE = "2026-03-27"
+END_DATE = "2026-04-02"
+WINDOW = 200  # ventana fija para compute_f
 
 # EMA Breakout (15m)
 EMA_SYMBOLS = ['DOGEUSDT','LINKUSDT','TIAUSDT','ORDIUSDT','PENDLEUSDT']
