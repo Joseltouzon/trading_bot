@@ -310,6 +310,18 @@ class OrderManager:
             st.position_ids = {}
         st.position_ids[symbol] = position_id
 
+        # Agregar a st.trail para que trailing y TP lo gestionen
+        if not hasattr(st, "trail"):
+            st.trail = {}
+        st.trail[symbol] = {
+            "direction": side,
+            "entry": mark_price,
+            "qty": qty,
+            "best": mark_price,
+            "sl": float(initial_sl) if initial_sl else None,
+            "activated": False
+        }
+
         # ===== PERSISTIR FEATURES PARA ML =====
         ml_features = signal.get("ml_features")
         if ml_features and isinstance(ml_features, dict):
